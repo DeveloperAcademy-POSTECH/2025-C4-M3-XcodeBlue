@@ -1,0 +1,31 @@
+# MARK: - 기본 설정
+disabled_rules:
+  - trailing_whitespace             # 줄 끝 공백은 나중에 제거하자
+  - identifier_name                 # 변수명 너무 엄격하면 초보에겐 부담
+  - function_body_length            # 뷰에서 로직 뺄 땐 길어질 수 있음
+  - nesting                         # SwiftUI 구조상 중첩 뷰 많음
+  - line_length                     # View 선언이 길어질 수 있음
+  - cyclomatic_complexity           # 조건문 많아지는 건 초기엔 자연스러움
+  - explicit_type_interface
+  - multiple_closures_with_trailing_closure
+
+opt_in_rules:
+  - closure_end_indentation         # 클로저 끝 들여쓰기 일관되게
+  - empty_count                     # .count == 0보다 .isEmpty 쓰기
+  - redundant_optional_initialization # ?= nil 금지
+
+type_name:
+  min_length: 3
+  max_length: 40
+
+function_parameter_count:
+  warning: 6
+  error: 8
+
+# MARK: - 제외할 파일들
+excluded:
+  - TarTanningApp.swift              # 앱 진입점
+  - TarTanningWatchApp.swift
+  - AppDelegate.swift               # 폰트 등록/앱 초기화 로직 등
+  
+# MARK: - Thansk To YooGyeongMo

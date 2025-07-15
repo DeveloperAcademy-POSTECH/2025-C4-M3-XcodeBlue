@@ -37,8 +37,18 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
-        self.latitude = location.coordinate.latitude
-        self.longitude = location.coordinate.longitude
+        let newLatitude = location.coordinate.latitude
+        let newLongitude = location.coordinate.longitude
+
+        let latDiff = abs(newLatitude - self.latitude)
+        let lonDiff = abs(newLongitude - self.longitude)
+
+        if latDiff < 0.01 && lonDiff < 0.01 {
+            return
+        }
+
+        self.latitude = newLatitude
+        self.longitude = newLongitude
 
         let geocoder = CLGeocoder()
         geocoder.reverseGeocodeLocation(location) { placemarks, error in

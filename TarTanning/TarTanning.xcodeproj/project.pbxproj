@@ -41,9 +41,22 @@
 		8080F15E2E20A0740094719D /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		BF4EF9D52E26848C00945FC7 /* Exceptions for "TarTanning" folder in "TarTanning" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 8080F12B2E209F860094719D /* TarTanning */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		8080F12E2E209F860094719D /* TarTanning */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				BF4EF9D52E26848C00945FC7 /* Exceptions for "TarTanning" folder in "TarTanning" target */,
+			);
 			path = TarTanning;
 			sourceTree = "<group>";
 		};

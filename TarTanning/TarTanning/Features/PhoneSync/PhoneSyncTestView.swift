@@ -9,25 +9,11 @@ import Combine
 import SwiftUI
 
 enum AppleWatchModel {
-    case series6
-    case series7
-    case series8
-    case series9
-    case se1
-    case se2
-    case ultra1
-    case ultra2
-    case series5
-    case series4
-    case series3
-    case series2
-    case series1
-    case firstGen
-    case simulator
-    case unknown(String)
+    case series6, series7, series8, series9, se1, se2, ultra1, ultra2
+    case series5, series4, series3, series2, series1, firstGen
+    case simulator, unknown(String)
 
     init(identifier: String) {
-        // #if-#else 구문을 사용하여 컴파일러 경고를 해결하고 코드 경로를 명확히 분리합니다.
         #if targetEnvironment(simulator)
             self = .simulator
         #else
@@ -35,8 +21,7 @@ enum AppleWatchModel {
             case "Watch6,1", "Watch6,2", "Watch6,3", "Watch6,4": self = .series6
             case "Watch6,6", "Watch6,7", "Watch6,8", "Watch6,9": self = .series7
             case "Watch6,10", "Watch6,11", "Watch6,12", "Watch6,13": self = .se2
-            case "Watch6,14", "Watch6,15", "Watch6,16", "Watch6,17":
-                self = .series8
+            case "Watch6,14", "Watch6,15", "Watch6,16", "Watch6,17": self = .series8
             case "Watch6,18": self = .ultra1
             case "Watch7,1", "Watch7,2", "Watch7,3", "Watch7,4": self = .series9
             case "Watch7,5": self = .ultra2
@@ -52,7 +37,6 @@ enum AppleWatchModel {
         #endif
     }
 
-    /// 사용자에게 보여줄 모델명입니다.
     var displayName: String {
         switch self {
         case .series6: return "Apple Watch Series 6"
@@ -76,10 +60,8 @@ enum AppleWatchModel {
 
     var supportsDaylightFeature: Bool {
         switch self {
-        case .series6, .series7, .series8, .series9, .se2, .ultra1, .ultra2:
-            return true
-        default:
-            return false
+        case .series6, .series7, .series8, .series9, .se2, .ultra1, .ultra2: return true
+        default: return false
         }
     }
 
@@ -97,7 +79,11 @@ class PhoneSyncTestViewModel: ObservableObject {
     @Published var watchInfo: String = ""
     @Published var errorMessage: String?
     @Published var isLoadingInfo: Bool = false
-
+    
+    @Published var isFeatureOn: Bool = false
+    
+    private var isUpdatingFromRemote = false
+    
     private var cancellables = Set<AnyCancellable>()
 
     init() {
@@ -107,19 +93,41 @@ class PhoneSyncTestViewModel: ObservableObject {
                 self?.sendContextToWatch(uvIndex: uvIndex, medValue: medValue)
             }
             .store(in: &cancellables)
+            
+        $isFeatureOn
+            .sink { [weak self] isOn in
+                guard let self = self, !self.isUpdatingFromRemote else { return }
+                self.sendContextToWatch(uvIndex: self.uvIndexInput, medValue: self.medValueInput, isFeatureOn: isOn)
+                self.sendMessageToWatch(key: "isFeatureOn", value: isOn)
+            }
+            .store(in: &cancellables)
+
+        WatchConnectivityManager.shared.messageFromWatchPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] message in
+                if let isOn = message["isFeatureOn"] as? Bool {
+                    self?.isUpdatingFromRemote = true
+                    self?.isFeatureOn = isOn
+                    self?.isUpdatingFromRemote = false
+                }
+            }
+            .store(in: &cancellables)
     }
 
-    private func sendContextToWatch(uvIndex: Double, medValue: Double) {
-        let context: [String: Any] = ["uvIndex": uvIndex, "medValue": medValue]
+    private func sendContextToWatch(uvIndex: Double, medValue: Double, isFeatureOn: Bool? = nil) {
+        var context: [String: Any] = ["uvIndex": uvIndex, "medValue": medValue]
+        if let isFeatureOn = isFeatureOn {
+            context["isFeatureOn"] = isFeatureOn
+        }
         WatchConnectivityManager.shared.sendContext(context)
+    }
+    
+    private func sendMessageToWatch(key: String, value: Any) {
+        WatchConnectivityManager.shared.sendMessage([key: value])
     }
 
     func sendInitialState() {
-        print("Sending initial state to watch...")
-        sendContextToWatch(
-            uvIndex: self.uvIndexInput,
-            medValue: self.medValueInput
-        )
+        sendContextToWatch(uvIndex: self.uvIndexInput, medValue: self.medValueInput, isFeatureOn: self.isFeatureOn)
     }
 
     func requestWatchInfo() {
@@ -129,17 +137,11 @@ class PhoneSyncTestViewModel: ObservableObject {
 
         Task {
             do {
-                let deviceInfo = try await WatchConnectivityManager.shared
-                    .requestWatchDeviceInfo()
-                let modelIdentifier =
-                    deviceInfo["watchModel"] as? String ?? "N/A"
-
+                let deviceInfo = try await WatchConnectivityManager.shared.requestWatchDeviceInfo()
+                let modelIdentifier = deviceInfo["watchModel"] as? String ?? "N/A"
                 let watchModel = AppleWatchModel(identifier: modelIdentifier)
-
                 let version = deviceInfo["watchOSVersion"] as? String ?? "N/A"
-
-                self.watchInfo =
-                    "모델: \(watchModel.fullDescription), OS: \(version)"
+                self.watchInfo = "모델: \(watchModel.fullDescription), OS: \(version)"
             } catch {
                 self.errorMessage = error.localizedDescription
             }
@@ -168,6 +170,11 @@ struct PhoneSyncTestView: View {
                 }
                 Slider(value: $viewModel.medValueInput, in: 0...1000, step: 0.5)
             }
+            
+            VStack {
+                Text("양방향 토글 테스트 -> SPF 켜져있는가?")
+                Toggle("On/Off", isOn: $viewModel.isFeatureOn)
+            }
 
             VStack {
                 Button(action: {
@@ -193,7 +200,9 @@ struct PhoneSyncTestView: View {
         .padding()
         .onAppear {
             WatchConnectivityManager.shared.activateSession()
-            viewModel.sendInitialState()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                viewModel.sendInitialState()
+            }
         }
     }
 }

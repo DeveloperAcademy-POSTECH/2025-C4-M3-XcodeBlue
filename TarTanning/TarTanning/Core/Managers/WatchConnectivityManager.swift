@@ -113,10 +113,16 @@ final class WatchConnectivityManager: NSObject, WCSessionDelegate {
     func sessionDidDeactivate(_ session: WCSession) {
         session.activate()
     }
-    func session(_ session: WCSession, didReceiveMessage message: [String: Any])
-    {
+    func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
         DispatchQueue.main.async {
             self.messageFromWatchPublisher.send(message)
         }
+    }
+    
+    func session(_ session: WCSession, didReceiveMessage message: [String: Any], replyHandler: @escaping ([String: Any]) -> Void) {
+        DispatchQueue.main.async {
+            self.messageFromWatchPublisher.send(message)
+        }
+        replyHandler([:])
     }
 }

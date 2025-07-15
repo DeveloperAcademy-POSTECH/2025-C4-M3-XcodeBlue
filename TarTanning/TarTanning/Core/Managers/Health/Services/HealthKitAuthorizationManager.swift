@@ -46,10 +46,6 @@ final class HealthKitAuthorizationManager: ObservableObject {
             return
         }
 
-        let typesToRead: Set<HKObjectType> = [
-            HKQuantityType.quantityType(forIdentifier: .timeInDaylight)!
-        ]
-
         healthStore.getRequestStatusForAuthorization(toShare: [], read: typesToRead) { [weak self] status, error in
             guard let self = self else { return }
             
@@ -83,7 +79,6 @@ final class HealthKitAuthorizationManager: ObservableObject {
         
         do {
             _ = try await performAuthorizationRequest()
-            checkAuthorizationStatusWithCompletion()
             
             if authorizationStatus == .authorized {
                 errorMessage = nil

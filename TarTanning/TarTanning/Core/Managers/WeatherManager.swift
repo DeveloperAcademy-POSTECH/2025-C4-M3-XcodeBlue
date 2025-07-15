@@ -9,7 +9,6 @@ import CoreLocation
 import Foundation
 import WeatherKit
 
-//MARK: 임시 데이터 모델
 struct UVInfo {
     let value: Int
     let category: String

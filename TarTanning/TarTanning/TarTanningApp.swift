@@ -11,7 +11,7 @@ import SwiftUI
 struct TarTanningApp: App {
     var body: some Scene {
         WindowGroup {
-            PhoneSyncTestView()
+            ContentView()
         }
     }
 }

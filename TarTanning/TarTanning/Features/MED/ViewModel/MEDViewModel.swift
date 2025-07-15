@@ -5,20 +5,40 @@
 //  Created by Jun on 7/14/25.
 //
 
-import Foundation
+import SwiftUI
 
 class MEDViewModel: ObservableObject {
-    func testMEDCalculation() {
-        let uvIndex: Double = 6.0
-        let durationMinutes: Double = 30.0
-        let spf: Double? = 15.0
-        
+    private let uvIndex = 6.0
+    private let durationMinutes = 30.0
+    private let spf = 15.0
+    
+    /// 시나리오 1: SPF 15 선크림을 적용했을 경우의 UV 노출량을 계산하고 로그를 출력합니다.
+    func testMEDCalculationWithSPF() {
         let result = MEDCalculator.calculateUVDose(
-            uvIndex: uvIndex,
-            durationMinutes: durationMinutes,
-            spf: spf
+            uvIndex: self.uvIndex,
+            durationMinutes: self.durationMinutes,
+            spf: self.spf
         )
-        print("[MED TEST] UV지수: \(uvIndex), 노출시간(분): \(durationMinutes), SPF: \(spf ?? 0)")
-        print("[MED TEST] 계산된 UV 노출량(J/m²): \(result)")
+        
+        // 테스트 결과 로그 출력
+        print("--- MED 계산 테스트 (SPF 적용) ---")
+        print("[입력값] UV지수: \(self.uvIndex), 노출시간(분): \(self.durationMinutes), SPF: \(self.spf)")
+        print("[결과] 계산된 UV 노출량(J/m²): \(result)")
+        print("------------------------------------")
+    }
+    
+    /// 시나리오 2: 선크림을 적용하지 않았을 경우의 UV 노출량을 계산하고 로그를 출력합니다.
+    func testMEDCalculationWithoutSPF() {
+        let result = MEDCalculator.calculateUVDose(
+            uvIndex: self.uvIndex,
+            durationMinutes: self.durationMinutes,
+            spf: nil
+        )
+        
+        // 테스트 결과 로그 출력
+        print("--- MED 계산 테스트 (선크림 미적용) ---")
+        print("[입력값] UV지수: \(self.uvIndex), 노출시간(분): \(self.durationMinutes), SPF: 없음")
+        print("[결과] 계산된 UV 노출량(J/m²): \(result)")
+        print("------------------------------------")
     }
 }

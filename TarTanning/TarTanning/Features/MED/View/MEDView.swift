@@ -9,16 +9,21 @@ import SwiftUI
 
 struct MEDView: View {
     @StateObject private var viewModel = MEDViewModel()
-    
+
     var body: some View {
         VStack {
-            Button("MED 계산 테스트") {
-                viewModel.testMEDCalculation()
+            Button("MED 계산 테스트 (SPF 15 적용)") {
+                viewModel.testMEDCalculationWithSPF()
             }
             .buttonStyle(.borderedProminent)
-            .padding()
+
+            Button("MED 계산 테스트 (SPF 없음)") {
+                viewModel.testMEDCalculationWithoutSPF()
+            }
+            .buttonStyle(.borderedProminent)
         }
-        .navigationTitle("MED Test")
+        .padding()
+
     }
 }
 

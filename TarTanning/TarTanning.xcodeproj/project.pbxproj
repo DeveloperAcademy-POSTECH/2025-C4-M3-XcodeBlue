@@ -41,22 +41,9 @@
 		8080F15E2E20A0740094719D /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		BF4EF7932E2677F700945FC7 /* Exceptions for "TarTanning" folder in "TarTanningWatch Watch App" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Core/Managers/WatchConnectivityManager.swift,
-			);
-			target = 8080F1492E20A0180094719D /* TarTanningWatch Watch App */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		8080F12E2E209F860094719D /* TarTanning */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				BF4EF7932E2677F700945FC7 /* Exceptions for "TarTanning" folder in "TarTanningWatch Watch App" target */,
-			);
 			path = TarTanning;
 			sourceTree = "<group>";
 		};

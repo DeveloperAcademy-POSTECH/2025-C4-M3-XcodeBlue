@@ -28,7 +28,6 @@ final class WatchConnectivityManager: NSObject, WCSessionDelegate {
         }
     }
 
-    // MARK: - WCSessionDelegate (공통)
     func session(
         _ session: WCSession,
         activationDidCompleteWith activationState: WCSessionActivationState,
@@ -43,7 +42,6 @@ final class WatchConnectivityManager: NSObject, WCSessionDelegate {
         print("WCSession activated with state : \(activationState.rawValue)")
     }
 
-    // MARK: - WCSessionDelegate (Watch 수신 전용)
     func session(
         _ session: WCSession,
         didReceiveApplicationContext applicationContext: [String: Any]
@@ -54,8 +52,6 @@ final class WatchConnectivityManager: NSObject, WCSessionDelegate {
         }
     }
 
-    // MARK: - iOS 전용 코드
-    // 이 아래의 모든 코드는 오직 iOS에서만 컴파일되고 실행됩니다.
     #if os(iOS)
         /// iPhone에서 Watch로 최신 데이터를 전송합니다.
         func sendContext(_ context: [String: Any]) {

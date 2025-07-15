@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-enum SkinType: Int,CaseIterable, Identifiable {
+enum SkinType: Int, CaseIterable, Identifiable {
     case type1 = 1
     case type2
     case type3
@@ -55,9 +55,3 @@ enum SkinType: Int,CaseIterable, Identifiable {
         }
     }
 }
-
-
-
-                    
-                    
-                    

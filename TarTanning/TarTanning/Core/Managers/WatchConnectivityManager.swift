@@ -85,11 +85,7 @@ final class WatchConnectivityManager: NSObject, WCSessionDelegate {
         }
     }
     
-    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
-        DispatchQueue.main.async {
-            self.messageFromWatchPublisher.send(message)
-        }
-    }
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {}
 
     func sessionDidBecomeInactive(_ session: WCSession) {}
     func sessionDidDeactivate(_ session: WCSession) {

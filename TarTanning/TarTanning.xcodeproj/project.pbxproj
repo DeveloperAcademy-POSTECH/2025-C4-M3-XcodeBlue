@@ -41,22 +41,9 @@
 		8080F15E2E20A0740094719D /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		BFF92E022E2620DF000A1A39 /* Exceptions for "TarTanning" folder in "TarTanningWatch Watch App" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Core/Managers/WatchConnectivityManager.swift,
-			);
-			target = 8080F1492E20A0180094719D /* TarTanningWatch Watch App */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		8080F12E2E209F860094719D /* TarTanning */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				BFF92E022E2620DF000A1A39 /* Exceptions for "TarTanning" folder in "TarTanningWatch Watch App" target */,
-			);
 			path = TarTanning;
 			sourceTree = "<group>";
 		};
@@ -393,7 +380,10 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TarTanning/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "오늘의 자외선 노출량을 확인하고 일광량 데이터를 분석하기 위해 건강 앱의 일광 시간 정보를 읽어옵니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "현재 위치를 기반으로 자외선 지수를 계산해, 햇빛 노출에 대한 맞춤형 정보를 제공하기 위해 위치 정보가 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -434,7 +424,10 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TarTanning/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "오늘의 자외선 노출량을 확인하고 일광량 데이터를 분석하기 위해 건강 앱의 일광 시간 정보를 읽어옵니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "현재 위치를 기반으로 자외선 지수를 계산해, 햇빛 노출에 대한 맞춤형 정보를 제공하기 위해 위치 정보가 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

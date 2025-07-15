@@ -9,7 +9,6 @@ struct LocationView: View {
             Text("위도: \(locationViewModel.latitude)")
             Text("경도: \(locationViewModel.longitude)")
             Text("지역: \(locationViewModel.locality)")
-            Text("세부지역: \(locationViewModel.subLocality)")
         }
         .padding()
     }

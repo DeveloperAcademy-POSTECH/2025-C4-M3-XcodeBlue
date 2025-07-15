@@ -17,6 +17,8 @@ final class OnboardingViewModel: ObservableObject {
     func nextMainView() {
         switch currentStep {
         case .watchInfo:
+            currentStep = .permissionInfo
+        case .permissionInfo:
             currentStep = .skinTypeInfo
         case .skinTypeInfo:
             break

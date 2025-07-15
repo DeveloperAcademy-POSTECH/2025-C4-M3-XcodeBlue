@@ -5,8 +5,8 @@
 //  Created by taeni on 7/15/25.
 //
 
-import SwiftUI
 import HealthKit
+import SwiftUI
 
 @MainActor
 final class HealthKitTestViewModel: ObservableObject {

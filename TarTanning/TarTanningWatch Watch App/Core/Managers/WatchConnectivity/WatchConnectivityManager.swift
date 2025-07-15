@@ -12,8 +12,11 @@ import WatchKit
 final class WatchConnectivityManager: NSObject, WCSessionDelegate {
     static let shared = WatchConnectivityManager()
 
-    /// iPhone ->  Watch 데이터 전달하는 publisher
+    /// iPhone ->  Watch 실시간 데이터 전달하는 publisher
     let receivedContextPublisher = PassthroughSubject<[String: Any], Never>()
+
+    /// iPhone -> Watch 일회성 데이터 전달하는 publisher
+    let receivedMessagePublisher = PassthroughSubject<[String: Any], Never>()
 
     private let session: WCSession
 
@@ -30,13 +33,30 @@ final class WatchConnectivityManager: NSObject, WCSessionDelegate {
         }
     }
 
-    // 애플워치 모델 가져오는 함수
+    /// Watch -> iPhone으로 일회성 메시지 전송 함수
+    func sendMessageToPhone(_ message: [String: Any]) {
+        guard session.isReachable else {
+            print("iPhone is not reachable")
+            return
+        }
+        session.sendMessage(message, replyHandler: nil) { error in
+            print(
+                "Error Sending message to phone : \(error.localizedDescription)"
+            )
+        }
+    }
+
+    // 애플워치 고유 식별자(예: Watch7.1)를 가져오는 함수
     private func getMachineIdentifier() -> String {
         var systemInfo = utsname()
         uname(&systemInfo)
         let machineMirror = Mirror(reflecting: systemInfo.machine)
-        let identifier = machineMirror.children.reduce("") { identifier, element in
-            guard let value = element.value as? Int8, value != 0 else { return identifier }
+        let identifier = machineMirror.children.reduce("") {
+            identifier,
+            element in
+            guard let value = element.value as? Int8, value != 0 else {
+                return identifier
+            }
             return identifier + String(UnicodeScalar(UInt8(value)))
         }
         return identifier
@@ -60,7 +80,6 @@ final class WatchConnectivityManager: NSObject, WCSessionDelegate {
         _ session: WCSession,
         didReceiveApplicationContext applicationContext: [String: Any]
     ) {
-        print("Received context on watch: \(applicationContext)")
         DispatchQueue.main.async {
             self.receivedContextPublisher.send(applicationContext)
         }
@@ -82,6 +101,10 @@ final class WatchConnectivityManager: NSObject, WCSessionDelegate {
             ]
             print("Replying to device info request with: \(reply)")
             replyHandler(reply)
+        } else {
+            DispatchQueue.main.async {
+                self.receivedMessagePublisher.send(message)
+            }
         }
     }
 }

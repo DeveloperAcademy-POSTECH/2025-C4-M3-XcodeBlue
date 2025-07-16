@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WeatherView: View {
-    @StateObject private var viewModel = WeatherViewModel()
+    @StateObject private var viewModel = WeatherViewModel(locationManager: LocationManager())
 
     var body: some View {
         VStack(spacing: 20) {
@@ -16,8 +16,8 @@ struct WeatherView: View {
                 .font(.title)
                 .fontWeight(.bold)
 
-            Button("포항 UV 지수 로그 확인") {
-                viewModel.fetchSydneyUVIndex()
+            Button("현재 위치 UV 지수 로그 확인") {
+                viewModel.fetchUVIndex()
             }
             .buttonStyle(.borderedProminent)
             .padding()

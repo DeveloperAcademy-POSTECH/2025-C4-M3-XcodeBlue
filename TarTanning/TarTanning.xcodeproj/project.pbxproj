@@ -42,7 +42,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		BF4EF9D52E26848C00945FC7 /* Exceptions for "TarTanning" folder in "TarTanning" target */ = {
+		052E072E2E24EF8200449D86 /* Exceptions for "TarTanning" folder in "TarTanning" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -55,7 +55,7 @@
 		8080F12E2E209F860094719D /* TarTanning */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				BF4EF9D52E26848C00945FC7 /* Exceptions for "TarTanning" folder in "TarTanning" target */,
+				052E072E2E24EF8200449D86 /* Exceptions for "TarTanning" folder in "TarTanning" target */,
 			);
 			path = TarTanning;
 			sourceTree = "<group>";

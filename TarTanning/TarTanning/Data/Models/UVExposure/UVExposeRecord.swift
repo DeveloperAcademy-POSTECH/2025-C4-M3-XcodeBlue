@@ -6,23 +6,23 @@
 //
 
 import Foundation
+import SwiftData
 
-struct UVExposeRecord: Identifiable {
-    let id = UUID()
+@Model
+class UVExposeRecord {
     var startDate: Date  // 일광 노출이 시작된 시간 (11:42)
-    var endDate: Date  // 일광 노출이 시작된 시간 (12:15)
+    var endDate: Date  // 일광 노출이 종료된 시간 (12:15)
     var sunlightExposureDuration: Double  // startDate ~ endDate 사이의 일광 시간
     var uvDose: Double  // start Date ~ endDate 시간 사이의 UV 누적량 (UV노출량 식 계산, 단위 J/m^2)
-
-    init(
-        startDate: Date,
-        endDate: Date,
-        sunlightExposureDuration: Double,
-        uvDose: Double
-    ) {
+    var spfIndex: Int? // 해당 세션에서 사용한 SPF
+    var dailyExposure: DailyUVExpose? // 관계 설정
+    
+    init(startDate: Date, endDate: Date, sunlightExposureDuration: Double, uvDose: Double) {
         self.startDate = startDate
         self.endDate = endDate
         self.sunlightExposureDuration = sunlightExposureDuration
         self.uvDose = uvDose
+        self.spfIndex = nil
+        self.dailyExposure = nil
     }
 }

@@ -7,7 +7,16 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
 
-struct UserProfile: Codable {
+@Model
+class UserProfile {
     var skinType: SkinType
+    var currentSpfIndex: Int?
+    var spfDate: Date? // SPF 발라진 날짜/시간
+    var dailyExposures: [DailyUVExpose] = []
+    
+    init(skinType: SkinType) {
+        self.skinType = skinType
+    }
 }

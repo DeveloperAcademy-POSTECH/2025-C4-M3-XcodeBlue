@@ -14,7 +14,7 @@ struct DailyUVExpose {
     var totalUVDose: Double {
         exposureRecords.reduce(0) { $0 + $1.uvDose }
     }
-    var totalSunlightMintues: Double {
+    var totalSunlightMinutes: Double {
         let totalMinutes = exposureRecords.reduce(0) {
             $0 + $1.sunlightExposureDuration
         }

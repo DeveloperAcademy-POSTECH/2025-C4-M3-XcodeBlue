@@ -1,13 +1,13 @@
 //
-//  TimerSyncManager.swift
+//  TimerNotificationManager.swift.swift
 //  TarTanning
 //
-//  양방향 동시 동기화 구조
+//  Created by taeni on 7/17/25.
 //
 
 import Foundation
-import WatchConnectivity
 import SwiftUI
+import WatchConnectivity
 
 @MainActor
 final class TimerSyncManager: NSObject, ObservableObject {
@@ -104,6 +104,19 @@ final class TimerSyncManager: NSObject, ObservableObject {
         state = .stopped
         remainingTime = 0
         
+        // watchOS에서 알림 및 햅틱 처리
+#if os(watchOS)
+        Task {
+            // 즉시 알림 표시
+            WatchTimerNotificationManager.shared.showImmediateNotification()
+            
+            // 햅틱 피드백
+            WatchHapticManager.shared.playTimerCompletionHaptic()
+            
+            print("[Watch] Timer completed - notification and haptic triggered")
+        }
+#endif
+        
         // 상대 기기에 완료 알림
         sendTimerSync(endTime: Date(), state: .stopped, isCompletion: true)
     }
@@ -192,7 +205,7 @@ final class TimerSyncManager: NSObject, ObservableObject {
             
             // 실시간 메시지 전송 (상대방이 활성 상태일 때)
             if session.isReachable {
-                session.sendMessage(message, replyHandler: { response in
+                session.sendMessage(message, replyHandler: { _ in
                     print("[\(self.deviceType)] Sync sent successfully")
                 }, errorHandler: { error in
                     print("[\(self.deviceType)] Sync failed: \(error.localizedDescription)")
@@ -311,7 +324,7 @@ extension TimerSyncManager: WCSessionDelegate {
     }
     
     // 실시간 메시지 수신
-    nonisolated func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+    nonisolated func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
         guard let syncData = message["timerSync"] as? Data else {
             print("[\(deviceType)] Invalid message format")
             return
@@ -328,7 +341,7 @@ extension TimerSyncManager: WCSessionDelegate {
     }
     
     // 백그라운드 컨텍스트 수신
-    nonisolated func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+    nonisolated func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {
         DispatchQueue.main.async {
             self.handleApplicationContext(applicationContext)
         }

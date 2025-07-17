@@ -10,8 +10,10 @@ import Foundation
 import WeatherKit
 
 struct UVInfo {
-    let value: Int
+    let value: Double
     let category: String
+    let sunrise: Date?
+    let sunset: Date?
 }
 
 final class WeatherKitManager {
@@ -22,8 +24,16 @@ final class WeatherKitManager {
 
     func fetchUVInfo(for location: CLLocation) async -> UVInfo? {
         do {
-            let weather = try await weatherService.weather(for: location)
-            let uvIndex = weather.currentWeather.uvIndex
+            let (currentWeather, dailyForecast) = try await weatherService.weather(for: location, including: .current, .daily)
+          
+            guard let todayForecast = dailyForecast.first(where: { Calendar.current.isDate($0.date, inSameDayAs: Date()) }) else {
+                          print("⚠️ 경고: 오늘의 일일 예보를 찾을 수 없습니다.")
+                          return nil // 오늘의 예보를 찾을 수 없으면 nil 반환
+                      }
+          
+            let sunrise = todayForecast.sun.sunrise
+            let sunset = todayForecast.sun.sunset
+            let uvIndex = currentWeather.uvIndex
             
             let categoryString: String
             switch uvIndex.category {
@@ -41,7 +51,7 @@ final class WeatherKitManager {
                 categoryString = "알 수 없음"
             }
             
-            return UVInfo(value: uvIndex.value, category: categoryString)
+          return UVInfo(value: Double(uvIndex.value), category: categoryString, sunrise: sunrise, sunset: sunset)
             
         } catch {
             print("WeatherKit 데이터 가져오기 실패: \(error.localizedDescription)")

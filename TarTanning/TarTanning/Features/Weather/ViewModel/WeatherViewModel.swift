@@ -41,7 +41,15 @@ class WeatherViewModel: ObservableObject {
                 print("✅ UV 지수 가져오기 성공!")
                 print("📊 UV 지수: \(uvInfo.value)")
                 print("📝 UV 지수 카테고리: \(uvInfo.category)")
-                print("🕐 시간: \(Date())")
+                
+                let formatter = DateFormatter()
+                formatter.dateFormat = "HH:mm"
+                formatter.locale = Locale(identifier: "ko_KR")
+                formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
+                let formattedSunrise = formatter.string(from: uvInfo.sunrise!)
+                let formattedSunset = formatter.string(from: uvInfo.sunset!)
+                
+                print("🕐 일출시간: \(formattedSunrise), 일몰시간: \(formattedSunset)")
 
             } else {
                 print("❌ UV 지수를 가져올 수 없습니다.")

@@ -13,7 +13,7 @@ enum NotificationContentType {
 }
 
 extension NotificationContentType {
-    var id : String {
+    var id: String {
         switch self {
         case .medWarning(let percent):
             return "med-\(percent)"

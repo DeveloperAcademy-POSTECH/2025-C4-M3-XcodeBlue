@@ -26,7 +26,7 @@ final class NotificationAuthorizationManager {
         let center = UNUserNotificationCenter.current()
         let options: UNAuthorizationOptions = [.alert, .badge, .sound]
         
-        center.requestAuthorization(options: options) { [weak self] granted, error in
+        center.requestAuthorization(options: options) { [weak self] _, error in
             if let error = error {
                 DispatchQueue.main.async {
                     self?.delegate?.notificationAuthorizationDidFail(error)
@@ -60,5 +60,3 @@ final class NotificationAuthorizationManager {
         }
     }
 }
-
-

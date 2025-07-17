@@ -54,4 +54,16 @@ enum SkinType: Int, CaseIterable, Identifiable {
         case .type6: Color(red: 0.22, green: 0.13, blue: 0.11)
         }
     }
+    
+    /// 피부 타입의 하루 최대 권장 MED 평균값 (단위: J/m^2)
+    var maxMED: Double {
+        switch self {
+        case .type1: 150.0
+        case .type2: 300.0
+        case .type3: 400.0
+        case .type4: 500.0
+        case .type5: 700.0
+        case .type6: 1200.0
+        }
+    }
 }

@@ -22,11 +22,11 @@ final class TimerSyncManager: NSObject, ObservableObject {
     
     // 디바이스 구분 (nonisolated에서 접근 가능하도록)
     private nonisolated let deviceType: String = {
-        #if os(iOS)
+#if os(iOS)
         return "iPhone"
-        #else
+#else
         return "Watch"
-        #endif
+#endif
     }()
     
     // WatchConnectivity
@@ -52,6 +52,7 @@ final class TimerSyncManager: NSObject, ObservableObject {
         print("[\(deviceType)] WatchConnectivity setup initiated")
     }
     
+    // MARK: - Timer Management
     private func loadInitialState() {
         self.state = storage.state
         if let endTime = storage.endTime {
@@ -78,16 +79,17 @@ final class TimerSyncManager: NSObject, ObservableObject {
     }
     
     private func updateTimer() {
+        // 일시정지 상태에서는 타이머 업데이트 하지 않음
+        guard state == .running else { return }
+        
         guard let endTime = storage.endTime else {
-            if state == .running {
-                completeTimer()
-            }
+            completeTimer()
             return
         }
         
         updateRemainingTime(endTime: endTime)
         
-        if remainingTime <= 0 && state == .running {
+        if remainingTime <= 0 {
             completeTimer()
         }
     }
@@ -98,19 +100,16 @@ final class TimerSyncManager: NSObject, ObservableObject {
     }
     
     private func completeTimer() {
-        print("[\(deviceType)] Timer completed")
-        
         storage.clear()
         state = .stopped
         remainingTime = 0
         
-        // 다른 기기에 완료 알림
+        // 상대 기기에 완료 알림
         sendTimerSync(endTime: Date(), state: .stopped, isCompletion: true)
     }
     
+    // Public Timer Controls
     func start(duration: TimeInterval) {
-        print("[\(deviceType)] Timer start - Duration: \(duration)")
-        
         let endTime = Date().addingTimeInterval(duration)
         
         // 로컬 상태 업데이트
@@ -119,29 +118,26 @@ final class TimerSyncManager: NSObject, ObservableObject {
         state = .running
         updateRemainingTime(endTime: endTime)
         
-        // 다른 기기에 동기화
+        // 상대 기기에 동기화
         sendTimerSync(endTime: endTime, state: .running)
     }
     
     func stop() {
-        print("[\(deviceType)] Timer stop")
-        
         storage.clear()
         state = .stopped
         remainingTime = 0
         
-        // 다른 기기에 동기화
+        // 상대 기기에 동기화
         sendTimerSync(endTime: Date(), state: .stopped)
     }
     
     func pause() {
         guard state == .running else { return }
-        print("[\(deviceType)] Timer pause")
         
         storage.state = .paused
         state = .paused
         
-        // 현재 남은 시간으로 새로운 endTime 계산 (일시정지 시점 고정)
+        // 일시정지 시점 고정
         let pausedEndTime = Date().addingTimeInterval(remainingTime)
         storage.endTime = pausedEndTime
         
@@ -150,7 +146,6 @@ final class TimerSyncManager: NSObject, ObservableObject {
     
     func resume() {
         guard state == .paused else { return }
-        print("[\(deviceType)] Timer resume")
         
         // 일시정지된 남은 시간으로 새로운 endTime 계산
         let newEndTime = Date().addingTimeInterval(remainingTime)
@@ -258,6 +253,7 @@ final class TimerSyncManager: NSObject, ObservableObject {
     }
 }
 
+// MARK: - WCSessionDelegate
 extension TimerSyncManager: WCSessionDelegate {
     
     nonisolated func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
@@ -286,7 +282,7 @@ extension TimerSyncManager: WCSessionDelegate {
         }
     }
     
-    #if os(iOS)
+#if os(iOS)
     nonisolated func sessionDidBecomeInactive(_ session: WCSession) {
         let deviceName = deviceType
         DispatchQueue.main.async {
@@ -303,7 +299,7 @@ extension TimerSyncManager: WCSessionDelegate {
             WCSession.default.activate()
         }
     }
-    #endif
+#endif
     
     nonisolated func sessionReachabilityDidChange(_ session: WCSession) {
         let isReachable = session.isReachable  // 미리 값을 추출

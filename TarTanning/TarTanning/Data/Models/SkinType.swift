@@ -8,20 +8,20 @@
 import Foundation
 import SwiftUI
 
-enum SkinType: Int, CaseIterable, Identifiable {
+enum SkinType: Int, Codable, CaseIterable, Identifiable {
     case type1 = 1
     case type2
     case type3
     case type4
     case type5
     case type6
-    
+
     var id: Int { rawValue }
-    
+
     var title: String {
         "\(rawValue)형"
     }
-    
+
     var summary: String {
         switch self {
         case .type1: "매우 하얀 피부, 주근깨 많음"
@@ -32,7 +32,7 @@ enum SkinType: Int, CaseIterable, Identifiable {
         case .type6: "매우 어두운 갈색/검은 피부"
         }
     }
-    
+
     var description: String {
         switch self {
         case .type1: "항상 타거나 화상을 입음, 거의 태닝되지 않음"
@@ -43,7 +43,7 @@ enum SkinType: Int, CaseIterable, Identifiable {
         case .type6: "거의 타지 않음, 자연스럽게 어두운 색소"
         }
     }
-    
+
     var color: Color {
         switch self {
         case .type1: Color(red: 0.99, green: 0.93, blue: 0.87)
@@ -54,7 +54,7 @@ enum SkinType: Int, CaseIterable, Identifiable {
         case .type6: Color(red: 0.22, green: 0.13, blue: 0.11)
         }
     }
-    
+
     /// 피부 타입의 하루 최대 권장 MED 평균값 (단위: J/m^2)
     var maxMED: Double {
         switch self {

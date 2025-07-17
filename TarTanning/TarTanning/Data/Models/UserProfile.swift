@@ -6,3 +6,8 @@
 //
 
 import Foundation
+import SwiftUI
+
+struct UserProfile: Codable {
+    var skinType: SkinType
+}

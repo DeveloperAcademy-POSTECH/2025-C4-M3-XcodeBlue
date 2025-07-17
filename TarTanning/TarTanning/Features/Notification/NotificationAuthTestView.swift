@@ -39,7 +39,7 @@ struct NotificationAuthTestView: View {
                 }
                 
                 Button("MED 알림 70% 예약") {
-                    viewModel.scheduleMEDWarning(percent: 90)
+                    viewModel.scheduleMEDWarning(percent: 70)
                 }
                 
                 Button("선크림 알림 (UV 7) 예약") {

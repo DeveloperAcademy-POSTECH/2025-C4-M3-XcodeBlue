@@ -42,6 +42,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		809284362E29220D00F0C779 /* Exceptions for "TarTanning" folder in "TarTanningWatch Watch App" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Core/Managers/Notification/Enum/NotificationAuthStatus.swift,
+			);
+			target = 8080F1492E20A0180094719D /* TarTanningWatch Watch App */;
+		};
 		FE40CD102E24F93F007889CC /* Exceptions for "TarTanning" folder in "TarTanning" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -56,6 +63,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				FE40CD102E24F93F007889CC /* Exceptions for "TarTanning" folder in "TarTanning" target */,
+				809284362E29220D00F0C779 /* Exceptions for "TarTanning" folder in "TarTanningWatch Watch App" target */,
 			);
 			path = TarTanning;
 			sourceTree = "<group>";
@@ -63,6 +71,11 @@
 		8080F14B2E20A0180094719D /* TarTanningWatch Watch App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "TarTanningWatch Watch App";
+			sourceTree = "<group>";
+		};
+		8092842D2E291B9C00F0C779 /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -88,6 +101,7 @@
 		8080F1232E209F860094719D = {
 			isa = PBXGroup;
 			children = (
+				8092842D2E291B9C00F0C779 /* Shared */,
 				8080F15E2E20A0740094719D /* .swiftlint.yml */,
 				8080F12E2E209F860094719D /* TarTanning */,
 				8080F14B2E20A0180094719D /* TarTanningWatch Watch App */,
@@ -124,6 +138,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				8080F12E2E209F860094719D /* TarTanning */,
+				8092842D2E291B9C00F0C779 /* Shared */,
 			);
 			name = TarTanning;
 			packageProductDependencies = (
@@ -146,6 +161,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				8080F14B2E20A0180094719D /* TarTanningWatch Watch App */,
+				8092842D2E291B9C00F0C779 /* Shared */,
 			);
 			name = "TarTanningWatch Watch App";
 			packageProductDependencies = (

@@ -29,14 +29,14 @@ extension NotificationContentType {
         switch self {
         case .medWarning(let percent):
             switch percent {
-            case 0..<40:
-                return "햇빛이 시작됐어요"
-            case 40..<60:
-                return "햇빛이 점점 강해져요"
-            case 60..<90:
-                return "자외선 누적이 높아요"
-            case 90...:
-                return "자외선 한계에 도달했어요!"
+            case 0..<30:
+                return "MED 30﹒안전"
+            case 30..<50:
+                return "MED 50﹒주의"
+            case 50..<70:
+                return "지금은 자외선으로부터 위험해요"
+            case 70...:
+                return "지금은 자외선으로부터 나빠요"
             default:
                 return "자외선 경고"
             }
@@ -52,7 +52,7 @@ extension NotificationContentType {
         case .medWarning(let percent):
             switch percent {
             case 30:
-                return "자외선 노출량이 30%에 도달했어요"
+                return "자외선 "
             case 50:
                 return "자외선 노출량이 50%에 도달했어요"
             case 70:

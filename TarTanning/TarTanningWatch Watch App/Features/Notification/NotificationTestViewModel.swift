@@ -20,7 +20,7 @@ final class NotificationTestViewModel: ObservableObject {
 
     func scheduleSunscreenPromptNotification() {
         let fireDate = Date().addingTimeInterval(2)
-        WatchLocalNotificationManager.shared.scheduleNotification(
+        LocalNotificationManager.shared.scheduleNotification(
             for: .sunscreenPrompt,
             at: fireDate,
             useUniqueId: true
@@ -29,14 +29,14 @@ final class NotificationTestViewModel: ObservableObject {
     
     func scheduleMedWarningNotification() {
         let fireDate = Date().addingTimeInterval(2)
-        WatchLocalNotificationManager.shared.scheduleNotification(
+        LocalNotificationManager.shared.scheduleNotification(
             for: .medWarning(percent: 80),
             at: fireDate
         )
     }
 
     func cancelAllNotifications() {
-        WatchLocalNotificationManager.shared.cancelAllNotifications()
+        LocalNotificationManager.shared.cancelAllNotifications()
         scheduledMessage = "모든 알림 취소됨"
     }
     
@@ -45,16 +45,16 @@ final class NotificationTestViewModel: ObservableObject {
         content.title = "선크림 타이머 끝!"
         content.body = "2시간마다 덧발라야 합니다. 덧바르셨나요?"
         content.sound = .default
-        content.categoryIdentifier = "SUNSCREEN_CATEGORY" // ✅ 정확히 등록된 값
+        content.categoryIdentifier = "SUNSCREEN_CATEGORY"
 
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
 
         UNUserNotificationCenter.current().add(request) { error in
             if let error = error {
-                print("❌ 알림 등록 실패: \(error.localizedDescription)")
+                print("알림 등록 실패: \(error.localizedDescription)")
             } else {
-                print("✅ 알림 등록 성공 - \(content.categoryIdentifier)")
+                print("알림 등록 성공 - \(content.categoryIdentifier)")
             }
         }
     }

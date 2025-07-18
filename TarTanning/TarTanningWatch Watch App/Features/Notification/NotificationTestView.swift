@@ -14,7 +14,6 @@ struct NotificationTestView: View {
         VStack(spacing: 4) {
             Button("🌞 선크림 알림 테스트") {
                 viewModel.scheduleSunscreenPromptNotification()
-//                viewModel.scheduleTestNotification()
             }
 
             Button("⚠️ 자외선 경고 알림") {

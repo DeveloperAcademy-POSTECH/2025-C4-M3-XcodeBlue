@@ -19,8 +19,8 @@ enum NotificationCategoryType: String {
         switch self {
         case .sunscreenPrompt:
             return [
-                UNNotificationAction(identifier: "SUNSCREEN_YES", title: "Yes", options: []),
-                UNNotificationAction(identifier: "SUNSCREEN_NO", title: "No", options: [])
+                NotificationActionType.sunscreenOn.action,
+                NotificationActionType.sunscreenOff.action
             ]
         }
     }

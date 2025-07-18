@@ -14,12 +14,22 @@ final class LocalNotificationManager {
     
     private init() { }
     
+    private var platform: String {
+#if os(iOS)
+        return "iOS"
+#elseif os(watchOS)
+        return "WatchOS"
+#else
+        return "Unknown"
+#endif
+    }
+    
     func scheduleNotification(for type: NotificationContentType, at date: Date, repeats: Bool = false, useUniqueId: Bool = false) {
         
         let finalId = useUniqueId ? UUID().uuidString : type.id
         
         NotificationScheduler.schedule(
-            platform: "iOS",
+            platform: platform,
             id: finalId,
             title: type.title,
             body: type.body,

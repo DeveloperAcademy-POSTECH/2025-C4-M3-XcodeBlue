@@ -31,8 +31,6 @@ struct NotificationAuthTestView: View {
                     .font(.caption)
             }
             
-            Spacer()
-            
             VStack {
                 Button("MED 알림 30% 예약") {
                     viewModel.scheduleMEDWarning(percent: 30)
@@ -46,14 +44,19 @@ struct NotificationAuthTestView: View {
                     viewModel.scheduleSunscreenReminder(uvIdex: 7)
                 }
                 
-                if let message = viewModel.scheduledMessage {
-                    Text(message)
+                Button("선크림 알림 (인터렉티브)") {
+                    viewModel.scheduleSunscreenPrompt()
                 }
 
                 Button("모든 알림 취소") {
                     viewModel.cancelAll()
                 }
                 
+                if let userResponse = viewModel.userResponse {
+                    Text("사용자 응답: \(userResponse == "yes" ? "예" : "아니오")")
+                        .padding()
+                        .foregroundColor(.blue)
+                }
             }
         }
         

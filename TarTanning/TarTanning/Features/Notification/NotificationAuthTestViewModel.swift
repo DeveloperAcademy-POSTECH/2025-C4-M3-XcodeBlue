@@ -12,8 +12,13 @@ final class NotificationAuthTestViewModel: ObservableObject {
     @Published var authStatus: NotificationAuthStatus = .notDetermined
     @Published var errorMessage: String?
     @Published var scheduledMessage: String?
+    @Published var userResponse: String?
     
     private lazy var authManager = NotificationAuthorizationManager(delegate: self)
+    
+    init() {
+        observeSunscreenResponse()
+    }
     
     func requestAuth() {
         authManager.requestAuthorization()
@@ -21,6 +26,19 @@ final class NotificationAuthTestViewModel: ObservableObject {
     
     func fetchAuthStatus() {
         authManager.fetchAuthorizationStatus()
+    }
+    
+    private func observeSunscreenResponse() {
+        NotificationCenter.default.addObserver(
+            forName: .sunscreenResponse,
+            object: nil,
+            queue: .main
+        ) { [weak self] notification in
+            guard let response = notification.object as? String else { return }
+            Task { @MainActor in
+                self?.userResponse = response
+            }
+        }
     }
     
     func scheduleMEDWarning(percent: Int) {
@@ -37,6 +55,14 @@ final class NotificationAuthTestViewModel: ObservableObject {
         
         LocalNotificationManager.shared.scheduleNotification(for: type, at: date)
         scheduledMessage = "예약 완료 \(type.title)"
+    }
+    
+    func scheduleSunscreenPrompt() {
+        let type = NotificationContentType.sunscreenPrompt
+        let date = Date().addingTimeInterval(1)
+
+        LocalNotificationManager.shared.scheduleNotification(for: type, at: date, useUniqueId: true)
+        scheduledMessage = "인터랙티브 알림 예약됨: \(type.title)"
     }
     
     func cancelAll() {

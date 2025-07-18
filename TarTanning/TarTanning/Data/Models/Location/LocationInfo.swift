@@ -16,3 +16,9 @@ struct LocationInfo {
         CLLocation(latitude: latitude, longitude: longitude)
     }
 }
+
+extension LocationInfo {
+    static let mockSeoul = LocationInfo(latitude: 37.5665, longitude: 126.9780, city: "서울특별시")
+    static let mockBusan = LocationInfo(latitude: 35.1796, longitude: 129.0756, city: "부산광역시")
+    static let mockPohang = LocationInfo(latitude: 36.0190, longitude: 129.3435, city: "포항시")
+}

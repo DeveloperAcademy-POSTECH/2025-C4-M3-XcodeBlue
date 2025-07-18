@@ -52,6 +52,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		05D1F0612E28EA42001050DA /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		8080F12E2E209F860094719D /* TarTanning */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -88,6 +93,7 @@
 		8080F1232E209F860094719D = {
 			isa = PBXGroup;
 			children = (
+				05D1F0612E28EA42001050DA /* Shared */,
 				8080F15E2E20A0740094719D /* .swiftlint.yml */,
 				8080F12E2E209F860094719D /* TarTanning */,
 				8080F14B2E20A0180094719D /* TarTanningWatch Watch App */,
@@ -123,6 +129,7 @@
 				8080F1562E20A0190094719D /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
+				05D1F0612E28EA42001050DA /* Shared */,
 				8080F12E2E209F860094719D /* TarTanning */,
 			);
 			name = TarTanning;
@@ -145,6 +152,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				05D1F0612E28EA42001050DA /* Shared */,
 				8080F14B2E20A0180094719D /* TarTanningWatch Watch App */,
 			);
 			name = "TarTanningWatch Watch App";
@@ -483,6 +491,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "TarTanningWatch-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = TarTanningWatch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.xcodeblue.TarTanning.app;
@@ -520,6 +529,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "TarTanningWatch-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = TarTanningWatch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.xcodeblue.TarTanning.app;

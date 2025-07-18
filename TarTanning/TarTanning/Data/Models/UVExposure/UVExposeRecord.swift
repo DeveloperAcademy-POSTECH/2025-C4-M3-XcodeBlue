@@ -33,91 +33,75 @@ class UVExposeRecord {
 }
 
 extension UVExposeRecord {
-    /// 오늘 UV 노출 기록 Mock 데이터
-    static var mockTodayUVExposeRecord: UVExposeRecord {
+    static var mockTodayExposureRecords: [UVExposeRecord] {
         let today = Date()
         let calendar = Calendar.current
-        let startTime = calendar.date(
-            bySettingHour: 10,
-            minute: 30,
-            second: 0,
-            of: today
-        )!
-        let endTime = calendar.date(
-            bySettingHour: 12,
-            minute: 15,
-            second: 0,
-            of: today
-        )!
-
-        return UVExposeRecord(
-            startDate: startTime,
-            endDate: endTime,
-            sunlightExposureDuration: 105.0,  // 1시간 45분
-            uvDose: 450.0  // J/m^2 단위
-        )
-    }
-
-    /// 차트용 7일치 UV 노출 기록 (오늘 제외, 7일 전부터 어제까지)
-    static var mockWeeklyChartUVExposeRecords: [UVExposeRecord] {
-        let calendar = Calendar.current
-        let today = Date()
 
         return [
-            // 7일 전 (일요일)
+            // 오전 산책 (9:30-10:15) - SPF 30 적용
             UVExposeRecord(
-                startDate: calendar.date(byAdding: .day, value: -7, to: today)!,
-                endDate: calendar.date(byAdding: .day, value: -7, to: today)!,
-                sunlightExposureDuration: 45.0,  // 45분
-                uvDose: 180.0
+                startDate: calendar.date(
+                    bySettingHour: 9,
+                    minute: 30,
+                    second: 0,
+                    of: today
+                )!,
+                endDate: calendar.date(
+                    bySettingHour: 10,
+                    minute: 15,
+                    second: 0,
+                    of: today
+                )!,
+                sunlightExposureDuration: 45.0,  // HealthKit 일광시간
+                uvDose: MEDCalculator.calculateUVDose(
+                    uvIndex: 4.5,  // 9-10시 평균 UV지수
+                    durationMinutes: 45.0,
+                    spf: 30.0  // SPF 30 적용
+                )
             ),
 
-            // 6일 전 (월요일)
+            // 점심시간 외출 (12:00-13:30) - SPF 30 적용
             UVExposeRecord(
-                startDate: calendar.date(byAdding: .day, value: -6, to: today)!,
-                endDate: calendar.date(byAdding: .day, value: -6, to: today)!,
-                sunlightExposureDuration: 0.0,  // 기록 없음
-                uvDose: 0.0
+                startDate: calendar.date(
+                    bySettingHour: 12,
+                    minute: 0,
+                    second: 0,
+                    of: today
+                )!,
+                endDate: calendar.date(
+                    bySettingHour: 13,
+                    minute: 30,
+                    second: 0,
+                    of: today
+                )!,
+                sunlightExposureDuration: 90.0,  // HealthKit 일광시간
+                uvDose: MEDCalculator.calculateUVDose(
+                    uvIndex: 8.5,  // 12-13시 평균 UV지수
+                    durationMinutes: 90.0,
+                    spf: 30.0  // SPF 30 적용
+                )
             ),
 
-            // 5일 전 (화요일)
+            // 오후 산책 (16:00-16:45) - SPF 미적용
             UVExposeRecord(
-                startDate: calendar.date(byAdding: .day, value: -5, to: today)!,
-                endDate: calendar.date(byAdding: .day, value: -5, to: today)!,
-                sunlightExposureDuration: 120.0,  // 2시간
-                uvDose: 520.0
-            ),
-
-            // 4일 전 (수요일)
-            UVExposeRecord(
-                startDate: calendar.date(byAdding: .day, value: -4, to: today)!,
-                endDate: calendar.date(byAdding: .day, value: -4, to: today)!,
-                sunlightExposureDuration: 0.0,  // 기록 없음
-                uvDose: 0.0
-            ),
-
-            // 3일 전 (목요일)
-            UVExposeRecord(
-                startDate: calendar.date(byAdding: .day, value: -3, to: today)!,
-                endDate: calendar.date(byAdding: .day, value: -3, to: today)!,
-                sunlightExposureDuration: 90.0,  // 1시간 30분
-                uvDose: 380.0
-            ),
-
-            // 2일 전 (금요일)
-            UVExposeRecord(
-                startDate: calendar.date(byAdding: .day, value: -2, to: today)!,
-                endDate: calendar.date(byAdding: .day, value: -2, to: today)!,
-                sunlightExposureDuration: 75.0,  // 1시간 15분
-                uvDose: 320.0
-            ),
-
-            // 1일 전 (토요일)
-            UVExposeRecord(
-                startDate: calendar.date(byAdding: .day, value: -1, to: today)!,
-                endDate: calendar.date(byAdding: .day, value: -1, to: today)!,
-                sunlightExposureDuration: 0.0,  // 기록 없음
-                uvDose: 0.0
+                startDate: calendar.date(
+                    bySettingHour: 16,
+                    minute: 0,
+                    second: 0,
+                    of: today
+                )!,
+                endDate: calendar.date(
+                    bySettingHour: 16,
+                    minute: 45,
+                    second: 0,
+                    of: today
+                )!,
+                sunlightExposureDuration: 45.0,  // HealthKit 일광시간
+                uvDose: MEDCalculator.calculateUVDose(
+                    uvIndex: 4.2,  // 16-17시 평균 UV지수
+                    durationMinutes: 45.0,
+                    spf: nil  // SPF 미적용
+                )
             ),
         ]
     }

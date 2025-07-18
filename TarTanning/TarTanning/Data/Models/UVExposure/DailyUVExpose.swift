@@ -15,10 +15,23 @@ class DailyUVExpose {
     var exposureRecords: [UVExposeRecord] = []
     var totalUVDose: Double = 0.0
     var totalSunlightMinutes: Double = 0.0
-    var spfIndex: Int? // 해당 날짜에 사용한 SPF
-    var spfDate: Date? // SPF 발라진 시간
     
     init(date: Date) {
         self.date = date
+    }
+}
+
+extension DailyUVExpose {
+    static var mockTodayDailyExposure: DailyUVExpose {
+        let today = Date()
+        let dailyExposure = DailyUVExpose(date: today)
+        
+        dailyExposure.exposureRecords = UVExposeRecord.mockTodayExposureRecords
+        dailyExposure.totalSunlightMinutes = 180.0
+        dailyExposure.totalUVDose = 119.9
+        dailyExposure.spfIndex = 30
+        dailyExposure.spfDate = Calendar.current.date(bySettingHour: 9, minute: 0, second: 0, of: today)
+        
+        return dailyExposure
     }
 }

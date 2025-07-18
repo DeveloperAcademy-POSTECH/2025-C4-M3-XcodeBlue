@@ -9,5 +9,4 @@ import Foundation
 
 struct UserProfile: Codable {
     var skinType: SkinType // 유저의 스킨 유형: .type3
-    var currentSPFIndex: Double // 현재 선택된 SPF 지수: 30
 }

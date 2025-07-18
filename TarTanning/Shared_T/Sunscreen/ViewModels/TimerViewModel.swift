@@ -19,7 +19,6 @@ final class TimerViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private let timerManager = TimerSyncManager.shared
     
-    // MARK: - Computed Properties
     var formattedRemainingTime: String {
         let minutes = Int(remainingTime) / 60
         let seconds = Int(remainingTime) % 60

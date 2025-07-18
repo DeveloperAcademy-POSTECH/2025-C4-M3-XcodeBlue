@@ -52,7 +52,6 @@ final class TimerSyncManager: NSObject, ObservableObject {
         print("[\(deviceType)] WatchConnectivity setup initiated")
     }
     
-    // MARK: - Timer Management
     private func loadInitialState() {
         self.state = storage.state
         if let endTime = storage.endTime {
@@ -169,7 +168,6 @@ final class TimerSyncManager: NSObject, ObservableObject {
         sendTimerSync(endTime: newEndTime, state: .running)
     }
     
-    // MARK: - Synchronization
     private struct TimerSyncData: Codable {
         let endTime: Date
         let state: TimerState
@@ -266,7 +264,6 @@ final class TimerSyncManager: NSObject, ObservableObject {
     }
 }
 
-// MARK: - WCSessionDelegate
 extension TimerSyncManager: WCSessionDelegate {
     
     nonisolated func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {

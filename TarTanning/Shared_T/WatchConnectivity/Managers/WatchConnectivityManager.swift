@@ -58,7 +58,6 @@ final class WatchConnectivityManager: NSObject, WCSessionDelegate {
         }
     }
     
-    // MARK: - iOS 전용 메서드들
 #if os(iOS)
     
     /// iPhone -> Watch 데이터 실시간 전송
@@ -108,7 +107,6 @@ final class WatchConnectivityManager: NSObject, WCSessionDelegate {
     
 #endif
     
-    // MARK: - watchOS 전용 메서드들
 #if os(watchOS)
     
     /// Watch -> iPhone 일회성 메시지 전송
@@ -146,8 +144,6 @@ final class WatchConnectivityManager: NSObject, WCSessionDelegate {
     }
     
 #endif
-    
-    // MARK: - WCSessionDelegate 메서드들
     
     func session(
         _ session: WCSession,

@@ -18,8 +18,6 @@ final class WatchTimerNotificationManager {
         let center = UNUserNotificationCenter.current()
         
         do {
-            // Apple Developer Documentation: UNUserNotificationCenter
-            // https://developer.apple.com/documentation/usernotifications/unusernotificationcenter
             let granted = try await center.requestAuthorization(
                 options: [.alert, .sound, .badge]
             )
@@ -48,8 +46,6 @@ final class WatchTimerNotificationManager {
             return
         }
         
-        // Apple Developer Documentation: UNTimeIntervalNotificationTrigger
-        // https://developer.apple.com/documentation/usernotifications/untimeintervalnotificationtrigger
         let trigger = UNTimeIntervalNotificationTrigger(
             timeInterval: timeInterval,
             repeats: false

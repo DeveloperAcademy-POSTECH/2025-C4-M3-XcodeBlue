@@ -14,14 +14,17 @@ final class WatchLocalNotificationManager {
     
     private init() { }
     
-    func scheduleNotification(for type: NotificationContentType, at date: Date, repeats: Bool = false) {
+    func scheduleNotification(for type: NotificationContentType, at date: Date, repeats: Bool = false, useUniqueId: Bool = false) {
+        let finalId = useUniqueId ? UUID().uuidString : type.id
+
         NotificationScheduler.schedule(
             platform: "watchOS",
-            id: type.id,
+            id: finalId,
             title: type.title,
             body: type.body,
             date: date,
-            repeats: repeats
+            repeats: repeats,
+            categoryIdentifier: type.categoryIdentifier
         )
     }
     

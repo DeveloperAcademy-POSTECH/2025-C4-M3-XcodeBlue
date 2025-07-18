@@ -8,22 +8,24 @@
 import SwiftUI
 
 struct NotificationTestView: View {
+    @StateObject private var viewModel = NotificationTestViewModel()
+    
     var body: some View {
-        VStack(spacing: 16) {
-            Text("🔔 워치 알림 테스트")
-                .font(.headline)
-
-            Button("5초 후 알림") {
-                let fireDate = Date().addingTimeInterval(5)
-                WatchLocalNotificationManager.shared.scheduleNotification(
-                    for: .medWarning(percent: 8),
-                    at: fireDate
-                )
+        VStack(spacing: 4) {
+            Button("🌞 선크림 알림 테스트") {
+                viewModel.scheduleSunscreenPromptNotification()
+//                viewModel.scheduleTestNotification()
             }
 
-            Button("모든 알림 취소") {
-                WatchLocalNotificationManager.shared.cancelAllNotifications()
+            Button("⚠️ 자외선 경고 알림") {
+                viewModel.scheduleMedWarningNotification()
             }
+
+            Button("❌ 모든 알림 취소") {
+                viewModel.cancelAllNotifications()
+            }
+            
+            Text(viewModel.scheduledMessage ?? "")
         }
         .padding()
     }

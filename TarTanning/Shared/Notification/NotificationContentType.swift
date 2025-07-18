@@ -10,6 +10,7 @@ import Foundation
 enum NotificationContentType {
     case medWarning(percent: Int)
     case sunscreenReminder(uvIndex: Int)
+    case sunscreenPrompt
 }
 
 extension NotificationContentType {
@@ -19,6 +20,8 @@ extension NotificationContentType {
             return "med-\(percent)"
         case .sunscreenReminder(let unIndex):
             return "sunscreen-uv\(unIndex)"
+        case .sunscreenPrompt:
+            return "sunscreen-prompt"
         }
     }
     
@@ -39,6 +42,8 @@ extension NotificationContentType {
             }
         case .sunscreenReminder:
             return "선크림, 잊지 마세요!"
+        case .sunscreenPrompt:
+            return "선크림 타이머가 끝났습니다."
         }
     }
     
@@ -71,6 +76,17 @@ extension NotificationContentType {
             default:
                 return "현재 자외선 수치 정보가 불확실해요. 주의가 필요해요."
             }
+        case .sunscreenPrompt:
+            return "선크림은 매 2시간마다 덧발라야합니다. 지금 덧바르시겠습니까?"
+        }
+    }
+    
+    var categoryIdentifier: String? {
+        switch self {
+        case .sunscreenPrompt:
+              return "SUNSCREEN_CATEGORY"
+        default:
+            return nil
         }
     }
 }

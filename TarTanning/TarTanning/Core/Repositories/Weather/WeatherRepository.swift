@@ -9,5 +9,4 @@ import Foundation
 
 protocol WeatherRepository {
     func getCurrentWeather() async throws -> LocationWeather
-    func getCurrentUVIndex() async throws 
 }

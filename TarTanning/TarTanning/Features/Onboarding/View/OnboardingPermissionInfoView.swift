@@ -9,11 +9,11 @@ import SwiftUI
 
 struct OnboardingPermissionInfoView: View {
     
-    var onNext: () -> Void
+    let didTapContinueButton: () -> Void
+    let requestAllPermissions: () async -> Void
     
     var body: some View {
         VStack {
-            
             Spacer()
             
             Text("필요한 권한")
@@ -49,7 +49,12 @@ struct OnboardingPermissionInfoView: View {
             
             Spacer()
             
-            OnboardingButton(title: "계속", style: .primary, action: onNext)
+            OnboardingButton(title: "계속", style: .primary) {
+                Task {
+                    await requestAllPermissions()
+                    didTapContinueButton()
+                }
+            }
         }
         .padding(.horizontal, 20)
     }
@@ -57,6 +62,6 @@ struct OnboardingPermissionInfoView: View {
 
 #Preview {
     OnboardingPermissionInfoView(
-        onNext: {}
+        didTapContinueButton: {}, requestAllPermissions: {}
     )
 }

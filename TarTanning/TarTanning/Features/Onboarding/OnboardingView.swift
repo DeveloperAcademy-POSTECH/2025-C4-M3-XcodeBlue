@@ -18,7 +18,14 @@ struct OnboardingView: View {
             case .watchInfo:
                 OnboardingWatchCheckView(onNext: viewModel.nextMainView)
             case .permissionInfo:
-                OnboardingPermissionInfoView(onNext: viewModel.nextMainView)
+                OnboardingPermissionInfoView(
+                    didTapContinueButton: {
+                        viewModel.proceedIfPermissionsGranted()
+                    },
+                    requestAllPermissions: {
+                        viewModel.requestAllAuthorizations()
+                    }
+                )
             case .skinTypeInfo:
                 OnboardingSkinTypeView(
                     selectedType: viewModel.selectedSkinType,

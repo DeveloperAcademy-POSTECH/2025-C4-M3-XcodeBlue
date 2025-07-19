@@ -10,8 +10,10 @@ import SwiftUI
 struct DashboardView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            VStack{
+            VStack {
                 DashboardTitleView()
+                
+                DashboardUVDoseView()
             }
         }
 //        TabView {
@@ -46,6 +48,8 @@ struct DashboardContentView: View {
             ScrollView {
                 VStack(alignment: .leading) {
 
+                    DashboardUVProgressView()
+                    
                     VStack(alignment: .leading) {
                         Text("대시보드")
                             .font(.system(size: 28))
@@ -54,10 +58,10 @@ struct DashboardContentView: View {
                     }
                     .padding(.vertical)
 
-                    //MED, 선크림 모드 영역
-                    BezierView()
+                    // MED, 선크림 모드 영역
+//                    BezierView()
 
-                    //주간 요약 영역
+                    // 주간 요약 영역
                     VStack(alignment: .leading) {
                         Text("주간 요약")
                             .font(.system(size: 18))
@@ -69,7 +73,7 @@ struct DashboardContentView: View {
                             .foregroundColor(.white)
                             .cornerRadius(20)
 
-                        //데이터 값이 있으면 여기 주간 요약 list 띄우고, 없으면 아래 대로 보여줘야 함
+                        // 데이터 값이 있으면 여기 주간 요약 list 띄우고, 없으면 아래 대로 보여줘야 함
 
                         VStack {
                             Image(systemName: "face.smiling.inverse")
@@ -84,7 +88,7 @@ struct DashboardContentView: View {
                         }
                     }
 
-                    //ArticleView 넣어야 함
+                    // ArticleView 넣어야 함
                 }
             }
         }

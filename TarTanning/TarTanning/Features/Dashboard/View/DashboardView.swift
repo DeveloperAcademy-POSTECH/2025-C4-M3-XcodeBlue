@@ -14,6 +14,8 @@ struct DashboardView: View {
                 DashboardTitleView()
                 
                 DashboardUVDoseView()
+                
+                DashboardSummaryMetricsView()
             }
         }
 //        TabView {

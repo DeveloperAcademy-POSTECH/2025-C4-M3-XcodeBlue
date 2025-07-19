@@ -12,10 +12,9 @@ struct DashboardView: View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
                 DashboardTitleView()
-                
                 DashboardUVDoseView()
-                
                 DashboardSummaryMetricsView()
+                DashboardWeeklySummaryView()
             }
         }
 //        TabView {

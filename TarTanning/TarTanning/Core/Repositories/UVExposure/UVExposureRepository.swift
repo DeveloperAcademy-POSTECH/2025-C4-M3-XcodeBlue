@@ -10,6 +10,5 @@ import Foundation
 protocol UVExposureRepository {
     func getTodayUVExposure() async throws -> DailyUVExpose
     func getWeeklyUVExposure() async throws -> [DailyUVExpose]
-    func getCurrentWeather() async throws -> LocationWeather
-    func getUserProfile() async throws -> UserProfile
+    func saveUVExposureRecord(_ record: UVExposeRecord) async throws
 }

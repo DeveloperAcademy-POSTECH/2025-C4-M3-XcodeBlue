@@ -65,6 +65,11 @@
 			path = "TarTanningWatch Watch App";
 			sourceTree = "<group>";
 		};
+		8092842D2E291B9C00F0C779 /* Shared_J */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Shared_J;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +93,7 @@
 		8080F1232E209F860094719D = {
 			isa = PBXGroup;
 			children = (
+				8092842D2E291B9C00F0C779 /* Shared_J */,
 				8080F15E2E20A0740094719D /* .swiftlint.yml */,
 				8080F12E2E209F860094719D /* TarTanning */,
 				8080F14B2E20A0180094719D /* TarTanningWatch Watch App */,
@@ -124,6 +130,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				8080F12E2E209F860094719D /* TarTanning */,
+				8092842D2E291B9C00F0C779 /* Shared_J */,
 			);
 			name = TarTanning;
 			packageProductDependencies = (
@@ -146,6 +153,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				8080F14B2E20A0180094719D /* TarTanningWatch Watch App */,
+				8092842D2E291B9C00F0C779 /* Shared_J */,
 			);
 			name = "TarTanningWatch Watch App";
 			packageProductDependencies = (
@@ -483,6 +491,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "TarTanningWatch-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = TarTanningWatch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.xcodeblue.TarTanning.app;
@@ -520,6 +529,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "TarTanningWatch-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = TarTanningWatch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.xcodeblue.TarTanning.app;

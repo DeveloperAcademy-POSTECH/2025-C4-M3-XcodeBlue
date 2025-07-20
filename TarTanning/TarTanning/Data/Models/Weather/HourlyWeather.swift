@@ -44,7 +44,7 @@ extension HourlyWeather {
             HourlyWeather(date: calendar.date(byAdding: .hour, value: 16, to: july20)!, uvIndex: 4.5, temperature: 27.5),
             HourlyWeather(date: calendar.date(byAdding: .hour, value: 17, to: july20)!, uvIndex: 3.0, temperature: 26.0),
             HourlyWeather(date: calendar.date(byAdding: .hour, value: 18, to: july20)!, uvIndex: 1.5, temperature: 24.5),
-            HourlyWeather(date: calendar.date(byAdding: .hour, value: 19, to: july20)!, uvIndex: 0.5, temperature: 23.0),
+            HourlyWeather(date: calendar.date(byAdding: .hour, value: 19, to: july20)!, uvIndex: 2.0, temperature: 23.0),
             HourlyWeather(date: calendar.date(byAdding: .hour, value: 20, to: july20)!, uvIndex: 0.0, temperature: 22.0),
             HourlyWeather(date: calendar.date(byAdding: .hour, value: 21, to: july20)!, uvIndex: 0.0, temperature: 21.5),
             HourlyWeather(date: calendar.date(byAdding: .hour, value: 22, to: july20)!, uvIndex: 0.0, temperature: 21.0),

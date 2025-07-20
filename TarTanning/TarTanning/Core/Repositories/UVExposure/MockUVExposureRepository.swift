@@ -31,15 +31,14 @@ class MockUVExposureRepository: UVExposureRepository {
         let today = Date()
         var weeklyData: [DailyUVExpose] = []
 
-        for dayOffset in 0..<7 {
+        for dayOffset in 1...7 {
             let date = calendar.date(byAdding: .day, value: -dayOffset, to: today)!
-            
+   
             if let existingData = dailyExposureStore.first(where: {
                 calendar.isDate($0.date, inSameDayAs: date)
             }) {
                 weeklyData.append(existingData)
             } else {
-
                 let dailyExposure = try await createDailyUVExposureFromRecords(for: date)
                 dailyExposureStore.append(dailyExposure)
                 weeklyData.append(dailyExposure)

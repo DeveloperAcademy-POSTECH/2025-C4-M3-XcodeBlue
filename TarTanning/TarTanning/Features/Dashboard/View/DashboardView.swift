@@ -21,7 +21,7 @@ struct DashboardView: View {
                 DashboardTitleView()
                 DashboardUVDoseView(viewModel: viewModel)
                 DashboardSummaryMetricsView(viewModel: viewModel)
-                DashboardWeeklySummaryView()
+                DashboardWeeklySummaryView(viewModel: viewModel)
             }
             .padding(20)
         }

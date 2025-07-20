@@ -27,6 +27,4 @@ class MockLocationRepository: LocationRepository {
     func stopLocationUpdates() async throws {
         
     }
-    
-    
 }

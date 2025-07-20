@@ -33,15 +33,14 @@ class UVExposeRecord {
 }
 
 extension UVExposeRecord {
-    /// 일광 시간 기록들 Mock 데이터 (최근 7일 기준)
+    /// 일광 시간 기록들 Mock 데이터 (오늘 + 최근 7일 기준)
     static var mockExposureRecords: [UVExposeRecord] {
         let calendar = Calendar.current
         let today = Date()
 
         var allRecords: [UVExposeRecord] = []
 
-        // 최근 7일 데이터 생성 (오늘 포함)
-        for dayOffset in 0..<7 {
+        for dayOffset in 0..<8 {
             let targetDate = calendar.date(
                 byAdding: .day,
                 value: -dayOffset,
@@ -56,54 +55,61 @@ extension UVExposeRecord {
                 [(hour: Int, duration: Double, isSPFApplied: Bool)] =
                     dayOffset == 0
                     ? [
-                        // 오늘 (7월 20일) - 기존 데이터
+                        // 오늘 (7월 20일) - DashboardUVDoseView용
                         (9, 20.0, true),
                         (13, 30.0, true),
-                        (17, 55.0, false),
+                        (17, 55.0, true)
                     ]
                     : dayOffset == 1
                         ? [
-                            // 어제 (7월 19일) - 여러 개 세션
+                            // 1일전 (7월 19일) - WeeklySummaryView용
                             (8, 30.0, true),
                             (11, 45.0, true),
                             (15, 20.0, false),
-                            (18, 35.0, true),
+                            (18, 35.0, true)
                         ]
                         : dayOffset == 2
                             ? [
-                                // 2일 전 (7월 18일)
+                                // 2일전 (7월 18일)
                                 (10, 40.0, true),
                                 (14, 25.0, false),
-                                (16, 30.0, true),
+                                (16, 30.0, true)
                             ]
                             : dayOffset == 3
                                 ? [
-                                    // 3일 전 (7월 17일)
+                                    // 3일전 (7월 17일)
                                     (9, 35.0, true),
                                     (12, 50.0, true),
-                                    (17, 15.0, false),
+                                    (17, 15.0, false)
                                 ]
                                 : dayOffset == 4
                                     ? [
-                                        // 4일 전 (7월 16일)
+                                        // 4일전 (7월 16일)
                                         (11, 25.0, false),
                                         (13, 40.0, true),
-                                        (15, 30.0, true),
+                                        (15, 30.0, true)
                                     ]
                                     : dayOffset == 5
                                         ? [
-                                            // 5일 전 (7월 15일)
+                                            // 5일전 (7월 15일)
                                             (8, 45.0, true),
                                             (10, 20.0, true),
                                             (14, 35.0, false),
-                                            (16, 25.0, true),
+                                            (16, 25.0, true)
                                         ]
-                                        : [
-                                            // 6일 전 (7월 14일)
-                                            (9, 30.0, true),
-                                            (12, 40.0, true),
-                                            (15, 20.0, false),
-                                        ]
+                                        : dayOffset == 6
+                                            ? [
+                                                // 6일전 (7월 14일)
+                                                (9, 30.0, true),
+                                                (12, 40.0, true),
+                                                (15, 20.0, false)
+                                            ]
+                                            : [
+                                                // 7일전 (7월 13일) - WeeklySummaryView용
+                                                (10, 25.0, true),
+                                                (13, 35.0, false),
+                                                (16, 20.0, true)
+                                            ]
 
             for (hour, duration, isSPFApplied) in dayRecords {
                 let startDate = calendar.date(
@@ -135,4 +141,3 @@ extension UVExposeRecord {
         return allRecords
     }
 }
-

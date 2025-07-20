@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct DashboardWeeklySummaryView: View {
+    @ObservedObject var viewModel: DashboardViewModel
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             WeeklySummaryTitleView()
-            WeeklySummaryDataView()
+            WeeklySummaryDataView(weeklyProgressRates: viewModel.weeklyUVProgressRates)
         }
     }
 }
@@ -24,15 +26,34 @@ struct WeeklySummaryTitleView: View {
 }
 
 struct WeeklySummaryDataView: View {
-    private let weeklyData: [WeeklyDayData] = [
-        WeeklyDayData(day: "오늘", progress: 0.32, color: .orange, emoji: "😊"),
-        WeeklyDayData(day: "1일전", progress: 0.0, color: .gray, emoji: "😐"),
-        WeeklyDayData(day: "2일전", progress: 0.89, color: .red, emoji: "😔"),
-        WeeklyDayData(day: "3일전", progress: 0.89, color: .red, emoji: "😔"),
-        WeeklyDayData(day: "4일전", progress: 0.24, color: .blue, emoji: "😊"),
-        WeeklyDayData(day: "5일전", progress: 0.12, color: .blue, emoji: "😊"),
-        WeeklyDayData(day: "6일전", progress: 0.05, color: .blue, emoji: "😊")
-    ]
+    let weeklyProgressRates: [Double]
+    
+    private var weeklyData: [WeeklyDayData] {
+        return weeklyProgressRates.enumerated().map { index, progress in
+            let dayString = "\(index + 1) 일전"
+            let (color, emoji) = getColorAndEmoji(for: progress)
+            
+            return WeeklyDayData(
+                day: dayString,
+                progress: progress,
+                color: color,
+                emoji: emoji
+            )
+        }
+    }
+    
+    private func getColorAndEmoji(for progress: Double) -> (Color, String) {
+        switch progress {
+        case 0.0..<0.3:
+            return (.blue, "😆")
+        case 0.3..<0.7:
+            return (.orange, "🙂")
+        case 0.7..<1.0:
+            return (.red, "😔")
+        default:
+            return (.black, "🔥")
+        }
+    }
     
     var body: some View {
         VStack(spacing: 8) {
@@ -97,6 +118,10 @@ struct WeeklyDayData {
 }
 
 #Preview {
-    DashboardWeeklySummaryView()
-        .padding()
+    DashboardWeeklySummaryView(viewModel: DashboardViewModel(
+        uvExposureRepository: MockUVExposureRepository(),
+        weatherRepository: MockWeatherRepository(),
+        userProfileRepository: MockUserProfileRepository(),
+        locationRepository: MockLocationRepository()
+    ))
 }

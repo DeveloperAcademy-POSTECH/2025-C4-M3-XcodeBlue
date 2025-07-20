@@ -8,46 +8,39 @@
 import SwiftUI
 
 struct TimerView: View {
-    @State var openBezier = false
+    @Binding var isPresented: Bool
 
     var body: some View {
-        if openBezier {
+        VStack(spacing: 24) {
+            Image(systemName: "cloud.sun")
+                .resizable()
+                .frame(width: 50, height: 35)
+                .foregroundColor(.blue)
 
-        } else {
+            // 여기에 타이머 넣기~
 
-            ZStack {
-                Rectangle()
-                    .frame(width: 353, height: 406)
-                    .foregroundColor(.blue.opacity(0.15))
-
-                VStack {
-                    Image(systemName: "cloud.sun")
-                        .resizable()
-                        .frame(width: 50, height: 35)
-                        .foregroundColor(.blue)
-
-                    // 여기에 타이머 넣기~
-
-                    Text("선크림 타이머")
-                        .font(.system(size: 17))
-                        .padding(.top, 50)
-                        .bold()
-                    Button(action: { openBezier = true }) {
-                        Text("MED 수치 보기")
-                            .font(.system(size: 15))
-                            .bold()
-                    }
+            Text("선크림 타이머")
+                .font(.system(size: 17))
+                .bold()
+            
+            Button {
+                isPresented = false
+            } label: {
+                Text("MED 수치 보기")
+                    .font(.system(size: 15))
+                    .bold()
                     .frame(width: 130, height: 35)
                     .background(Color.white)
                     .cornerRadius(20)
-                    .padding()
-                }
             }
-            .padding(.bottom)
         }
+        .frame(maxWidth: .infinity)
+        .frame(height: 280)
+        .background(Color.blue.opacity(0.15))
+        .cornerRadius(20)
     }
 }
 
 #Preview {
-    TimerView()
+    TimerView(isPresented: .constant(true))
 }

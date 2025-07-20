@@ -20,7 +20,7 @@ struct DashboardView: View {
             VStack {
                 DashboardTitleView()
                 DashboardUVDoseView(viewModel: viewModel)
-                DashboardSummaryMetricsView()
+                DashboardSummaryMetricsView(viewModel: viewModel)
                 DashboardWeeklySummaryView()
             }
             .padding(20)

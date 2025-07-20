@@ -59,8 +59,8 @@ extension UVExposeRecord {
             ),
             UVExposeRecord(
                 startDate: calendar.date(from: DateComponents(year: currentYear, month: currentMonth, day: currentDay, hour: 17, minute: 0))!,
-                endDate: calendar.date(from: DateComponents(year: currentYear, month: currentMonth, day: currentDay, hour: 17, minute: 15))!,
-                sunlightExposureDuration: 15.0,
+                endDate: calendar.date(from: DateComponents(year: currentYear, month: currentMonth, day: currentDay, hour: 17, minute: 55))!,
+                sunlightExposureDuration: 55.0,
                 isSPFApplied: false
             )
         ]

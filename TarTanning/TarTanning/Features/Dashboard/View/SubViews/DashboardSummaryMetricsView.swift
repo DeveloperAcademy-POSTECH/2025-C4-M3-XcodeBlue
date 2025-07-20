@@ -8,39 +8,43 @@
 import SwiftUI
 
 struct DashboardSummaryMetricsView: View {
-    private let uvIndex: Int = 9
-    private let totalDaylightMinutes: Int = 30
-    private let currentTemperature: Int = 28
+    @ObservedObject var viewModel: DashboardViewModel
     
     var body: some View {
         HStack(spacing: 0) {
-            UVIndexMetricView(value: uvIndex)
+            UVIndexMetricView(viewModel: viewModel)
             
             Divider()
                 .frame(height: 40)
                 .padding(.horizontal, 20)
             
-            TotalDaylightMetricView(value: totalDaylightMinutes)
+            TotalDaylightMetricView(viewModel: viewModel)
             
             Divider()
                 .frame(height: 40)
                 .padding(.horizontal, 20)
             
-            CurrentTemperatureMetricView(value: currentTemperature)
+            CurrentTemperatureMetricView(viewModel: viewModel)
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 16)
         .background(Color.white)
         .cornerRadius(12)
+        .onAppear {
+            print("🔍 DEBUG: DashboardSummaryMetricsView onAppear")
+            print("🔍 DEBUG: currentUVIndex = \(viewModel.currentUVIndex)")
+            print("🔍 DEBUG: todayTotalSunlightMinutes = \(viewModel.todayTotalSunlightMinutes)")
+            print("🔍 DEBUG: currentTemperature = \(viewModel.currentTemperature)")
+        }
     }
 }
 
 struct UVIndexMetricView: View {
-    let value: Int
+    @ObservedObject var viewModel: DashboardViewModel
     
     var body: some View {
         VStack(spacing: 8) {
-            Text("\(value)")
+            Text("\(viewModel.currentUVIndex)")
                 .font(.system(size: 24, weight: .bold))
                 .foregroundColor(.blue)
             
@@ -53,11 +57,11 @@ struct UVIndexMetricView: View {
 }
 
 struct TotalDaylightMetricView: View {
-    let value: Int
+    @ObservedObject var viewModel: DashboardViewModel
     
     var body: some View {
         VStack(spacing: 8) {
-            Text("\(value)분")
+            Text("\(viewModel.todayTotalSunlightMinutes)분")
                 .font(.system(size: 24, weight: .bold))
                 .foregroundColor(.blue)
             
@@ -70,11 +74,11 @@ struct TotalDaylightMetricView: View {
 }
 
 struct CurrentTemperatureMetricView: View {
-    let value: Int
+    @ObservedObject var viewModel: DashboardViewModel
     
     var body: some View {
         VStack(spacing: 8) {
-            Text("\(value)°C")
+            Text("\(viewModel.currentTemperature)°C")
                 .font(.system(size: 24, weight: .bold))
                 .foregroundColor(.blue)
             
@@ -88,7 +92,7 @@ struct CurrentTemperatureMetricView: View {
 
 // MARK: - Preview
 #Preview {
-    DashboardSummaryMetricsView()
+    DashboardSummaryMetricsView(viewModel: DashboardViewModel(uvExposureRepository: MockUVExposureRepository(), weatherRepository: MockWeatherRepository(), userProfileRepository: MockUserProfileRepository(), locationRepository: MockLocationRepository()))
         .background(Color.gray.opacity(0.1))
         .padding()
 }

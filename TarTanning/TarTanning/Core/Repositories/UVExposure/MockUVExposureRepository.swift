@@ -12,7 +12,6 @@ class MockUVExposureRepository: UVExposureRepository {
         let today = Date()
         let dailyExposure = DailyUVExpose(date: today)
         
-        // 오늘 날짜의 UVExposeRecord들만 필터링
         let todayRecords = UVExposeRecord.mockExposureRecords.filter {
             Calendar.current.isDate($0.startDate, inSameDayAs: today)
         }
@@ -28,6 +27,8 @@ class MockUVExposureRepository: UVExposureRepository {
         
         print("🔍 DEBUG: totalSunlightMinutes = \(dailyExposure.totalSunlightMinutes)")
         
+        let sunScreenInfo = SunScreenInfo.mockSunscreen
+        
         var totalUVDose: Double = 0.0
         for record in todayRecords {
             let recordHour = Calendar.current.component(.hour, from: record.startDate)
@@ -35,7 +36,7 @@ class MockUVExposureRepository: UVExposureRepository {
             
             print("🔍 DEBUG: recordHour = \(recordHour), recordUVIndex = \(recordUVIndex)")
             
-            let spfValue = record.isSPFApplied ? 30.0 : nil
+            let spfValue = record.isSPFApplied ? Double(sunScreenInfo.spfIndex) : nil
             let uvDose = MEDCalculator.calculateUVDose(
                 uvIndex: recordUVIndex,
                 durationMinutes: record.sunlightExposureDuration,
@@ -44,11 +45,11 @@ class MockUVExposureRepository: UVExposureRepository {
             record.uvDose = uvDose
             totalUVDose += uvDose
             
-            print("🔍 DEBUG: uvDose = \(uvDose), totalUVDose = \(totalUVDose)")
+            print("🔍 DEBUG: spfValue = \(String(describing: spfValue)), uvDose = \(uvDose), totalUVDose = \(totalUVDose)")
         }
         
         dailyExposure.totalUVDose = totalUVDose
-        print("🔍 DEBUG: final totalUVDose = \(totalUVDose)")
+        print("�� DEBUG: final totalUVDose = \(totalUVDose)")
         
         return dailyExposure
     }

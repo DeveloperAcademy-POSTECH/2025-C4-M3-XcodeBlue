@@ -12,9 +12,16 @@ class MockUVExposureRepository: UVExposureRepository {
         let today = Date()
         let dailyExposure = DailyUVExpose(date: today)
         
+        print("🔍 DEBUG: today = \(today)")
+        
         // 오늘 날짜의 UVExposeRecord들만 필터링
         let todayRecords = UVExposeRecord.mockExposureRecords.filter {
             Calendar.current.isDate($0.startDate, inSameDayAs: today)
+        }
+        
+        print("🔍 DEBUG: todayRecords count = \(todayRecords.count)")
+        for record in todayRecords {
+            print("🔍 DEBUG: record startDate = \(record.startDate), duration = \(record.sunlightExposureDuration)")
         }
         
         dailyExposure.exposureRecords = todayRecords
@@ -22,25 +29,48 @@ class MockUVExposureRepository: UVExposureRepository {
             $0 + $1.sunlightExposureDuration
         }
         
-        // UV Dose 계산
-        let currentHour = Calendar.current.component(.hour, from: Date())
-        let currentUVIndex = HourlyWeather.mockHourlyWeather.first { $0.hour == currentHour }?.uvIndex ?? 0.0
+        print("🔍 DEBUG: totalSunlightMinutes = \(dailyExposure.totalSunlightMinutes)")
         
+        // UV Dose 계산 - 각 기록의 시작 시간에 해당하는 UV Index 사용
         var totalUVDose: Double = 0.0
         for record in todayRecords {
+            // ✅ 기록 시작 시간의 UV Index 사용
+            let recordHour = Calendar.current.component(.hour, from: record.startDate)
+            let recordUVIndex = HourlyWeather.mockHourlyWeather.first { $0.hour == recordHour }?.uvIndex ?? 0.0
+            
+            print("🔍 DEBUG: recordHour = \(recordHour), recordUVIndex = \(recordUVIndex)")
+            
             let spfValue = record.isSPFApplied ? 30.0 : nil
             let uvDose = MEDCalculator.calculateUVDose(
-                uvIndex: currentUVIndex,
+                uvIndex: recordUVIndex,  // ✅ 기록 시간대의 UV Index 사용
                 durationMinutes: record.sunlightExposureDuration,
                 spf: spfValue
             )
             record.uvDose = uvDose
             totalUVDose += uvDose
+            
+            print("�� DEBUG: uvDose = \(uvDose), totalUVDose = \(totalUVDose)")
         }
         
         dailyExposure.totalUVDose = totalUVDose
+        print("�� DEBUG: final totalUVDose = \(totalUVDose)")
         
         return dailyExposure
+    }
+
+    func getTodayUVProgressRate(userSkinType: SkinType) async throws -> Double {
+        let todayExposure = try await getTodayUVExposure()
+        let maxMED = userSkinType.maxMED
+        
+        print("🔍 DEBUG: todayExposure.totalUVDose = \(todayExposure.totalUVDose)")
+        print("�� DEBUG: maxMED = \(maxMED)")
+
+        guard maxMED > 0 else { return 0.0 }
+
+        let progressRate = todayExposure.totalUVDose / maxMED
+        print("🔍 DEBUG: progressRate = \(progressRate)")
+        
+        return progressRate
     }
 
     func getWeeklyUVExposure() async throws -> [DailyUVExpose] {
@@ -101,15 +131,6 @@ class MockUVExposureRepository: UVExposureRepository {
 
     func updateDailyUVExposure(for date: Date) async throws {
 
-    }
-
-    func getTodayUVProgressRate(userSkinType: SkinType) async throws -> Double {
-        let todayExposure = try await getTodayUVExposure()
-        let maxMED = userSkinType.maxMED
-
-        guard maxMED > 0 else { return 0.0 }
-
-        return todayExposure.totalUVDose / maxMED
     }
 
     func getWeeklyUVProgressRates(userSkinType: SkinType) async throws

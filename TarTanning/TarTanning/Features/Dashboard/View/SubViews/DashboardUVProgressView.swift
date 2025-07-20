@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DashboardUVProgressView: View {
-    let viewModel: DashboardViewModel
+    @ObservedObject var viewModel: DashboardViewModel
 
     private let progressSize: CGFloat = 200
     private let progressHeight: CGFloat = 110
@@ -61,7 +61,7 @@ struct CurrentMEDProgressBarView: View {
 }
 
 struct CurrentMEDTextView: View {
-    let viewModel: DashboardViewModel
+    @ObservedObject var viewModel: DashboardViewModel
     
     private var progressPercentage: Int {
         Int(viewModel.todayUVProgressRate * 100)

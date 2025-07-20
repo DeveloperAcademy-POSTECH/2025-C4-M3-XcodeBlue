@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DashboardUVDoseView: View {
-    let viewModel: DashboardViewModel
+    @ObservedObject var viewModel: DashboardViewModel
     
     var body: some View {
         VStack(spacing: 24) {

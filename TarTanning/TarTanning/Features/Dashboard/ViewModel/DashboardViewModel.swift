@@ -52,6 +52,8 @@ class DashboardViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
         
+        print("🔍 DEBUG: loadDashboardData 시작")
+        
         do {
             async let userProfileTask = userProfileRepository.getUserProfile()
             async let weatherTask = weatherRepository.getCurrentWeather()
@@ -60,12 +62,18 @@ class DashboardViewModel: ObservableObject {
             
             let (userProfile, weather, todayProgress, weeklyProgress) = try await (userProfileTask, weatherTask, todayProgressTask, weeklyProgressTask)
             
+            print("🔍 DEBUG: todayProgress = \(todayProgress)")
+            print("🔍 DEBUG: weeklyProgress = \(weeklyProgress)")
+            
             self.userProfile = userProfile
             self.currentWeather = weather
             self.todayUVProgressRate = todayProgress
             self.weeklyUVProgressRates = weeklyProgress
             
+            print("🔍 DEBUG: self.todayUVProgressRate = \(self.todayUVProgressRate)")
+            
         } catch {
+            print("🔍 DEBUG: error = \(error)")
             errorMessage = error.localizedDescription
         }
         

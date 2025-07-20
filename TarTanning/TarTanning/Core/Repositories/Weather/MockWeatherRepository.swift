@@ -8,7 +8,6 @@
 import Foundation
 
 class MockWeatherRepository: WeatherRepository {
-    
     func getCurrentWeather() async throws -> LocationWeather {
         return LocationWeather.mockLocationWeather
     }

@@ -8,10 +8,23 @@
 import SwiftUI
 
 struct DashboardUVProgressView: View {
-    private let currentMEDRate: CGFloat = 0.73
-    private let currentMEDColor: UIColor = .orange
+    let viewModel: DashboardViewModel
+
     private let progressSize: CGFloat = 200
     private let progressHeight: CGFloat = 110
+    private var currentMEDRate: CGFloat {
+        CGFloat(viewModel.todayUVProgressRate)
+    }
+    private var currentMEDColor: UIColor {
+        switch viewModel.todayUVProgressRate {
+        case 0.0..<0.5:
+            return .systemBlue
+        case 0.5..<0.8:
+            return .orange
+        default:
+            return .systemRed
+        }
+    }
 
     var body: some View {
         ZStack {
@@ -24,7 +37,7 @@ struct DashboardUVProgressView: View {
             )
             .frame(width: progressSize, height: progressHeight)
 
-            CurrentMEDTextView()
+            CurrentMEDTextView(viewModel: viewModel)
         }
     }
 }
@@ -48,14 +61,31 @@ struct CurrentMEDProgressBarView: View {
 }
 
 struct CurrentMEDTextView: View {
+    let viewModel: DashboardViewModel
+    
+    private var progressPercentage: Int {
+        Int(viewModel.todayUVProgressRate * 100)
+    }
+    
+    private var progressColor: Color {
+        switch viewModel.todayUVProgressRate {
+        case 0.0..<0.5:
+            return .blue
+        case 0.5..<0.8:
+            return .orange
+        default:
+            return .red
+        }
+    }
+    
     var body: some View {
         VStack(spacing: 4) {
             Text("MED")
                 .font(.system(size: 15))
                 .foregroundColor(.gray.opacity(0.5))
-            Text("73%")
+            Text("\(progressPercentage)%")
                 .font(.system(size: 28, weight: .bold))
-                .foregroundColor(.orange)
+                .foregroundColor(progressColor)
         }
         .padding(.top, 60)
     }
@@ -165,7 +195,10 @@ struct CurrentMEDProgressBarUIViewRepresentable: UIViewRepresentable {
 }
 
 #Preview {
-    DashboardUVProgressView()
-        .background(Color.white)
-        .padding()
+    DashboardUVProgressView(viewModel: DashboardViewModel(
+        uvExposureRepository: MockUVExposureRepository(),
+        weatherRepository: MockWeatherRepository(),
+        userProfileRepository: MockUserProfileRepository(),
+        locationRepository: MockLocationRepository()
+    ))
 }

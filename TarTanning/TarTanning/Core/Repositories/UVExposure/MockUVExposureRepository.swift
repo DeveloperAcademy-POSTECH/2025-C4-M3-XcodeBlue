@@ -9,7 +9,38 @@ import Foundation
 
 class MockUVExposureRepository: UVExposureRepository {
     func getTodayUVExposure() async throws -> DailyUVExpose {
-        return DailyUVExpose.mockTodayDailyExposure
+        let today = Date()
+        let dailyExposure = DailyUVExpose(date: today)
+        
+        // 오늘 날짜의 UVExposeRecord들만 필터링
+        let todayRecords = UVExposeRecord.mockExposureRecords.filter {
+            Calendar.current.isDate($0.startDate, inSameDayAs: today)
+        }
+        
+        dailyExposure.exposureRecords = todayRecords
+        dailyExposure.totalSunlightMinutes = todayRecords.reduce(0) {
+            $0 + $1.sunlightExposureDuration
+        }
+        
+        // UV Dose 계산
+        let currentHour = Calendar.current.component(.hour, from: Date())
+        let currentUVIndex = HourlyWeather.mockHourlyWeather.first { $0.hour == currentHour }?.uvIndex ?? 0.0
+        
+        var totalUVDose: Double = 0.0
+        for record in todayRecords {
+            let spfValue = record.isSPFApplied ? 30.0 : nil
+            let uvDose = MEDCalculator.calculateUVDose(
+                uvIndex: currentUVIndex,
+                durationMinutes: record.sunlightExposureDuration,
+                spf: spfValue
+            )
+            record.uvDose = uvDose
+            totalUVDose += uvDose
+        }
+        
+        dailyExposure.totalUVDose = totalUVDose
+        
+        return dailyExposure
     }
 
     func getWeeklyUVExposure() async throws -> [DailyUVExpose] {

@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct DashboardUVDoseView: View {
+    let viewModel: DashboardViewModel
+    
     var body: some View {
         VStack(spacing: 24) {
-            DashboardUVProgressView()
+            DashboardUVProgressView(viewModel: viewModel)
             
             VStack {
                 HStack(spacing: 0) {
@@ -41,5 +43,10 @@ struct DashboardUVDoseView: View {
 }
 
 #Preview {
-    DashboardUVDoseView()
+    DashboardUVDoseView(viewModel: DashboardViewModel(
+        uvExposureRepository: MockUVExposureRepository(),
+        weatherRepository: MockWeatherRepository(),
+        userProfileRepository: MockUserProfileRepository(),
+        locationRepository: MockLocationRepository()
+    ))
 }

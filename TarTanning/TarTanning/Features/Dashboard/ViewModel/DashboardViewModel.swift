@@ -19,13 +19,13 @@ class DashboardViewModel: ObservableObject {
     @Published var weeklyUVProgressRates: [Double] = []
     @Published var currentWeather: LocationWeather?
     @Published var userProfile: UserProfile?
-    @Published var todayTotalSunlightMinutes: Int = 0  // ✅ 추가
+    @Published var todayTotalSunlightMinutes: Int = 0
     @Published var isLoading = false
     @Published var errorMessage: String?
     
-    var currentUVIndex: Int {
+    var currentUVIndex: Double {
         guard let currentHour = Calendar.current.dateComponents([.hour], from: Date()).hour else { return 0 }
-        return Int(currentWeather?.hourlyWeathers.first { $0.hour == currentHour }?.uvIndex ?? 0)
+        return currentWeather?.hourlyWeathers.first { $0.hour == currentHour }?.uvIndex ?? 0
     }
     
     var currentTemperature: Int {
@@ -52,13 +52,12 @@ class DashboardViewModel: ObservableObject {
         print("🔍 DEBUG: loadDashboardData 시작")
         
         do {
-            async let userProfileTask = userProfileRepository.getUserProfile()
-            async let weatherTask = weatherRepository.getCurrentWeather()
-            async let todayProgressTask = uvExposureRepository.getTodayUVProgressRate(userSkinType: .type3)
-            async let weeklyProgressTask = uvExposureRepository.getWeeklyUVProgressRates(userSkinType: .type3)
-            async let todayExposureTask = uvExposureRepository.getTodayUVExposure()  // ✅ 추가
-            
-            let (userProfile, weather, todayProgress, weeklyProgress, todayExposure) = try await (userProfileTask, weatherTask, todayProgressTask, weeklyProgressTask, todayExposureTask)
+            // ✅ async let 제거하고 순차적으로 호출
+            let userProfile = try await userProfileRepository.getUserProfile()
+            let weather = try await weatherRepository.getCurrentWeather()
+            let todayExposure = try await uvExposureRepository.getTodayUVExposure()
+            let todayProgress = try await uvExposureRepository.getTodayUVProgressRate(userSkinType: userProfile.skinType)
+            let weeklyProgress = try await uvExposureRepository.getWeeklyUVProgressRates(userSkinType: userProfile.skinType)
             
             print("🔍 DEBUG: todayProgress = \(todayProgress)")
             print("🔍 DEBUG: weeklyProgress = \(weeklyProgress)")
@@ -68,7 +67,7 @@ class DashboardViewModel: ObservableObject {
             self.currentWeather = weather
             self.todayUVProgressRate = todayProgress
             self.weeklyUVProgressRates = weeklyProgress
-            self.todayTotalSunlightMinutes = Int(todayExposure.totalSunlightMinutes)  // ✅ 추가
+            self.todayTotalSunlightMinutes = Int(todayExposure.totalSunlightMinutes)
             
             print("🔍 DEBUG: self.todayUVProgressRate = \(self.todayUVProgressRate)")
             print("🔍 DEBUG: self.todayTotalSunlightMinutes = \(self.todayTotalSunlightMinutes)")

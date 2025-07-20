@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 protocol UVExposureRepository {
     // ✅ Dashboard에서 사용하는 핵심 메서드들
     func getTodayUVExposure() async throws -> DailyUVExpose

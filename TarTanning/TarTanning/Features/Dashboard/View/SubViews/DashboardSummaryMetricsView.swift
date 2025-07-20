@@ -30,12 +30,6 @@ struct DashboardSummaryMetricsView: View {
         .padding(.vertical, 16)
         .background(Color.white)
         .cornerRadius(12)
-        .onAppear {
-            print("🔍 DEBUG: DashboardSummaryMetricsView onAppear")
-            print("🔍 DEBUG: currentUVIndex = \(viewModel.currentUVIndex)")
-            print("🔍 DEBUG: todayTotalSunlightMinutes = \(viewModel.todayTotalSunlightMinutes)")
-            print("🔍 DEBUG: currentTemperature = \(viewModel.currentTemperature)")
-        }
     }
 }
 
@@ -44,7 +38,7 @@ struct UVIndexMetricView: View {
     
     var body: some View {
         VStack(spacing: 8) {
-            Text("\(viewModel.currentUVIndex)")
+            Text("\(Int(viewModel.currentUVIndex))")
                 .font(.system(size: 24, weight: .bold))
                 .foregroundColor(.blue)
             

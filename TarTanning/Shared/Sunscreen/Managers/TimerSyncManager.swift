@@ -13,7 +13,7 @@ import WatchConnectivity
 final class TimerSyncManager: NSObject, ObservableObject {
     static let shared = TimerSyncManager()
     
-    private let storage = TimerStorage.shared
+    let storage = TimerStorage.shared
     private var timer: Timer?
     
     @Published var remainingTime: TimeInterval = 0

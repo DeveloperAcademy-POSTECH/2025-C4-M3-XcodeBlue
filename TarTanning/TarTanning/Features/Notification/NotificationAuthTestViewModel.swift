@@ -25,7 +25,7 @@ final class NotificationAuthTestViewModel: ObservableObject {
     }
     
     func fetchAuthStatus() {
-        authManager.fetchAuthorizationStatus()
+        authManager.checkAuthorizationStatus()
     }
     
     private func observeSunscreenResponse() {

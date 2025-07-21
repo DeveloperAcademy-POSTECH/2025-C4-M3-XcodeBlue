@@ -52,7 +52,7 @@ struct OnboardingPermissionInfoView: View {
             OnboardingButton(title: "계속", style: .primary) {
                 Task {
                     await requestAllPermissions()
-                    didTapContinueButton()
+//                    didTapContinueButton()
                 }
             }
         }

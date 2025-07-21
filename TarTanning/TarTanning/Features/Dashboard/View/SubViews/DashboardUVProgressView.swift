@@ -17,10 +17,12 @@ struct DashboardUVProgressView: View {
     }
     private var currentMEDColor: UIColor {
         switch viewModel.todayUVProgressRate {
-        case 0.0..<0.5:
+        case 0.0..<0.3:
             return .systemBlue
-        case 0.5..<0.8:
+        case 0.3..<0.5:
             return .orange
+        case 0.5..<0.7:
+            return .systemRed
         default:
             return .systemRed
         }
@@ -69,10 +71,12 @@ struct CurrentMEDTextView: View {
     
     private var progressColor: Color {
         switch viewModel.todayUVProgressRate {
-        case 0.0..<0.5:
+        case 0.0..<0.3:
             return .blue
-        case 0.5..<0.8:
+        case 0.3..<0.5:
             return .orange
+        case 0.5..<0.7:
+            return .red
         default:
             return .red
         }

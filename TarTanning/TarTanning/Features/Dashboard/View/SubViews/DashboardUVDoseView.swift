@@ -53,7 +53,7 @@ struct DashboardUVDoseView: View {
     var body: some View {
         Group {
             if showTimerView {
-                TimerView(isPresented: $showTimerView)
+//                TimerView(isPresented: $showTimerView)
             } else {
                 VStack(spacing: 24) {
                     DashboardUVProgressView(viewModel: viewModel)

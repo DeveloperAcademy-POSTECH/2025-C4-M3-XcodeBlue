@@ -42,6 +42,26 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		BF4A563B2E2E2CD200E7F466 /* Exceptions for "TarTanning" folder in "TarTanningWatch Watch App" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Shared/Notification/Enum/NotificationActionType.swift,
+				Shared/Notification/LocalNotificationError.swift,
+				Shared/Notification/LocalNotificationManager.swift,
+				Shared/Notification/NotificationCategoryType.swift,
+				Shared/Notification/NotificationContentType.swift,
+				Shared/Notification/NotificationScheduler.swift,
+				Shared/Sunscreen/Managers/TimerNotificationManager.swift,
+				Shared/Sunscreen/Managers/TimerSyncManager.swift,
+				Shared/Sunscreen/Models/Enums/TimerState.swift,
+				Shared/Sunscreen/Models/TimerInfo.swift,
+				Shared/Sunscreen/Models/TimerMessage.swift,
+				Shared/Sunscreen/Models/TimerStorage.swift,
+				Shared/Sunscreen/ViewModels/TimerViewModel.swift,
+				Shared/WatchConnectivity/Managers/WatchConnectivityManager.swift,
+			);
+			target = 8080F1492E20A0180094719D /* TarTanningWatch Watch App */;
+		};
 		FE40CD102E24F93F007889CC /* Exceptions for "TarTanning" folder in "TarTanning" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -52,15 +72,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		058125A82E2E1A9200B51593 /* Shared */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Shared;
-			sourceTree = "<group>";
-		};
 		8080F12E2E209F860094719D /* TarTanning */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				FE40CD102E24F93F007889CC /* Exceptions for "TarTanning" folder in "TarTanning" target */,
+				BF4A563B2E2E2CD200E7F466 /* Exceptions for "TarTanning" folder in "TarTanningWatch Watch App" target */,
 			);
 			path = TarTanning;
 			sourceTree = "<group>";
@@ -93,7 +109,6 @@
 		8080F1232E209F860094719D = {
 			isa = PBXGroup;
 			children = (
-				058125A82E2E1A9200B51593 /* Shared */,
 				8080F15E2E20A0740094719D /* .swiftlint.yml */,
 				8080F12E2E209F860094719D /* TarTanning */,
 				8080F14B2E20A0180094719D /* TarTanningWatch Watch App */,
@@ -129,7 +144,6 @@
 				8080F1562E20A0190094719D /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				058125A82E2E1A9200B51593 /* Shared */,
 				8080F12E2E209F860094719D /* TarTanning */,
 			);
 			name = TarTanning;
@@ -152,7 +166,6 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				058125A82E2E1A9200B51593 /* Shared */,
 				8080F14B2E20A0180094719D /* TarTanningWatch Watch App */,
 			);
 			name = "TarTanningWatch Watch App";
@@ -491,7 +504,6 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "TarTanningWatch-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = TarTanningWatch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.xcodeblue.TarTanning.app;
@@ -529,7 +541,6 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "TarTanningWatch-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = TarTanningWatch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.xcodeblue.TarTanning.app;

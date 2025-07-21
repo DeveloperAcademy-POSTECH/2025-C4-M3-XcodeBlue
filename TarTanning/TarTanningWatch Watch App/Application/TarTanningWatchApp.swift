@@ -16,7 +16,7 @@ struct TarTanningWatchWatchApp: App {
     
     init() {
         // 알림 델리게이트 설정
-        UNUserNotificationCenter.current().delegate = NotificationDelegate.shared
+        UNUserNotificationCenter.current().delegate = WatchNotificationDelegate.shared
         
         // 알림 카테고리 등록
         setupNotificationCategories()

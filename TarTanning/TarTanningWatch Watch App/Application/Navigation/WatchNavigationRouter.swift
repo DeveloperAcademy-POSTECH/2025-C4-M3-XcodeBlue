@@ -17,9 +17,9 @@ struct WatchNavigationView: View {
                 .navigationDestination(for: WatchRoute.self) { route in
                     switch route {
                     case .status:
-                        UvDoseView()
+                        WatchUvDoseView()
                     case .sunscreen:
-                        SunscreenViewWrapper()
+                        WatchSunscreenViewWrapper()
                     }
                 }
         }

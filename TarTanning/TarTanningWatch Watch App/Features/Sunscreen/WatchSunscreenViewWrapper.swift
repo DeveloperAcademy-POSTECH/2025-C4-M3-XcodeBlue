@@ -1,22 +1,22 @@
 //
-//  SunscreenViewWrapper.swift
-//  TarTanning
+//  WatchSunscreenViewWrapper.swift
+//  TarTanningWatch Watch App
 //
 //  Created by taeni on 7/19/25.
 //
 
 import SwiftUI
 
-struct SunscreenViewWrapper: View {
+struct WatchSunscreenViewWrapper: View {
     @StateObject private var viewModel = SunscreenViewModel.shared
     @State private var currentTab = 0
     
     var body: some View {
         TabView(selection: $currentTab) {
-            SunscreenStatusView()
+            WatchSunscreenStatusView()
                 .tag(0)
             
-            SunscreenTimerView()
+            WatchSunscreenTimerView()
                 .tag(1)
         }
         .tabViewStyle(.page)
@@ -45,5 +45,5 @@ struct SunscreenViewWrapper: View {
 }
 
 #Preview {
-    SunscreenViewWrapper()
+    WatchSunscreenViewWrapper()
 }

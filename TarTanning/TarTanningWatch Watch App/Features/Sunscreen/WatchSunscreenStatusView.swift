@@ -1,13 +1,13 @@
 //
-//  SunscreenStatusView.swift
-//  TarTanning (watchOS Target)
+//  WatchSunscreenStatusView.swift
+//  TarTanningWatch Watch App
 //
 //  Created by taeni on 7/18/25.
 //
 
 import SwiftUI
 
-struct SunscreenStatusView: View {
+struct WatchSunscreenStatusView: View {
     @StateObject private var viewModel = SunscreenViewModel.shared
     @State private var isStartingAnimation = false
     @State private var startProgress: Double = 0.0
@@ -182,7 +182,7 @@ struct ControlButtonView: View {
 }
 
 #Preview("대기 상태") {
-    SunscreenStatusView()
+    WatchSunscreenStatusView()
 }
 
 #if DEBUG
@@ -191,7 +191,7 @@ struct ControlButtonView: View {
         @StateObject private var mockViewModel = MockSunscreenViewModel.active
         
         var body: some View {
-            SunscreenStatusView()
+            WatchSunscreenStatusView()
                 .environmentObject(mockViewModel)
         }
     }

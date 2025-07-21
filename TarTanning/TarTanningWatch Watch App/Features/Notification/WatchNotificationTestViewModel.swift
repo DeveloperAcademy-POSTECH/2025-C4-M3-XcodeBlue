@@ -1,6 +1,6 @@
 //
-//  NotificationTestViewModel.swift
-//  TarTanning
+//  WatchNotificationTestViewModel.swift
+//  TarTanningWatch Watch App
 //
 //  Created by J on 7/17/25.
 //
@@ -9,7 +9,7 @@ import Foundation
 import UserNotifications
 
 @MainActor
-final class NotificationTestViewModel: ObservableObject {
+final class WatchNotificationTestViewModel: ObservableObject {
     @Published var scheduledMessage: String?
 
     func requestAuthorization() {

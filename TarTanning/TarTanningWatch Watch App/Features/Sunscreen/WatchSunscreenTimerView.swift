@@ -1,13 +1,13 @@
 //
-//  SunscreenTimerView.swift
-//  TarTanning
+//  WatchSunscreenTimerView.swift
+//  TarTanningWatch Watch App
 //
 //  Created by taeni on 7/19/25.
 //
 
 import SwiftUI
 
-struct SunscreenTimerView: View {
+struct WatchSunscreenTimerView: View {
     @StateObject private var viewModel = SunscreenViewModel.shared
     @State private var showCompletionAnimation = false
     @State private var showResetButton = false
@@ -126,5 +126,5 @@ struct SunscreenTimerView: View {
 // 기존 TimerState enum 사용 (stopped, running, paused)
 
 #Preview {
-    SunscreenTimerView()
+    WatchSunscreenTimerView()
 }

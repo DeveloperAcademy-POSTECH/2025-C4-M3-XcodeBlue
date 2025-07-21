@@ -1,6 +1,6 @@
 //
 //  UvDoseStatusViewModel.swift
-//  TarTanning
+//  TarTanningWatch Watch App
 //
 //  Created by taeni on 7/18/25.
 //
@@ -9,7 +9,7 @@ import SwiftUI
 import WatchConnectivity
 
 @Observable
-class UvDoseViewModel {
+class WatchUvDoseViewModel {
     enum UVLevel: String {
         case safe = "안전"
         case caution = "주의"
@@ -60,9 +60,9 @@ class UvDoseViewModel {
     }
 }
 
-extension UvDoseViewModel {
-    static var mock: UvDoseViewModel {
-        let viewModel = UvDoseViewModel()
+extension WatchUvDoseViewModel {
+    static var mock: WatchUvDoseViewModel {
+        let viewModel = WatchUvDoseViewModel()
         viewModel.uvIndex = 6
         viewModel.percentage = 55
         viewModel.uvLevelText = "주의"

@@ -1,15 +1,15 @@
 //
-//  UVDoseView.swift
-//  TarTanning
+//  WatchUvDoseView.swift
+//  TarTanningWatch Watch App
 //
 //  Created by taeni on 7/18/25.
 //
 
 import SwiftUI
 
-struct UvDoseView: View {
+struct WatchUvDoseView: View {
     
-    @State private var viewModel = UvDoseViewModel.mock
+    @State private var viewModel = WatchUvDoseViewModel.mock
 
     var body: some View {
         ZStack {
@@ -69,5 +69,5 @@ struct UvDoseView: View {
 }
 
 #Preview {
-    UvDoseView()
+    WatchUvDoseView()
 }

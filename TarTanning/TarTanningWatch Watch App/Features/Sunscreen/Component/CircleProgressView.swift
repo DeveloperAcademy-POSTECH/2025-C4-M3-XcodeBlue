@@ -1,6 +1,6 @@
 //
 //  CircleProgressView.swift
-//  TarTanning
+//  TarTanningWatch Watch App
 //
 //  Created by taeni on 7/19/25.
 //

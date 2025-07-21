@@ -1,6 +1,6 @@
 //
 //  TimerState.swift
-//  TarTanning
+//  TarTanning (iOS + watchOS)
 //
 //  Created by taeni on 7/17/25.
 //

@@ -1,6 +1,6 @@
 //
 //  WatchConnectivityManager.swift
-//  TarTanning (Unified for iOS & watchOS)
+//  TarTanning (iOS + watchOS)
 //
 //  Created by Taein on 7/15/25.
 //

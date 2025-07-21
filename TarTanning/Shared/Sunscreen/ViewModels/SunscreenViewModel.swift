@@ -1,6 +1,6 @@
 //
 //  SunscreenViewModel.swift
-//  TarTanning (Shared Target)
+//  TarTanning (iOS + watchOS)
 //
 //  Created by taeni on 7/19/25.
 //

@@ -1,6 +1,6 @@
 //
 //  LocalNotificationManager.swift
-//  TarTanning
+//  TarTanning (iOS + watchOS)
 //
 //  Created by J on 7/17/25.
 //

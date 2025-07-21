@@ -33,8 +33,8 @@ struct OnboardingView: View {
                         viewModel.activeSheet = .skinTypeDetailSheet
                     },
                     onNext: {
-                        router.reset()
-                        router.push(.dashboard)
+                        viewModel.nextMainView()
+                        router.path = NavigationPath([Route.dashboard]) 
                     },
                     onSelect: {
                         viewModel.selectSkinType($0)

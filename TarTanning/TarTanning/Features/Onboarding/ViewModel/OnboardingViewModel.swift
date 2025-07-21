@@ -11,6 +11,7 @@ import SwiftUI
 @MainActor
 final class OnboardingViewModel: ObservableObject {
     @AppStorage("selectedSkinType") private var selectedSkinTypeRaw: Int = 3
+    @AppStorage("didFinishOnboarding") private var didFinishOnboarding: Bool = false
     
     // MARK: - 온보딩 플로우 관리
     @Published var currentStep: OnboardingStep = .watchInfo
@@ -63,8 +64,6 @@ final class OnboardingViewModel: ObservableObject {
         requestLocationAuthorization()
         requestNotificationAuthorization()
         requestHealthKitAuthorization()
-        
-        print(isPermissionStepComplete)
     }
     
     private func requestLocationAuthorization() {
@@ -79,7 +78,7 @@ final class OnboardingViewModel: ObservableObject {
         }
     }
     
-    private func requestNotificationAuthorization() { // MARK: - 구현해야함
+    private func requestNotificationAuthorization() {
         notificationAuthorizationManager.requestAuthorization()
     }
     
@@ -91,7 +90,9 @@ final class OnboardingViewModel: ObservableObject {
         case .permissionInfo:
             currentStep = .skinTypeInfo
         case .skinTypeInfo:
-            break
+            if isPermissionStepComplete {
+                didFinishOnboarding = true
+            }
         default:
             break
         }
@@ -112,13 +113,16 @@ final class OnboardingViewModel: ObservableObject {
 extension OnboardingViewModel: LocationAuthorizationManagerDelegate {
     func locationAuthorizationDidSucceed() {
         locationStatus = .authorized
+        
     }
 
     func locationAuthorizationStatusDidUpdate(_ status: LocationAuthStatus) {
         locationStatus = status
+        print("[Location] status updated: \(status)")
     }
 
     func locationAuthorizationDidFail(with error: Error) {
+        healthKitStatus = .denied
         locationErrorMessage = error.localizedDescription
     }
 }
@@ -130,11 +134,13 @@ extension OnboardingViewModel: HealthKitAuthorizationManagerDelegate {
     }
     
     func healthKitAuthorizationStatusDidUpdate(_ status: HealthKitAuthStatus) {
+        print("[HealthKit] status \(status)")
         healthKitStatus = status
     }
     
     func healthKitAuthorizationDidFail(with error: Error) {
         healthKitStatus = .denied
+        healthKitErrorMessage = error.localizedDescription
     }
 }
 
@@ -145,5 +151,6 @@ extension OnboardingViewModel: NotificationAuthorizationManagerDelegate {
     
     func notificationAuthorizationDidFail(_ error: Error) {
         notificationStatus = .denied
+        notificationErrorMessage = error.localizedDescription
     }
 }

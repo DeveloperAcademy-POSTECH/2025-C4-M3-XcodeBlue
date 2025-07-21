@@ -1,6 +1,6 @@
 //
 //  TimerNotificationManager.swift.swift
-//  TarTanning (iOS + watchOS)
+//  TarTanning
 //
 //  Created by taeni on 7/17/25.
 //

@@ -1,6 +1,6 @@
 //
 //  NotificationActionType.swift
-//  TarTanning (iOS + watchOS)
+//  TarTanning
 //
 //  Created by J on 7/18/25.
 //

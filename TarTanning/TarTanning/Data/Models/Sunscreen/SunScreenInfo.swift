@@ -8,15 +8,13 @@
 import Foundation
 
 struct SunScreenInfo {
-    let spfIndex: Int
+    var spfIndex: Int = 30
     let activationTime: Date
     static let duration: TimeInterval = 2 * 60 * 60  // 2시간 (초 단위)
-    static let defaultSPFIndex = 30
 }
 
 extension SunScreenInfo {
     static let mockSunscreen = SunScreenInfo(
-        spfIndex: 30,
         activationTime: Date()
     )
 }

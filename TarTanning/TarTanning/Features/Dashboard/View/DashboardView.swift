@@ -8,14 +8,29 @@
 import SwiftUI
 
 struct DashboardView: View {
+    @StateObject private var viewModel = DashboardViewModel(
+        uvExposureRepository: MockUVExposureRepository(),
+        weatherRepository: MockWeatherRepository(),
+        userProfileRepository: MockUserProfileRepository(),
+        locationRepository: MockLocationRepository()
+    )
+
     var body: some View {
-        VStack {
-            Text("DashboardView")
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack {
+                DashboardTitleView()
+                DashboardUVDoseView(viewModel: viewModel)
+                DashboardSummaryMetricsView(viewModel: viewModel)
+                DashboardWeeklySummaryView(viewModel: viewModel)
+            }
+            .padding(20)
         }
-        .navigationBarBackButtonHidden()
+        .task {
+            await viewModel.loadDashboardData()
+        }
     }
 }
 
 #Preview {
-    DashboardView()
+  DashboardView()
 }

@@ -52,11 +52,6 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		05D1F0612E28EA42001050DA /* Shared_T */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Shared_T;
-			sourceTree = "<group>";
-		};
 		8080F12E2E209F860094719D /* TarTanning */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -68,6 +63,11 @@
 		8080F14B2E20A0180094719D /* TarTanningWatch Watch App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "TarTanningWatch Watch App";
+			sourceTree = "<group>";
+		};
+		8092842D2E291B9C00F0C779 /* Shared_J */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Shared_J;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -93,7 +93,7 @@
 		8080F1232E209F860094719D = {
 			isa = PBXGroup;
 			children = (
-				05D1F0612E28EA42001050DA /* Shared_T */,
+				8092842D2E291B9C00F0C779 /* Shared_J */,
 				8080F15E2E20A0740094719D /* .swiftlint.yml */,
 				8080F12E2E209F860094719D /* TarTanning */,
 				8080F14B2E20A0180094719D /* TarTanningWatch Watch App */,
@@ -129,8 +129,8 @@
 				8080F1562E20A0190094719D /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				05D1F0612E28EA42001050DA /* Shared_T */,
 				8080F12E2E209F860094719D /* TarTanning */,
+				8092842D2E291B9C00F0C779 /* Shared_J */,
 			);
 			name = TarTanning;
 			packageProductDependencies = (
@@ -152,8 +152,8 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				05D1F0612E28EA42001050DA /* Shared_T */,
 				8080F14B2E20A0180094719D /* TarTanningWatch Watch App */,
+				8092842D2E291B9C00F0C779 /* Shared_J */,
 			);
 			name = "TarTanningWatch Watch App";
 			packageProductDependencies = (

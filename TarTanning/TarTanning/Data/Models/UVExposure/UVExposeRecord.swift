@@ -33,187 +33,111 @@ class UVExposeRecord {
 }
 
 extension UVExposeRecord {
-    /// 일광 시간 기록들 Mock 데이터 (여러 날짜 포함)
+    /// 일광 시간 기록들 Mock 데이터 (오늘 + 최근 7일 기준)
     static var mockExposureRecords: [UVExposeRecord] {
         let calendar = Calendar.current
         let today = Date()
 
-        return [
-            // 오늘 (7월 1일) - 여러 개 세션
-            UVExposeRecord(
-                startDate: calendar.date(
-                    bySettingHour: 9,
-                    minute: 30,
-                    second: 0,
-                    of: today
-                )!,
-                endDate: calendar.date(
-                    bySettingHour: 9,
-                    minute: 35,
-                    second: 0,
-                    of: today
-                )!,
-                sunlightExposureDuration: 5.0,
-                isSPFApplied: true
-            ),
-            UVExposeRecord(
-                startDate: calendar.date(
-                    bySettingHour: 12,
-                    minute: 0,
-                    second: 0,
-                    of: today
-                )!,
-                endDate: calendar.date(
-                    bySettingHour: 12,
-                    minute: 15,
-                    second: 0,
-                    of: today
-                )!,
-                sunlightExposureDuration: 15.0,
-                isSPFApplied: true
-            ),
-            UVExposeRecord(
-                startDate: calendar.date(
-                    bySettingHour: 16,
-                    minute: 0,
-                    second: 0,
-                    of: today
-                )!,
-                endDate: calendar.date(
-                    bySettingHour: 16,
-                    minute: 10,
-                    second: 0,
-                    of: today
-                )!,
-                sunlightExposureDuration: 10.0,
-                isSPFApplied: false
-            ),
+        var allRecords: [UVExposeRecord] = []
 
-            // 어제 (6월 30일) - 여러 개 세션
-            UVExposeRecord(
-                startDate: calendar.date(
-                    bySettingHour: 10,
-                    minute: 0,
-                    second: 0,
-                    of: calendar.date(byAdding: .day, value: -1, to: today)!
-                )!,
-                endDate: calendar.date(
-                    bySettingHour: 10,
-                    minute: 8,
-                    second: 0,
-                    of: calendar.date(byAdding: .day, value: -1, to: today)!
-                )!,
-                sunlightExposureDuration: 8.0,
-                isSPFApplied: true
-            ),
-            UVExposeRecord(
-                startDate: calendar.date(
-                    bySettingHour: 14,
-                    minute: 30,
-                    second: 0,
-                    of: calendar.date(byAdding: .day, value: -1, to: today)!
-                )!,
-                endDate: calendar.date(
-                    bySettingHour: 15,
-                    minute: 20,
-                    second: 0,
-                    of: calendar.date(byAdding: .day, value: -1, to: today)!
-                )!,
-                sunlightExposureDuration: 50.0,
-                isSPFApplied: true
-            ),
+        for dayOffset in 0..<8 {
+            let targetDate = calendar.date(
+                byAdding: .day,
+                value: -dayOffset,
+                to: today
+            )!
+            let targetYear = calendar.component(.year, from: targetDate)
+            let targetMonth = calendar.component(.month, from: targetDate)
+            let targetDay = calendar.component(.day, from: targetDate)
 
-            // 2일 전 (6월 29일) - 여러 개 세션
-            UVExposeRecord(
-                startDate: calendar.date(
-                    bySettingHour: 11,
-                    minute: 0,
-                    second: 0,
-                    of: calendar.date(byAdding: .day, value: -2, to: today)!
-                )!,
-                endDate: calendar.date(
-                    bySettingHour: 11,
-                    minute: 25,
-                    second: 0,
-                    of: calendar.date(byAdding: .day, value: -2, to: today)!
-                )!,
-                sunlightExposureDuration: 25.0,
-                isSPFApplied: false
-            ),
-            UVExposeRecord(
-                startDate: calendar.date(
-                    bySettingHour: 16,
-                    minute: 0,
-                    second: 0,
-                    of: calendar.date(byAdding: .day, value: -2, to: today)!
-                )!,
-                endDate: calendar.date(
-                    bySettingHour: 16,
-                    minute: 30,
-                    second: 0,
-                    of: calendar.date(byAdding: .day, value: -2, to: today)!
-                )!,
-                sunlightExposureDuration: 30.0,
-                isSPFApplied: false
-            ),
+            // 각 날짜별 데이터
+            let dayRecords:
+                [(hour: Int, duration: Double, isSPFApplied: Bool)] =
+                    dayOffset == 0
+                    ? [
+                        // 오늘 (7월 20일) - DashboardUVDoseView용
+                        (9, 20.0, true),
+                        (13, 30.0, true),
+                        (17, 55.0, true)
+                    ]
+                    : dayOffset == 1
+                        ? [
+                            // 1일전 (7월 19일) - WeeklySummaryView용
+                            (8, 30.0, true),
+                            (11, 45.0, true),
+                            (15, 20.0, false),
+                            (18, 35.0, true)
+                        ]
+                        : dayOffset == 2
+                            ? [
+                                // 2일전 (7월 18일)
+                                (10, 40.0, true),
+                                (14, 25.0, false),
+                                (16, 30.0, true)
+                            ]
+                            : dayOffset == 3
+                                ? [
+                                    // 3일전 (7월 17일)
+                                    (9, 35.0, true),
+                                    (12, 50.0, true),
+                                    (17, 15.0, false)
+                                ]
+                                : dayOffset == 4
+                                    ? [
+                                        // 4일전 (7월 16일)
+                                        (11, 25.0, false),
+                                        (13, 40.0, true),
+                                        (15, 30.0, true)
+                                    ]
+                                    : dayOffset == 5
+                                        ? [
+                                            // 5일전 (7월 15일)
+                                            (8, 45.0, true),
+                                            (10, 20.0, true),
+                                            (14, 35.0, false),
+                                            (16, 25.0, true)
+                                        ]
+                                        : dayOffset == 6
+                                            ? [
+                                                // 6일전 (7월 14일)
+                                                (9, 30.0, true),
+                                                (12, 40.0, true),
+                                                (15, 20.0, false)
+                                            ]
+                                            : [
+                                                // 7일전 (7월 13일) - WeeklySummaryView용
+                                                (10, 25.0, true),
+                                                (13, 35.0, false),
+                                                (16, 20.0, true)
+                                            ]
 
-            // 3일 전 (6월 28일) - 기록 없음
+            for (hour, duration, isSPFApplied) in dayRecords {
+                let startDate = calendar.date(
+                    from: DateComponents(
+                        year: targetYear,
+                        month: targetMonth,
+                        day: targetDay,
+                        hour: hour,
+                        minute: 0
+                    )
+                )!
+                let endDate = calendar.date(
+                    byAdding: .minute,
+                    value: Int(duration),
+                    to: startDate
+                )!
 
-            // 4일 전 (6월 27일) - 여러 개 세션
-            UVExposeRecord(
-                startDate: calendar.date(
-                    bySettingHour: 9,
-                    minute: 45,
-                    second: 0,
-                    of: calendar.date(byAdding: .day, value: -4, to: today)!
-                )!,
-                endDate: calendar.date(
-                    bySettingHour: 9,
-                    minute: 50,
-                    second: 0,
-                    of: calendar.date(byAdding: .day, value: -4, to: today)!
-                )!,
-                sunlightExposureDuration: 5.0,
-                isSPFApplied: true
-            ),
+                allRecords.append(
+                    UVExposeRecord(
+                        startDate: startDate,
+                        endDate: endDate,
+                        sunlightExposureDuration: duration,
+                        isSPFApplied: isSPFApplied
+                    )
+                )
+            }
+        }
 
-            // 5일 전 (6월 26일) - 기록 없음
-
-            // 6일 전 (6월 25일) - 여러 개 세션
-            UVExposeRecord(
-                startDate: calendar.date(
-                    bySettingHour: 13,
-                    minute: 15,
-                    second: 0,
-                    of: calendar.date(byAdding: .day, value: -6, to: today)!
-                )!,
-                endDate: calendar.date(
-                    bySettingHour: 13,
-                    minute: 35,
-                    second: 0,
-                    of: calendar.date(byAdding: .day, value: -6, to: today)!
-                )!,
-                sunlightExposureDuration: 20.0,
-                isSPFApplied: true
-            ),
-
-            // 7일 전 (6월 24일) - 여러 개 세션
-            UVExposeRecord(
-                startDate: calendar.date(
-                    bySettingHour: 14,
-                    minute: 0,
-                    second: 0,
-                    of: calendar.date(byAdding: .day, value: -7, to: today)!
-                )!,
-                endDate: calendar.date(
-                    bySettingHour: 14,
-                    minute: 2,
-                    second: 0,
-                    of: calendar.date(byAdding: .day, value: -7, to: today)!
-                )!,
-                sunlightExposureDuration: 2.0,
-                isSPFApplied: false
-            )
-        ]
+        return allRecords
     }
 }

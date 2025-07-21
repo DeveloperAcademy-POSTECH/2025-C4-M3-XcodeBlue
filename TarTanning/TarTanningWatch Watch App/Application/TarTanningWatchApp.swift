@@ -11,7 +11,7 @@ import WatchKit
 
 @main
 struct TarTanningWatchWatchApp: App {
-    // MARK: - Notification 병합 필요
+    
     @WKExtensionDelegateAdaptor(WatchAppDelegate.self) var delegate
     
     init() {

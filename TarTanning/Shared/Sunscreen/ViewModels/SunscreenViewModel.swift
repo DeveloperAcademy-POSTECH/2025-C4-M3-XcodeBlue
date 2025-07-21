@@ -288,7 +288,6 @@ final class SunscreenViewModel: ObservableObject {
         logger.debug("[\(self.deviceType)] Local timer synced with remote state")
     }
     
-    // MARK: - Timer Completion Handling
     private func handleTimerCompletion() {
         logger.info("[\(self.deviceType)] Sunscreen timer completed")
         
@@ -329,12 +328,10 @@ final class SunscreenViewModel: ObservableObject {
 #endif
 }
 
-// MARK: - Notification Extension
 extension Notification.Name {
     static let sunscreenTimerCompleted = Notification.Name("sunscreenTimerCompleted")
 }
 
-// MARK: - Mock Data Extension
 extension SunscreenViewModel {
     /// Preview와 테스트용 Mock 데이터 설정
     func setupMockData(
@@ -350,7 +347,6 @@ extension SunscreenViewModel {
     }
 }
 
-// MARK: - Mock SunscreenViewModel for Previews
 #if DEBUG
 @MainActor
 final class MockSunscreenViewModel: ObservableObject {

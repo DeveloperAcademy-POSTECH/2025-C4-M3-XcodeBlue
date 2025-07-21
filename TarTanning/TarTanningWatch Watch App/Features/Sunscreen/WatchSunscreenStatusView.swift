@@ -95,7 +95,6 @@ struct WatchSunscreenStatusView: View {
     }
 }
 
-// MARK: - MainIconView Component
 struct MainIconView: View {
     let isActive: Bool
     let isStarting: Bool
@@ -114,7 +113,7 @@ struct MainIconView: View {
                 .foregroundColor(.white)
                 .scaleEffect(iconScale)
                 .symbolEffect(.pulse, options: .repeating, isActive: isActive && !isStarting)
-                .onChange(of: isStarting) { starting in
+                .onChange(of: isStarting) { _, starting in
                     if starting {
                         // 시작 애니메이션: 크기 증가
                         withAnimation(.easeInOut(duration: 1.0)) {

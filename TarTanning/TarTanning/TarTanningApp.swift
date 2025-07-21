@@ -11,8 +11,7 @@ import SwiftUI
 struct TarTanningApp: App {
     var body: some Scene {
         WindowGroup {
-//            RootView()
-            ContentView()
+            RootView()
         }
     }
 }

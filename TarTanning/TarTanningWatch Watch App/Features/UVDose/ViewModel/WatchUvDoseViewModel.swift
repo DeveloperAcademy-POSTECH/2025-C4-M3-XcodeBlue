@@ -14,7 +14,7 @@ class WatchUvDoseViewModel {
         case safe = "안전"
         case caution = "주의"
         case danger = "위험"
-        case bad = "나쁨"
+        case bad = "매우위험"
 
         var color: Color {
             switch self {

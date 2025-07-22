@@ -19,6 +19,7 @@ struct RootView: View {
                         OnboardingView()
                     case .dashboard:
                         DashboardView()
+                            .navigationBarBackButtonHidden(true)
                     }
                 }
         }

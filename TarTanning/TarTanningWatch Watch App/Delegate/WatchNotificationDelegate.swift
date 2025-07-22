@@ -1,5 +1,5 @@
 //
-//  NotificationDelegate.swift
+//  WatchNotificationDelegate.swift
 //  TarTanning Watch App
 //
 //  Created by taeni on 7/18/25.
@@ -8,8 +8,8 @@
 import UserNotifications
 import WatchKit
 
-final class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
-    static let shared = NotificationDelegate()
+final class WatchNotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
+    static let shared = WatchNotificationDelegate()
     
     private override init() {
         super.init()

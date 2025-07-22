@@ -69,10 +69,17 @@ class DashboardViewModel: ObservableObject {
             self.weeklyUVProgressRates = weeklyProgress
             self.todayTotalSunlightMinutes = Int(todayExposure.totalSunlightMinutes)
             
-            print("🔍 DEBUG: self.todayUVProgressRate = \(self.todayUVProgressRate)")
-            print("🔍 DEBUG: self.todayTotalSunlightMinutes = \(self.todayTotalSunlightMinutes)")
-            print("🔍 DEBUG: self.currentUVIndex = \(self.currentUVIndex)")
-            print("🔍 DEBUG: self.currentTemperature = \(self.currentTemperature)")
+            // 현재 시간 정보
+            let now = Date()
+            let currentHour = Calendar.current.component(.hour, from: now)
+            let currentMinute = Calendar.current.component(.minute, from: now)
+            let uv = weather.hourlyWeathers.first { $0.hour == currentHour }?.uvIndex ?? -1
+
+            print("🕒 현재 날짜: \(now)")
+            print("🕒 현재 시각: \(currentHour)시 \(currentMinute)분")
+            print("📍 mockSeoul 위치: \(weather.locationInfo.city) (\(weather.locationInfo.latitude), \(weather.locationInfo.longitude))")
+            print("🌞 현재 시간의 UV지수: \(uv)")
+            print("====================")
             
         } catch {
             print("🔍 DEBUG: error = \(error)")

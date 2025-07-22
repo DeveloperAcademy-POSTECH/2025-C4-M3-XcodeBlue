@@ -20,7 +20,7 @@ struct DashboardWeeklySummaryView: View {
 
 struct WeeklySummaryTitleView: View {
     var body: some View {
-        HStack{
+        HStack {
             Text("주간 요약")
             Spacer()
         }

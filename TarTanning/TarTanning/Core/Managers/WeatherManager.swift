@@ -52,7 +52,7 @@ final class WeatherKitManager {
     func fetchLocationWeather(for locationInfo: LocationInfo) async throws -> LocationWeather {
         let weather = try await weatherService.weather(for: locationInfo.asCLLocation)
         let now = Date()
-        let calendar = Calendar.current
+        _ = Calendar.current
 
         let hourlyWeathers: [HourlyWeather] = weather.hourlyForecast.forecast.map { hour in
             HourlyWeather(

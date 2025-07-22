@@ -23,7 +23,7 @@ final class OnboardingViewModel: ObservableObject {
     @Published var locationErrorMessage: String?
     
     // MARK: - HealthKit 권한
-    private let heahlthKitAuthorizationManager = HealthKitAuthorizationManager()
+    private let healthKitAuthorizationManager = HealthKitAuthorizationManager()
     @Published var healthKitStatus: HealthKitAuthStatus = .notDetermined
     @Published var healthKitErrorMessage: String?
     
@@ -49,13 +49,13 @@ final class OnboardingViewModel: ObservableObject {
     
     private func setupDelegates() {
         locationAuthorizationManager.delegate = self
-        heahlthKitAuthorizationManager.delegate = self
+        healthKitAuthorizationManager.delegate = self
         notificationAuthorizationManager.delegate = self
     }
     
     private func checkAuthorizations() {
         locationAuthorizationManager.checkAuthorizationStatus()
-        heahlthKitAuthorizationManager.checkAuthorizationStatusWithCompletion()
+        healthKitAuthorizationManager.checkAuthorizationStatusWithCompletion()
         notificationAuthorizationManager.checkAuthorizationStatus()
     }
     
@@ -74,7 +74,7 @@ final class OnboardingViewModel: ObservableObject {
     
     private func requestHealthKitAuthorization() {
         Task {
-            await heahlthKitAuthorizationManager.requestAuthorization()
+            await healthKitAuthorizationManager.requestAuthorization()
         }
     }
     
@@ -119,7 +119,7 @@ extension OnboardingViewModel: LocationAuthorizationManagerDelegate {
     }
     
     func locationAuthorizationDidFail(with error: Error) {
-        healthKitStatus = .denied
+        locationStatus = .denied
         locationErrorMessage = error.localizedDescription
     }
 }

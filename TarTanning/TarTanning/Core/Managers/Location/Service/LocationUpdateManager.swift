@@ -25,17 +25,20 @@ final class LocationUpdateManager: NSObject, ObservableObject, CLLocationManager
         super.init()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.distanceFilter = 500
+        locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.pausesLocationUpdatesAutomatically = false
     }
     
     func startUpdatingLocation() {
-        locationManager.startUpdatingLocation()
+        print("[LocationUpdateManager] Start monitoring significant location changes")
+        locationManager.startMonitoringSignificantLocationChanges()
     }
     
     func stopUpdatingLocation() {
-        locationManager.stopUpdatingLocation()
+        locationManager.stopMonitoringSignificantLocationChanges()
     }
     
-    // 위치 업데이트 성공 시
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else {
             Task { @MainActor in
@@ -43,38 +46,42 @@ final class LocationUpdateManager: NSObject, ObservableObject, CLLocationManager
             }
             return
         }
-        
+
+        // 이미 처리 중이면 중복 방지
+        guard !geocoder.isGeocoding else { return }
+
         geocoder.reverseGeocodeLocation(location) { [weak self] placemarks, error in
             guard let self = self else { return }
-            
+
             if let error = error {
                 Task { @MainActor in
                     self.delegate?.locationUpdateDidFail(with: LocationError.geocodingFailed(error))
                 }
                 return
             }
-            
+
             guard let placemark = placemarks?.first else {
                 Task { @MainActor in
                     self.delegate?.locationUpdateDidFail(with: LocationError.noLocationFound)
                 }
                 return
             }
-            
+
             let newCity = placemark.locality ?? ""
             let newInfo = LocationInfo(
                 latitude: location.coordinate.latitude,
                 longitude: location.coordinate.longitude,
                 city: newCity
             )
-            
-            // 시 단위가 동일하면 무시 (업데이트 X)
+
+            // 도시가 같으면 무시
             if newInfo.city == self.currentLocationInfo?.city {
+                print("[LocationUpdateManager] 도시 중복. 업데이트 생략.")
                 return
             }
-            
+
             self.currentLocationInfo = newInfo
-            
+
             Task { @MainActor in
                 self.delegate?.locationUpdateDidSucceed(newInfo)
             }

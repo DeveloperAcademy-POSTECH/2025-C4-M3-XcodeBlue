@@ -58,7 +58,7 @@ final class LocationAuthorizationManager: NSObject, ObservableObject {
                     return
                 }
 
-                self.locationManager.requestWhenInUseAuthorization()
+                self.locationManager.requestAlwaysAuthorization()
             }
         }
     }

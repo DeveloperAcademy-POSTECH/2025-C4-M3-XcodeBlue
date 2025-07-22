@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DashboardView: View {
     @StateObject private var viewModel = DashboardViewModel(
-        uvExposureRepository: MockUVExposureRepository(),
+        uvExposureRepository: DefaultUVExposureRepository(),
         weatherRepository: DefaultWeatherRepository(),
         userProfileRepository: MockUserProfileRepository(),
         locationRepository: MockLocationRepository()

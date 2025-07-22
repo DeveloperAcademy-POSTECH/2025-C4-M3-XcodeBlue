@@ -33,7 +33,7 @@ final class OnboardingViewModel: ObservableObject {
     @Published var notificationErrorMessage: String?
     
     var isPermissionStepComplete: Bool {
-//        locationStatus == .authorized && healthKitStatus == .authorized
+        //        locationStatus == .authorized && healthKitStatus == .authorized
         locationStatus == .authorized && healthKitStatus == .authorized && notificationStatus == .authorized
     }
     
@@ -90,20 +90,18 @@ final class OnboardingViewModel: ObservableObject {
         case .permissionInfo:
             currentStep = .skinTypeInfo
         case .skinTypeInfo:
-            if isPermissionStepComplete {
-                didFinishOnboarding = true
-            }
+            didFinishOnboarding = true
         default:
             break
         }
     }
     
     func proceedIfPermissionsGranted() {
-        if isPermissionStepComplete && currentStep == .permissionInfo {
+        if currentStep == .permissionInfo {
             nextMainView()
         }
     }
-
+    
     // MARK: - 스킨 타입 선택
     func selectSkinType(_ type: SkinType) {
         selectedSkinType = type
@@ -115,12 +113,11 @@ extension OnboardingViewModel: LocationAuthorizationManagerDelegate {
         locationStatus = .authorized
         
     }
-
+    
     func locationAuthorizationStatusDidUpdate(_ status: LocationAuthStatus) {
         locationStatus = status
-        print("[Location] status updated: \(status)")
     }
-
+    
     func locationAuthorizationDidFail(with error: Error) {
         healthKitStatus = .denied
         locationErrorMessage = error.localizedDescription
@@ -134,7 +131,6 @@ extension OnboardingViewModel: HealthKitAuthorizationManagerDelegate {
     }
     
     func healthKitAuthorizationStatusDidUpdate(_ status: HealthKitAuthStatus) {
-        print("[HealthKit] status \(status)")
         healthKitStatus = status
     }
     

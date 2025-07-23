@@ -19,7 +19,7 @@ struct DashboardInfoView: View {
   }
 }
 
-struct InformationSet {
+struct InformationItem {
   let title: String
   let category: String
   let imageName: String
@@ -28,7 +28,8 @@ struct InformationSet {
 }
 
 struct InformationCardView: View {
-  let info: InformationSet
+  let info: InformationItem
+  @State private var isPresented = false
   
   var body: some View {
       
@@ -58,12 +59,37 @@ struct InformationCardView: View {
           Spacer()
         }
       }
+      .onTapGesture {
+        isPresented = true
+      }
       .background(
         RoundedRectangle(cornerRadius: 10)
           .fill(Color.gray)
           .frame(width: 354)
           .alignmentGuide(.top) { _ in 0 }
       )
+      .sheet(isPresented: $isPresented) {
+        ScrollView{
+          VStack {
+            Text("SPF 관련 기사")
+              .font(.caption)
+              .padding()
+            Image(info.imageName)
+              .resizable()
+              .frame(width: 394, height: 191)
+            VStack(alignment: .leading, spacing: 8) {
+                Text(info.title)
+                  .font(.title3)
+                  .padding(.bottom)
+                Text(info.content)
+            }
+            .padding(.horizontal)
+            Spacer()
+          }
+          .presentationDetents([.large])
+          .presentationDragIndicator(.visible)
+        }
+      }
     }
 }
 

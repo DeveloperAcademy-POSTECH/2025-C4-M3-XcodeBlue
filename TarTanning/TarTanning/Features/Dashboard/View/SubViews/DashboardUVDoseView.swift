@@ -12,7 +12,7 @@ struct DashboardUVDoseView: View {
     @State private var showTimerView = false
     
     private var uvStatusText: String {
-        switch viewModel.todayUVProgressRate {
+        switch viewModel.todayMEDProgress {
         case 0.0..<0.3:
             return "안전"
         case 0.3..<0.5:
@@ -25,7 +25,7 @@ struct DashboardUVDoseView: View {
     }
     
     private var uvStatusColor: Color {
-        switch viewModel.todayUVProgressRate {
+        switch viewModel.todayMEDProgress {
         case 0.0..<0.3:
             return .blue
         case 0.3..<0.5:
@@ -38,7 +38,7 @@ struct DashboardUVDoseView: View {
     }
     
     private var uvAdviceText: String {
-        switch viewModel.todayUVProgressRate {
+        switch viewModel.todayMEDProgress {
         case 0.0..<0.3:
             return "적당한 야외활동을 즐기세요!"
         case 0.3..<0.5:
@@ -88,10 +88,5 @@ struct DashboardUVDoseView: View {
 }
 
 #Preview {
-    DashboardUVDoseView(viewModel: DashboardViewModel(
-        uvExposureRepository: MockUVExposureRepository(),
-        weatherRepository: MockWeatherRepository(),
-        userProfileRepository: MockUserProfileRepository(),
-        locationRepository: MockLocationRepository()
-    ))
+    DashboardUVDoseView(viewModel: DashboardViewModel())
 }

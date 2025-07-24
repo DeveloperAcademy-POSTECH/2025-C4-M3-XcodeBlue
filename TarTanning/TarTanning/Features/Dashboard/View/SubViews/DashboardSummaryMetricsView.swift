@@ -86,7 +86,7 @@ struct CurrentTemperatureMetricView: View {
 
 // MARK: - Preview
 #Preview {
-    DashboardSummaryMetricsView(viewModel: DashboardViewModel(uvExposureRepository: MockUVExposureRepository(), weatherRepository: MockWeatherRepository(), userProfileRepository: MockUserProfileRepository(), locationRepository: MockLocationRepository()))
+    DashboardSummaryMetricsView(viewModel: DashboardViewModel())
         .background(Color.gray.opacity(0.1))
         .padding()
 }

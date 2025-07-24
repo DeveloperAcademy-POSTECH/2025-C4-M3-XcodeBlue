@@ -13,10 +13,10 @@ struct DashboardUVProgressView: View {
     private let progressSize: CGFloat = 200
     private let progressHeight: CGFloat = 110
     private var currentMEDRate: CGFloat {
-        CGFloat(viewModel.todayUVProgressRate)
+        CGFloat(viewModel.todayMEDProgress)
     }
     private var currentMEDColor: UIColor {
-        switch viewModel.todayUVProgressRate {
+        switch viewModel.todayMEDProgress {
         case 0.0..<0.3:
             return .systemBlue
         case 0.3..<0.5:
@@ -66,11 +66,11 @@ struct CurrentMEDTextView: View {
     @ObservedObject var viewModel: DashboardViewModel
     
     private var progressPercentage: Int {
-        Int(viewModel.todayUVProgressRate * 100)
+        Int(viewModel.todayMEDProgress * 100)
     }
     
     private var progressColor: Color {
-        switch viewModel.todayUVProgressRate {
+        switch viewModel.todayMEDProgress {
         case 0.0..<0.3:
             return .blue
         case 0.3..<0.5:
@@ -199,10 +199,5 @@ struct CurrentMEDProgressBarUIViewRepresentable: UIViewRepresentable {
 }
 
 #Preview {
-    DashboardUVProgressView(viewModel: DashboardViewModel(
-        uvExposureRepository: MockUVExposureRepository(),
-        weatherRepository: MockWeatherRepository(),
-        userProfileRepository: MockUserProfileRepository(),
-        locationRepository: MockLocationRepository()
-    ))
+    DashboardUVProgressView(viewModel: DashboardViewModel())
 }

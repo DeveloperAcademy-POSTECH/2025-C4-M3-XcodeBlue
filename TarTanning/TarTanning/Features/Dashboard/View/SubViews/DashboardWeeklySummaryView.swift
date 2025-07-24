@@ -13,7 +13,7 @@ struct DashboardWeeklySummaryView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             WeeklySummaryTitleView()
-            WeeklySummaryDataView(weeklyProgressRates: viewModel.weeklyUVProgressRates)
+            WeeklySummaryDataView(weeklyProgressRates: [0.3, 0.5, 0.2, 0.1])
         }
     }
 }
@@ -139,10 +139,5 @@ struct WeeklyDayData {
 }
 
 #Preview {
-    DashboardWeeklySummaryView(viewModel: DashboardViewModel(
-        uvExposureRepository: MockUVExposureRepository(),
-        weatherRepository: MockWeatherRepository(),
-        userProfileRepository: MockUserProfileRepository(),
-        locationRepository: MockLocationRepository()
-    ))
+    DashboardWeeklySummaryView(viewModel: DashboardViewModel())
 }

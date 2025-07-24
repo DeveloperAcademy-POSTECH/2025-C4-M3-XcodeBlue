@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RootView: View {
     @StateObject private var router = NavigationRouter()
+    @AppStorage("didFinishOnboarding") private var didFinishOnboarding: Bool = false
     
     var body: some View {
         NavigationStack(path: $router.path) {
@@ -22,6 +23,15 @@ struct RootView: View {
                             .navigationBarBackButtonHidden(true)
                     }
                 }
+            }
+            .navigationDestination(for: Route.self) { route in
+                switch route {
+                case .onBoarding:
+                    OnboardingView()
+                case .dashboard:
+                    DashboardView()
+                }
+            }
         }
         .environmentObject(router)
     }

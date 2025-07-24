@@ -11,6 +11,7 @@ import SwiftUI
 @MainActor
 final class OnboardingViewModel: ObservableObject {
     @AppStorage("selectedSkinType") private var selectedSkinTypeRaw: Int = 3
+    @AppStorage("didFinishOnboarding") private var didFinishOnboarding: Bool = false
     
     // MARK: - 온보딩 플로우 관리
     @Published var currentStep: OnboardingStep = .watchInfo
@@ -22,18 +23,18 @@ final class OnboardingViewModel: ObservableObject {
     @Published var locationErrorMessage: String?
     
     // MARK: - HealthKit 권한
-    private let heahlthKitAuthorizationManager = HealthKitAuthorizationManager()
+    private let healthKitAuthorizationManager = HealthKitAuthorizationManager()
     @Published var healthKitStatus: HealthKitAuthStatus = .notDetermined
     @Published var healthKitErrorMessage: String?
     
     // MARK: - Notification 권한
-//    private let notificationAuthorizationManager = NotificationAuthorizationManager()
-//    @Published var notificationStatus: NotificationAuthStatus = .notDetermined
-//    @Published var notificationErrorMessage: String?
+    private let notificationAuthorizationManager = NotificationAuthorizationManager()
+    @Published var notificationStatus: NotificationAuthStatus = .notDetermined
+    @Published var notificationErrorMessage: String?
     
     var isPermissionStepComplete: Bool {
-        locationStatus == .authorized && healthKitStatus == .authorized
-//        locationStatus == .authorized && healthKitStatus == .authorized && notificationStatus == .authorized
+        //        locationStatus == .authorized && healthKitStatus == .authorized
+        locationStatus == .authorized && healthKitStatus == .authorized && notificationStatus == .authorized
     }
     
     var selectedSkinType: SkinType? {
@@ -48,37 +49,37 @@ final class OnboardingViewModel: ObservableObject {
     
     private func setupDelegates() {
         locationAuthorizationManager.delegate = self
-        heahlthKitAuthorizationManager.delegate = self
-//        notificationAuthorizationManager.delegate = self
+        healthKitAuthorizationManager.delegate = self
+        notificationAuthorizationManager.delegate = self
     }
     
     private func checkAuthorizations() {
         locationAuthorizationManager.checkAuthorizationStatus()
-        heahlthKitAuthorizationManager.checkAuthorizationStatusWithCompletion()
+        healthKitAuthorizationManager.checkAuthorizationStatusWithCompletion()
+        notificationAuthorizationManager.checkAuthorizationStatus()
     }
     
     // MARK: - 권한 요청
     func requestAllAuthorizations() {
         requestLocationAuthorization()
+        requestNotificationAuthorization()
         requestHealthKitAuthorization()
-//        requestNotificationAuthorization()
     }
     
     private func requestLocationAuthorization() {
         Task {
-            
+            locationAuthorizationManager.requestAuthorization()
         }
-        locationAuthorizationManager.requestAuthorization()
     }
     
     private func requestHealthKitAuthorization() {
         Task {
-            await heahlthKitAuthorizationManager.requestAuthorization()
+            await healthKitAuthorizationManager.requestAuthorization()
         }
     }
     
-    private func requestNotificationAuthorization() { // MARK: - 구현해야함
-        
+    private func requestNotificationAuthorization() {
+        notificationAuthorizationManager.requestAuthorization()
     }
     
     // MARK: - 온보딩 흐름 제어
@@ -89,18 +90,18 @@ final class OnboardingViewModel: ObservableObject {
         case .permissionInfo:
             currentStep = .skinTypeInfo
         case .skinTypeInfo:
-            break
+            didFinishOnboarding = true
         default:
             break
         }
     }
     
     func proceedIfPermissionsGranted() {
-        if isPermissionStepComplete {
+        if currentStep == .permissionInfo {
             nextMainView()
         }
     }
-
+    
     // MARK: - 스킨 타입 선택
     func selectSkinType(_ type: SkinType) {
         selectedSkinType = type
@@ -110,13 +111,15 @@ final class OnboardingViewModel: ObservableObject {
 extension OnboardingViewModel: LocationAuthorizationManagerDelegate {
     func locationAuthorizationDidSucceed() {
         locationStatus = .authorized
+        
     }
-
+    
     func locationAuthorizationStatusDidUpdate(_ status: LocationAuthStatus) {
         locationStatus = status
     }
-
+    
     func locationAuthorizationDidFail(with error: Error) {
+        locationStatus = .denied
         locationErrorMessage = error.localizedDescription
     }
 }
@@ -124,6 +127,7 @@ extension OnboardingViewModel: LocationAuthorizationManagerDelegate {
 extension OnboardingViewModel: HealthKitAuthorizationManagerDelegate {
     func healthKitAuthorizationDidSucceed() {
         healthKitStatus = .authorized
+        proceedIfPermissionsGranted()
     }
     
     func healthKitAuthorizationStatusDidUpdate(_ status: HealthKitAuthStatus) {
@@ -132,5 +136,17 @@ extension OnboardingViewModel: HealthKitAuthorizationManagerDelegate {
     
     func healthKitAuthorizationDidFail(with error: Error) {
         healthKitStatus = .denied
+        healthKitErrorMessage = error.localizedDescription
+    }
+}
+
+extension OnboardingViewModel: NotificationAuthorizationManagerDelegate {
+    func notificationAuthorizationDidUpdate(_ status: NotificationAuthStatus) {
+        notificationStatus = status
+    }
+    
+    func notificationAuthorizationDidFail(_ error: Error) {
+        notificationStatus = .denied
+        notificationErrorMessage = error.localizedDescription
     }
 }

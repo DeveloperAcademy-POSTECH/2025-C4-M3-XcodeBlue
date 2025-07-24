@@ -33,11 +33,11 @@ final class NotificationAuthorizationManager {
                 }
                 return
             }
-            self?.fetchAuthorizationStatus()
+            self?.checkAuthorizationStatus()
         }
     }
     
-    func fetchAuthorizationStatus() {
+    func checkAuthorizationStatus() {
         UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
             let status: NotificationAuthStatus = {
                 switch settings.authorizationStatus {

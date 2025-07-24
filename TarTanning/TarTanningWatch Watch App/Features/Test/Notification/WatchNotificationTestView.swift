@@ -1,5 +1,5 @@
 //
-//  NotificationTestView.swift
+//  WatchNotificationTestView.swift
 //  TarTanningWatch Watch App
 //
 //  Created by J on 7/17/25.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct NotificationTestView: View {
-    @StateObject private var viewModel = NotificationTestViewModel()
+struct WatchNotificationTestView: View {
+    @StateObject private var viewModel = WatchNotificationTestViewModel()
     
     var body: some View {
         VStack(spacing: 4) {
@@ -31,5 +31,5 @@ struct NotificationTestView: View {
 }
 
 #Preview {
-    NotificationTestView()
+    WatchNotificationTestView()
 }

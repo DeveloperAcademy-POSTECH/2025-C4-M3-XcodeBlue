@@ -66,4 +66,15 @@ enum SkinType: Int, Codable, CaseIterable, Identifiable {
         case .type6: 1200.0
         }
     }
+    
+    var romanNumeral: String {
+         switch self {
+         case .type1: "I"
+         case .type2: "II"
+         case .type3: "III"
+         case .type4: "IV"
+         case .type5: "V"
+         case .type6: "VI"
+         }
+     }
 }

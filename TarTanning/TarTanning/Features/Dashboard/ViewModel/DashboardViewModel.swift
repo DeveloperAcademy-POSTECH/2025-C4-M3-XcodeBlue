@@ -88,7 +88,7 @@ final class DashboardViewModel: ObservableObject {
         }
     }
     
-    // TODO: - Color 설정 바꿔야함
+    // TODO: - Color 설정 바꿔야
     var uvStatusColor: Color {
         switch todayMEDProgress {
         case 0.0..<0.3: return .blue
@@ -285,7 +285,91 @@ extension DashboardViewModel {
     }
 }
 
-// MARK: - Additional Weather Helpers (기존과 동일)
+// MARK: - Additional Weather Helpers
 extension DashboardViewModel {
-    // ... (나머지 helper 메소드들은 그대로 유지)
+    
+    /// 특정 시간의 UV 지수 가져오기 (UVExposureService에서 사용)
+    func getUVIndex(at hour: Int) async -> Double {
+        guard let context = modelContext else { return 0.0 }
+        
+        let today = Calendar.current.startOfDay(for: Date())
+        let descriptor = FetchDescriptor<DailyWeatherCache>(
+            predicate: #Predicate { weather in
+                weather.currentDate >= today
+            }
+        )
+        
+        do {
+            if let todayWeather = try context.fetch(descriptor).first {
+                return todayWeather.uvIndex(at: hour)
+            }
+        } catch {
+            print("UV 지수 조회 실패: \(error)")
+        }
+        
+        return 0.0
+    }
+    
+    /// 오늘 날씨 값이 있는지 확인
+    var hasTodayWeatherCache: Bool {
+        guard let context = modelContext else { return false }
+        
+        let today = Calendar.current.startOfDay(for: Date())
+        let descriptor = FetchDescriptor<DailyWeatherCache>(
+            predicate: #Predicate { weather in
+                weather.currentDate >= today
+            }
+        )
+        
+        do {
+            let results = try context.fetch(descriptor)
+            return !results.isEmpty
+        } catch {
+            return false
+        }
+    }
+    
+    /// 현재 도시 정보 가져오기
+    var currentCity: String {
+        guard let context = modelContext else { return "알 수 없음" }
+        
+        let today = Calendar.current.startOfDay(for: Date())
+        let descriptor = FetchDescriptor<DailyWeatherCache>(
+            predicate: #Predicate { weather in
+                weather.currentDate >= today
+            }
+        )
+        
+        do {
+            if let todayWeather = try context.fetch(descriptor).first {
+                return todayWeather.city
+            }
+        } catch {
+            print("도시 정보 조회 실패: \(error)")
+        }
+        
+        return "알 수 없음"
+    }
+    
+    /// 일출/일몰 시간 정보
+    var sunTimes: (sunrise: Date?, sunset: Date?) {
+        guard let context = modelContext else { return (nil, nil) }
+        
+        let today = Calendar.current.startOfDay(for: Date())
+        let descriptor = FetchDescriptor<DailyWeatherCache>(
+            predicate: #Predicate { weather in
+                weather.currentDate >= today
+            }
+        )
+        
+        do {
+            if let todayWeather = try context.fetch(descriptor).first {
+                return (todayWeather.sunrise, todayWeather.sunset)
+            }
+        } catch {
+            print("일출/일몰 정보 조회 실패: \(error)")
+        }
+        
+        return (nil, nil)
+    }
 }

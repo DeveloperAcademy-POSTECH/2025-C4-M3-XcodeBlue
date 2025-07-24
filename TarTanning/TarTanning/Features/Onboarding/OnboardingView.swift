@@ -33,6 +33,7 @@ struct OnboardingView: View {
                         viewModel.activeSheet = .skinTypeDetailSheet
                     },
                     onNext: {
+                        viewModel.nextMainView()
                         router.reset()
                         router.push(.dashboard)
                     },

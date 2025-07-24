@@ -13,15 +13,12 @@ struct RootView: View {
     
     var body: some View {
         NavigationStack(path: $router.path) {
-            OnboardingView()
-                .navigationDestination(for: Route.self) { route in
-                    switch route {
-                    case .onBoarding:
-                        OnboardingView()
-                    case .dashboard:
-                        DashboardView()
-                            .navigationBarBackButtonHidden(true)
-                    }
+            Group {
+                if didFinishOnboarding {
+                    DashboardView()
+                        .navigationBarBackButtonHidden(true)
+                } else {
+                    OnboardingView()
                 }
             }
             .navigationDestination(for: Route.self) { route in
@@ -30,6 +27,7 @@ struct RootView: View {
                     OnboardingView()
                 case .dashboard:
                     DashboardView()
+                        .navigationBarBackButtonHidden(true)
                 }
             }
         }

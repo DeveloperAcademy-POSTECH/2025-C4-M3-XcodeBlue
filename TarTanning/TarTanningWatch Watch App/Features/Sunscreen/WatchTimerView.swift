@@ -1,6 +1,6 @@
 //
-//  TimerNotificationManager.swift.swift
-//  TarTanning
+//  TimerNotificationManager.swift
+//  TarTanningWatch Watch App
 //
 //  Created by taeni on 7/17/25.
 //

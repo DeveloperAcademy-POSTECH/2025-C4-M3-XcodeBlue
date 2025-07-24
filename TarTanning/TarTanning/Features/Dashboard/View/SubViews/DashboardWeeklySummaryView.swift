@@ -20,8 +20,10 @@ struct DashboardWeeklySummaryView: View {
 
 struct WeeklySummaryTitleView: View {
     var body: some View {
-        Text("주간 요약")
-            .foregroundColor(.blue)
+        HStack {
+            Text("주간 요약")
+            Spacer()
+        }
     }
 }
 
@@ -56,14 +58,18 @@ struct WeeklySummaryDataView: View {
     }
     
     var body: some View {
-        VStack(spacing: 8) {
-            ForEach(weeklyData, id: \.day) { data in
-                WeeklyDayRowView(data: data)
+        if weeklyProgressRates.isEmpty || weeklyProgressRates.allSatisfy({ $0 == 0 }) {
+            EmptyWeeklyDataView()
+        } else {
+            VStack(spacing: 8) {
+                ForEach(weeklyData, id: \.day) { data in
+                    WeeklyDayRowView(data: data)
+                }
             }
+            .padding(16)
+            .background(Color.white)
+            .cornerRadius(12)
         }
-        .padding(16)
-        .background(Color.white)
-        .cornerRadius(12)
     }
 }
 
@@ -107,6 +113,21 @@ struct WeeklyDayRowView: View {
             }
         }
         .frame(height: 40)
+    }
+}
+
+struct EmptyWeeklyDataView: View {
+    var body: some View {
+        VStack(spacing: 16) {
+            Text("🙂")
+                .font(.system(size: 40))
+            Text("아직 주간 데이터가 없어요.")
+                .font(.title3)
+                .foregroundColor(.gray)
+        }
+        .frame(maxWidth: .infinity, minHeight: 200)
+        .background(Color.white)
+        .cornerRadius(12)
     }
 }
 

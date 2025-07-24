@@ -48,4 +48,29 @@ final class WeatherKitManager {
             return nil
         }
     }
+    
+    func fetchLocationWeather(for locationInfo: LocationInfo) async throws -> LocationWeather {
+        let weather = try await weatherService.weather(for: locationInfo.asCLLocation)
+        let now = Date()
+        _ = Calendar.current
+
+        let hourlyWeathers: [HourlyWeather] = weather.hourlyForecast.forecast.map { hour in
+            HourlyWeather(
+                date: hour.date,
+                uvIndex: Double(hour.uvIndex.value),
+                temperature: hour.temperature.value
+            )
+        }
+
+        let sunrise = weather.dailyForecast.forecast.first?.sun.sunrise
+        let sunset = weather.dailyForecast.forecast.first?.sun.sunset
+
+        return LocationWeather(
+            date: now,
+            locationInfo: locationInfo,
+            sunriseTime: sunrise,
+            sunsetTime: sunset,
+            hourlyWeathers: hourlyWeathers
+        )
+    }
 }

@@ -9,7 +9,9 @@ import SwiftUI
 
 struct DashboardView: View {
     @StateObject private var viewModel = DashboardViewModel(
-        uvExposureRepository: DefaultUVExposureRepository(weatherRepository: DefaultWeatherRepository()),
+        uvExposureRepository: DefaultUVExposureRepository(
+            weatherRepository: DefaultWeatherRepository()
+        ),
         weatherRepository: DefaultWeatherRepository(),
         userProfileRepository: MockUserProfileRepository(),
         locationRepository: MockLocationRepository()
@@ -23,6 +25,7 @@ struct DashboardView: View {
                 DashboardSummaryMetricsView(viewModel: viewModel)
                 DashboardWeeklySummaryView(viewModel: viewModel)
             }
+            .navigationTitle("대시 보드").navigationBarTitleDisplayMode(.large)
             .padding(20)
         }
         .task {
@@ -32,5 +35,5 @@ struct DashboardView: View {
 }
 
 #Preview {
-  DashboardView()
+    DashboardView()
 }

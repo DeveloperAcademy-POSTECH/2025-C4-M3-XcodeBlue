@@ -11,7 +11,7 @@ struct DashboardTitleView: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text("대시보드")
+//                Text("대시보드")
                 Text(Date().dateString)
             }
             Spacer()

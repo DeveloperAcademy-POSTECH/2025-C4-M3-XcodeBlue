@@ -18,16 +18,12 @@ class DefaultUVExposureRepository: UVExposureRepository {
     
     func getTodayUVExposure() async throws -> DailyUVExpose {
         print("🔍 DEBUG: getTodayUVExposure 시작")
-        
-        // 1. HealthKit에서 일광시간 데이터 가져오기
         let samples = try await fetchTodaySamplesAsync()
         print("🔍 DEBUG: HealthKit에서 가져온 샘플 수: \(samples.count)")
-        
-        // 2. 오늘의 날씨 데이터 가져오기 (UV 지수 포함)
         let weather = try await weatherRepository.getCurrentWeather()
         print("🔍 DEBUG: 날씨 데이터 가져옴 - 시간별 UV 지수 개수: \(weather.hourlyWeathers.count)")
         
-        // 3. 각 일광시간 샘플에 대해 UV 노출량 계산
+        // 각 일광시간 샘플에 대해 UV 노출량 계산
         print("🔍 DEBUG: === UV 노출량 계산 시작 ===")
         
         let records = samples.enumerated().compactMap { (index, sample) -> UVExposeRecord? in
@@ -36,7 +32,6 @@ class DefaultUVExposureRepository: UVExposureRepository {
             let endHour = Calendar.current.component(.hour, from: sample.endDate)
             let endMinute = Calendar.current.component(.minute, from: sample.endDate)
             
-            // 해당 시간대의 평균 UV 지수 계산
             let uvIndex = calculateAverageUVIndex(
                 from: startHour,
                 to: endHour,
@@ -59,7 +54,6 @@ class DefaultUVExposureRepository: UVExposureRepository {
                 isSPFApplied: false
             )
             
-            // 계산된 UV 노출량 설정
             record.uvDose = uvDose
             
             // 📊 상세한 계산 로그

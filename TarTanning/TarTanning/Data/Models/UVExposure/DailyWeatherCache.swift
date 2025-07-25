@@ -38,29 +38,29 @@ class DailyWeatherCache {
 
 extension DailyWeatherCache {
     
-    /// 현재 시간의 UV 지수 가져오기
+    // 현재 시간의 UV 지수 가져오기
     var currentUVIndex: Double {
         let currentHour = Calendar.current.component(.hour, from: Date())
         return hourlyUVIndex[currentHour] ?? 0.0
     }
     
-    /// 현재 시간의 온도 가져오기
+    // 현재 시간의 온도 가져오기
     var currentTemperature: Double {
         let currentHour = Calendar.current.component(.hour, from: Date())
         return temperature[currentHour] ?? 0.0
     }
     
-    /// 특정 시간의 UV 지수 가져오기
+    // 특정 시간의 UV 지수 가져오기
     func uvIndex(at hour: Int) -> Double {
         return hourlyUVIndex[hour] ?? 0.0
     }
     
-    /// 특정 시간의 온도 가져오기
+    // 특정 시간의 온도 가져오기
     func temperature(at hour: Int) -> Double {
         return temperature[hour] ?? 0.0
     }
     
-    /// 시간 범위의 평균 UV 지수 계산
+    // 시간 범위의 평균 UV 지수 계산
     func averageUVIndex(from startHour: Int, to endHour: Int) -> Double {
         let hours = startHour == endHour ? [startHour] : Array(startHour...endHour)
         let uvValues = hours.compactMap { hourlyUVIndex[$0] }.filter { $0 > 0 }
@@ -69,12 +69,12 @@ extension DailyWeatherCache {
         return uvValues.reduce(0, +) / Double(uvValues.count)
     }
     
-    /// 오늘인지 확인
+    // 오늘인지 확인
     var isToday: Bool {
         Calendar.current.isDateInToday(currentDate)
     }
     
-    /// 일출/일몰 시간이 설정되어 있는지 확인
+    // 일출/일몰 시간이 설정되어 있는지 확인
     var hasSunTimes: Bool {
         sunrise != nil && sunset != nil
     }

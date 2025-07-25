@@ -26,6 +26,7 @@ struct CircleProgressView: View {
             }
         }
         .frame(width: 120, height: 120)
+
     }
     
     struct BackgroundCircle: View {
@@ -62,21 +63,24 @@ struct CircleProgressView: View {
         var body: some View {
             VStack {
                 Text(remainingTime.timeDisplayString)
-                    .font(.title3)
+                    .font(.title2)
+                    .fontWeight(.bold)
                     .foregroundColor(.suncreenExplainText)
                     .contentTransition(.numericText())
                     .animation(.easeInOut(duration: 0.3), value: remainingTime)
                     .minimumScaleFactor(0.8)
+                if remainingTime >= 3600 {
+                    Text(remainingTime.hoursString)
+                        .fontWeight(.bold)
+                }
             }
         }
     }
     
     private var progress: Double {
         guard totalDuration > 0 else { return 0 }
-        let elapsed = totalDuration - remainingTime
-        return max(0, min(1, elapsed / totalDuration))
+        return max(0, min(1, remainingTime / totalDuration))
     }
-    
 }
 
 #Preview {

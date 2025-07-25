@@ -20,6 +20,10 @@ struct WatchSunscreenTimerView: View {
             VStack(spacing: 7) {
                 // 진행률 표시 원형 프로그레스
                 VStack {
+                    Text(Date(), style: .time) // 현재 시간 표시
+                        .font(.system(size: 12, weight: .bold)) // 폰트 크기 + 굵기
+                        .padding(.bottom, 14)
+                        .multilineTextAlignment(.center)
                     ZStack {
                         CircleProgressView(
                             remainingTime: viewModel.remainingTime,
@@ -44,6 +48,7 @@ struct WatchSunscreenTimerView: View {
                         // 사용 중
                         Text("선크림이 보호하고 있어요")
                             .font(.caption)
+                            .fontWeight(.bold)
                             .foregroundColor(.suncreenExplainText)
                             .multilineTextAlignment(.center)
                         

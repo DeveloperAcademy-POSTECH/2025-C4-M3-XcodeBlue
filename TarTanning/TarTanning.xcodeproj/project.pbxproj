@@ -141,6 +141,7 @@
 		BF919A1F2E3405430056E0E7 /* LocalNotificationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199812E3405430056E0E7 /* LocalNotificationError.swift */; };
 		BF919A202E3405430056E0E7 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199852E3405430056E0E7 /* NotificationScheduler.swift */; };
 		BF919A212E3405430056E0E7 /* TimeInterval+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199872E3405430056E0E7 /* TimeInterval+String.swift */; };
+		BF919A2A2E34096C0056E0E7 /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF919A292E34096C0056E0E7 /* UserDefaultManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -289,6 +290,7 @@
 		BF9199962E3405430056E0E7 /* WatchConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityManager.swift; sourceTree = "<group>"; };
 		BF91999A2E3405430056E0E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF91999B2E3405430056E0E7 /* TarTanning.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TarTanning.entitlements; sourceTree = "<group>"; };
+		BF919A292E34096C0056E0E7 /* UserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -373,7 +375,7 @@
 			path = Enum;
 			sourceTree = "<group>";
 		};
-		BF9198ED2E3405430056E0E7 /* Health */ = {
+		BF9198ED2E3405430056E0E7 /* HealthKit */ = {
 			isa = PBXGroup;
 			children = (
 				BF9198E72E3405430056E0E7 /* Enum */,
@@ -383,7 +385,7 @@
 				BF9198EB2E3405430056E0E7 /* HealthKitQueryFetchManager.swift */,
 				BF9198EC2E3405430056E0E7 /* HealthKitQueryManager.swift */,
 			);
-			path = Health;
+			path = HealthKit;
 			sourceTree = "<group>";
 		};
 		BF9198F02E3405430056E0E7 /* Enum */ = {
@@ -399,6 +401,7 @@
 			isa = PBXGroup;
 			children = (
 				BF9198F02E3405430056E0E7 /* Enum */,
+				BF9198F82E3405430056E0E7 /* LocationManager.swift */,
 				BF9198F12E3405430056E0E7 /* LocationAuthorizationManager.swift */,
 				BF9198F22E3405430056E0E7 /* LocationUpdateManager.swift */,
 			);
@@ -425,11 +428,11 @@
 		BF9198FA2E3405430056E0E7 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				BF9198ED2E3405430056E0E7 /* Health */,
+				BF919A282E34095D0056E0E7 /* UserDefaults */,
+				BF919A272E3409230056E0E7 /* WeatherKit */,
+				BF9198ED2E3405430056E0E7 /* HealthKit */,
 				BF9198F32E3405430056E0E7 /* Location */,
 				BF9198F72E3405430056E0E7 /* Notification */,
-				BF9198F82E3405430056E0E7 /* LocationManager.swift */,
-				BF9198F92E3405430056E0E7 /* WeatherManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -860,13 +863,13 @@
 			path = LocationService;
 			sourceTree = "<group>";
 		};
-		BF91996C2E3405430056E0E7 /* NotificationService */ = {
+		BF91996C2E3405430056E0E7 /* Notification */ = {
 			isa = PBXGroup;
 			children = (
 				BF91996A2E3405430056E0E7 /* ScheduleSunscreenReminderUseCase.swift */,
 				BF91996B2E3405430056E0E7 /* SendUVWarningNotificationUseCase.swift */,
 			);
-			path = NotificationService;
+			path = Notification;
 			sourceTree = "<group>";
 		};
 		BF91996F2E3405430056E0E7 /* Permission */ = {
@@ -878,25 +881,25 @@
 			path = Permission;
 			sourceTree = "<group>";
 		};
-		BF9199722E3405430056E0E7 /* SunscreenService */ = {
+		BF9199722E3405430056E0E7 /* Sunscreen */ = {
 			isa = PBXGroup;
 			children = (
 				BF9199702E3405430056E0E7 /* StartSunscreenTimerUseCase.swift */,
 				BF9199712E3405430056E0E7 /* SyncTimerStateUseCase.swift */,
 			);
-			path = SunscreenService;
+			path = Sunscreen;
 			sourceTree = "<group>";
 		};
-		BF9199752E3405430056E0E7 /* UserProfileService */ = {
+		BF9199752E3405430056E0E7 /* UserProfile */ = {
 			isa = PBXGroup;
 			children = (
 				BF9199732E3405430056E0E7 /* SetupUserProfileUseCase.swift */,
 				BF9199742E3405430056E0E7 /* UpdateUserSkinTypeUseCase.swift */,
 			);
-			path = UserProfileService;
+			path = UserProfile;
 			sourceTree = "<group>";
 		};
-		BF91997A2E3405430056E0E7 /* UVExposureService */ = {
+		BF91997A2E3405430056E0E7 /* UVExposure */ = {
 			isa = PBXGroup;
 			children = (
 				BF9199762E3405430056E0E7 /* CalculateUserMEDUseCase.swift */,
@@ -904,32 +907,24 @@
 				BF9199782E3405430056E0E7 /* GetWeeklyUVTrendUseCase.swift */,
 				BF9199792E3405430056E0E7 /* MEDCalculator.swift */,
 			);
-			path = UVExposureService;
+			path = UVExposure;
 			sourceTree = "<group>";
 		};
-		BF91997D2E3405430056E0E7 /* WeatherService */ = {
+		BF91997E2E3405430056E0E7 /* Usecases */ = {
 			isa = PBXGroup;
 			children = (
-				BF91997B2E3405430056E0E7 /* CheckUVRiskLevelUseCase.swift */,
-				BF91997C2E3405430056E0E7 /* GetCurrentLocationWeatherUseCase.swift */,
-			);
-			path = WeatherService;
-			sourceTree = "<group>";
-		};
-		BF91997E2E3405430056E0E7 /* Services */ = {
-			isa = PBXGroup;
-			children = (
+				BF919A262E3409030056E0E7 /* HealthKit */,
+				BF919A252E3408A80056E0E7 /* Weather */,
 				BF9199652E3405430056E0E7 /* before */,
 				BF9199682E3405430056E0E7 /* Dashboard */,
 				BF9199692E3405430056E0E7 /* LocationService */,
-				BF91996C2E3405430056E0E7 /* NotificationService */,
+				BF91996C2E3405430056E0E7 /* Notification */,
 				BF91996F2E3405430056E0E7 /* Permission */,
-				BF9199722E3405430056E0E7 /* SunscreenService */,
-				BF9199752E3405430056E0E7 /* UserProfileService */,
-				BF91997A2E3405430056E0E7 /* UVExposureService */,
-				BF91997D2E3405430056E0E7 /* WeatherService */,
+				BF9199722E3405430056E0E7 /* Sunscreen */,
+				BF9199752E3405430056E0E7 /* UserProfile */,
+				BF91997A2E3405430056E0E7 /* UVExposure */,
 			);
-			path = Services;
+			path = Usecases;
 			sourceTree = "<group>";
 		};
 		BF9199802E3405430056E0E7 /* Enum */ = {
@@ -1038,19 +1033,75 @@
 		BF91999C2E3405430056E0E7 /* TarTanning */ = {
 			isa = PBXGroup;
 			children = (
+				BF919A242E3408790056E0E7 /* Data */,
+				BF919A232E34086F0056E0E7 /* Infrastructure */,
+				BF919A222E3408520056E0E7 /* Domain */,
 				BF9198E02E3405430056E0E7 /* Application */,
 				BF9198E42E3405430056E0E7 /* Helpers */,
-				BF9198FA2E3405430056E0E7 /* Managers */,
-				BF9199092E3405430056E0E7 /* Models */,
 				BF9199512E3405430056E0E7 /* Presentations */,
 				BF9199532E3405430056E0E7 /* Preview Content */,
 				BF9199552E3405430056E0E7 /* Resources */,
-				BF91997E2E3405430056E0E7 /* Services */,
 				BF9199992E3405430056E0E7 /* Shared */,
 				BF91999A2E3405430056E0E7 /* Info.plist */,
 				BF91999B2E3405430056E0E7 /* TarTanning.entitlements */,
 			);
 			path = TarTanning;
+			sourceTree = "<group>";
+		};
+		BF919A222E3408520056E0E7 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				BF91997E2E3405430056E0E7 /* Usecases */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		BF919A232E34086F0056E0E7 /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				BF9198FA2E3405430056E0E7 /* Managers */,
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
+		BF919A242E3408790056E0E7 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				BF9199092E3405430056E0E7 /* Models */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		BF919A252E3408A80056E0E7 /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+				BF91997B2E3405430056E0E7 /* CheckUVRiskLevelUseCase.swift */,
+				BF91997C2E3405430056E0E7 /* GetCurrentLocationWeatherUseCase.swift */,
+			);
+			path = Weather;
+			sourceTree = "<group>";
+		};
+		BF919A262E3409030056E0E7 /* HealthKit */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = HealthKit;
+			sourceTree = "<group>";
+		};
+		BF919A272E3409230056E0E7 /* WeatherKit */ = {
+			isa = PBXGroup;
+			children = (
+				BF9198F92E3405430056E0E7 /* WeatherManager.swift */,
+			);
+			path = WeatherKit;
+			sourceTree = "<group>";
+		};
+		BF919A282E34095D0056E0E7 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				BF919A292E34096C0056E0E7 /* UserDefaultManager.swift */,
+			);
+			path = UserDefaults;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1279,6 +1330,7 @@
 				BF9199F82E3405430056E0E7 /* UpdateUserSkinTypeUseCase.swift in Sources */,
 				BF9199F92E3405430056E0E7 /* CalculateUserMEDUseCase.swift in Sources */,
 				BF9199FA2E3405430056E0E7 /* GetTodayUVExposureUseCase.swift in Sources */,
+				BF919A2A2E34096C0056E0E7 /* UserDefaultManager.swift in Sources */,
 				BF9199FB2E3405430056E0E7 /* GetWeeklyUVTrendUseCase.swift in Sources */,
 				BF9199FC2E3405430056E0E7 /* MEDCalculator.swift in Sources */,
 				BF9199FD2E3405430056E0E7 /* CheckUVRiskLevelUseCase.swift in Sources */,

@@ -81,18 +81,15 @@ struct WeeklyDayRowView: View {
         Text(data.day)
           .foregroundColor(.primary)
           .frame(width: geometry.size.width * 0.2, alignment: .leading)
-        
         VStack(spacing: 2) {
           Text("\(Int(data.progress * 100))%")
             .foregroundColor(.gray)
             .frame(maxWidth: .infinity, alignment: .trailing)
-          
           ZStack(alignment: .leading) {
             Rectangle()
               .fill(Color.gray.opacity(0.2))
               .frame(height: 6)
               .cornerRadius(3)
-            
             Rectangle()
               .fill(data.color)
               .frame(width: max(0, min(1.0, data.progress)) * (geometry.size.width * 0.8))

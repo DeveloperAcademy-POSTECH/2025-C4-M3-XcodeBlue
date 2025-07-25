@@ -78,8 +78,6 @@
 		BF9199DF2E3405430056E0E7 /* NotificationAuthTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199452E3405430056E0E7 /* NotificationAuthTestViewModel.swift */; };
 		BF9199E02E3405430056E0E7 /* PhoneSyncTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199472E3405430056E0E7 /* PhoneSyncTestView.swift */; };
 		BF9199E12E3405430056E0E7 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199492E3405430056E0E7 /* TimerView.swift */; };
-		BF9199E22E3405430056E0E7 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91994B2E3405430056E0E7 /* WeatherView.swift */; };
-		BF9199E32E3405430056E0E7 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91994D2E3405430056E0E7 /* WeatherViewModel.swift */; };
 		BF9199E42E3405430056E0E7 /* LocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199562E3405430056E0E7 /* LocationRepository.swift */; };
 		BF9199E52E3405430056E0E7 /* MockLocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199572E3405430056E0E7 /* MockLocationRepository.swift */; };
 		BF9199E62E3405430056E0E7 /* RealLocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199582E3405430056E0E7 /* RealLocationRepository.swift */; };
@@ -142,6 +140,8 @@
 		BF919A202E3405430056E0E7 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199852E3405430056E0E7 /* NotificationScheduler.swift */; };
 		BF919A212E3405430056E0E7 /* TimeInterval+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199872E3405430056E0E7 /* TimeInterval+String.swift */; };
 		BF919A2A2E34096C0056E0E7 /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF919A292E34096C0056E0E7 /* UserDefaultManager.swift */; };
+		BF919A2D2E340E5D0056E0E7 /* GetCurrentLocationWeatherUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF919A2C2E340E5D0056E0E7 /* GetCurrentLocationWeatherUseCaseProtocol.swift */; };
+		BF919A2F2E340EED0056E0E7 /* MockGetCurrentLocationWeatherUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF919A2E2E340EED0056E0E7 /* MockGetCurrentLocationWeatherUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -241,8 +241,6 @@
 		BF9199452E3405430056E0E7 /* NotificationAuthTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAuthTestViewModel.swift; sourceTree = "<group>"; };
 		BF9199472E3405430056E0E7 /* PhoneSyncTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneSyncTestView.swift; sourceTree = "<group>"; };
 		BF9199492E3405430056E0E7 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
-		BF91994B2E3405430056E0E7 /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
-		BF91994D2E3405430056E0E7 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 		BF9199522E3405430056E0E7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BF9199542E3405430056E0E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF9199562E3405430056E0E7 /* LocationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRepository.swift; sourceTree = "<group>"; };
@@ -291,6 +289,8 @@
 		BF91999A2E3405430056E0E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF91999B2E3405430056E0E7 /* TarTanning.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TarTanning.entitlements; sourceTree = "<group>"; };
 		BF919A292E34096C0056E0E7 /* UserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
+		BF919A2C2E340E5D0056E0E7 /* GetCurrentLocationWeatherUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCurrentLocationWeatherUseCaseProtocol.swift; sourceTree = "<group>"; };
+		BF919A2E2E340EED0056E0E7 /* MockGetCurrentLocationWeatherUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGetCurrentLocationWeatherUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -730,31 +730,6 @@
 			path = Suncream;
 			sourceTree = "<group>";
 		};
-		BF91994C2E3405430056E0E7 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				BF91994B2E3405430056E0E7 /* WeatherView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		BF91994E2E3405430056E0E7 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				BF91994D2E3405430056E0E7 /* WeatherViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		BF91994F2E3405430056E0E7 /* Weather */ = {
-			isa = PBXGroup;
-			children = (
-				BF91994C2E3405430056E0E7 /* View */,
-				BF91994E2E3405430056E0E7 /* ViewModel */,
-			);
-			path = Weather;
-			sourceTree = "<group>";
-		};
 		BF9199502E3405430056E0E7 /* Test */ = {
 			isa = PBXGroup;
 			children = (
@@ -764,7 +739,6 @@
 				BF9199462E3405430056E0E7 /* Notification */,
 				BF9199482E3405430056E0E7 /* PhoneSync */,
 				BF91994A2E3405430056E0E7 /* Suncream */,
-				BF91994F2E3405430056E0E7 /* Weather */,
 			);
 			path = Test;
 			sourceTree = "<group>";
@@ -1075,8 +1049,8 @@
 		BF919A252E3408A80056E0E7 /* Weather */ = {
 			isa = PBXGroup;
 			children = (
+				BF919A2B2E340E390056E0E7 /* GetCurrentLocationWeatherUseCase */,
 				BF91997B2E3405430056E0E7 /* CheckUVRiskLevelUseCase.swift */,
-				BF91997C2E3405430056E0E7 /* GetCurrentLocationWeatherUseCase.swift */,
 			);
 			path = Weather;
 			sourceTree = "<group>";
@@ -1102,6 +1076,16 @@
 				BF919A292E34096C0056E0E7 /* UserDefaultManager.swift */,
 			);
 			path = UserDefaults;
+			sourceTree = "<group>";
+		};
+		BF919A2B2E340E390056E0E7 /* GetCurrentLocationWeatherUseCase */ = {
+			isa = PBXGroup;
+			children = (
+				BF91997C2E3405430056E0E7 /* GetCurrentLocationWeatherUseCase.swift */,
+				BF919A2E2E340EED0056E0E7 /* MockGetCurrentLocationWeatherUseCase.swift */,
+				BF919A2C2E340E5D0056E0E7 /* GetCurrentLocationWeatherUseCaseProtocol.swift */,
+			);
+			path = GetCurrentLocationWeatherUseCase;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1288,6 +1272,7 @@
 				BF9199CE2E3405430056E0E7 /* OnboardingWatchCheckView.swift in Sources */,
 				BF9199CF2E3405430056E0E7 /* OnboardingViewModel.swift in Sources */,
 				BF9199D02E3405430056E0E7 /* OnboardingView.swift in Sources */,
+				BF919A2D2E340E5D0056E0E7 /* GetCurrentLocationWeatherUseCaseProtocol.swift in Sources */,
 				BF9199D12E3405430056E0E7 /* RootView.swift in Sources */,
 				BF9199D22E3405430056E0E7 /* PermissionRow.swift in Sources */,
 				BF9199D32E3405430056E0E7 /* UserInfoRow.swift in Sources */,
@@ -1305,8 +1290,6 @@
 				BF9199DF2E3405430056E0E7 /* NotificationAuthTestViewModel.swift in Sources */,
 				BF9199E02E3405430056E0E7 /* PhoneSyncTestView.swift in Sources */,
 				BF9199E12E3405430056E0E7 /* TimerView.swift in Sources */,
-				BF9199E22E3405430056E0E7 /* WeatherView.swift in Sources */,
-				BF9199E32E3405430056E0E7 /* WeatherViewModel.swift in Sources */,
 				BF9199E42E3405430056E0E7 /* LocationRepository.swift in Sources */,
 				BF9199E52E3405430056E0E7 /* MockLocationRepository.swift in Sources */,
 				BF9199E62E3405430056E0E7 /* RealLocationRepository.swift in Sources */,
@@ -1351,6 +1334,7 @@
 				BF919A0C2E3405430056E0E7 /* SunscreenViewModel.swift in Sources */,
 				BF919A0D2E3405430056E0E7 /* TimerViewModel.swift in Sources */,
 				BF919A0E2E3405430056E0E7 /* WatchConnectivityManager.swift in Sources */,
+				BF919A2F2E340EED0056E0E7 /* MockGetCurrentLocationWeatherUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

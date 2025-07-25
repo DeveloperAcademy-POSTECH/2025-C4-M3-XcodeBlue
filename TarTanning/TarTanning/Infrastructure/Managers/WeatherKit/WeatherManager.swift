@@ -20,9 +20,9 @@ final class WeatherKitManager {
 
     private let weatherService = WeatherService.shared
 
-    func fetchUVInfo(for location: CLLocation) async -> UVInfo? {
+    func fetchUVInfo(for location: LocationInfo) async -> UVInfo? {
         do {
-            let weather = try await weatherService.weather(for: location)
+            let weather = try await weatherService.weather(for: location.asCLLocation)
             let uvIndex = weather.currentWeather.uvIndex
             
             let categoryString: String

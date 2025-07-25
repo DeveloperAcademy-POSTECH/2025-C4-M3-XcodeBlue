@@ -6,42 +6,27 @@
 //
 
 import Foundation
+import SwiftData
 
-struct LocationWeather {
+@Model
+final class LocationWeather {
     var date: Date
-    var locationInfo: LocationInfo  // LocationInfo 포함
+    var latitude: Double
+    var longitude: Double
+    var city: String
     var sunriseTime: Date?
     var sunsetTime: Date?
-    var hourlyWeathers: [HourlyWeather]
     
-    init(
-        date: Date,
-        locationInfo: LocationInfo,
-        sunriseTime: Date? = nil,
-        sunsetTime: Date? = nil,
-        hourlyWeathers: [HourlyWeather]
-    ) {
+    // HourlyWeather과의 관계
+    @Relationship(deleteRule: .cascade) var hourlyWeathers: [HourlyWeather] = []
+    
+    init(date: Date, locationInfo: LocationInfo, sunriseTime: Date?, sunsetTime: Date?, hourlyWeathers: [HourlyWeather] = []) {
         self.date = date
-        self.locationInfo = locationInfo
+        self.latitude = locationInfo.latitude
+        self.longitude = locationInfo.longitude
+        self.city = locationInfo.city
         self.sunriseTime = sunriseTime
         self.sunsetTime = sunsetTime
         self.hourlyWeathers = hourlyWeathers
-    }
-}
-
-extension LocationWeather {
-    static var mockLocationWeather: LocationWeather {
-        let today = Date()
-        let calendar = Calendar.current
-        let sunriseTime = calendar.date(bySettingHour: 5, minute: 30, second: 0, of: today)!
-        let sunsetTime = calendar.date(bySettingHour: 19, minute: 45, second: 0, of: today)!
-        
-        return LocationWeather(
-            date: today,
-            locationInfo: LocationInfo.mockSeoul,
-            sunriseTime: sunriseTime,
-            sunsetTime: sunsetTime,
-            hourlyWeathers: HourlyWeather.mockHourlyWeather
-        )
     }
 }

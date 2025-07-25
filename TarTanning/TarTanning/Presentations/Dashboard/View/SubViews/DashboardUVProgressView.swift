@@ -201,7 +201,7 @@ struct CurrentMEDProgressBarUIViewRepresentable: UIViewRepresentable {
 #Preview {
     DashboardUVProgressView(viewModel: DashboardViewModel(
         uvExposureRepository: MockUVExposureRepository(),
-        weatherRepository: MockWeatherRepository(),
+        weatherRepository: DefaultWeatherRepository(),
         userProfileRepository: MockUserProfileRepository(),
         locationRepository: MockLocationRepository()
     ))

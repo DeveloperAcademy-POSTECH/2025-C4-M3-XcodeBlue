@@ -15,7 +15,7 @@ struct RootView: View {
         NavigationStack(path: $router.path) {
             Group {
                 if didFinishOnboarding {
-                    DashboardView()
+                    OnboardingView()
                         .navigationBarBackButtonHidden(true)
                 } else {
                     OnboardingView()
@@ -26,7 +26,7 @@ struct RootView: View {
                 case .onBoarding:
                     OnboardingView()
                 case .dashboard:
-                    DashboardView()
+                    OnboardingView()
                         .navigationBarBackButtonHidden(true)
                 }
             }

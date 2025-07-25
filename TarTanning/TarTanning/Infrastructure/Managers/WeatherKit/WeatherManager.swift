@@ -52,15 +52,23 @@ final class WeatherKitManager {
     func fetchLocationWeather(for locationInfo: LocationInfo) async throws -> LocationWeather {
         let weather = try await weatherService.weather(for: locationInfo.asCLLocation)
         let now = Date()
-        _ = Calendar.current
 
-        let hourlyWeathers: [HourlyWeather] = weather.hourlyForecast.forecast.map { hour in
-            HourlyWeather(
-                date: hour.date,
-                uvIndex: Double(hour.uvIndex.value),
-                temperature: hour.temperature.value
-            )
-        }
+        // 4AM-11PM 시간대만 필터링하고 위치 정보 포함
+        let hourlyWeathers: [HourlyWeather] = weather.hourlyForecast.forecast
+            .filter { hour in
+                let hourOfDay = Calendar.current.component(.hour, from: hour.date)
+                return hourOfDay >= 4 && hourOfDay <= 23 // 4AM-11PM
+            }
+            .map { hour in
+                HourlyWeather(
+                    date: hour.date,
+                    uvIndex: Double(hour.uvIndex.value),
+                    temperature: hour.temperature.value,
+                    latitude: locationInfo.latitude,
+                    longitude: locationInfo.longitude,
+                    city: locationInfo.city
+                )
+            }
 
         let sunrise = weather.dailyForecast.forecast.first?.sun.sunrise
         let sunset = weather.dailyForecast.forecast.first?.sun.sunset
@@ -70,7 +78,29 @@ final class WeatherKitManager {
             locationInfo: locationInfo,
             sunriseTime: sunrise,
             sunsetTime: sunset,
-            hourlyWeathers: hourlyWeathers
+            hourlyWeathers: hourlyWeathers  // hourlyWeathers 전달
         )
+    }
+    
+    // 4AM-11PM 시간대 UV 지수만 조회하는 별도 메서드
+    func fetchHourlyUVData(for locationInfo: LocationInfo) async throws -> [HourlyWeather] {
+        let weather = try await weatherService.weather(for: locationInfo.asCLLocation)
+        let calendar = Calendar.current
+        
+        return weather.hourlyForecast.forecast
+            .filter { hour in
+                let hourOfDay = calendar.component(.hour, from: hour.date)
+                return hourOfDay >= 4 && hourOfDay <= 23 // 4AM-11PM
+            }
+            .map { hour in
+                HourlyWeather(
+                    date: hour.date,
+                    uvIndex: Double(hour.uvIndex.value),
+                    temperature: hour.temperature.value,
+                    latitude: locationInfo.latitude,
+                    longitude: locationInfo.longitude,
+                    city: locationInfo.city
+                )
+            }
     }
 }

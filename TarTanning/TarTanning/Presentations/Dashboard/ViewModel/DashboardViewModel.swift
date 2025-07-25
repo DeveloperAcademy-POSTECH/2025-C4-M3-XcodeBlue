@@ -77,7 +77,6 @@ class DashboardViewModel: ObservableObject {
 
             print("🕒 현재 날짜: \(now)")
             print("🕒 현재 시각: \(currentHour)시 \(currentMinute)분")
-            print("📍 mockSeoul 위치: \(weather.locationInfo.city) (\(weather.locationInfo.latitude), \(weather.locationInfo.longitude))")
             print("🌞 현재 시간의 UV지수: \(uv)")
             print("====================")
             

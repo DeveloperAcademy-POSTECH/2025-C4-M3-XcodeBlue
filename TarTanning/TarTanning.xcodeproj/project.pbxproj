@@ -87,7 +87,6 @@
 		BF9199EA2E3405430056E0E7 /* MockUVExposureRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91995E2E3405430056E0E7 /* MockUVExposureRepository.swift */; };
 		BF9199EB2E3405430056E0E7 /* UVExposureRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91995F2E3405430056E0E7 /* UVExposureRepository.swift */; };
 		BF9199EC2E3405430056E0E7 /* DefaultWeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199612E3405430056E0E7 /* DefaultWeatherRepository.swift */; };
-		BF9199ED2E3405430056E0E7 /* MockWeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199622E3405430056E0E7 /* MockWeatherRepository.swift */; };
 		BF9199EE2E3405430056E0E7 /* WeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199632E3405430056E0E7 /* WeatherRepository.swift */; };
 		BF9199EF2E3405430056E0E7 /* GenerateUVInsightUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199662E3405430056E0E7 /* GenerateUVInsightUseCase.swift */; };
 		BF9199F02E3405430056E0E7 /* LoadDashboardDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199672E3405430056E0E7 /* LoadDashboardDataUseCase.swift */; };
@@ -141,7 +140,6 @@
 		BF919A212E3405430056E0E7 /* TimeInterval+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199872E3405430056E0E7 /* TimeInterval+String.swift */; };
 		BF919A2A2E34096C0056E0E7 /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF919A292E34096C0056E0E7 /* UserDefaultManager.swift */; };
 		BF919A2D2E340E5D0056E0E7 /* GetCurrentLocationWeatherUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF919A2C2E340E5D0056E0E7 /* GetCurrentLocationWeatherUseCaseProtocol.swift */; };
-		BF919A2F2E340EED0056E0E7 /* MockGetCurrentLocationWeatherUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF919A2E2E340EED0056E0E7 /* MockGetCurrentLocationWeatherUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -252,7 +250,6 @@
 		BF91995E2E3405430056E0E7 /* MockUVExposureRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUVExposureRepository.swift; sourceTree = "<group>"; };
 		BF91995F2E3405430056E0E7 /* UVExposureRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UVExposureRepository.swift; sourceTree = "<group>"; };
 		BF9199612E3405430056E0E7 /* DefaultWeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultWeatherRepository.swift; sourceTree = "<group>"; };
-		BF9199622E3405430056E0E7 /* MockWeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockWeatherRepository.swift; sourceTree = "<group>"; };
 		BF9199632E3405430056E0E7 /* WeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRepository.swift; sourceTree = "<group>"; };
 		BF9199662E3405430056E0E7 /* GenerateUVInsightUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateUVInsightUseCase.swift; sourceTree = "<group>"; };
 		BF9199672E3405430056E0E7 /* LoadDashboardDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadDashboardDataUseCase.swift; sourceTree = "<group>"; };
@@ -290,7 +287,6 @@
 		BF91999B2E3405430056E0E7 /* TarTanning.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TarTanning.entitlements; sourceTree = "<group>"; };
 		BF919A292E34096C0056E0E7 /* UserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
 		BF919A2C2E340E5D0056E0E7 /* GetCurrentLocationWeatherUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCurrentLocationWeatherUseCaseProtocol.swift; sourceTree = "<group>"; };
-		BF919A2E2E340EED0056E0E7 /* MockGetCurrentLocationWeatherUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGetCurrentLocationWeatherUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -804,7 +800,6 @@
 			isa = PBXGroup;
 			children = (
 				BF9199612E3405430056E0E7 /* DefaultWeatherRepository.swift */,
-				BF9199622E3405430056E0E7 /* MockWeatherRepository.swift */,
 				BF9199632E3405430056E0E7 /* WeatherRepository.swift */,
 			);
 			path = Weather;
@@ -1082,7 +1077,6 @@
 			isa = PBXGroup;
 			children = (
 				BF91997C2E3405430056E0E7 /* GetCurrentLocationWeatherUseCase.swift */,
-				BF919A2E2E340EED0056E0E7 /* MockGetCurrentLocationWeatherUseCase.swift */,
 				BF919A2C2E340E5D0056E0E7 /* GetCurrentLocationWeatherUseCaseProtocol.swift */,
 			);
 			path = GetCurrentLocationWeatherUseCase;
@@ -1299,7 +1293,6 @@
 				BF9199EA2E3405430056E0E7 /* MockUVExposureRepository.swift in Sources */,
 				BF9199EB2E3405430056E0E7 /* UVExposureRepository.swift in Sources */,
 				BF9199EC2E3405430056E0E7 /* DefaultWeatherRepository.swift in Sources */,
-				BF9199ED2E3405430056E0E7 /* MockWeatherRepository.swift in Sources */,
 				BF9199EE2E3405430056E0E7 /* WeatherRepository.swift in Sources */,
 				BF9199EF2E3405430056E0E7 /* GenerateUVInsightUseCase.swift in Sources */,
 				BF9199F02E3405430056E0E7 /* LoadDashboardDataUseCase.swift in Sources */,
@@ -1334,7 +1327,6 @@
 				BF919A0C2E3405430056E0E7 /* SunscreenViewModel.swift in Sources */,
 				BF919A0D2E3405430056E0E7 /* TimerViewModel.swift in Sources */,
 				BF919A0E2E3405430056E0E7 /* WatchConnectivityManager.swift in Sources */,
-				BF919A2F2E340EED0056E0E7 /* MockGetCurrentLocationWeatherUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

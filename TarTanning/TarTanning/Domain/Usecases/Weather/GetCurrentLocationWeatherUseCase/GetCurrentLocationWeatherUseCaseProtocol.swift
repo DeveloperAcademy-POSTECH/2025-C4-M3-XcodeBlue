@@ -10,4 +10,6 @@ import Foundation
 protocol GetCurrentLocationWeatherUseCaseProtocol {
     func execute() async throws -> LocationWeather
     func getUVInfo() async -> UVInfo?
+    
+    /// 
 }

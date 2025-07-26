@@ -99,7 +99,6 @@
 		BF9199F42E3405430056E0E7 /* ValidatePermissionStatusUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91996E2E3405430056E0E7 /* ValidatePermissionStatusUseCase.swift */; };
 		BF9199F52E3405430056E0E7 /* StartSunscreenTimerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199702E3405430056E0E7 /* StartSunscreenTimerUseCase.swift */; };
 		BF9199F62E3405430056E0E7 /* SyncTimerStateUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199712E3405430056E0E7 /* SyncTimerStateUseCase.swift */; };
-		BF9199F92E3405430056E0E7 /* CalculateUserMEDUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199762E3405430056E0E7 /* CalculateUserMEDUseCase.swift */; };
 		BF9199FA2E3405430056E0E7 /* GetTodayUVExposureUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199772E3405430056E0E7 /* GetTodayUVExposureUseCase.swift */; };
 		BF9199FB2E3405430056E0E7 /* GetWeeklyUVTrendUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199782E3405430056E0E7 /* GetWeeklyUVTrendUseCase.swift */; };
 		BF9199FC2E3405430056E0E7 /* MEDCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199792E3405430056E0E7 /* MEDCalculator.swift */; };
@@ -261,7 +260,6 @@
 		BF91996E2E3405430056E0E7 /* ValidatePermissionStatusUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatePermissionStatusUseCase.swift; sourceTree = "<group>"; };
 		BF9199702E3405430056E0E7 /* StartSunscreenTimerUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSunscreenTimerUseCase.swift; sourceTree = "<group>"; };
 		BF9199712E3405430056E0E7 /* SyncTimerStateUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncTimerStateUseCase.swift; sourceTree = "<group>"; };
-		BF9199762E3405430056E0E7 /* CalculateUserMEDUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateUserMEDUseCase.swift; sourceTree = "<group>"; };
 		BF9199772E3405430056E0E7 /* GetTodayUVExposureUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTodayUVExposureUseCase.swift; sourceTree = "<group>"; };
 		BF9199782E3405430056E0E7 /* GetWeeklyUVTrendUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWeeklyUVTrendUseCase.swift; sourceTree = "<group>"; };
 		BF9199792E3405430056E0E7 /* MEDCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MEDCalculator.swift; sourceTree = "<group>"; };
@@ -858,7 +856,6 @@
 		BF91997A2E3405430056E0E7 /* UVExposure */ = {
 			isa = PBXGroup;
 			children = (
-				BF9199762E3405430056E0E7 /* CalculateUserMEDUseCase.swift */,
 				BF9199772E3405430056E0E7 /* GetTodayUVExposureUseCase.swift */,
 				BF55D7012E353BA500074104 /* CalculateAndSaveUVDoseUseCase.swift */,
 				BF55D7022E353BA500074104 /* SyncUVDataFromHealthKitUseCase.swift */,
@@ -1294,7 +1291,6 @@
 				BF9199F42E3405430056E0E7 /* ValidatePermissionStatusUseCase.swift in Sources */,
 				BF9199F52E3405430056E0E7 /* StartSunscreenTimerUseCase.swift in Sources */,
 				BF9199F62E3405430056E0E7 /* SyncTimerStateUseCase.swift in Sources */,
-				BF9199F92E3405430056E0E7 /* CalculateUserMEDUseCase.swift in Sources */,
 				BF9199FA2E3405430056E0E7 /* GetTodayUVExposureUseCase.swift in Sources */,
 				BF919A2A2E34096C0056E0E7 /* UserDefaultManager.swift in Sources */,
 				BF9199FB2E3405430056E0E7 /* GetWeeklyUVTrendUseCase.swift in Sources */,

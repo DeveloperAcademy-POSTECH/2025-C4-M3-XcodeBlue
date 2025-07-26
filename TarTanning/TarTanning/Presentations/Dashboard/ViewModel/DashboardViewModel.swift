@@ -203,6 +203,23 @@ class DashboardViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Debug Methods (for SwiftDataDebugView)
+    
+    func syncHealthKitDataForDebug() async throws {
+        try await syncUVDataFromHealthKitUseCase.syncTodaySunlightFromHealthKit()
+    }
+    
+    func calculateUVDoseForDebug() async throws {
+        guard let weather = currentWeather else { return }
+        
+        var uvIndexData: [Int: Double] = [:]
+        for hourlyWeather in weather.hourlyWeathers {
+            uvIndexData[hourlyWeather.hour] = hourlyWeather.uvIndex
+        }
+        
+        try await calculateAndSaveUVDoseUseCase.calculateAndSaveTodayUVDose(uvIndexData: uvIndexData)
+    }
+    
     // MARK: - Private Methods
     private func calculateTotalSunlightMinutes() {
         guard let weather = currentWeather,

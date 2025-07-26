@@ -58,9 +58,19 @@ final class SyncUVDataFromHealthKitUseCase {
     /// HealthKit에서 오늘 샘플 가져오기
     private func fetchTodaySamplesFromHealthKit() async throws -> [HKQuantitySample] {
         return try await withCheckedThrowingContinuation { continuation in
-            healthKitQueryFetchManager.delegate = HealthKitDelegate(continuation: continuation)
+            let delegate = HealthKitDelegate(continuation: continuation)
+            healthKitQueryFetchManager.delegate = delegate
+            
             Task {
                 await healthKitQueryFetchManager.fetchTodaySamples()
+            }
+            
+            // 타임아웃 설정 (10초)
+            Task {
+                try await Task.sleep(nanoseconds: 10_000_000_000) // 10초
+                if !delegate.isContinuationResolved {
+                    delegate.fetchManagerDidFail(with: HealthKitError.queryFailed(NSError(domain: "HealthKit", code: -1, userInfo: [NSLocalizedDescriptionKey: "HealthKit query timeout"])))
+                }
             }
         }
     }
@@ -68,9 +78,19 @@ final class SyncUVDataFromHealthKitUseCase {
     /// HealthKit에서 특정 기간 샘플 가져오기
     private func fetchSamplesFromHealthKit(from startDate: Date, to endDate: Date) async throws -> [HKQuantitySample] {
         return try await withCheckedThrowingContinuation { continuation in
-            healthKitQueryFetchManager.delegate = HealthKitDelegate(continuation: continuation)
+            let delegate = HealthKitDelegate(continuation: continuation)
+            healthKitQueryFetchManager.delegate = delegate
+            
             Task {
                 await healthKitQueryFetchManager.fetchSamples(from: startDate, to: endDate)
+            }
+            
+            // 타임아웃 설정 (10초)
+            Task {
+                try await Task.sleep(nanoseconds: 10_000_000_000) // 10초
+                if !delegate.isContinuationResolved {
+                    delegate.fetchManagerDidFail(with: HealthKitError.queryFailed(NSError(domain: "HealthKit", code: -1, userInfo: [NSLocalizedDescriptionKey: "HealthKit query timeout"])))
+                }
             }
         }
     }
@@ -169,16 +189,25 @@ final class SyncUVDataFromHealthKitUseCase {
 
 private class HealthKitDelegate: HealthKitQueryFetchManagerDelegate {
     private let continuation: CheckedContinuation<[HKQuantitySample], Error>
+    private var isResolved = false
     
     init(continuation: CheckedContinuation<[HKQuantitySample], Error>) {
         self.continuation = continuation
     }
     
     func fetchManagerDidFetchSamples(_ samples: [HKQuantitySample]) {
+        guard !isResolved else { return }
+        isResolved = true
         continuation.resume(returning: samples)
     }
     
     func fetchManagerDidFail(with error: HealthKitError) {
+        guard !isResolved else { return }
+        isResolved = true
         continuation.resume(throwing: error)
+    }
+    
+    var isContinuationResolved: Bool {
+        return isResolved
     }
 } 

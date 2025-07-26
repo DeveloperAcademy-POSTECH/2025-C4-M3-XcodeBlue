@@ -21,8 +21,8 @@ struct DashboardView: View {
         ScrollView(showsIndicators: false){
             VStack(spacing: 20) {
                 DashboardTitleView(viewModel: viewModel)
-                DashboardSummaryMetricsView(viewModel: viewModel)
                 DashboardUVDoseView(viewModel: viewModel)
+                DashboardSummaryMetricsView(viewModel: viewModel)
                 DashboardWeeklySummaryView(viewModel: viewModel)
                 
                 Spacer()

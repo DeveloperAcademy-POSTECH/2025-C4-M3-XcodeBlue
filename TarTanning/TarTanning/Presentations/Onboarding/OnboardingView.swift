@@ -28,7 +28,7 @@ struct OnboardingView: View {
                 )
             case .skinTypeInfo:
                 OnboardingSkinTypeView(
-                    selectedType: viewModel.selectedSkinType,
+                    selectedType: viewModel.selectedSkinTypeForUI,
                     onTapSkinTypeInfo: {
                         viewModel.activeSheet = .skinTypeDetailSheet
                     },

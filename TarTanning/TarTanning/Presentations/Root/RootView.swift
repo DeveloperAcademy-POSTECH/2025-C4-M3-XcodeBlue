@@ -27,7 +27,7 @@ struct RootView: View {
                 case .onBoarding:
                     OnboardingView()
                 case .dashboard:
-                    OnboardingView()
+                    DashboardView(modelContext: modelContext)
                         .navigationBarBackButtonHidden(true)
                 }
             }

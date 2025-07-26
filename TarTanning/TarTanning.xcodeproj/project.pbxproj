@@ -11,6 +11,8 @@
 		8080F15F2E20A0740094719D /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 8080F15E2E20A0740094719D /* .swiftlint.yml */; };
 		BF55D6BB2E352AD800074104 /* GetWeatherDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55D6B92E352AD800074104 /* GetWeatherDataUseCase.swift */; };
 		BF55D6BC2E352AD800074104 /* SyncWeatherDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55D6BA2E352AD800074104 /* SyncWeatherDataUseCase.swift */; };
+		BF55D6FE2E35345400074104 /* GetUserProfileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55D6FD2E35345400074104 /* GetUserProfileUseCase.swift */; };
+		BF55D7002E35345C00074104 /* UpdateUserProfileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55D6FF2E35345C00074104 /* UpdateUserProfileUseCase.swift */; };
 		BF91999D2E3405430056E0E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198DC2E3405430056E0E7 /* AppDelegate.swift */; };
 		BF91999E2E3405430056E0E7 /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198DD2E3405430056E0E7 /* NavigationRouter.swift */; };
 		BF91999F2E3405430056E0E7 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198DE2E3405430056E0E7 /* Route.swift */; };
@@ -169,6 +171,8 @@
 		8080F15E2E20A0740094719D /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		BF55D6B92E352AD800074104 /* GetWeatherDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWeatherDataUseCase.swift; sourceTree = "<group>"; };
 		BF55D6BA2E352AD800074104 /* SyncWeatherDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncWeatherDataUseCase.swift; sourceTree = "<group>"; };
+		BF55D6FD2E35345400074104 /* GetUserProfileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserProfileUseCase.swift; sourceTree = "<group>"; };
+		BF55D6FF2E35345C00074104 /* UpdateUserProfileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserProfileUseCase.swift; sourceTree = "<group>"; };
 		BF9198DC2E3405430056E0E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF9198DD2E3405430056E0E7 /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
 		BF9198DE2E3405430056E0E7 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -845,6 +849,8 @@
 		BF9199752E3405430056E0E7 /* UserProfile */ = {
 			isa = PBXGroup;
 			children = (
+				BF55D6FD2E35345400074104 /* GetUserProfileUseCase.swift */,
+				BF55D6FF2E35345C00074104 /* UpdateUserProfileUseCase.swift */,
 				BF9199732E3405430056E0E7 /* SetupUserProfileUseCase.swift */,
 				BF9199742E3405430056E0E7 /* UpdateUserSkinTypeUseCase.swift */,
 			);
@@ -1231,6 +1237,7 @@
 				BF9199BA2E3405430056E0E7 /* LocationWeather.swift in Sources */,
 				BF9199BB2E3405430056E0E7 /* DashboardInfoView.swift in Sources */,
 				BF9199BC2E3405430056E0E7 /* DashboardSummaryMetricsView.swift in Sources */,
+				BF55D6FE2E35345400074104 /* GetUserProfileUseCase.swift in Sources */,
 				BF9199BD2E3405430056E0E7 /* DashboardTimerView.swift in Sources */,
 				BF9199BE2E3405430056E0E7 /* DashboardTitleView.swift in Sources */,
 				BF9199BF2E3405430056E0E7 /* DashboardUVDoseView.swift in Sources */,
@@ -1281,6 +1288,7 @@
 				BF9199F12E3405430056E0E7 /* ScheduleSunscreenReminderUseCase.swift in Sources */,
 				BF9199F22E3405430056E0E7 /* SendUVWarningNotificationUseCase.swift in Sources */,
 				BF9199F32E3405430056E0E7 /* RequestAllPermissionsUseCase.swift in Sources */,
+				BF55D7002E35345C00074104 /* UpdateUserProfileUseCase.swift in Sources */,
 				BF9199F42E3405430056E0E7 /* ValidatePermissionStatusUseCase.swift in Sources */,
 				BF9199F52E3405430056E0E7 /* StartSunscreenTimerUseCase.swift in Sources */,
 				BF9199F62E3405430056E0E7 /* SyncTimerStateUseCase.swift in Sources */,

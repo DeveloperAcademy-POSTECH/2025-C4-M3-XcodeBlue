@@ -16,6 +16,7 @@ enum WeatherSyncType {
     case backgroundSync          // 백그라운드 동기화
 }
 
+@MainActor
 final class SyncWeatherDataUseCase {
     private let weatherKitManager = WeatherKitManager.shared
     private let modelContext: ModelContext

@@ -74,29 +74,25 @@ class DashboardViewModel: ObservableObject {
         
         print("🔄 [DashboardViewModel] Loading weather data for \(currentLocation.city)")
         
-        Task {
+        Task { @MainActor in
             do {
                 let weatherData = try await syncWeatherDataUseCase.syncWeatherData(
                     for: currentLocation,
                     type: .syncAll
                 )
                 
-                await MainActor.run {
-                    self.currentWeather = weatherData
-                    self.isLoading = false
-                    self.logCurrentWeatherInfo()
-                }
+                self.currentWeather = weatherData
+                self.isLoading = false
+                self.logCurrentWeatherInfo()
                 
             } catch {
-                await MainActor.run {
-                    self.isLoading = false
-                    if let weatherError = error as? WeatherManagerError {
-                        self.errorMessage = weatherError.localizedDescription
-                    } else {
-                        self.errorMessage = "날씨 정보를 불러올 수 없습니다"
-                    }
-                    print("❌ [DashboardViewModel] Failed to load weather: \(error)")
+                self.isLoading = false
+                if let weatherError = error as? WeatherManagerError {
+                    self.errorMessage = weatherError.localizedDescription
+                } else {
+                    self.errorMessage = "날씨 정보를 불러올 수 없습니다"
                 }
+                print("❌ [DashboardViewModel] Failed to load weather: \(error)")
             }
         }
     }
@@ -105,22 +101,18 @@ class DashboardViewModel: ObservableObject {
         print("📍 [DashboardViewModel] Location update to \(newLocation.city)")
         currentLocation = newLocation
         
-        Task {
+        Task { @MainActor in
             do {
                 let weatherData = try await syncWeatherDataUseCase.syncWeatherData(
                     for: newLocation,
                     type: .syncByLocationChange
                 )
                 
-                await MainActor.run {
-                    self.currentWeather = weatherData
-                    self.calculateTotalSunlightMinutes()
-                }
+                self.currentWeather = weatherData
+                self.calculateTotalSunlightMinutes()
             } catch {
-                await MainActor.run {
-                    if let weatherError = error as? WeatherManagerError {
-                        self.errorMessage = weatherError.localizedDescription
-                    }
+                if let weatherError = error as? WeatherManagerError {
+                    self.errorMessage = weatherError.localizedDescription
                 }
             }
         }
@@ -190,25 +182,19 @@ class DashboardViewModel: ObservableObject {
         print("🔄 [DashboardViewModel] Loading all dashboard data")
         
         Task { @MainActor in
-            do {
-                // 1. 날씨 데이터 로드
-                await loadWeatherData()
-                
-                // 2. UV 노출량 데이터 로드
-                await loadUVExposureData()
-                
-                // 3. UV Dose 계산
-                await calculateAndSaveUVDose()
-                
-                // 4. 주간 데이터 업데이트 (UI 자동 갱신)
-                print("📊 [DashboardViewModel] Weekly UV progress rates: \(self.weeklyUVProgressRates)")
-                
-                print("✅ [DashboardViewModel] All dashboard data loaded successfully")
-                
-            } catch {
-                self.errorMessage = "대시보드 데이터를 불러올 수 없습니다"
-                print("❌ [DashboardViewModel] Failed to load dashboard data: \(error)")
-            }
+            // 1. 날씨 데이터 로드
+            loadWeatherData()
+            
+            // 2. UV 노출량 데이터 로드
+            loadUVExposureData()
+            
+            // 3. UV Dose 계산
+            calculateAndSaveUVDose()
+            
+            // 4. 주간 데이터 업데이트 (UI 자동 갱신)
+            print("📊 [DashboardViewModel] Weekly UV progress rates: \(self.weeklyUVProgressRates)")
+            
+            print("✅ [DashboardViewModel] All dashboard data loaded successfully")
         }
     }
     

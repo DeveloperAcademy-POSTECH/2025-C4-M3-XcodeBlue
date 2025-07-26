@@ -8,6 +8,7 @@
 import Foundation
 import SwiftData
 
+@MainActor
 final class GetWeatherDataUseCase {
     private let weatherKitManager = WeatherKitManager.shared
     private let modelContext: ModelContext

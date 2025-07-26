@@ -98,33 +98,33 @@ class MockUVExposureRepository: UVExposureRepository {
     private func createDailyUVExposureFromRecords(for date: Date) async throws -> DailyUVExpose {
         let dailyExposure = DailyUVExpose(date: date)
         
-        let dayRecords = UVExposeRecord.mockExposureRecords.filter {
-            Calendar.current.isDate($0.startDate, inSameDayAs: date)
-        }
-        
-        dailyExposure.exposureRecords = dayRecords
-        dailyExposure.totalSunlightMinutes = dayRecords.reduce(0) {
-            $0 + $1.sunlightExposureDuration
-        }
-        
-        let sunScreenInfo = SunScreenInfo.mockSunscreen
-        var totalUVDose: Double = 0.0
-        
-        for record in dayRecords {
-            let recordHour = Calendar.current.component(.hour, from: record.startDate)
-            let recordUVIndex = HourlyWeather.mockHourlyWeather.first { $0.hour == recordHour }?.uvIndex ?? 0.0
-            
-            let spfValue = record.isSPFApplied ? Double(sunScreenInfo.spfIndex) : nil
-            let uvDose = MEDCalculator.calculateUVDose(
-                uvIndex: recordUVIndex,
-                durationMinutes: record.sunlightExposureDuration,
-                spf: spfValue
-            )
-            record.uvDose = uvDose
-            totalUVDose += uvDose
-        }
-        
-        dailyExposure.totalUVDose = totalUVDose
+//        let dayRecords = UVExposeRecord.mockExposureRecords.filter {
+//            Calendar.current.isDate($0.startDate, inSameDayAs: date)
+//        }
+//        
+//        dailyExposure.exposureRecords = dayRecords
+//        dailyExposure.totalSunlightMinutes = dayRecords.reduce(0) {
+//            $0 + $1.sunlightExposureDuration
+//        }
+//        
+//        let sunScreenInfo = SunScreenInfo.mockSunscreen
+//        var totalUVDose: Double = 0.0
+//        
+//        for record in dayRecords {
+//            let recordHour = Calendar.current.component(.hour, from: record.startDate)
+//            let recordUVIndex = HourlyWeather.mockHourlyWeather.first { $0.hour == recordHour }?.uvIndex ?? 0.0
+//            
+//            let spfValue = record.isSPFApplied ? Double(sunScreenInfo.spfIndex) : nil
+//            let uvDose = MEDCalculator.calculateUVDose(
+//                uvIndex: recordUVIndex,
+//                durationMinutes: record.sunlightExposureDuration,
+//                spf: spfValue
+//            )
+//            record.uvDose = uvDose
+//            totalUVDose += uvDose
+//        }
+//        
+//        dailyExposure.totalUVDose = totalUVDose
         
         return dailyExposure
     }

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		8080F1572E20A0190094719D /* TarTanningWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 8080F14A2E20A0180094719D /* TarTanningWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8080F15F2E20A0740094719D /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 8080F15E2E20A0740094719D /* .swiftlint.yml */; };
+		BF55D6BB2E352AD800074104 /* GetWeatherDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55D6B92E352AD800074104 /* GetWeatherDataUseCase.swift */; };
+		BF55D6BC2E352AD800074104 /* SyncWeatherDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55D6BA2E352AD800074104 /* SyncWeatherDataUseCase.swift */; };
 		BF91999D2E3405430056E0E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198DC2E3405430056E0E7 /* AppDelegate.swift */; };
 		BF91999E2E3405430056E0E7 /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198DD2E3405430056E0E7 /* NavigationRouter.swift */; };
 		BF91999F2E3405430056E0E7 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198DE2E3405430056E0E7 /* Route.swift */; };
@@ -135,7 +137,6 @@
 		BF919A212E3405430056E0E7 /* TimeInterval+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199872E3405430056E0E7 /* TimeInterval+String.swift */; };
 		BF919A2A2E34096C0056E0E7 /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF919A292E34096C0056E0E7 /* UserDefaultManager.swift */; };
 		BF919A742E34C25A0056E0E7 /* WeatherManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF919A732E34C25A0056E0E7 /* WeatherManagerError.swift */; };
-		BF919A7E2E34D6330056E0E7 /* WeatherSyncUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF919A7D2E34D6330056E0E7 /* WeatherSyncUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,6 +167,8 @@
 		8080F12C2E209F860094719D /* TarTanning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TarTanning.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8080F14A2E20A0180094719D /* TarTanningWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TarTanningWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8080F15E2E20A0740094719D /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		BF55D6B92E352AD800074104 /* GetWeatherDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWeatherDataUseCase.swift; sourceTree = "<group>"; };
+		BF55D6BA2E352AD800074104 /* SyncWeatherDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncWeatherDataUseCase.swift; sourceTree = "<group>"; };
 		BF9198DC2E3405430056E0E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF9198DD2E3405430056E0E7 /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
 		BF9198DE2E3405430056E0E7 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -278,7 +281,6 @@
 		BF91999B2E3405430056E0E7 /* TarTanning.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TarTanning.entitlements; sourceTree = "<group>"; };
 		BF919A292E34096C0056E0E7 /* UserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
 		BF919A732E34C25A0056E0E7 /* WeatherManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManagerError.swift; sourceTree = "<group>"; };
-		BF919A7D2E34D6330056E0E7 /* WeatherSyncUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherSyncUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -1025,7 +1027,8 @@
 		BF919A252E3408A80056E0E7 /* Weather */ = {
 			isa = PBXGroup;
 			children = (
-				BF919A7D2E34D6330056E0E7 /* WeatherSyncUseCase.swift */,
+				BF55D6B92E352AD800074104 /* GetWeatherDataUseCase.swift */,
+				BF55D6BA2E352AD800074104 /* SyncWeatherDataUseCase.swift */,
 			);
 			path = Weather;
 			sourceTree = "<group>";
@@ -1209,6 +1212,8 @@
 				BF9199A92E3405430056E0E7 /* HealthKitQueryManager.swift in Sources */,
 				BF9199AA2E3405430056E0E7 /* LocationAuthStatus.swift in Sources */,
 				BF9199AB2E3405430056E0E7 /* LocationError.swift in Sources */,
+				BF55D6BB2E352AD800074104 /* GetWeatherDataUseCase.swift in Sources */,
+				BF55D6BC2E352AD800074104 /* SyncWeatherDataUseCase.swift in Sources */,
 				BF9199AC2E3405430056E0E7 /* LocationAuthorizationManager.swift in Sources */,
 				BF9199AD2E3405430056E0E7 /* LocationUpdateManager.swift in Sources */,
 				BF9199AE2E3405430056E0E7 /* NotificationAuthStatus.swift in Sources */,
@@ -1221,7 +1226,6 @@
 				BF9199B52E3405430056E0E7 /* SPFLevel.swift in Sources */,
 				BF9199B62E3405430056E0E7 /* UserProfile.swift in Sources */,
 				BF9199B72E3405430056E0E7 /* DailyUVExpose.swift in Sources */,
-				BF919A7E2E34D6330056E0E7 /* WeatherSyncUseCase.swift in Sources */,
 				BF9199B82E3405430056E0E7 /* UVExposeRecord.swift in Sources */,
 				BF9199B92E3405430056E0E7 /* HourlyWeather.swift in Sources */,
 				BF9199BA2E3405430056E0E7 /* LocationWeather.swift in Sources */,

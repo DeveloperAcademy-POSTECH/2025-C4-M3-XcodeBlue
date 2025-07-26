@@ -20,10 +20,9 @@ class DashboardViewModel: ObservableObject {
     @Published var errorMessage: String?
     
     let modelContext: ModelContext
-    private lazy var weatherSyncUseCase = WeatherSyncUseCase(
-        weatherKitManager: WeatherKitManager.shared,
-        modelContext: modelContext
-    )
+    // Weather UseCase들 (싱글톤 + 의존성 주입)
+    private lazy var getWeatherDataUseCase = GetWeatherDataUseCase(modelContext: modelContext)
+    private lazy var syncWeatherDataUseCase = SyncWeatherDataUseCase(modelContext: modelContext)
     private var currentLocation = LocationInfo.mockSeoul
     
     init(modelContext: ModelContext) {
@@ -33,34 +32,12 @@ class DashboardViewModel: ObservableObject {
     // MARK: - Computed Properties
     var currentUVIndex: Double {
         guard let weather = currentWeather else { return 0.0 }
-        
-        // 현재 시간에 해당하는 UV 지수 찾기
-        let currentHour = Calendar.current.component(.hour, from: Date())
-        let currentHourWeather = weather.hourlyWeathers.first { $0.hour == currentHour }
-        
-        if let currentHourWeather = currentHourWeather {
-            return currentHourWeather.uvIndex
-        } else {
-            // 현재 시간 데이터가 없으면 가장 가까운 시간의 데이터 사용
-            let sortedWeathers = weather.hourlyWeathers.sorted { abs($0.hour - currentHour) < abs($1.hour - currentHour) }
-            return sortedWeathers.first?.uvIndex ?? 0.0
-        }
+        return getWeatherDataUseCase.getCurrentUVIndex(from: weather)
     }
     
     var currentTemperature: Int {
         guard let weather = currentWeather else { return 0 }
-        
-        // 현재 시간에 해당하는 온도 찾기
-        let currentHour = Calendar.current.component(.hour, from: Date())
-        let currentHourWeather = weather.hourlyWeathers.first { $0.hour == currentHour }
-        
-        if let currentHourWeather = currentHourWeather {
-            return Int(currentHourWeather.temperature)
-        } else {
-            // 현재 시간 데이터가 없으면 가장 가까운 시간의 데이터 사용
-            let sortedWeathers = weather.hourlyWeathers.sorted { abs($0.hour - currentHour) < abs($1.hour - currentHour) }
-            return Int(sortedWeathers.first?.temperature ?? 0)
-        }
+        return Int(getWeatherDataUseCase.getCurrentTemperature(from: weather))
     }
     
     var currentCityName: String {
@@ -77,7 +54,7 @@ class DashboardViewModel: ObservableObject {
         
         Task {
             do {
-                let weatherData = try await weatherSyncUseCase.execute(
+                let weatherData = try await syncWeatherDataUseCase.syncWeatherData(
                     for: currentLocation,
                     type: .syncAll
                 )
@@ -109,7 +86,7 @@ class DashboardViewModel: ObservableObject {
         
         Task {
             do {
-                let weatherData = try await weatherSyncUseCase.execute(
+                let weatherData = try await syncWeatherDataUseCase.syncWeatherData(
                     for: newLocation,
                     type: .syncByLocationChange
                 )
@@ -195,21 +172,7 @@ class DashboardViewModel: ObservableObject {
     func clearAllData() {
         Task {
             do {
-                // HourlyWeather 삭제
-                let hourlyDescriptor = FetchDescriptor<HourlyWeather>()
-                let allHourlyData = try modelContext.fetch(hourlyDescriptor)
-                for hourlyWeather in allHourlyData {
-                    modelContext.delete(hourlyWeather)
-                }
-                
-                // LocationWeather 삭제
-                let locationDescriptor = FetchDescriptor<LocationWeather>()
-                let allLocationData = try modelContext.fetch(locationDescriptor)
-                for locationWeather in allLocationData {
-                    modelContext.delete(locationWeather)
-                }
-                
-                try modelContext.save()
+                try await syncWeatherDataUseCase.clearAllData()
                 
                 await MainActor.run {
                     self.currentWeather = nil

@@ -18,48 +18,50 @@ struct DashboardView: View {
     }
     
     var body: some View {
-        VStack(spacing: 20) {
-            DashboardTitleView(viewModel: viewModel)
-            DashboardSummaryMetricsView(viewModel: viewModel)
-            DashboardUVDoseView(viewModel: viewModel)
-            DashboardWeeklySummaryView(viewModel: viewModel)
-            
-            Spacer()
-            
-            // 로딩 상태 표시
-            if viewModel.isLoading {
-                ProgressView("날씨 정보 로딩 중...")
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
-            
-            // 에러 메시지 표시
-            if let errorMessage = viewModel.errorMessage {
-                VStack(spacing: 12) {
-                    Image(systemName: "exclamationmark.triangle")
-                        .font(.largeTitle)
-                        .foregroundColor(.orange)
-                    
-                    Text(errorMessage)
-                        .font(.body)
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.secondary)
-                    
-                    Button("다시 시도") {
-                        viewModel.loadWeatherData()
-                    }
-                    .buttonStyle(.borderedProminent)
+        ScrollView(showsIndicators: false){
+            VStack(spacing: 20) {
+                DashboardTitleView(viewModel: viewModel)
+                DashboardSummaryMetricsView(viewModel: viewModel)
+                DashboardUVDoseView(viewModel: viewModel)
+                DashboardWeeklySummaryView(viewModel: viewModel)
+                
+                Spacer()
+                
+                // 로딩 상태 표시
+                if viewModel.isLoading {
+                    ProgressView("날씨 정보 로딩 중...")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
-                .padding()
+                
+                // 에러 메시지 표시
+                if let errorMessage = viewModel.errorMessage {
+                    VStack(spacing: 12) {
+                        Image(systemName: "exclamationmark.triangle")
+                            .font(.largeTitle)
+                            .foregroundColor(.orange)
+                        
+                        Text(errorMessage)
+                            .font(.body)
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.secondary)
+                        
+                        Button("다시 시도") {
+                            viewModel.loadWeatherData()
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
+                    .padding()
+                }
+                
+                // 디버그 버튼 (개발용)
+                #if DEBUG
+                Button("SwiftData 로그 확인") {
+                    showingDebugSheet = true
+                }
+                .font(.caption)
+                .foregroundColor(.secondary)
+                #endif
             }
-            
-            // 디버그 버튼 (개발용)
-            #if DEBUG
-            Button("SwiftData 로그 확인") {
-                showingDebugSheet = true
-            }
-            .font(.caption)
-            .foregroundColor(.secondary)
-            #endif
         }
         .padding()
         .onAppear {

@@ -89,8 +89,6 @@
 		BF9199E82E3405430056E0E7 /* UserProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91995B2E3405430056E0E7 /* UserProfileRepository.swift */; };
 		BF9199EA2E3405430056E0E7 /* MockUVExposureRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91995E2E3405430056E0E7 /* MockUVExposureRepository.swift */; };
 		BF9199EB2E3405430056E0E7 /* UVExposureRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91995F2E3405430056E0E7 /* UVExposureRepository.swift */; };
-		BF9199EF2E3405430056E0E7 /* GenerateUVInsightUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199662E3405430056E0E7 /* GenerateUVInsightUseCase.swift */; };
-		BF9199F02E3405430056E0E7 /* LoadDashboardDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199672E3405430056E0E7 /* LoadDashboardDataUseCase.swift */; };
 		BF9199F12E3405430056E0E7 /* ScheduleSunscreenReminderUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91996A2E3405430056E0E7 /* ScheduleSunscreenReminderUseCase.swift */; };
 		BF9199F22E3405430056E0E7 /* SendUVWarningNotificationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91996B2E3405430056E0E7 /* SendUVWarningNotificationUseCase.swift */; };
 		BF9199F32E3405430056E0E7 /* RequestAllPermissionsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91996D2E3405430056E0E7 /* RequestAllPermissionsUseCase.swift */; };
@@ -248,8 +246,6 @@
 		BF91995B2E3405430056E0E7 /* UserProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileRepository.swift; sourceTree = "<group>"; };
 		BF91995E2E3405430056E0E7 /* MockUVExposureRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUVExposureRepository.swift; sourceTree = "<group>"; };
 		BF91995F2E3405430056E0E7 /* UVExposureRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UVExposureRepository.swift; sourceTree = "<group>"; };
-		BF9199662E3405430056E0E7 /* GenerateUVInsightUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateUVInsightUseCase.swift; sourceTree = "<group>"; };
-		BF9199672E3405430056E0E7 /* LoadDashboardDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadDashboardDataUseCase.swift; sourceTree = "<group>"; };
 		BF91996A2E3405430056E0E7 /* ScheduleSunscreenReminderUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleSunscreenReminderUseCase.swift; sourceTree = "<group>"; };
 		BF91996B2E3405430056E0E7 /* SendUVWarningNotificationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendUVWarningNotificationUseCase.swift; sourceTree = "<group>"; };
 		BF91996D2E3405430056E0E7 /* RequestAllPermissionsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAllPermissionsUseCase.swift; sourceTree = "<group>"; };
@@ -771,22 +767,6 @@
 			path = before;
 			sourceTree = "<group>";
 		};
-		BF9199682E3405430056E0E7 /* Dashboard */ = {
-			isa = PBXGroup;
-			children = (
-				BF9199662E3405430056E0E7 /* GenerateUVInsightUseCase.swift */,
-				BF9199672E3405430056E0E7 /* LoadDashboardDataUseCase.swift */,
-			);
-			path = Dashboard;
-			sourceTree = "<group>";
-		};
-		BF9199692E3405430056E0E7 /* LocationService */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = LocationService;
-			sourceTree = "<group>";
-		};
 		BF91996C2E3405430056E0E7 /* Notification */ = {
 			isa = PBXGroup;
 			children = (
@@ -838,11 +818,8 @@
 		BF91997E2E3405430056E0E7 /* Usecases */ = {
 			isa = PBXGroup;
 			children = (
-				BF919A262E3409030056E0E7 /* HealthKit */,
 				BF919A252E3408A80056E0E7 /* Weather */,
 				BF9199652E3405430056E0E7 /* before */,
-				BF9199682E3405430056E0E7 /* Dashboard */,
-				BF9199692E3405430056E0E7 /* LocationService */,
 				BF91996C2E3405430056E0E7 /* Notification */,
 				BF91996F2E3405430056E0E7 /* Permission */,
 				BF9199722E3405430056E0E7 /* Sunscreen */,
@@ -1004,13 +981,6 @@
 				BF55D6BA2E352AD800074104 /* SyncWeatherDataUseCase.swift */,
 			);
 			path = Weather;
-			sourceTree = "<group>";
-		};
-		BF919A262E3409030056E0E7 /* HealthKit */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = HealthKit;
 			sourceTree = "<group>";
 		};
 		BF919A272E3409230056E0E7 /* WeatherKit */ = {
@@ -1250,8 +1220,6 @@
 				BF9199E82E3405430056E0E7 /* UserProfileRepository.swift in Sources */,
 				BF9199EA2E3405430056E0E7 /* MockUVExposureRepository.swift in Sources */,
 				BF9199EB2E3405430056E0E7 /* UVExposureRepository.swift in Sources */,
-				BF9199EF2E3405430056E0E7 /* GenerateUVInsightUseCase.swift in Sources */,
-				BF9199F02E3405430056E0E7 /* LoadDashboardDataUseCase.swift in Sources */,
 				BF9199F12E3405430056E0E7 /* ScheduleSunscreenReminderUseCase.swift in Sources */,
 				BF9199F22E3405430056E0E7 /* SendUVWarningNotificationUseCase.swift in Sources */,
 				BF9199F32E3405430056E0E7 /* RequestAllPermissionsUseCase.swift in Sources */,

@@ -78,8 +78,6 @@
 		BF9199D92E3405430056E0E7 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91993A2E3405430056E0E7 /* LocationViewModel.swift */; };
 		BF9199DA2E3405430056E0E7 /* TestLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91993C2E3405430056E0E7 /* TestLocationView.swift */; };
 		BF9199DB2E3405430056E0E7 /* TestLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91993D2E3405430056E0E7 /* TestLocationViewModel.swift */; };
-		BF9199DC2E3405430056E0E7 /* MEDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91993F2E3405430056E0E7 /* MEDView.swift */; };
-		BF9199DD2E3405430056E0E7 /* MEDViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199412E3405430056E0E7 /* MEDViewModel.swift */; };
 		BF9199DE2E3405430056E0E7 /* NotificationAuthTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199442E3405430056E0E7 /* NotificationAuthTestView.swift */; };
 		BF9199DF2E3405430056E0E7 /* NotificationAuthTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199452E3405430056E0E7 /* NotificationAuthTestViewModel.swift */; };
 		BF9199E02E3405430056E0E7 /* PhoneSyncTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199472E3405430056E0E7 /* PhoneSyncTestView.swift */; };
@@ -237,8 +235,6 @@
 		BF91993A2E3405430056E0E7 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		BF91993C2E3405430056E0E7 /* TestLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestLocationView.swift; sourceTree = "<group>"; };
 		BF91993D2E3405430056E0E7 /* TestLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestLocationViewModel.swift; sourceTree = "<group>"; };
-		BF91993F2E3405430056E0E7 /* MEDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MEDView.swift; sourceTree = "<group>"; };
-		BF9199412E3405430056E0E7 /* MEDViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MEDViewModel.swift; sourceTree = "<group>"; };
 		BF9199442E3405430056E0E7 /* NotificationAuthTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAuthTestView.swift; sourceTree = "<group>"; };
 		BF9199452E3405430056E0E7 /* NotificationAuthTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAuthTestViewModel.swift; sourceTree = "<group>"; };
 		BF9199472E3405430056E0E7 /* PhoneSyncTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneSyncTestView.swift; sourceTree = "<group>"; };
@@ -672,31 +668,6 @@
 			path = Location;
 			sourceTree = "<group>";
 		};
-		BF9199402E3405430056E0E7 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				BF91993F2E3405430056E0E7 /* MEDView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		BF9199422E3405430056E0E7 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				BF9199412E3405430056E0E7 /* MEDViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		BF9199432E3405430056E0E7 /* MED */ = {
-			isa = PBXGroup;
-			children = (
-				BF9199402E3405430056E0E7 /* View */,
-				BF9199422E3405430056E0E7 /* ViewModel */,
-			);
-			path = MED;
-			sourceTree = "<group>";
-		};
 		BF9199462E3405430056E0E7 /* Notification */ = {
 			isa = PBXGroup;
 			children = (
@@ -727,7 +698,6 @@
 			children = (
 				BF9199372E3405430056E0E7 /* Health */,
 				BF91993E2E3405430056E0E7 /* Location */,
-				BF9199432E3405430056E0E7 /* MED */,
 				BF9199462E3405430056E0E7 /* Notification */,
 				BF9199482E3405430056E0E7 /* PhoneSync */,
 				BF91994A2E3405430056E0E7 /* Suncream */,
@@ -1269,8 +1239,6 @@
 				BF9199D92E3405430056E0E7 /* LocationViewModel.swift in Sources */,
 				BF9199DA2E3405430056E0E7 /* TestLocationView.swift in Sources */,
 				BF9199DB2E3405430056E0E7 /* TestLocationViewModel.swift in Sources */,
-				BF9199DC2E3405430056E0E7 /* MEDView.swift in Sources */,
-				BF9199DD2E3405430056E0E7 /* MEDViewModel.swift in Sources */,
 				BF9199DE2E3405430056E0E7 /* NotificationAuthTestView.swift in Sources */,
 				BF9199DF2E3405430056E0E7 /* NotificationAuthTestViewModel.swift in Sources */,
 				BF9199E02E3405430056E0E7 /* PhoneSyncTestView.swift in Sources */,

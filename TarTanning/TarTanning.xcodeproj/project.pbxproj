@@ -83,10 +83,8 @@
 		BF9199E62E3405430056E0E7 /* RealLocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199582E3405430056E0E7 /* RealLocationRepository.swift */; };
 		BF9199E72E3405430056E0E7 /* MockUserProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91995A2E3405430056E0E7 /* MockUserProfileRepository.swift */; };
 		BF9199E82E3405430056E0E7 /* UserProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91995B2E3405430056E0E7 /* UserProfileRepository.swift */; };
-		BF9199E92E3405430056E0E7 /* DefaultUVExposureRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91995D2E3405430056E0E7 /* DefaultUVExposureRepository.swift */; };
 		BF9199EA2E3405430056E0E7 /* MockUVExposureRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91995E2E3405430056E0E7 /* MockUVExposureRepository.swift */; };
 		BF9199EB2E3405430056E0E7 /* UVExposureRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91995F2E3405430056E0E7 /* UVExposureRepository.swift */; };
-		BF9199EE2E3405430056E0E7 /* WeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199632E3405430056E0E7 /* WeatherRepository.swift */; };
 		BF9199EF2E3405430056E0E7 /* GenerateUVInsightUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199662E3405430056E0E7 /* GenerateUVInsightUseCase.swift */; };
 		BF9199F02E3405430056E0E7 /* LoadDashboardDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199672E3405430056E0E7 /* LoadDashboardDataUseCase.swift */; };
 		BF9199F12E3405430056E0E7 /* ScheduleSunscreenReminderUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91996A2E3405430056E0E7 /* ScheduleSunscreenReminderUseCase.swift */; };
@@ -244,10 +242,8 @@
 		BF9199582E3405430056E0E7 /* RealLocationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealLocationRepository.swift; sourceTree = "<group>"; };
 		BF91995A2E3405430056E0E7 /* MockUserProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserProfileRepository.swift; sourceTree = "<group>"; };
 		BF91995B2E3405430056E0E7 /* UserProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileRepository.swift; sourceTree = "<group>"; };
-		BF91995D2E3405430056E0E7 /* DefaultUVExposureRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultUVExposureRepository.swift; sourceTree = "<group>"; };
 		BF91995E2E3405430056E0E7 /* MockUVExposureRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUVExposureRepository.swift; sourceTree = "<group>"; };
 		BF91995F2E3405430056E0E7 /* UVExposureRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UVExposureRepository.swift; sourceTree = "<group>"; };
-		BF9199632E3405430056E0E7 /* WeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRepository.swift; sourceTree = "<group>"; };
 		BF9199662E3405430056E0E7 /* GenerateUVInsightUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateUVInsightUseCase.swift; sourceTree = "<group>"; };
 		BF9199672E3405430056E0E7 /* LoadDashboardDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadDashboardDataUseCase.swift; sourceTree = "<group>"; };
 		BF91996A2E3405430056E0E7 /* ScheduleSunscreenReminderUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleSunscreenReminderUseCase.swift; sourceTree = "<group>"; };
@@ -489,8 +485,8 @@
 			isa = PBXGroup;
 			children = (
 				BF91990A2E3405430056E0E7 /* DashboardInfoView.swift */,
-				BF91990B2E3405430056E0E7 /* DashboardSummaryMetricsView.swift */,
 				BF91990C2E3405430056E0E7 /* DashboardTimerView.swift */,
+				BF91990B2E3405430056E0E7 /* DashboardSummaryMetricsView.swift */,
 				BF91990D2E3405430056E0E7 /* DashboardTitleView.swift */,
 				BF91990E2E3405430056E0E7 /* DashboardUVDoseView.swift */,
 				BF91990F2E3405430056E0E7 /* DashboardUVProgressView.swift */,
@@ -785,19 +781,10 @@
 		BF9199602E3405430056E0E7 /* UVExposure */ = {
 			isa = PBXGroup;
 			children = (
-				BF91995D2E3405430056E0E7 /* DefaultUVExposureRepository.swift */,
 				BF91995E2E3405430056E0E7 /* MockUVExposureRepository.swift */,
 				BF91995F2E3405430056E0E7 /* UVExposureRepository.swift */,
 			);
 			path = UVExposure;
-			sourceTree = "<group>";
-		};
-		BF9199642E3405430056E0E7 /* Weather */ = {
-			isa = PBXGroup;
-			children = (
-				BF9199632E3405430056E0E7 /* WeatherRepository.swift */,
-			);
-			path = Weather;
 			sourceTree = "<group>";
 		};
 		BF9199652E3405430056E0E7 /* before */ = {
@@ -806,7 +793,6 @@
 				BF9199592E3405430056E0E7 /* Location */,
 				BF91995C2E3405430056E0E7 /* UserProfile */,
 				BF9199602E3405430056E0E7 /* UVExposure */,
-				BF9199642E3405430056E0E7 /* Weather */,
 			);
 			path = before;
 			sourceTree = "<group>";
@@ -1284,10 +1270,8 @@
 				BF9199E62E3405430056E0E7 /* RealLocationRepository.swift in Sources */,
 				BF9199E72E3405430056E0E7 /* MockUserProfileRepository.swift in Sources */,
 				BF9199E82E3405430056E0E7 /* UserProfileRepository.swift in Sources */,
-				BF9199E92E3405430056E0E7 /* DefaultUVExposureRepository.swift in Sources */,
 				BF9199EA2E3405430056E0E7 /* MockUVExposureRepository.swift in Sources */,
 				BF9199EB2E3405430056E0E7 /* UVExposureRepository.swift in Sources */,
-				BF9199EE2E3405430056E0E7 /* WeatherRepository.swift in Sources */,
 				BF9199EF2E3405430056E0E7 /* GenerateUVInsightUseCase.swift in Sources */,
 				BF9199F02E3405430056E0E7 /* LoadDashboardDataUseCase.swift in Sources */,
 				BF9199F12E3405430056E0E7 /* ScheduleSunscreenReminderUseCase.swift in Sources */,

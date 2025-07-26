@@ -83,10 +83,3 @@
 //        .frame(maxWidth: .infinity)
 //    }
 //}
-//
-//// MARK: - Preview
-//#Preview {
-//    DashboardSummaryMetricsView(viewModel: DashboardViewModel(uvExposureRepository: MockUVExposureRepository(), weatherRepository: MockWeatherRepository(), userProfileRepository: MockUserProfileRepository(), locationRepository: MockLocationRepository()))
-//        .background(Color.gray.opacity(0.1))
-//        .padding()
-//}

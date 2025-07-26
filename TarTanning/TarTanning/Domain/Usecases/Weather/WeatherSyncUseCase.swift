@@ -68,8 +68,16 @@ final class WeatherSyncUseCase {
     private func syncByLocationChange(newLocation: LocationInfo) async throws -> LocationWeather {
         print("📍 [WeatherSyncUseCase] Location changed to \(newLocation.city)")
         
-        // 1. 모든 기존 데이터 삭제 (위치가 바뀌었으므로)
-        try await clearAllData()
+        // 1. 기존 데이터가 있는지 확인 후 삭제
+        let fetchDescriptor = FetchDescriptor<LocationWeather>()
+        let existingData = try modelContext.fetch(fetchDescriptor)
+        
+        if !existingData.isEmpty {
+            try await clearAllData()
+            print("🗑️ [WeatherSyncUseCase] Cleared existing data due to location change")
+        } else {
+            print("📭 [WeatherSyncUseCase] No existing data to clear")
+        }
         
         // 2. 새 위치의 날씨 데이터 가져오기
         return try await fetchAndSaveWeatherData(for: newLocation)
@@ -79,8 +87,16 @@ final class WeatherSyncUseCase {
     private func syncByDateChange(for locationInfo: LocationInfo) async throws -> LocationWeather {
         print("📅 [WeatherSyncUseCase] Date changed, updating weather data")
         
-        // 1. 모든 기존 데이터 삭제 (날짜가 바뀌었으므로)
-        try await clearAllData()
+        // 1. 기존 데이터가 있는지 확인 후 삭제
+        let fetchDescriptor = FetchDescriptor<LocationWeather>()
+        let existingData = try modelContext.fetch(fetchDescriptor)
+        
+        if !existingData.isEmpty {
+            try await clearAllData()
+            print("🗑️ [WeatherSyncUseCase] Cleared existing data due to date change")
+        } else {
+            print("📭 [WeatherSyncUseCase] No existing data to clear")
+        }
         
         // 2. 오늘 날씨 데이터 가져오기
         return try await fetchAndSaveWeatherData(for: locationInfo)
@@ -104,9 +120,16 @@ final class WeatherSyncUseCase {
             print("✅ [WeatherSyncUseCase] Exact match found - using existing data (refresh case)")
             return exactMatch
         } else {
-            // 일치하는 데이터가 없으면 모든 기존 데이터 삭제 후 새로 생성
-            print("🔄 [WeatherSyncUseCase] No exact match - clearing all data and creating new")
-            try await clearAllData()
+            // 일치하는 데이터가 없음
+            if !allData.isEmpty {
+                // 기존 데이터가 있으면 삭제 후 새로 생성
+                print("🔄 [WeatherSyncUseCase] Clearing outdated data and creating new")
+                try await clearAllData()
+            } else {
+                // 초기 상태 (데이터 없음)
+                print("🆕 [WeatherSyncUseCase] Initial state - creating first data")
+            }
+            
             return try await fetchAndSaveWeatherData(for: locationInfo)
         }
     }
@@ -135,6 +158,7 @@ final class WeatherSyncUseCase {
     }
     
     // MARK: - Helper Methods
+    
     private func clearAllData() async throws {
         // 모든 HourlyWeather 삭제
         let hourlyDescriptor = FetchDescriptor<HourlyWeather>()
@@ -250,8 +274,14 @@ final class WeatherSyncUseCase {
             targetDate: currentDate
         )
         
-        // 3. 새 데이터 저장
+        // 3. 새 데이터 저장 (순서 중요: LocationWeather 먼저, HourlyWeather 나중에)
         modelContext.insert(locationWeather)
+        
+        // HourlyWeather들을 개별적으로 삽입
+        for hourlyWeather in locationWeather.hourlyWeathers {
+            modelContext.insert(hourlyWeather)
+        }
+        
         try modelContext.save()
         
         print("✅ [WeatherSyncUseCase] Successfully saved weather data for \(locationInfo.city)")
@@ -276,6 +306,7 @@ final class WeatherSyncUseCase {
             .sorted { $0.date < $1.date } // 시간순으로 정렬
         
         print("📊 [WeatherSyncUseCase] Filtered hourly data count: \(filteredHourlyData.count)")
+        print("📊 [WeatherSyncUseCase] Hour range: \(filteredHourlyData.first?.date.formatted(.dateTime.hour(.defaultDigits(amPM: .omitted)))) - \(filteredHourlyData.last?.date.formatted(.dateTime.hour(.defaultDigits(amPM: .omitted))))")
         
         let hourlyEntities = filteredHourlyData.map { hourlyForecast in
             let hourlyWeather = HourlyWeather(

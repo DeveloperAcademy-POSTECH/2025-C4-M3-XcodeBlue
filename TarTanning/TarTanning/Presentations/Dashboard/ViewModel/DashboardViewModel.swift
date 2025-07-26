@@ -11,7 +11,6 @@ import SwiftData
 
 @MainActor
 class DashboardViewModel: ObservableObject {
-    @Published var todayUVProgressRate: Double = 0.0
     @Published var weeklyUVProgressRates: [Double] = []
     @Published var currentWeather: LocationWeather?
     @Published var userProfile: UserProfile?
@@ -51,6 +50,22 @@ class DashboardViewModel: ObservableObject {
     
     var currentCityName: String {
         return currentWeather?.city ?? currentLocation.city
+    }
+    
+    // MARK: - UV Progress Calculation
+    
+    var todayUVProgressRate: Double {
+        guard let dailyUV = todayUVExposure else { return 0.0 }
+        
+        // 사용자 프로필에서 maxMED 가져오기
+        let userProfile = getUserProfileUseCase.getUserProfile()
+        let maxMED = userProfile.skinType.maxMED
+        
+        // 현재 UV Dose를 maxMED로 나누어 진행률 계산
+        let progressRate = dailyUV.totalUVDose / maxMED
+        
+        // 0.0 ~ 1.0 범위로 제한
+        return min(max(progressRate, 0.0), 1.0)
     }
     
     // MARK: - Weather Methods
@@ -218,6 +233,16 @@ class DashboardViewModel: ObservableObject {
         }
         
         try await calculateAndSaveUVDoseUseCase.calculateAndSaveTodayUVDose(uvIndexData: uvIndexData)
+    }
+    
+    // MARK: - Public Access Methods
+    
+    func getUserProfile() -> UserProfile {
+        return getUserProfileUseCase.getUserProfile()
+    }
+    
+    func getMaxMED() -> Double {
+        return getUserProfile().skinType.maxMED
     }
     
     // MARK: - Private Methods

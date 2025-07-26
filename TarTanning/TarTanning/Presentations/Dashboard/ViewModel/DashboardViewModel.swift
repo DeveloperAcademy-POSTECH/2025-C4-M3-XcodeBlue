@@ -11,7 +11,6 @@ import SwiftData
 
 @MainActor
 class DashboardViewModel: ObservableObject {
-    @Published var weeklyUVProgressRates: [Double] = []
     @Published var currentWeather: LocationWeather?
     @Published var userProfile: UserProfile?
     @Published var todayTotalSunlightMinutes: Int = 0
@@ -209,6 +208,9 @@ class DashboardViewModel: ObservableObject {
                 // 3. UV Dose 계산
                 await calculateAndSaveUVDose()
                 
+                // 4. 주간 데이터 업데이트 (UI 자동 갱신)
+                print("📊 [DashboardViewModel] Weekly UV progress rates: \(self.weeklyUVProgressRates)")
+                
                 print("✅ [DashboardViewModel] All dashboard data loaded successfully")
                 
             } catch {
@@ -243,6 +245,47 @@ class DashboardViewModel: ObservableObject {
     
     func getMaxMED() -> Double {
         return getUserProfile().skinType.maxMED
+    }
+    
+    // MARK: - Weekly UV Progress Calculation
+    
+    var weeklyUVProgressRates: [Double] {
+        let maxMED = getMaxMED()
+        let calendar = Calendar.current
+        let today = Date()
+        
+        var weeklyRates: [Double] = []
+        
+        // 오늘을 제외한 최근 7일
+        for i in 1...7 {
+            if let pastDate = calendar.date(byAdding: .day, value: -i, to: today) {
+                let progressRate = getUVProgressRate(for: pastDate, maxMED: maxMED)
+                weeklyRates.append(progressRate)
+            }
+        }
+        
+        return weeklyRates
+    }
+    
+    private func getUVProgressRate(for date: Date, maxMED: Double) -> Double {
+        // SwiftData에서 해당 날짜의 DailyUVExpose 조회
+        let descriptor = FetchDescriptor<DailyUVExpose>()
+        
+        do {
+            let allDailyData = try modelContext.fetch(descriptor)
+            let targetDaily = allDailyData.first { daily in
+                Calendar.current.isDate(daily.date, inSameDayAs: date)
+            }
+            
+            guard let dailyUV = targetDaily else { return 0.0 }
+            
+            let progressRate = dailyUV.totalUVDose / maxMED
+            return min(max(progressRate, 0.0), 1.0)
+            
+        } catch {
+            print("❌ [DashboardViewModel] Failed to fetch daily UV data: \(error)")
+            return 0.0
+        }
     }
     
     // MARK: - Private Methods

@@ -22,6 +22,7 @@ struct DashboardView: View {
             DashboardTitleView(viewModel: viewModel)
             DashboardSummaryMetricsView(viewModel: viewModel)
             DashboardUVDoseView(viewModel: viewModel)
+            DashboardWeeklySummaryView(viewModel: viewModel)
             
             Spacer()
             

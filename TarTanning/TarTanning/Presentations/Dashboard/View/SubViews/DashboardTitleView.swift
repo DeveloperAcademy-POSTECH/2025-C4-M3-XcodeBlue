@@ -8,17 +8,14 @@
 import SwiftUI
 
 struct DashboardTitleView: View {
+    @ObservedObject var viewModel: DashboardViewModel
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-//                Text("대시보드")
                 Text(Date().dateString)
+                Text(viewModel.currentCityName)
             }
             Spacer()
         }
     }
-}
-
-#Preview {
-    DashboardTitleView()
 }

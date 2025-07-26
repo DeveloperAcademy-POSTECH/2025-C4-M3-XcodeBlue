@@ -11,6 +11,7 @@ import SwiftData
 
 @MainActor
 class DashboardViewModel: ObservableObject {
+    // MARK: - Published Properties
     @Published var currentWeather: LocationWeather?
     @Published var todayTotalSunlightMinutes: Int = 0
     @Published var todayUVExposure: DailyUVExpose?
@@ -18,7 +19,10 @@ class DashboardViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
     
+    // MARK: - Dependencies
     let modelContext: ModelContext
+    
+    // MARK: - UseCase Dependencies
     // Weather UseCase들 (싱글톤 + 의존성 주입)
     private lazy var getWeatherDataUseCase = GetWeatherDataUseCase(modelContext: modelContext)
     private lazy var syncWeatherDataUseCase = SyncWeatherDataUseCase(modelContext: modelContext)
@@ -29,8 +33,10 @@ class DashboardViewModel: ObservableObject {
     private lazy var calculateAndSaveUVDoseUseCase = CalculateAndSaveUVDoseUseCase(modelContext: modelContext)
     private lazy var getUserProfileUseCase = GetUserProfileUseCase()
     
+    // MARK: - Private Properties
     private var currentLocation = LocationInfo.mockSeoul
     
+    // MARK: - Initialization
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
     }
@@ -50,8 +56,6 @@ class DashboardViewModel: ObservableObject {
         return currentWeather?.city ?? currentLocation.city
     }
     
-    // MARK: - UV Progress Calculation
-    
     var todayUVProgressRate: Double {
         guard let dailyUV = todayUVExposure else { return 0.0 }
         
@@ -66,8 +70,9 @@ class DashboardViewModel: ObservableObject {
         return min(max(progressRate, 0.0), 1.0)
     }
     
-    // MARK: - Weather Methods
+    // MARK: - Weather Feature Methods
     
+    /// 날씨 데이터 로드
     func loadWeatherData() {
         isLoading = true
         errorMessage = nil
@@ -97,6 +102,7 @@ class DashboardViewModel: ObservableObject {
         }
     }
     
+    /// 위치 변경 시 날씨 데이터 업데이트
     func updateLocation(_ newLocation: LocationInfo) {
         print("📍 [DashboardViewModel] Location update to \(newLocation.city)")
         currentLocation = newLocation
@@ -117,8 +123,10 @@ class DashboardViewModel: ObservableObject {
             }
         }
     }
-    // MARK: - UV Exposure Methods
     
+    // MARK: - UV Exposure Feature Methods
+    
+    /// HealthKit에서 UV 노출량 데이터 로드
     func loadUVExposureData() {
         print("🔄 [DashboardViewModel] Loading UV exposure data")
         
@@ -145,6 +153,7 @@ class DashboardViewModel: ObservableObject {
         }
     }
     
+    /// UV Dose 계산 및 저장
     func calculateAndSaveUVDose() {
         print("🧮 [DashboardViewModel] Calculating and saving UV dose")
         
@@ -178,6 +187,9 @@ class DashboardViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Dashboard Orchestration Methods
+    
+    /// 모든 대시보드 데이터 로드 (Weather + UV Exposure + UV Dose)
     func loadAllDashboardData() {
         print("🔄 [DashboardViewModel] Loading all dashboard data")
         
@@ -198,35 +210,25 @@ class DashboardViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Debug Methods (for SwiftDataDebugView)
-    
-    func syncHealthKitDataForDebug() async throws {
-        try await syncUVDataFromHealthKitUseCase.syncTodaySunlightFromHealthKit()
-    }
-    
-    func calculateUVDoseForDebug() async throws {
-        guard let weather = currentWeather else { return }
+    /// 전체 데이터 새로고침 (Pull-to-Refresh용)
+    @MainActor func refreshAllData() async {
+        print("🔄 [DashboardViewModel] Refreshing all data")
         
-        var uvIndexData: [Int: Double] = [:]
-        for hourlyWeather in weather.hourlyWeathers {
-            uvIndexData[hourlyWeather.hour] = hourlyWeather.uvIndex
-        }
+        // 1. 날씨 데이터 새로고침
+        loadWeatherData()
         
-        try await calculateAndSaveUVDoseUseCase.calculateAndSaveTodayUVDose(uvIndexData: uvIndexData)
+        // 2. UV 노출량 데이터 새로고침
+        loadUVExposureData()
+        
+        // 3. UV Dose 재계산
+        calculateAndSaveUVDose()
+        
+        print("✅ [DashboardViewModel] All data refreshed successfully")
     }
     
-    // MARK: - Public Access Methods
+    // MARK: - Weekly Summary Feature Methods
     
-    func getUserProfile() -> UserProfile {
-        return getUserProfileUseCase.getUserProfile()
-    }
-    
-    func getMaxMED() -> Double {
-        return getUserProfile().skinType.maxMED
-    }
-    
-    // MARK: - Weekly UV Progress Calculation
-    
+    /// 주간 UV 진행률 계산 (오늘 제외 최근 7일)
     var weeklyUVProgressRates: [Double] {
         let maxMED = getMaxMED()
         let calendar = Calendar.current
@@ -245,6 +247,7 @@ class DashboardViewModel: ObservableObject {
         return weeklyRates
     }
     
+    /// 특정 날짜의 UV 진행률 계산
     private func getUVProgressRate(for date: Date, maxMED: Double) -> Double {
         // SwiftData에서 해당 날짜의 DailyUVExpose 조회
         let descriptor = FetchDescriptor<DailyUVExpose>()
@@ -266,35 +269,38 @@ class DashboardViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Private Methods
-    private func calculateTotalSunlightMinutes() {
-        guard let weather = currentWeather,
-              let sunrise = weather.sunriseTime,
-              let sunset = weather.sunsetTime else {
-            todayTotalSunlightMinutes = 0
-            return
-        }
-        
-        let sunlightDuration = sunset.timeIntervalSince(sunrise)
-        todayTotalSunlightMinutes = Int(sunlightDuration / 60) // 분 단위로 변환
-        
-        print("☀️ [DashboardViewModel] Calculated sunlight: \(todayTotalSunlightMinutes) minutes")
+    // MARK: - User Profile Access Methods
+    
+    /// 사용자 프로필 조회
+    func getUserProfile() -> UserProfile {
+        return getUserProfileUseCase.getUserProfile()
     }
     
-    private func logCurrentWeatherInfo() {
+    /// 사용자 최대 MED 값 조회
+    func getMaxMED() -> Double {
+        return getUserProfile().skinType.maxMED
+    }
+    
+    // MARK: - Debug Methods (for SwiftDataDebugView)
+    
+    /// HealthKit 데이터 동기화 (디버그용)
+    func syncHealthKitDataForDebug() async throws {
+        try await syncUVDataFromHealthKitUseCase.syncTodaySunlightFromHealthKit()
+    }
+    
+    /// UV Dose 계산 (디버그용)
+    func calculateUVDoseForDebug() async throws {
         guard let weather = currentWeather else { return }
         
-        let currentHour = Calendar.current.component(.hour, from: Date())
-        print("📊 [DashboardViewModel] Current weather info:")
-        print("   - City: \(weather.city)")
-        print("   - Current hour: \(currentHour)")
-        print("   - Current UV: \(currentUVIndex)")
-        print("   - Current temperature: \(currentTemperature)°C")
-        print("   - Total hourly data: \(weather.hourlyWeathers.count)")
-        print("   - Sunlight minutes: \(todayTotalSunlightMinutes)")
+        var uvIndexData: [Int: Double] = [:]
+        for hourlyWeather in weather.hourlyWeathers {
+            uvIndexData[hourlyWeather.hour] = hourlyWeather.uvIndex
+        }
+        
+        try await calculateAndSaveUVDoseUseCase.calculateAndSaveTodayUVDose(uvIndexData: uvIndexData)
     }
     
-    // MARK: - Debug Methods
+    /// 모든 데이터 삭제 (디버그용)
     func clearAllData() {
         Task {
             do {
@@ -311,6 +317,7 @@ class DashboardViewModel: ObservableObject {
         }
     }
     
+    /// SwiftData 상세 상태 로그 (디버그용)
     func logDetailedSwiftDataStatus() {
         Task {
             do {
@@ -373,4 +380,34 @@ class DashboardViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Private Helper Methods
+    
+    /// 일출/일몰 시간으로 일광시간 계산
+    private func calculateTotalSunlightMinutes() {
+        guard let weather = currentWeather,
+              let sunrise = weather.sunriseTime,
+              let sunset = weather.sunsetTime else {
+            todayTotalSunlightMinutes = 0
+            return
+        }
+        
+        let sunlightDuration = sunset.timeIntervalSince(sunrise)
+        todayTotalSunlightMinutes = Int(sunlightDuration / 60) // 분 단위로 변환
+        
+        print("☀️ [DashboardViewModel] Calculated sunlight: \(todayTotalSunlightMinutes) minutes")
+    }
+    
+    /// 현재 날씨 정보 로그
+    private func logCurrentWeatherInfo() {
+        guard let weather = currentWeather else { return }
+        
+        let currentHour = Calendar.current.component(.hour, from: Date())
+        print("📊 [DashboardViewModel] Current weather info:")
+        print("   - City: \(weather.city)")
+        print("   - Current hour: \(currentHour)")
+        print("   - Current UV: \(currentUVIndex)")
+        print("   - Current temperature: \(currentTemperature)°C")
+        print("   - Total hourly data: \(weather.hourlyWeathers.count)")
+        print("   - Sunlight minutes: \(todayTotalSunlightMinutes)")
+    }
 }

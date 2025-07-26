@@ -54,4 +54,4 @@ final class GetUserProfileUseCase {
     func isFirstLaunch() -> Bool {
         return userDefaultManager.isFirstLaunch()
     }
-} 
+}

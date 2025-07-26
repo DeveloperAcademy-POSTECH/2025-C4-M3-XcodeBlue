@@ -12,7 +12,6 @@ import SwiftData
 @MainActor
 class DashboardViewModel: ObservableObject {
     @Published var currentWeather: LocationWeather?
-    @Published var userProfile: UserProfile?
     @Published var todayTotalSunlightMinutes: Int = 0
     @Published var todayUVExposure: DailyUVExpose?
     @Published var todayMEDValue: Double = 0.0
@@ -85,7 +84,6 @@ class DashboardViewModel: ObservableObject {
                 await MainActor.run {
                     self.currentWeather = weatherData
                     self.isLoading = false
-                    // calculateTotalSunlightMinutes() 제거 - HealthKit 데이터로 대체
                     self.logCurrentWeatherInfo()
                 }
                 
@@ -127,12 +125,6 @@ class DashboardViewModel: ObservableObject {
             }
         }
     }
-    
-    func refreshWeatherData() {
-        print("🔄 [DashboardViewModel] Refreshing weather data")
-        loadWeatherData()
-    }
-    
     // MARK: - UV Exposure Methods
     
     func loadUVExposureData() {
@@ -317,36 +309,6 @@ class DashboardViewModel: ObservableObject {
     }
     
     // MARK: - Debug Methods
-    func logSwiftDataStatus() {
-        Task {
-            do {
-                let locationDescriptor = FetchDescriptor<LocationWeather>()
-                let allLocationData = try modelContext.fetch(locationDescriptor)
-                
-                let hourlyDescriptor = FetchDescriptor<HourlyWeather>()
-                let allHourlyData = try modelContext.fetch(hourlyDescriptor)
-                
-                await MainActor.run {
-                    print("📊 [DashboardViewModel] SwiftData Status:")
-                    print("   - LocationWeather count: \(allLocationData.count)")
-                    print("   - HourlyWeather count: \(allHourlyData.count)")
-                    
-                    for location in allLocationData {
-                        print("   - Location: \(location.city) (\(location.date))")
-                        print("     - Hourly data: \(location.hourlyWeathers.count)")
-                        
-                        let sortedHours = location.hourlyWeathers.sorted { $0.hour < $1.hour }
-                        if !sortedHours.isEmpty {
-                            print("     - Hour range: \(sortedHours.first!.hour) - \(sortedHours.last!.hour)")
-                        }
-                    }
-                }
-            } catch {
-                print("❌ [DashboardViewModel] Failed to fetch SwiftData: \(error)")
-            }
-        }
-    }
-    
     func clearAllData() {
         Task {
             do {

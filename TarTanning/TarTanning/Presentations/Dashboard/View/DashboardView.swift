@@ -61,7 +61,7 @@ struct DashboardView: View {
         }
         .padding()
         .onAppear {
-            viewModel.loadWeatherData()
+            viewModel.loadAllDashboardData()
         }
         .sheet(isPresented: $showingDebugSheet) {
             SwiftDataDebugView(viewModel: viewModel)

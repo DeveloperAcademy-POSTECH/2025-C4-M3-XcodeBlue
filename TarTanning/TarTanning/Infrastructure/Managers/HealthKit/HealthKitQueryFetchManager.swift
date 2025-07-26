@@ -16,11 +16,15 @@ protocol HealthKitQueryFetchManagerDelegate: AnyObject {
 
 @MainActor
 final class HealthKitQueryFetchManager: ObservableObject {
+    static let shared = HealthKitQueryFetchManager()
+    
     weak var delegate: HealthKitQueryFetchManagerDelegate?
     private let healthStore = HKHealthStore()
 
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
+    
+    private init() {}
 
     // MARK: 1. 하루 동안의 모든 샘플 가져오기
     func fetchTodaySamples() async {

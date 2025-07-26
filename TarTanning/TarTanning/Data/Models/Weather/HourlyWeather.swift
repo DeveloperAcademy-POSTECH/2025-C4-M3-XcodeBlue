@@ -13,25 +13,12 @@ final class HourlyWeather {
     var date: Date
     var uvIndex: Double
     var temperature: Double
-    var latitude: Double
-    var longitude: Double
-    var city: String
     var hour: Int { Calendar.current.component(.hour, from: date) }
+    var locationWeather: LocationWeather?
 
-    init(
-        date: Date,
-        uvIndex: Double,
-        temperature: Double,
-        latitude: Double,
-        longitude: Double,
-        city: String
-    ) {
+    init(date: Date, uvIndex: Double, temperature: Double) {
         self.date = date
         self.uvIndex = uvIndex
         self.temperature = temperature
-        self.latitude = latitude
-        self.longitude = longitude
-        self.city = city
     }
-
 }

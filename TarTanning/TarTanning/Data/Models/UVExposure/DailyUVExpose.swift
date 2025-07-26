@@ -20,24 +20,3 @@ class DailyUVExpose {
         self.date = date
     }
 }
-
-extension DailyUVExpose {
-    /// 오늘 기준 일일 UV 노출 요약 Mock 데이터
-    static var mockTodayDailyExposure: DailyUVExpose {
-        let today = Date()
-        let dailyExposure = DailyUVExpose(date: today)
-
-        // 오늘 날짜의 UVExposeRecord들만 필터링
-        let todayRecords = UVExposeRecord.mockExposureRecords.filter {
-            Calendar.current.isDate($0.startDate, inSameDayAs: today)
-        }
-
-        dailyExposure.exposureRecords = todayRecords
-        dailyExposure.totalSunlightMinutes = todayRecords.reduce(0) {
-            $0 + $1.sunlightExposureDuration
-        }
-        dailyExposure.totalUVDose = todayRecords.reduce(0) { $0 + $1.uvDose }
-
-        return dailyExposure
-    }
-}

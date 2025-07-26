@@ -29,7 +29,7 @@
 		BF9199AE2E3405430056E0E7 /* NotificationAuthStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198F42E3405430056E0E7 /* NotificationAuthStatus.swift */; };
 		BF9199AF2E3405430056E0E7 /* NotificationAuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198F62E3405430056E0E7 /* NotificationAuthorizationManager.swift */; };
 		BF9199B02E3405430056E0E7 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198F82E3405430056E0E7 /* LocationManager.swift */; };
-		BF9199B12E3405430056E0E7 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198F92E3405430056E0E7 /* WeatherManager.swift */; };
+		BF9199B12E3405430056E0E7 /* WeatherKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198F92E3405430056E0E7 /* WeatherKitManager.swift */; };
 		BF9199B22E3405430056E0E7 /* LocationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198FB2E3405430056E0E7 /* LocationInfo.swift */; };
 		BF9199B32E3405430056E0E7 /* SunScreenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198FD2E3405430056E0E7 /* SunScreenInfo.swift */; };
 		BF9199B42E3405430056E0E7 /* SkinType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198FF2E3405430056E0E7 /* SkinType.swift */; };
@@ -86,7 +86,6 @@
 		BF9199E92E3405430056E0E7 /* DefaultUVExposureRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91995D2E3405430056E0E7 /* DefaultUVExposureRepository.swift */; };
 		BF9199EA2E3405430056E0E7 /* MockUVExposureRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91995E2E3405430056E0E7 /* MockUVExposureRepository.swift */; };
 		BF9199EB2E3405430056E0E7 /* UVExposureRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91995F2E3405430056E0E7 /* UVExposureRepository.swift */; };
-		BF9199EC2E3405430056E0E7 /* DefaultWeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199612E3405430056E0E7 /* DefaultWeatherRepository.swift */; };
 		BF9199EE2E3405430056E0E7 /* WeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199632E3405430056E0E7 /* WeatherRepository.swift */; };
 		BF9199EF2E3405430056E0E7 /* GenerateUVInsightUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199662E3405430056E0E7 /* GenerateUVInsightUseCase.swift */; };
 		BF9199F02E3405430056E0E7 /* LoadDashboardDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199672E3405430056E0E7 /* LoadDashboardDataUseCase.swift */; };
@@ -102,8 +101,6 @@
 		BF9199FA2E3405430056E0E7 /* GetTodayUVExposureUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199772E3405430056E0E7 /* GetTodayUVExposureUseCase.swift */; };
 		BF9199FB2E3405430056E0E7 /* GetWeeklyUVTrendUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199782E3405430056E0E7 /* GetWeeklyUVTrendUseCase.swift */; };
 		BF9199FC2E3405430056E0E7 /* MEDCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199792E3405430056E0E7 /* MEDCalculator.swift */; };
-		BF9199FD2E3405430056E0E7 /* CheckUVRiskLevelUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91997B2E3405430056E0E7 /* CheckUVRiskLevelUseCase.swift */; };
-		BF9199FE2E3405430056E0E7 /* GetCurrentLocationWeatherUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91997C2E3405430056E0E7 /* GetCurrentLocationWeatherUseCase.swift */; };
 		BF9199FF2E3405430056E0E7 /* NotificationActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91997F2E3405430056E0E7 /* NotificationActionType.swift */; };
 		BF919A002E3405430056E0E7 /* LocalNotificationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199812E3405430056E0E7 /* LocalNotificationError.swift */; };
 		BF919A012E3405430056E0E7 /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199822E3405430056E0E7 /* LocalNotificationManager.swift */; };
@@ -139,7 +136,8 @@
 		BF919A202E3405430056E0E7 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199852E3405430056E0E7 /* NotificationScheduler.swift */; };
 		BF919A212E3405430056E0E7 /* TimeInterval+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199872E3405430056E0E7 /* TimeInterval+String.swift */; };
 		BF919A2A2E34096C0056E0E7 /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF919A292E34096C0056E0E7 /* UserDefaultManager.swift */; };
-		BF919A2D2E340E5D0056E0E7 /* GetCurrentLocationWeatherUseCaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF919A2C2E340E5D0056E0E7 /* GetCurrentLocationWeatherUseCaseProtocol.swift */; };
+		BF919A742E34C25A0056E0E7 /* WeatherManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF919A732E34C25A0056E0E7 /* WeatherManagerError.swift */; };
+		BF919A7E2E34D6330056E0E7 /* WeatherSyncUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF919A7D2E34D6330056E0E7 /* WeatherSyncUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -190,7 +188,7 @@
 		BF9198F42E3405430056E0E7 /* NotificationAuthStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAuthStatus.swift; sourceTree = "<group>"; };
 		BF9198F62E3405430056E0E7 /* NotificationAuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAuthorizationManager.swift; sourceTree = "<group>"; };
 		BF9198F82E3405430056E0E7 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		BF9198F92E3405430056E0E7 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
+		BF9198F92E3405430056E0E7 /* WeatherKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherKitManager.swift; sourceTree = "<group>"; };
 		BF9198FB2E3405430056E0E7 /* LocationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInfo.swift; sourceTree = "<group>"; };
 		BF9198FD2E3405430056E0E7 /* SunScreenInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunScreenInfo.swift; sourceTree = "<group>"; };
 		BF9198FF2E3405430056E0E7 /* SkinType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinType.swift; sourceTree = "<group>"; };
@@ -249,7 +247,6 @@
 		BF91995D2E3405430056E0E7 /* DefaultUVExposureRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultUVExposureRepository.swift; sourceTree = "<group>"; };
 		BF91995E2E3405430056E0E7 /* MockUVExposureRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUVExposureRepository.swift; sourceTree = "<group>"; };
 		BF91995F2E3405430056E0E7 /* UVExposureRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UVExposureRepository.swift; sourceTree = "<group>"; };
-		BF9199612E3405430056E0E7 /* DefaultWeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultWeatherRepository.swift; sourceTree = "<group>"; };
 		BF9199632E3405430056E0E7 /* WeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRepository.swift; sourceTree = "<group>"; };
 		BF9199662E3405430056E0E7 /* GenerateUVInsightUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateUVInsightUseCase.swift; sourceTree = "<group>"; };
 		BF9199672E3405430056E0E7 /* LoadDashboardDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadDashboardDataUseCase.swift; sourceTree = "<group>"; };
@@ -265,8 +262,6 @@
 		BF9199772E3405430056E0E7 /* GetTodayUVExposureUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTodayUVExposureUseCase.swift; sourceTree = "<group>"; };
 		BF9199782E3405430056E0E7 /* GetWeeklyUVTrendUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWeeklyUVTrendUseCase.swift; sourceTree = "<group>"; };
 		BF9199792E3405430056E0E7 /* MEDCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MEDCalculator.swift; sourceTree = "<group>"; };
-		BF91997B2E3405430056E0E7 /* CheckUVRiskLevelUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckUVRiskLevelUseCase.swift; sourceTree = "<group>"; };
-		BF91997C2E3405430056E0E7 /* GetCurrentLocationWeatherUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCurrentLocationWeatherUseCase.swift; sourceTree = "<group>"; };
 		BF91997F2E3405430056E0E7 /* NotificationActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationActionType.swift; sourceTree = "<group>"; };
 		BF9199812E3405430056E0E7 /* LocalNotificationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationError.swift; sourceTree = "<group>"; };
 		BF9199822E3405430056E0E7 /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
@@ -286,7 +281,8 @@
 		BF91999A2E3405430056E0E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF91999B2E3405430056E0E7 /* TarTanning.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TarTanning.entitlements; sourceTree = "<group>"; };
 		BF919A292E34096C0056E0E7 /* UserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
-		BF919A2C2E340E5D0056E0E7 /* GetCurrentLocationWeatherUseCaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCurrentLocationWeatherUseCaseProtocol.swift; sourceTree = "<group>"; };
+		BF919A732E34C25A0056E0E7 /* WeatherManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManagerError.swift; sourceTree = "<group>"; };
+		BF919A7D2E34D6330056E0E7 /* WeatherSyncUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherSyncUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -799,7 +795,6 @@
 		BF9199642E3405430056E0E7 /* Weather */ = {
 			isa = PBXGroup;
 			children = (
-				BF9199612E3405430056E0E7 /* DefaultWeatherRepository.swift */,
 				BF9199632E3405430056E0E7 /* WeatherRepository.swift */,
 			);
 			path = Weather;
@@ -1044,8 +1039,7 @@
 		BF919A252E3408A80056E0E7 /* Weather */ = {
 			isa = PBXGroup;
 			children = (
-				BF919A2B2E340E390056E0E7 /* GetCurrentLocationWeatherUseCase */,
-				BF91997B2E3405430056E0E7 /* CheckUVRiskLevelUseCase.swift */,
+				BF919A7D2E34D6330056E0E7 /* WeatherSyncUseCase.swift */,
 			);
 			path = Weather;
 			sourceTree = "<group>";
@@ -1060,7 +1054,8 @@
 		BF919A272E3409230056E0E7 /* WeatherKit */ = {
 			isa = PBXGroup;
 			children = (
-				BF9198F92E3405430056E0E7 /* WeatherManager.swift */,
+				BF919A722E34C2510056E0E7 /* Enum */,
+				BF9198F92E3405430056E0E7 /* WeatherKitManager.swift */,
 			);
 			path = WeatherKit;
 			sourceTree = "<group>";
@@ -1073,13 +1068,12 @@
 			path = UserDefaults;
 			sourceTree = "<group>";
 		};
-		BF919A2B2E340E390056E0E7 /* GetCurrentLocationWeatherUseCase */ = {
+		BF919A722E34C2510056E0E7 /* Enum */ = {
 			isa = PBXGroup;
 			children = (
-				BF91997C2E3405430056E0E7 /* GetCurrentLocationWeatherUseCase.swift */,
-				BF919A2C2E340E5D0056E0E7 /* GetCurrentLocationWeatherUseCaseProtocol.swift */,
+				BF919A732E34C25A0056E0E7 /* WeatherManagerError.swift */,
 			);
-			path = GetCurrentLocationWeatherUseCase;
+			path = Enum;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1234,13 +1228,14 @@
 				BF9199AE2E3405430056E0E7 /* NotificationAuthStatus.swift in Sources */,
 				BF9199AF2E3405430056E0E7 /* NotificationAuthorizationManager.swift in Sources */,
 				BF9199B02E3405430056E0E7 /* LocationManager.swift in Sources */,
-				BF9199B12E3405430056E0E7 /* WeatherManager.swift in Sources */,
+				BF9199B12E3405430056E0E7 /* WeatherKitManager.swift in Sources */,
 				BF9199B22E3405430056E0E7 /* LocationInfo.swift in Sources */,
 				BF9199B32E3405430056E0E7 /* SunScreenInfo.swift in Sources */,
 				BF9199B42E3405430056E0E7 /* SkinType.swift in Sources */,
 				BF9199B52E3405430056E0E7 /* SPFLevel.swift in Sources */,
 				BF9199B62E3405430056E0E7 /* UserProfile.swift in Sources */,
 				BF9199B72E3405430056E0E7 /* DailyUVExpose.swift in Sources */,
+				BF919A7E2E34D6330056E0E7 /* WeatherSyncUseCase.swift in Sources */,
 				BF9199B82E3405430056E0E7 /* UVExposeRecord.swift in Sources */,
 				BF9199B92E3405430056E0E7 /* HourlyWeather.swift in Sources */,
 				BF9199BA2E3405430056E0E7 /* LocationWeather.swift in Sources */,
@@ -1265,8 +1260,8 @@
 				BF9199CD2E3405430056E0E7 /* OnboardingStartView.swift in Sources */,
 				BF9199CE2E3405430056E0E7 /* OnboardingWatchCheckView.swift in Sources */,
 				BF9199CF2E3405430056E0E7 /* OnboardingViewModel.swift in Sources */,
+				BF919A742E34C25A0056E0E7 /* WeatherManagerError.swift in Sources */,
 				BF9199D02E3405430056E0E7 /* OnboardingView.swift in Sources */,
-				BF919A2D2E340E5D0056E0E7 /* GetCurrentLocationWeatherUseCaseProtocol.swift in Sources */,
 				BF9199D12E3405430056E0E7 /* RootView.swift in Sources */,
 				BF9199D22E3405430056E0E7 /* PermissionRow.swift in Sources */,
 				BF9199D32E3405430056E0E7 /* UserInfoRow.swift in Sources */,
@@ -1292,7 +1287,6 @@
 				BF9199E92E3405430056E0E7 /* DefaultUVExposureRepository.swift in Sources */,
 				BF9199EA2E3405430056E0E7 /* MockUVExposureRepository.swift in Sources */,
 				BF9199EB2E3405430056E0E7 /* UVExposureRepository.swift in Sources */,
-				BF9199EC2E3405430056E0E7 /* DefaultWeatherRepository.swift in Sources */,
 				BF9199EE2E3405430056E0E7 /* WeatherRepository.swift in Sources */,
 				BF9199EF2E3405430056E0E7 /* GenerateUVInsightUseCase.swift in Sources */,
 				BF9199F02E3405430056E0E7 /* LoadDashboardDataUseCase.swift in Sources */,
@@ -1309,8 +1303,6 @@
 				BF919A2A2E34096C0056E0E7 /* UserDefaultManager.swift in Sources */,
 				BF9199FB2E3405430056E0E7 /* GetWeeklyUVTrendUseCase.swift in Sources */,
 				BF9199FC2E3405430056E0E7 /* MEDCalculator.swift in Sources */,
-				BF9199FD2E3405430056E0E7 /* CheckUVRiskLevelUseCase.swift in Sources */,
-				BF9199FE2E3405430056E0E7 /* GetCurrentLocationWeatherUseCase.swift in Sources */,
 				BF9199FF2E3405430056E0E7 /* NotificationActionType.swift in Sources */,
 				BF919A002E3405430056E0E7 /* LocalNotificationError.swift in Sources */,
 				BF919A012E3405430056E0E7 /* LocalNotificationManager.swift in Sources */,

@@ -10,6 +10,7 @@ import SwiftData
 
 @Model
 final class LocationWeather {
+    @Attribute(.unique) var id: String
     var date: Date
     var latitude: Double
     var longitude: Double
@@ -21,7 +22,8 @@ final class LocationWeather {
     @Relationship(deleteRule: .cascade) var hourlyWeathers: [HourlyWeather] = []
     
     init(date: Date, locationInfo: LocationInfo, sunriseTime: Date?, sunsetTime: Date?, hourlyWeathers: [HourlyWeather] = []) {
-        self.date = date
+        self.id = "\(locationInfo.latitude),\(locationInfo.longitude)_\(date.formatted(.iso8601.year().month().day()))"
+        self.date = Calendar.current.startOfDay(for: date)
         self.latitude = locationInfo.latitude
         self.longitude = locationInfo.longitude
         self.city = locationInfo.city

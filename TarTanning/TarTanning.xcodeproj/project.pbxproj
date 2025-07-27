@@ -308,6 +308,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		BF55D7422E36B44A00074104 /* Unuse */ = {
+			isa = PBXGroup;
+			children = (
+				BF9198EA2E3405430056E0E7 /* HealthKitDataQueryManager.swift */,
+				BF9198EC2E3405430056E0E7 /* HealthKitQueryManager.swift */,
+			);
+			path = Unuse;
+			sourceTree = "<group>";
+		};
 		BF9198E02E3405430056E0E7 /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -351,9 +360,7 @@
 				BF9198E72E3405430056E0E7 /* Enum */,
 				BF9198E82E3405430056E0E7 /* HealthKitAuthorizationManager.swift */,
 				BF9198E92E3405430056E0E7 /* HealthKitBackgroundManager.swift */,
-				BF9198EA2E3405430056E0E7 /* HealthKitDataQueryManager.swift */,
 				BF9198EB2E3405430056E0E7 /* HealthKitQueryFetchManager.swift */,
-				BF9198EC2E3405430056E0E7 /* HealthKitQueryManager.swift */,
 			);
 			path = HealthKit;
 			sourceTree = "<group>";
@@ -908,6 +915,7 @@
 		BF919A232E34086F0056E0E7 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				BF55D7422E36B44A00074104 /* Unuse */,
 				BF9198FA2E3405430056E0E7 /* Managers */,
 			);
 			path = Infrastructure;

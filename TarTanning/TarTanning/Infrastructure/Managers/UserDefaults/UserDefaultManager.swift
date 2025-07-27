@@ -96,7 +96,8 @@ final class UserDefaultManager {
     
     // MARK: - Debug Methods
     
-    /// 저장된 모든 데이터 출력
+    #if DEBUG
+    /// 저장된 모든 데이터 출력 (디버그 전용)
     func printAllStoredData() {
         print("📊 [UserDefaultManager] === Stored Data ===")
         
@@ -109,11 +110,12 @@ final class UserDefaultManager {
         print("✅ [UserDefaultManager] Data dump completed")
     }
     
-    /// 모든 데이터 초기화
+    /// 모든 데이터 초기화 (디버그 전용)
     func resetAllData() {
         userDefaults.removeObject(forKey: Keys.userProfile)
         userDefaults.removeObject(forKey: Keys.isOnboardingCompleted)
         userDefaults.removeObject(forKey: Keys.isFirstLaunch)
         print("🔄 [UserDefaultManager] All data reset")
     }
+    #endif
 }

@@ -8,7 +8,6 @@
 import CoreLocation
 import Foundation
 
-@MainActor
 protocol LocationUpdateManagerDelegate: AnyObject {
     func locationUpdateDidSucceed(_ info: LocationInfo)
     func locationUpdateDidFail(with error: Error)

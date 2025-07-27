@@ -14,6 +14,7 @@ final class SyncUVDataFromHealthKitUseCase {
     private let healthKitQueryFetchManager = HealthKitQueryFetchManager.shared
     private let healthKitAuthorizationManager = HealthKitAuthorizationManager()
     private let modelContext: ModelContext
+    private let getUserProfileUseCase = GetUserProfileUseCase()
     
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
@@ -177,9 +178,25 @@ final class SyncUVDataFromHealthKitUseCase {
             let dailyUV = try await getOrCreateDailyUVExpose(for: date)
             print("📊 [SyncUVDataFromHealthKitUseCase] DailyUVExpose: \(dailyUV.date.formatted(date: .abbreviated, time: .omitted))")
             
+            // 해당 날짜의 날씨 데이터 가져오기 (UV 지수용)
+            let weatherData = try await getWeatherDataForDate(date)
+            
             // 각 샘플을 UVExposeRecord로 변환
             for sample in dateSamples {
                 let durationMinutes = sample.quantity.doubleValue(for: .minute())
+                
+                // 해당 시간대의 UV 지수 가져오기
+                let sampleHour = Calendar.current.component(.hour, from: sample.startDate)
+                let uvIndex = getUVIndexForHour(sampleHour, from: weatherData)
+                
+                // UV Dose 계산
+                let userProfile = getUserProfileUseCase.getUserProfile()
+                let spfValue = userProfile.spfLevel.rawValue
+                let uvDose = MEDCalculator.calculateUVDose(
+                    uvIndex: uvIndex,
+                    durationMinutes: durationMinutes,
+                    spf: Double(spfValue)
+                )
                 
                 let uvRecord = UVExposeRecord(
                     startDate: sample.startDate,
@@ -188,14 +205,18 @@ final class SyncUVDataFromHealthKitUseCase {
                     isSPFApplied: false // 현재는 SPF 적용 안함
                 )
                 
+                // UV Dose 설정
+                uvRecord.uvDose = uvDose
+                
                 // 관계 설정
                 uvRecord.dailyExposure = dailyUV
                 dailyUV.exposureRecords.append(uvRecord)
                 dailyUV.totalSunlightMinutes += durationMinutes
+                dailyUV.totalUVDose += uvDose
                 
                 modelContext.insert(uvRecord)
                 
-                print("📝 [SyncUVDataFromHealthKitUseCase] Created UVExposeRecord: \(durationMinutes) minutes")
+                print("📝 [SyncUVDataFromHealthKitUseCase] Created UVExposeRecord: \(durationMinutes) minutes, UV Index: \(uvIndex), UV Dose: \(String(format: "%.4f", uvDose))")
             }
         }
         
@@ -230,6 +251,56 @@ final class SyncUVDataFromHealthKitUseCase {
             modelContext.insert(newDaily)
             print("✅ [SyncUVDataFromHealthKitUseCase] New DailyUVExpose inserted")
             return newDaily
+        }
+    }
+    
+    // MARK: - Weather Data Helper Methods
+    
+    /// 특정 날짜의 날씨 데이터 가져오기
+    private func getWeatherDataForDate(_ date: Date) async throws -> LocationWeather? {
+        let descriptor = FetchDescriptor<LocationWeather>()
+        let allWeatherData = try modelContext.fetch(descriptor)
+        
+        // 해당 날짜의 날씨 데이터 찾기
+        let targetWeather = allWeatherData.first { weather in
+            Calendar.current.isDate(weather.date, inSameDayAs: date)
+        }
+        
+        if let weather = targetWeather {
+            print("🌤️ [SyncUVDataFromHealthKitUseCase] Found weather data for \(date.formatted(date: .abbreviated, time: .omitted))")
+        } else {
+            print("⚠️ [SyncUVDataFromHealthKitUseCase] No weather data found for \(date.formatted(date: .abbreviated, time: .omitted))")
+        }
+        
+        return targetWeather
+    }
+    
+    /// 특정 시간의 UV 지수 가져오기
+    private func getUVIndexForHour(_ hour: Int, from weatherData: LocationWeather?) -> Double {
+        guard let weather = weatherData else {
+            print("⚠️ [SyncUVDataFromHealthKitUseCase] No weather data available, using default UV index 0")
+            return 0.0
+        }
+        
+        // 해당 시간의 HourlyWeather 찾기
+        let hourlyWeather = weather.hourlyWeathers.first { $0.hour == hour }
+        
+        if let hourly = hourlyWeather {
+            print("☀️ [SyncUVDataFromHealthKitUseCase] Found UV index for hour \(hour): \(hourly.uvIndex)")
+            return hourly.uvIndex
+        } else {
+            // 가장 가까운 시간의 데이터 사용
+            let sortedWeathers = weather.hourlyWeathers.sorted {
+                abs($0.hour - hour) < abs($1.hour - hour)
+            }
+            
+            if let closest = sortedWeathers.first {
+                print("🔍 [SyncUVDataFromHealthKitUseCase] Using closest UV index for hour \(hour): \(closest.uvIndex) (from hour \(closest.hour))")
+                return closest.uvIndex
+            } else {
+                print("⚠️ [SyncUVDataFromHealthKitUseCase] No hourly weather data available, using default UV index 0")
+                return 0.0
+            }
         }
     }
 }

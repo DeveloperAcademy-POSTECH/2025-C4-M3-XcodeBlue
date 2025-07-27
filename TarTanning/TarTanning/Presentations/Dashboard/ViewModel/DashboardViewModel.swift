@@ -194,9 +194,9 @@ class DashboardViewModel: ObservableObject {
         }
     }
     
-    /// UV Dose 계산 및 저장
-    func calculateAndSaveUVDose() {
-        print("🧮 [DashboardViewModel] Calculating and saving UV dose")
+    /// UV Dose 재계산 (기존 데이터에 대한 UV Dose 업데이트)
+    func recalculateUVDose() {
+        print("🧮 [DashboardViewModel] Recalculating UV dose")
         
         guard let weather = currentWeather else {
             print("⚠️ [DashboardViewModel] No weather data available for UV dose calculation")
@@ -211,7 +211,7 @@ class DashboardViewModel: ObservableObject {
                     uvIndexData[hourlyWeather.hour] = hourlyWeather.uvIndex
                 }
                 
-                // UV Dose 계산 및 저장
+                // UV Dose 재계산 및 저장
                 try await calculateAndSaveUVDoseUseCase.calculateAndSaveTodayUVDose(uvIndexData: uvIndexData)
                 
                 // 업데이트된 UV 노출량 조회
@@ -219,18 +219,18 @@ class DashboardViewModel: ObservableObject {
                 
                 self.todayUVExposure = updatedUVExposure
                 self.todayMEDValue = getTodayUVExposureUseCase.getTotalUVDose(from: updatedUVExposure)
-                print("✅ [DashboardViewModel] UV dose calculated: \(String(format: "%.2f", self.todayMEDValue))")
+                print("✅ [DashboardViewModel] UV dose recalculated: \(String(format: "%.2f", self.todayMEDValue))")
                 
             } catch {
-                self.errorMessage = "UV Dose 계산에 실패했습니다"
-                print("❌ [DashboardViewModel] Failed to calculate UV dose: \(error)")
+                self.errorMessage = "UV Dose 재계산에 실패했습니다"
+                print("❌ [DashboardViewModel] Failed to recalculate UV dose: \(error)")
             }
         }
     }
     
     // MARK: - Dashboard Orchestration Methods
     
-    /// 모든 대시보드 데이터 로드 (Weather + UV Exposure + UV Dose)
+    /// 모든 대시보드 데이터 로드 (Weather + UV Exposure)
     func loadAllDashboardData() {
         print("🔄 [DashboardViewModel] Loading all dashboard data")
         
@@ -238,13 +238,10 @@ class DashboardViewModel: ObservableObject {
             // 1. 날씨 데이터 로드
             loadWeatherData()
             
-            // 2. UV 노출량 데이터 로드
+            // 2. UV 노출량 데이터 로드 (이미 UV Dose 계산 포함)
             loadUVExposureData()
             
-            // 3. UV Dose 계산
-            calculateAndSaveUVDose()
-            
-            // 4. 주간 데이터 업데이트 (UI 자동 갱신)
+            // 3. 주간 데이터 업데이트 (UI 자동 갱신)
             print("📊 [DashboardViewModel] Weekly UV progress rates: \(self.weeklyUVProgressRates)")
             
             print("✅ [DashboardViewModel] All dashboard data loaded successfully")
@@ -258,11 +255,8 @@ class DashboardViewModel: ObservableObject {
         // 1. 날씨 데이터 새로고침
         loadWeatherData()
         
-        // 2. UV 노출량 데이터 새로고침
+        // 2. UV 노출량 데이터 새로고침 (이미 UV Dose 계산 포함)
         loadUVExposureData()
-        
-        // 3. UV Dose 재계산
-        calculateAndSaveUVDose()
         
         print("✅ [DashboardViewModel] All data refreshed successfully")
     }

@@ -24,13 +24,36 @@ final class HealthKitQueryFetchManager: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
     
+    // Background observation properties
+    private var backgroundObserverQuery: HKObserverQuery?
+    private var backgroundDeliveryQuery: HKObserverQuery?
+    
     private init() {}
+
+    // MARK: - Authorization Methods
+    
+    /// HealthKit 권한 상태 확인 (간단한 확인용)
+    func checkAuthorizationStatus() async -> Bool {
+        guard let daylightType = HKQuantityType.quantityType(forIdentifier: .timeInDaylight) else {
+            print("❌ [HealthKitQueryFetchManager] Invalid daylight type")
+            return false
+        }
+        
+        let status = healthStore.authorizationStatus(for: daylightType)
+        print("🔐 [HealthKitQueryFetchManager] HealthKit authorization status: \(status.rawValue)")
+        
+        return status == .sharingAuthorized
+    }
+    
+
 
     // MARK: 1. 하루 동안의 모든 샘플 가져오기
     func fetchTodaySamples() async {
         let calendar = Calendar.current
         let now = Date()
         let startOfDay = calendar.startOfDay(for: now)
+        
+        print("📅 [HealthKitQueryFetchManager] Fetching today's samples from \(startOfDay.formatted()) to \(now.formatted())")
         await fetchSamples(from: startOfDay, to: now)
     }
 
@@ -62,9 +85,18 @@ final class HealthKitQueryFetchManager: ObservableObject {
                     ]
                 ) { _, results, error in
                     if let error = error {
+                        print("❌ [HealthKitQueryFetchManager] Query error: \(error)")
                         continuation.resume(throwing: HealthKitError.queryFailed(error))
                     } else {
                         let quantitySamples = (results as? [HKQuantitySample]) ?? []
+                        print("✅ [HealthKitQueryFetchManager] Query successful, found \(quantitySamples.count) samples")
+                        
+                        // 샘플 상세 정보 출력
+                        for (index, sample) in quantitySamples.enumerated() {
+                            let durationMinutes = sample.quantity.doubleValue(for: .minute())
+                            print("📝 [HealthKitQueryFetchManager] Sample \(index + 1): \(durationMinutes) minutes (\(sample.startDate.formatted(date: .omitted, time: .shortened)) - \(sample.endDate.formatted(date: .omitted, time: .shortened)))")
+                        }
+                        
                         continuation.resume(returning: quantitySamples)
                     }
                 }
@@ -133,4 +165,56 @@ final class HealthKitQueryFetchManager: ObservableObject {
             delegate?.fetchManagerDidFail(with: hkError)
         }
     }
+    
+    // MARK: - Background Observation Methods
+    
+    /// HealthKit 데이터 변경 관찰 시작
+    func startObservingHealthKitUpdates() {
+        guard let daylightType = HKQuantityType.quantityType(forIdentifier: .timeInDaylight) else {
+            print("❌ [HealthKitQueryFetchManager] Invalid daylight type")
+            return
+        }
+        
+        // 1. Observer Query 설정 (데이터 변경 감지)
+        backgroundObserverQuery = HKObserverQuery(sampleType: daylightType, predicate: nil) { [weak self] _, _, error in
+            if let error = error {
+                print("❌ [HealthKitQueryFetchManager] Observer query error: \(error)")
+            } else {
+                print("🔄 [HealthKitQueryFetchManager] HealthKit data updated")
+                // NotificationCenter로 업데이트 알림
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: .healthKitDataUpdated, object: nil)
+                }
+            }
+        }
+        
+        // 2. Background Delivery 설정 (앱이 백그라운드일 때도 업데이트 받기)
+        healthStore.enableBackgroundDelivery(for: daylightType, frequency: .immediate) { success, error in
+            if success {
+                print("✅ [HealthKitQueryFetchManager] Background delivery enabled")
+            } else if let error = error {
+                print("❌ [HealthKitQueryFetchManager] Background delivery failed: \(error)")
+            }
+        }
+        
+        // 3. Observer Query 실행
+        if let observerQuery = backgroundObserverQuery {
+            healthStore.execute(observerQuery)
+            print("✅ [HealthKitQueryFetchManager] Started observing HealthKit updates")
+        }
+    }
+    
+    /// HealthKit 데이터 변경 관찰 중지
+    func stopObservingHealthKitUpdates() {
+        if let observerQuery = backgroundObserverQuery {
+            healthStore.stop(observerQuery)
+            backgroundObserverQuery = nil
+            print("🛑 [HealthKitQueryFetchManager] Stopped observing HealthKit updates")
+        }
+    }
+}
+
+// MARK: - Notification Names
+extension Notification.Name {
+    static let healthKitDataUpdated = Notification.Name("healthKitDataUpdated")
 }

@@ -39,6 +39,27 @@ class DashboardViewModel: ObservableObject {
     // MARK: - Initialization
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
+        
+        // HealthKit 관찰 시작
+        HealthKitQueryFetchManager.shared.startObservingHealthKitUpdates()
+        
+        // HealthKit 업데이트 알림 구독
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleHealthKitUpdate),
+            name: .healthKitDataUpdated,
+            object: nil
+        )
+    }
+    
+    deinit {
+        // HealthKit 관찰 중지
+        Task { @MainActor in
+            HealthKitQueryFetchManager.shared.stopObservingHealthKitUpdates()
+        }
+        
+        // 알림 구독 해제
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: - Computed Properties
@@ -133,9 +154,12 @@ class DashboardViewModel: ObservableObject {
         Task { @MainActor in
             do {
                 // 1. HealthKit에서 일광시간 데이터 동기화
+                print("📱 [DashboardViewModel] Step 1: Syncing HealthKit data...")
                 try await syncUVDataFromHealthKitUseCase.syncTodaySunlightFromHealthKit()
+                print("✅ [DashboardViewModel] Step 1: HealthKit sync completed")
                 
                 // 2. 오늘의 UV 노출량 조회
+                print("📱 [DashboardViewModel] Step 2: Fetching today's UV exposure...")
                 let todayUVExposure = try await getTodayUVExposureUseCase.getTodayDailyUVExposure()
                 
                 self.todayUVExposure = todayUVExposure
@@ -145,9 +169,26 @@ class DashboardViewModel: ObservableObject {
                 self.todayTotalSunlightMinutes = Int(actualSunlightMinutes)
                 
                 print("✅ [DashboardViewModel] UV exposure data loaded: \(self.todayTotalSunlightMinutes) minutes (from HealthKit)")
+                print("📊 [DashboardViewModel] Today UV Exposure: \(todayUVExposure?.totalSunlightMinutes ?? 0) minutes")
+                print("📊 [DashboardViewModel] Today UV Dose: \(todayUVExposure?.totalUVDose ?? 0.0)")
                 
             } catch {
-                self.errorMessage = "UV 노출량 데이터를 불러올 수 없습니다"
+                // 더 자세한 에러 정보 출력
+                if let healthKitError = error as? HealthKitError {
+                    print("🔍 [DashboardViewModel] HealthKit Error: \(healthKitError.localizedDescription)")
+                    
+                    switch healthKitError {
+                    case .authorizationDenied:
+                        self.errorMessage = "HealthKit 권한이 필요합니다. 설정에서 권한을 허용해주세요."
+                    case .notAvailable:
+                        self.errorMessage = "이 기기에서는 HealthKit을 사용할 수 없습니다."
+                    default:
+                        self.errorMessage = "UV 노출량 데이터를 불러올 수 없습니다: \(healthKitError.localizedDescription)"
+                    }
+                } else {
+                    self.errorMessage = "UV 노출량 데이터를 불러올 수 없습니다"
+                }
+                
                 print("❌ [DashboardViewModel] Failed to load UV exposure data: \(error)")
             }
         }
@@ -409,5 +450,33 @@ class DashboardViewModel: ObservableObject {
         print("   - Current temperature: \(currentTemperature)°C")
         print("   - Total hourly data: \(weather.hourlyWeathers.count)")
         print("   - Sunlight minutes: \(todayTotalSunlightMinutes)")
+    }
+    
+    // MARK: - HealthKit Update Handler
+    
+    /// HealthKit 데이터 업데이트 시 호출되는 메서드
+    @objc private func handleHealthKitUpdate() {
+        print("🔄 [DashboardViewModel] HealthKit data updated, refreshing UV data")
+        
+        Task { @MainActor in
+            do {
+                // UV 데이터 새로고침
+                try await syncUVDataFromHealthKitUseCase.syncTodaySunlightFromHealthKit()
+                
+                // 업데이트된 UV 노출량 조회
+                let updatedUVExposure = try await getTodayUVExposureUseCase.getTodayDailyUVExposure()
+                
+                self.todayUVExposure = updatedUVExposure
+                
+                // HealthKit에서 가져온 실제 일광시간으로 업데이트
+                let actualSunlightMinutes = getTodayUVExposureUseCase.getTotalSunlightMinutes(from: updatedUVExposure)
+                self.todayTotalSunlightMinutes = Int(actualSunlightMinutes)
+                
+                print("✅ [DashboardViewModel] UV data refreshed after HealthKit update: \(self.todayTotalSunlightMinutes) minutes")
+                
+            } catch {
+                print("❌ [DashboardViewModel] Failed to refresh UV data after HealthKit update: \(error)")
+            }
+        }
     }
 }

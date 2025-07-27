@@ -16,7 +16,9 @@ struct TarTanningApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             LocationWeather.self,
-            HourlyWeather.self
+            HourlyWeather.self,
+            DailyUVExpose.self,
+            UVExposeRecord.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
         

@@ -27,7 +27,18 @@ final class SyncUVDataFromHealthKitUseCase {
     func syncTodaySunlightFromHealthKit() async throws {
         print("🔄 [SyncUVDataFromHealthKitUseCase] Syncing today's sunlight data from HealthKit")
         
-        // 0. HealthKit 권한 확인 및 요청
+        // 0. 날씨 데이터 확인 (UV Dose 계산을 위해 필요)
+        print("🌤️ [SyncUVDataFromHealthKitUseCase] Checking weather data availability...")
+        let today = Calendar.current.startOfDay(for: Date())
+        let weatherData = try await getWeatherDataForDate(today)
+        
+        if weatherData == nil {
+            print("⚠️ [SyncUVDataFromHealthKitUseCase] WARNING: No weather data available. UV Dose calculation may fail.")
+        } else {
+            print("✅ [SyncUVDataFromHealthKitUseCase] Weather data available for UV Dose calculation")
+        }
+        
+        // 1. HealthKit 권한 확인 및 요청
         print("🔐 [SyncUVDataFromHealthKitUseCase] Checking HealthKit authorization status...")
         
         // 직접 HealthKit 권한 상태 확인
@@ -332,7 +343,8 @@ final class SyncUVDataFromHealthKitUseCase {
     /// 특정 시간의 UV 지수 가져오기
     private func getUVIndexForHour(_ hour: Int, from weatherData: LocationWeather?) -> Double {
         guard let weather = weatherData else {
-            print("⚠️ [SyncUVDataFromHealthKitUseCase] No weather data available, using default UV index 0")
+            print("⚠️ [SyncUVDataFromHealthKitUseCase] No weather data available for hour \(hour), using default UV index 0")
+            print("💡 [SyncUVDataFromHealthKitUseCase] TIP: Load weather data first before syncing HealthKit data")
             return 0.0
         }
         

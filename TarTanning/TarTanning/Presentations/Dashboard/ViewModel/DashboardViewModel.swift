@@ -153,6 +153,34 @@ class DashboardViewModel: ObservableObject {
         }
     }
     
+    /// 날씨 데이터 비동기 로드 (UV Dose 계산을 위해 필요)
+    @MainActor func loadWeatherDataAsync() async {
+        isLoading = true
+        errorMessage = nil
+        
+        print("🔄 [DashboardViewModel] Loading weather data for \(currentLocation.city)")
+        
+        do {
+            let weatherData = try await syncWeatherDataUseCase.syncWeatherData(
+                for: currentLocation,
+                type: .syncAll
+            )
+            
+            self.currentWeather = weatherData
+            self.isLoading = false
+            self.logCurrentWeatherInfo()
+            
+        } catch {
+            self.isLoading = false
+            if let weatherError = error as? WeatherManagerError {
+                self.errorMessage = weatherError.localizedDescription
+            } else {
+                self.errorMessage = "날씨 정보를 불러올 수 없습니다"
+            }
+            print("❌ [DashboardViewModel] Failed to load weather: \(error)")
+        }
+    }
+    
     // MARK: - UV Exposure Feature Methods
     
     /// HealthKit에서 UV 노출량 데이터 로드
@@ -243,8 +271,8 @@ class DashboardViewModel: ObservableObject {
     /// 모든 대시보드 데이터 로드 (Weather + UV Exposure)
     func loadAllDashboardData() {
         Task { @MainActor in
-            // 1. 날씨 데이터 로드
-            loadWeatherData()
+            // 1. 날씨 데이터 먼저 로드 (UV Dose 계산을 위해 필요)
+            await loadWeatherDataAsync()
             
             // 2. UV 노출량 데이터 로드 (이미 UV Dose 계산 포함)
             loadUVExposureData()
@@ -253,8 +281,8 @@ class DashboardViewModel: ObservableObject {
     
     /// 전체 데이터 새로고침 (Pull-to-Refresh용)
     @MainActor func refreshAllData() async {
-        // 1. 날씨 데이터 새로고침
-        loadWeatherData()
+        // 1. 날씨 데이터 먼저 새로고침 (UV Dose 계산을 위해 필요)
+        await loadWeatherDataAsync()
         
         // 2. UV 노출량 데이터 새로고침 (이미 UV Dose 계산 포함)
         loadUVExposureData()

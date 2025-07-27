@@ -40,9 +40,21 @@ final class HealthKitQueryFetchManager: ObservableObject {
         }
         
         let status = healthStore.authorizationStatus(for: daylightType)
-        print("🔐 [HealthKitQueryFetchManager] HealthKit authorization status: \(status.rawValue)")
         
-        return status == .sharingAuthorized
+        switch status {
+        case .notDetermined:
+            print("🔐 [HealthKitQueryFetchManager] HealthKit authorization: NOT_DETERMINED - 권한 요청 필요")
+            return false
+        case .sharingDenied:
+            print("🔐 [HealthKitQueryFetchManager] HealthKit authorization: DENIED - 사용자가 거부함")
+            return false
+        case .sharingAuthorized:
+            print("🔐 [HealthKitQueryFetchManager] HealthKit authorization: AUTHORIZED - 권한 있음")
+            return true
+        @unknown default:
+            print("🔐 [HealthKitQueryFetchManager] HealthKit authorization: UNKNOWN(\(status.rawValue))")
+            return false
+        }
     }
     
 
@@ -180,7 +192,7 @@ final class HealthKitQueryFetchManager: ObservableObject {
             if let error = error {
                 print("❌ [HealthKitQueryFetchManager] Observer query error: \(error)")
             } else {
-                print("🔄 [HealthKitQueryFetchManager] HealthKit data updated")
+                print("🔄 [HealthKitQueryFetchManager] HealthKit data change detected")
                 // NotificationCenter로 업데이트 알림
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: .healthKitDataUpdated, object: nil)
@@ -189,7 +201,7 @@ final class HealthKitQueryFetchManager: ObservableObject {
         }
         
         // 2. Background Delivery 설정 (앱이 백그라운드일 때도 업데이트 받기)
-        healthStore.enableBackgroundDelivery(for: daylightType, frequency: .immediate) { success, error in
+        healthStore.enableBackgroundDelivery(for: daylightType, frequency: .hourly) { success, error in
             if success {
                 print("✅ [HealthKitQueryFetchManager] Background delivery enabled")
             } else if let error = error {

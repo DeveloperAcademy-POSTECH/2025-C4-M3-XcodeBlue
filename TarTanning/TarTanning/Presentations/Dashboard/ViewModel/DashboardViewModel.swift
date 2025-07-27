@@ -5,6 +5,8 @@
 //  Created by Jun on 7/14/25.
 //
 
+// swiftlint:disable file_length type_body_length
+
 import Foundation
 import SwiftUI
 import SwiftData
@@ -23,24 +25,46 @@ class DashboardViewModel: ObservableObject {
     // MARK: - Dependencies
     let modelContext: ModelContext
     
-    // MARK: - UseCase Dependencies
-    // Weather UseCase들 (싱글톤 + 의존성 주입)
-    private lazy var getWeatherDataUseCase = GetWeatherDataUseCase(modelContext: modelContext)
-    private lazy var syncWeatherDataUseCase = SyncWeatherDataUseCase(modelContext: modelContext)
+    // MARK: - UseCase Factory Methods (메모리 안전)
+    private func getWeatherDataUseCase() -> GetWeatherDataUseCase {
+        return GetWeatherDataUseCase(modelContext: modelContext)
+    }
     
-    // UV Exposure UseCase들 (싱글톤 + 의존성 주입)
-    private lazy var syncUVDataFromHealthKitUseCase = SyncUVDataFromHealthKitUseCase(modelContext: modelContext)
-    private lazy var getTodayUVExposureUseCase = GetTodayUVExposureUseCase(modelContext: modelContext)
-    private lazy var calculateAndSaveUVDoseUseCase = CalculateAndSaveUVDoseUseCase(modelContext: modelContext)
-    private lazy var getUserProfileUseCase = GetUserProfileUseCase()
+    private func syncWeatherDataUseCase() -> SyncWeatherDataUseCase {
+        return SyncWeatherDataUseCase(modelContext: modelContext)
+    }
+    
+    private func syncUVDataFromHealthKitUseCase() -> SyncUVDataFromHealthKitUseCase {
+        return SyncUVDataFromHealthKitUseCase(modelContext: modelContext)
+    }
+    
+    private func getTodayUVExposureUseCase() -> GetTodayUVExposureUseCase {
+        return GetTodayUVExposureUseCase(modelContext: modelContext)
+    }
+    
+    private func calculateAndSaveUVDoseUseCase() -> CalculateAndSaveUVDoseUseCase {
+        return CalculateAndSaveUVDoseUseCase(modelContext: modelContext)
+    }
+    
+    private func getUserProfileUseCase() -> GetUserProfileUseCase {
+        return GetUserProfileUseCase()
+    }
     
     // MARK: - Private Properties
     private var currentLocation = LocationInfo.mockSeoul
     private var cancellables = Set<AnyCancellable>()
+    private var isHealthKitSyncing = false
+    private var lastHealthKitSyncTime: Date = Date.distantPast
+    
+    // 캐시된 사용자 프로필 (중복 호출 방지)
+    private var cachedUserProfile: UserProfile?
     
     // MARK: - Initialization
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
+        
+        // 사용자 프로필 미리 로드 (캐싱)
+        _ = getUserProfile()
         
         // HealthKit 관찰 시작
         HealthKitQueryFetchManager.shared.startObservingHealthKitUpdates()
@@ -73,12 +97,12 @@ class DashboardViewModel: ObservableObject {
     // MARK: - Computed Properties
     var currentUVIndex: Double {
         guard let weather = currentWeather else { return 0.0 }
-        return getWeatherDataUseCase.getCurrentUVIndex(from: weather)
+        return getWeatherDataUseCase().getCurrentUVIndex(from: weather)
     }
     
     var currentTemperature: Int {
         guard let weather = currentWeather else { return 0 }
-        return Int(getWeatherDataUseCase.getCurrentTemperature(from: weather))
+        return Int(getWeatherDataUseCase().getCurrentTemperature(from: weather))
     }
     
     var currentCityName: String {
@@ -88,9 +112,8 @@ class DashboardViewModel: ObservableObject {
     var todayUVProgressRate: Double {
         guard let dailyUV = todayUVExposure else { return 0.0 }
         
-        // 사용자 프로필에서 maxMED 가져오기
-        let userProfile = getUserProfileUseCase.getUserProfile()
-        let maxMED = userProfile.skinType.maxMED
+        // 캐시된 사용자 프로필에서 maxMED 가져오기
+        let maxMED = getMaxMED()
         
         // 현재 UV Dose를 maxMED로 나누어 진행률 계산 (100%를 넘을 수 있음)
         let progressRate = dailyUV.totalUVDose / maxMED
@@ -110,7 +133,7 @@ class DashboardViewModel: ObservableObject {
         
         Task { @MainActor in
             do {
-                let weatherData = try await syncWeatherDataUseCase.syncWeatherData(
+                let weatherData = try await syncWeatherDataUseCase().syncWeatherData(
                     for: currentLocation,
                     type: .syncAll
                 )
@@ -138,7 +161,7 @@ class DashboardViewModel: ObservableObject {
         
         Task { @MainActor in
             do {
-                let weatherData = try await syncWeatherDataUseCase.syncWeatherData(
+                let weatherData = try await syncWeatherDataUseCase().syncWeatherData(
                     for: newLocation,
                     type: .syncByLocationChange
                 )
@@ -161,7 +184,7 @@ class DashboardViewModel: ObservableObject {
         print("🔄 [DashboardViewModel] Loading weather data for \(currentLocation.city)")
         
         do {
-            let weatherData = try await syncWeatherDataUseCase.syncWeatherData(
+            let weatherData = try await syncWeatherDataUseCase().syncWeatherData(
                 for: currentLocation,
                 type: .syncAll
             )
@@ -185,49 +208,71 @@ class DashboardViewModel: ObservableObject {
     
     /// HealthKit에서 UV 노출량 데이터 로드
     func loadUVExposureData() {
+        // 이미 동기화 중이면 스킵
+        guard !isHealthKitSyncing else {
+            print("⏸️ [DashboardViewModel] HealthKit sync already in progress - skipping loadUVExposureData")
+            return
+        }
+        
         print("🔄 [DashboardViewModel] Loading UV exposure data")
         
+        isHealthKitSyncing = true
+        
         Task { @MainActor in
+            defer { 
+                isHealthKitSyncing = false
+                lastHealthKitSyncTime = Date()
+            }
+            
             do {
                 // 1. HealthKit에서 일광시간 데이터 동기화
                 print("📱 [DashboardViewModel] Step 1: Syncing HealthKit data...")
-                try await syncUVDataFromHealthKitUseCase.syncTodaySunlightFromHealthKit()
+                try await syncUVDataFromHealthKitUseCase().syncTodaySunlightFromHealthKit()
                 print("✅ [DashboardViewModel] Step 1: HealthKit sync completed")
                 
                 // 2. 오늘의 UV 노출량 조회
                 print("📱 [DashboardViewModel] Step 2: Fetching today's UV exposure...")
-                let todayUVExposure = try await getTodayUVExposureUseCase.getTodayDailyUVExposure()
+                let todayUVExposure = try await getTodayUVExposureUseCase().getTodayDailyUVExposure()
                 
                 self.todayUVExposure = todayUVExposure
                 
                 // HealthKit에서 가져온 실제 일광시간으로 업데이트
-                let actualSunlightMinutes = getTodayUVExposureUseCase.getTotalSunlightMinutes(from: todayUVExposure)
+                let actualSunlightMinutes = getTodayUVExposureUseCase().getTotalSunlightMinutes(from: todayUVExposure)
                 self.todayTotalSunlightMinutes = Int(actualSunlightMinutes)
                 
                 // UV Dose 값 업데이트
-                let newMEDValue = getTodayUVExposureUseCase.getTotalUVDose(from: todayUVExposure)
+                let newMEDValue = getTodayUVExposureUseCase().getTotalUVDose(from: todayUVExposure)
                 self.todayMEDValue = newMEDValue
                 
                 print("✅ [DashboardViewModel] UV exposure data loaded: \(self.todayTotalSunlightMinutes) minutes, \(String(format: "%.4f", self.todayMEDValue)) J/m²")
                 
             } catch {
-                // 더 자세한 에러 정보 출력
-                if let healthKitError = error as? HealthKitError {
-                    print("🔍 [DashboardViewModel] HealthKit Error: \(healthKitError.localizedDescription)")
-                    
-                    switch healthKitError {
-                    case .authorizationDenied:
-                        self.errorMessage = "HealthKit 권한이 필요합니다. 설정에서 권한을 허용해주세요."
-                    case .notAvailable:
-                        self.errorMessage = "이 기기에서는 HealthKit을 사용할 수 없습니다."
-                    default:
-                        self.errorMessage = "UV 노출량 데이터를 불러올 수 없습니다: \(healthKitError.localizedDescription)"
-                    }
+                // 타임아웃 에러는 조용히 처리
+                if let healthKitError = error as? HealthKitError,
+                   case .queryFailed(let underlyingError) = healthKitError,
+                   underlyingError.localizedDescription.contains("timeout") {
+                    print("⏰ [DashboardViewModel] HealthKit query timeout in loadUVExposureData")
+                } else if error.localizedDescription.contains("timeout") {
+                    print("⏰ [DashboardViewModel] HealthKit timeout in loadUVExposureData")
                 } else {
-                    self.errorMessage = "UV 노출량 데이터를 불러올 수 없습니다"
+                    // 더 자세한 에러 정보 출력
+                    if let healthKitError = error as? HealthKitError {
+                        print("🔍 [DashboardViewModel] HealthKit Error: \(healthKitError.localizedDescription)")
+                        
+                        switch healthKitError {
+                        case .authorizationDenied:
+                            self.errorMessage = "HealthKit 권한이 필요합니다. 설정에서 권한을 허용해주세요."
+                        case .notAvailable:
+                            self.errorMessage = "이 기기에서는 HealthKit을 사용할 수 없습니다."
+                        default:
+                            self.errorMessage = "UV 노출량 데이터를 불러올 수 없습니다: \(healthKitError.localizedDescription)"
+                        }
+                    } else {
+                        self.errorMessage = "UV 노출량 데이터를 불러올 수 없습니다"
+                    }
+                    
+                    print("❌ [DashboardViewModel] Failed to load UV exposure data: \(error)")
                 }
-                
-                print("❌ [DashboardViewModel] Failed to load UV exposure data: \(error)")
             }
         }
     }
@@ -250,13 +295,13 @@ class DashboardViewModel: ObservableObject {
                 }
                 
                 // UV Dose 재계산 및 저장
-                try await calculateAndSaveUVDoseUseCase.calculateAndSaveTodayUVDose(uvIndexData: uvIndexData)
+                try await calculateAndSaveUVDoseUseCase().calculateAndSaveTodayUVDose(uvIndexData: uvIndexData)
                 
                 // 업데이트된 UV 노출량 조회
-                let updatedUVExposure = try await getTodayUVExposureUseCase.getTodayDailyUVExposure()
+                let updatedUVExposure = try await getTodayUVExposureUseCase().getTodayDailyUVExposure()
                 
                 self.todayUVExposure = updatedUVExposure
-                self.todayMEDValue = getTodayUVExposureUseCase.getTotalUVDose(from: updatedUVExposure)
+                self.todayMEDValue = getTodayUVExposureUseCase().getTotalUVDose(from: updatedUVExposure)
                 print("✅ [DashboardViewModel] UV dose recalculated: \(String(format: "%.2f", self.todayMEDValue))")
                 
             } catch {
@@ -333,9 +378,15 @@ class DashboardViewModel: ObservableObject {
     
     // MARK: - User Profile Access Methods
     
-    /// 사용자 프로필 조회
+    /// 사용자 프로필 조회 (캐시 사용)
     func getUserProfile() -> UserProfile {
-        return getUserProfileUseCase.getUserProfile()
+        if let cached = cachedUserProfile {
+            return cached
+        }
+        
+        let profile = getUserProfileUseCase().getUserProfile()
+        cachedUserProfile = profile
+        return profile
     }
     
     /// 사용자 최대 MED 값 조회
@@ -347,7 +398,7 @@ class DashboardViewModel: ObservableObject {
     
     /// HealthKit 데이터 동기화 (디버그용)
     func syncHealthKitDataForDebug() async throws {
-        try await syncUVDataFromHealthKitUseCase.syncTodaySunlightFromHealthKit()
+        try await syncUVDataFromHealthKitUseCase().syncTodaySunlightFromHealthKit()
     }
     
     /// UV Dose 계산 (디버그용)
@@ -359,14 +410,14 @@ class DashboardViewModel: ObservableObject {
             uvIndexData[hourlyWeather.hour] = hourlyWeather.uvIndex
         }
         
-        try await calculateAndSaveUVDoseUseCase.calculateAndSaveTodayUVDose(uvIndexData: uvIndexData)
+        try await calculateAndSaveUVDoseUseCase().calculateAndSaveTodayUVDose(uvIndexData: uvIndexData)
     }
     
     /// 모든 데이터 삭제 (디버그용)
     func clearAllData() {
         Task {
             do {
-                try await syncWeatherDataUseCase.clearAllData()
+                try await syncWeatherDataUseCase().clearAllData()
                 
                 await MainActor.run {
                     self.currentWeather = nil
@@ -459,7 +510,7 @@ class DashboardViewModel: ObservableObject {
     @objc private func handleSwiftDataUpdate() {
         Task { @MainActor in
             do {
-                let todayUVExposure = try await getTodayUVExposureUseCase.getTodayDailyUVExposure()
+                let todayUVExposure = try await getTodayUVExposureUseCase().getTodayDailyUVExposure()
                 
                 if let todayData = todayUVExposure {
                     self.todayUVExposure = todayData
@@ -498,30 +549,67 @@ class DashboardViewModel: ObservableObject {
     
     /// HealthKit 데이터 업데이트 시 호출되는 메서드
     @objc private func handleHealthKitUpdate() {
-        print("🔄 [DashboardViewModel] HealthKit data updated, refreshing UV data")
+        let now = Date()
+        print("🔄 [DashboardViewModel] HealthKit data change detected")
+        
+        // 중복 동기화 방지
+        guard !isHealthKitSyncing else {
+            print("⏸️ [DashboardViewModel] HealthKit sync already in progress - skipping")
+            return
+        }
+        
+        // 디바운싱: 마지막 동기화로부터 30초 이내면 스킵
+        guard now.timeIntervalSince(lastHealthKitSyncTime) > 30 else {
+            print("⏰ [DashboardViewModel] Too frequent HealthKit updates - debouncing (last sync: \(Int(now.timeIntervalSince(lastHealthKitSyncTime)))s ago)")
+            return
+        }
+        
+        isHealthKitSyncing = true
         
         Task { @MainActor in
+            defer { 
+                isHealthKitSyncing = false
+                lastHealthKitSyncTime = now
+            }
+            
             do {
+                // 먼저 HealthKit 권한 확인
+                let hasPermission = await HealthKitQueryFetchManager.shared.checkAuthorizationStatus()
+                guard hasPermission else {
+                    print("⚠️ [DashboardViewModel] HealthKit permission not granted - skipping sync")
+                    return
+                }
+                
                 // UV 데이터 새로고침
-                try await syncUVDataFromHealthKitUseCase.syncTodaySunlightFromHealthKit()
+                try await syncUVDataFromHealthKitUseCase().syncTodaySunlightFromHealthKit()
                 
                 // 업데이트된 UV 노출량 조회
-                let updatedUVExposure = try await getTodayUVExposureUseCase.getTodayDailyUVExposure()
+                let updatedUVExposure = try await getTodayUVExposureUseCase().getTodayDailyUVExposure()
                 
                 self.todayUVExposure = updatedUVExposure
                 
                 // HealthKit에서 가져온 실제 일광시간으로 업데이트
-                let actualSunlightMinutes = getTodayUVExposureUseCase.getTotalSunlightMinutes(from: updatedUVExposure)
+                let actualSunlightMinutes = getTodayUVExposureUseCase().getTotalSunlightMinutes(from: updatedUVExposure)
                 self.todayTotalSunlightMinutes = Int(actualSunlightMinutes)
                 
                 // UV Dose 값 업데이트
-                let newMEDValue = getTodayUVExposureUseCase.getTotalUVDose(from: updatedUVExposure)
+                let newMEDValue = getTodayUVExposureUseCase().getTotalUVDose(from: updatedUVExposure)
                 self.todayMEDValue = newMEDValue
                 
                 print("✅ [DashboardViewModel] UV data refreshed: \(self.todayTotalSunlightMinutes) minutes, \(String(format: "%.4f", self.todayMEDValue)) J/m²")
                 
             } catch {
-                print("❌ [DashboardViewModel] Failed to refresh UV data after HealthKit update: \(error)")
+                // 타임아웃 에러는 조용히 처리
+                if let healthKitError = error as? HealthKitError,
+                   case .queryFailed(let underlyingError) = healthKitError,
+                   underlyingError.localizedDescription.contains("timeout") {
+                    print("⏰ [DashboardViewModel] HealthKit query timeout - likely no new data available")
+                } else if error.localizedDescription.contains("timeout") {
+                    print("⏰ [DashboardViewModel] HealthKit timeout - no new data to sync")
+                } else {
+                    print("❌ [DashboardViewModel] Failed to refresh UV data after HealthKit update: \(error)")
+                    // 실제 에러는 사용자에게 표시하지 않음 (백그라운드 동기화이므로)
+                }
             }
         }
     }

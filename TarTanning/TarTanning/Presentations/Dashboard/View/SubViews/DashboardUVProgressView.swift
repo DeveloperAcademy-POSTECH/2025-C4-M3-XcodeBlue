@@ -69,23 +69,28 @@ struct CurrentMEDProgressBarView: View {
 struct CurrentMEDTextView: View {
     @ObservedObject var viewModel: DashboardViewModel
     
+    // 로그 중복 방지를 위한 static 변수들
+    private static var lastLoggedMEDValue: Double = -1
+    private static var lastLoggedMaxMED: Double = -1
+    
     private var progressPercentage: Int {
         let maxMED = viewModel.getMaxMED()
         let percentage = Int((viewModel.todayMEDValue / maxMED) * 100)
         
-        // 상세 디버깅 로그
-        print("🔍 [CurrentMEDTextView] Debug Info:")
-        print("   • todayMEDValue: \(String(format: "%.6f", viewModel.todayMEDValue)) J/m²")
-        print("   • maxMED: \(String(format: "%.6f", maxMED)) J/m²")
-        print("   • calculation: \(String(format: "%.6f", viewModel.todayMEDValue)) / \(String(format: "%.6f", maxMED)) = \(String(format: "%.6f", viewModel.todayMEDValue / maxMED))")
-        print("   • percentage: \(percentage)%")
-        
-        // 추가 디버깅: 값이 너무 작은지 확인
-        if viewModel.todayMEDValue < 0.001 {
-            print("⚠️ [CurrentMEDTextView] WARNING: todayMEDValue is very small (\(String(format: "%.6f", viewModel.todayMEDValue)))")
-        }
-        if maxMED < 0.001 {
-            print("⚠️ [CurrentMEDTextView] WARNING: maxMED is very small (\(String(format: "%.6f", maxMED)))")
+        // 디버깅 로그는 값이 변경되었을 때만 출력
+        if viewModel.todayMEDValue != Self.lastLoggedMEDValue || maxMED != Self.lastLoggedMaxMED {
+            print("🔍 [CurrentMEDTextView] MED calculation updated:")
+            print("   • todayMEDValue: \(String(format: "%.6f", viewModel.todayMEDValue)) J/m²")
+            print("   • maxMED: \(String(format: "%.6f", maxMED)) J/m²")
+            print("   • percentage: \(percentage)%")
+            
+            // 추가 디버깅: 값이 너무 작은지 확인
+            if viewModel.todayMEDValue < 0.001 {
+                print("⚠️ [CurrentMEDTextView] WARNING: todayMEDValue is very small")
+            }
+            
+            Self.lastLoggedMEDValue = viewModel.todayMEDValue
+            Self.lastLoggedMaxMED = maxMED
         }
         
         return percentage

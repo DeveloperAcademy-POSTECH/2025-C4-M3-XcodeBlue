@@ -187,14 +187,21 @@ final class SyncUVDataFromHealthKitUseCase {
                 let sampleHour = Calendar.current.component(.hour, from: sample.startDate)
                 let uvIndex = getUVIndexForHour(sampleHour, from: weatherData)
                 
-                // UV Dose 계산
-                let userProfile = getUserProfileUseCase.getUserProfile()
-                let spfValue = userProfile.spfLevel.rawValue
+                // UV Dose 계산 (현재는 SPF 적용 안함)
+                // 상세 디버깅 로그 추가
+                print("🧮 [SyncUVDataFromHealthKitUseCase] UV Dose Calculation:")
+                print("   • UV Index: \(uvIndex)")
+                print("   • Duration Minutes: \(durationMinutes)")
+                print("   • SPF: nil (not applied)")
+                print("   • Expected calculation: (\(uvIndex) * 0.025) * (\(durationMinutes) * 60)")
+                
                 let uvDose = MEDCalculator.calculateUVDose(
                     uvIndex: uvIndex,
                     durationMinutes: durationMinutes,
-                    spf: Double(spfValue)
+                    spf: nil  // 현재는 SPF 적용 안함
                 )
+                
+                print("   • Calculated UV Dose: \(String(format: "%.6f", uvDose)) J/m²")
                 
                 let uvRecord = UVExposeRecord(
                     startDate: sample.startDate,

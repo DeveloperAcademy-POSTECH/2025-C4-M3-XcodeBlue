@@ -13,7 +13,9 @@ struct DashboardUVProgressView: View {
     private let progressSize: CGFloat = 200
     private let progressHeight: CGFloat = 110
     private var currentMEDRate: CGFloat {
-        CGFloat(viewModel.todayUVProgressRate)
+        // ProgressView는 0.0 ~ 1.0 범위로 제한하되, 100%를 넘으면 1.0으로 표시
+        let progressRate = viewModel.todayUVProgressRate
+        return CGFloat(min(progressRate, 1.0))
     }
     private var currentMEDColor: UIColor {
         switch viewModel.todayUVProgressRate {
@@ -23,8 +25,10 @@ struct DashboardUVProgressView: View {
             return .orange
         case 0.5..<0.7:
             return .systemRed
-        default:
+        case 0.7..<1.0:
             return .systemRed
+        default:
+            return .systemRed // 100% 이상일 때도 빨간색
         }
     }
 
@@ -66,25 +70,48 @@ struct CurrentMEDTextView: View {
     @ObservedObject var viewModel: DashboardViewModel
     
     private var progressPercentage: Int {
-        Int(viewModel.todayUVProgressRate * 100)
+        let maxMED = viewModel.getMaxMED()
+        let percentage = Int((viewModel.todayMEDValue / maxMED) * 100)
+        
+        // 상세 디버깅 로그
+        print("🔍 [CurrentMEDTextView] Debug Info:")
+        print("   • todayMEDValue: \(String(format: "%.6f", viewModel.todayMEDValue)) J/m²")
+        print("   • maxMED: \(String(format: "%.6f", maxMED)) J/m²")
+        print("   • calculation: \(String(format: "%.6f", viewModel.todayMEDValue)) / \(String(format: "%.6f", maxMED)) = \(String(format: "%.6f", viewModel.todayMEDValue / maxMED))")
+        print("   • percentage: \(percentage)%")
+        
+        // 추가 디버깅: 값이 너무 작은지 확인
+        if viewModel.todayMEDValue < 0.001 {
+            print("⚠️ [CurrentMEDTextView] WARNING: todayMEDValue is very small (\(String(format: "%.6f", viewModel.todayMEDValue)))")
+        }
+        if maxMED < 0.001 {
+            print("⚠️ [CurrentMEDTextView] WARNING: maxMED is very small (\(String(format: "%.6f", maxMED)))")
+        }
+        
+        return percentage
     }
     
     private var progressColor: Color {
-        switch viewModel.todayUVProgressRate {
+        let maxMED = viewModel.getMaxMED()
+        let progressRate = viewModel.todayMEDValue / maxMED
+        
+        switch progressRate {
         case 0.0..<0.3:
             return .blue
         case 0.3..<0.5:
             return .orange
         case 0.5..<0.7:
             return .red
-        default:
+        case 0.7..<1.0:
             return .red
+        default:
+            return .red // 100% 이상일 때도 빨간색
         }
     }
     
     var body: some View {
         VStack(spacing: 4) {
-            Text("MED")
+            Text("UV 노출량")
                 .font(.system(size: 15))
                 .foregroundColor(.gray.opacity(0.5))
             Text("\(progressPercentage)%")
@@ -150,7 +177,9 @@ class CurrentMEDProgressBarUIView: UIView {
     }
 
     override func draw(_ rect: CGRect) {
-        let endAngle = startAngle + (progressRate * .pi)
+        // 100%를 넘으면 반원을 완전히 채움
+        let maxProgress = min(progressRate, 1.0)
+        let endAngle = startAngle + (maxProgress * .pi)
         let path = UIBezierPath(
             arcCenter: centerPoint,
             radius: radius,

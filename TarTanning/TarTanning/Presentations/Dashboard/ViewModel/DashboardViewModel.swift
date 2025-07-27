@@ -78,17 +78,25 @@ class DashboardViewModel: ObservableObject {
     }
     
     var todayUVProgressRate: Double {
-        guard let dailyUV = todayUVExposure else { return 0.0 }
+        guard let dailyUV = todayUVExposure else { 
+            print("📊 [DashboardViewModel] UV Progress Rate: 0.0% (no dailyUV data)")
+            return 0.0 
+        }
         
         // 사용자 프로필에서 maxMED 가져오기
         let userProfile = getUserProfileUseCase.getUserProfile()
         let maxMED = userProfile.skinType.maxMED
         
-        // 현재 UV Dose를 maxMED로 나누어 진행률 계산
+        // 현재 UV Dose를 maxMED로 나누어 진행률 계산 (100%를 넘을 수 있음)
         let progressRate = dailyUV.totalUVDose / maxMED
         
-        // 0.0 ~ 1.0 범위로 제한
-        return min(max(progressRate, 0.0), 1.0)
+        // 0.0 이상으로 제한 (100%를 넘을 수 있음)
+        let finalProgressRate = max(progressRate, 0.0)
+        
+        // 디버깅 로그
+        print("📊 [DashboardViewModel] UV Progress Rate: \(String(format: "%.1f", finalProgressRate * 100))% (UV Dose: \(String(format: "%.4f", dailyUV.totalUVDose)), Max MED: \(String(format: "%.4f", maxMED)))")
+        
+        return finalProgressRate
     }
     
     // MARK: - Weather Feature Methods
@@ -168,9 +176,20 @@ class DashboardViewModel: ObservableObject {
                 let actualSunlightMinutes = getTodayUVExposureUseCase.getTotalSunlightMinutes(from: todayUVExposure)
                 self.todayTotalSunlightMinutes = Int(actualSunlightMinutes)
                 
+                // UV Dose 값 업데이트
+                let newMEDValue = getTodayUVExposureUseCase.getTotalUVDose(from: todayUVExposure)
+                self.todayMEDValue = newMEDValue
+                
                 print("✅ [DashboardViewModel] UV exposure data loaded: \(self.todayTotalSunlightMinutes) minutes (from HealthKit)")
                 print("📊 [DashboardViewModel] Today UV Exposure: \(todayUVExposure?.totalSunlightMinutes ?? 0) minutes")
                 print("📊 [DashboardViewModel] Today UV Dose: \(todayUVExposure?.totalUVDose ?? 0.0)")
+                print("📊 [DashboardViewModel] Updated todayMEDValue: \(String(format: "%.6f", self.todayMEDValue))")
+                print("📊 [DashboardViewModel] Progress Rate: \(String(format: "%.1f", self.todayUVProgressRate * 100))%")
+                
+                // 추가 디버깅
+                let maxMED = getUserProfileUseCase.getUserProfile().skinType.maxMED
+                print("🔍 [DashboardViewModel] Debug - Max MED: \(String(format: "%.6f", maxMED))")
+                print("🔍 [DashboardViewModel] Debug - Calculation: \(String(format: "%.6f", self.todayMEDValue)) / \(String(format: "%.6f", maxMED)) = \(String(format: "%.6f", self.todayMEDValue / maxMED))")
                 
             } catch {
                 // 더 자세한 에러 정보 출력
@@ -466,7 +485,18 @@ class DashboardViewModel: ObservableObject {
                 let actualSunlightMinutes = getTodayUVExposureUseCase.getTotalSunlightMinutes(from: updatedUVExposure)
                 self.todayTotalSunlightMinutes = Int(actualSunlightMinutes)
                 
+                // UV Dose 값 업데이트
+                let newMEDValue = getTodayUVExposureUseCase.getTotalUVDose(from: updatedUVExposure)
+                self.todayMEDValue = newMEDValue
+                
                 print("✅ [DashboardViewModel] UV data refreshed after HealthKit update: \(self.todayTotalSunlightMinutes) minutes")
+                print("📊 [DashboardViewModel] Updated todayMEDValue: \(String(format: "%.6f", self.todayMEDValue))")
+                print("📊 [DashboardViewModel] Progress Rate: \(String(format: "%.1f", self.todayUVProgressRate * 100))%")
+                
+                // 추가 디버깅
+                let maxMED = getUserProfileUseCase.getUserProfile().skinType.maxMED
+                print("🔍 [DashboardViewModel] Debug - Max MED: \(String(format: "%.6f", maxMED))")
+                print("🔍 [DashboardViewModel] Debug - Calculation: \(String(format: "%.6f", self.todayMEDValue)) / \(String(format: "%.6f", maxMED)) = \(String(format: "%.6f", self.todayMEDValue / maxMED))")
                 
             } catch {
                 print("❌ [DashboardViewModel] Failed to refresh UV data after HealthKit update: \(error)")

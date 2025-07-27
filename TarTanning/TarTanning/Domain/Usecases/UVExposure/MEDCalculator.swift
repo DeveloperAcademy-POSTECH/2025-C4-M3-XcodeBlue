@@ -18,16 +18,26 @@ struct MEDCalculator {
         spf: Double?
     ) -> Double {
         let durationSeconds = durationMinutes * 60.0
-
         let irradiance = uvIndex * uvIndexToIrradiance  // UV 지수 -> 자외선 세기 지수 변환
-
         var dose = irradiance * durationSeconds
 
+        // 상세 디버깅 로그
+        print("🧮 [MEDCalculator] Calculation Details:")
+        print("   • Input UV Index: \(uvIndex)")
+        print("   • Input Duration Minutes: \(durationMinutes)")
+        print("   • Duration Seconds: \(durationSeconds)")
+        print("   • UV Index to Irradiance: \(uvIndexToIrradiance)")
+        print("   • Calculated Irradiance: \(irradiance) W/m²")
+        print("   • Dose before SPF: \(dose) J/m²")
+
         guard let spfValue = spf, spfValue >= 1 else {
+            print("   • No SPF applied (spf is nil or < 1), final dose: \(dose) J/m²")
             return dose
         }
 
         dose /= Double(spfValue)
+        print("   • SPF Value: \(spfValue)")
+        print("   • Final dose after SPF: \(dose) J/m²")
 
         return dose
     }

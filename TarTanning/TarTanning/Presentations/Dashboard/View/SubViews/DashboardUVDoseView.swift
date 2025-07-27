@@ -78,9 +78,12 @@ struct DashboardUVDoseView: View {
                         Text("오늘 UV 노출량")
                             .font(.system(size: 12))
                             .foregroundColor(.secondary)
-                        Text("\(String(format: "%.2f", viewModel.todayMEDValue))")
+                        Text("\(String(format: "%.4f", viewModel.todayMEDValue))")
                             .font(.system(size: 20, weight: .bold))
                             .foregroundColor(.orange)
+                            .onAppear {
+                                print("📊 [DashboardUVDoseView] Today MED Value: \(String(format: "%.4f", viewModel.todayMEDValue))")
+                            }
                     }
                     
                     Spacer()

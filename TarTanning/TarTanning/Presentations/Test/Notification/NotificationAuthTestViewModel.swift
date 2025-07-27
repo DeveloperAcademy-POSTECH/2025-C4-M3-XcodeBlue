@@ -14,9 +14,10 @@ final class NotificationAuthTestViewModel: ObservableObject {
     @Published var scheduledMessage: String?
     @Published var userResponse: String?
     
-    private lazy var authManager = NotificationAuthorizationManager(delegate: self)
+    private lazy var authManager = NotificationAuthorizationManager.shared
     
     init() {
+        authManager.delegate = self
         observeSunscreenResponse()
     }
     

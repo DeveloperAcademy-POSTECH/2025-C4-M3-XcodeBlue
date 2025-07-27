@@ -22,7 +22,7 @@ final class OnboardingViewModel: ObservableObject {
     @Published var activeSheet: OnboardingStep? = .startSheet
     
     // MARK: - Location 권한
-    private let locationAuthorizationManager = LocationAuthorizationManager()
+    private let locationAuthorizationManager = LocationAuthorizationManager.shared
     @Published var locationStatus: LocationAuthStatus = .notDetermined
     @Published var locationErrorMessage: String?
     
@@ -32,7 +32,7 @@ final class OnboardingViewModel: ObservableObject {
     @Published var healthKitErrorMessage: String?
     
     // MARK: - Notification 권한
-    private let notificationAuthorizationManager = NotificationAuthorizationManager()
+    private let notificationAuthorizationManager = NotificationAuthorizationManager.shared
     @Published var notificationStatus: NotificationAuthStatus = .notDetermined
     @Published var notificationErrorMessage: String?
     

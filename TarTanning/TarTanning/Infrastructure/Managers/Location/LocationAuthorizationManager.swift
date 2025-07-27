@@ -10,6 +10,8 @@ protocol LocationAuthorizationManagerDelegate: AnyObject {
 
 @MainActor
 final class LocationAuthorizationManager: NSObject, ObservableObject {
+    static let shared = LocationAuthorizationManager()
+    
     weak var delegate: LocationAuthorizationManagerDelegate?
     
     private let locationManager = CLLocationManager()
@@ -21,7 +23,7 @@ final class LocationAuthorizationManager: NSObject, ObservableObject {
         authorizationStatus.isAuthorized
     }
     
-    override init() {
+    override private init() {
         super.init()
         locationManager.delegate = self
         checkAuthorizationStatus()
@@ -44,16 +46,19 @@ final class LocationAuthorizationManager: NSObject, ObservableObject {
     }
     
     func requestAuthorization() {
+        print("🔄 [LocationAuthorizationManager] Requesting location authorization")
         Task.detached {
             let servicesEnabled = CLLocationManager.locationServicesEnabled()
 
             await MainActor.run {
                 guard servicesEnabled else {
+                    print("❌ [LocationAuthorizationManager] Location services disabled")
                     self.updateStatus(.notAvailable, error: LocationError.servicesDisabled)
                     return
                 }
 
                 guard self.locationManager.authorizationStatus == .notDetermined else {
+                    print("📭 [LocationAuthorizationManager] Authorization already determined, checking status")
                     self.checkAuthorizationStatus()
                     return
                 }
@@ -87,6 +92,21 @@ final class LocationAuthorizationManager: NSObject, ObservableObject {
     private func updateStatus(_ status: LocationAuthStatus, error: LocationError?) {
         self.authorizationStatus = status
         self.errorMessage = error?.errorDescription
+        
+        // 상태별 로깅
+        switch status {
+        case .authorized:
+            print("✅ [LocationAuthorizationManager] Location authorization granted")
+        case .denied:
+            print("❌ [LocationAuthorizationManager] Location authorization denied")
+        case .restricted:
+            print("❌ [LocationAuthorizationManager] Location authorization restricted")
+        case .notDetermined:
+            print("📭 [LocationAuthorizationManager] Location authorization not determined")
+        case .notAvailable:
+            print("❌ [LocationAuthorizationManager] Location services not available")
+        }
+        
         delegate?.locationAuthorizationStatusDidUpdate(status)
         
         if status == .authorized {

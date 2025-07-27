@@ -16,23 +16,26 @@ protocol NotificationAuthorizationManagerDelegate: AnyObject {
 
 @MainActor
 final class NotificationAuthorizationManager {
+    static let shared = NotificationAuthorizationManager()
+    
     weak var delegate: NotificationAuthorizationManagerDelegate?
     
-    init(delegate: NotificationAuthorizationManagerDelegate? = nil) {
-        self.delegate = delegate
-    }
+    private init() {}
     
     func requestAuthorization() {
+        print("🔄 [NotificationAuthorizationManager] Requesting notification authorization")
         let center = UNUserNotificationCenter.current()
         let options: UNAuthorizationOptions = [.alert, .badge, .sound]
         
-        center.requestAuthorization(options: options) { [weak self] _, error in
+        center.requestAuthorization(options: options) { [weak self] granted, error in
             if let error = error {
+                print("❌ [NotificationAuthorizationManager] Authorization request failed: \(error.localizedDescription)")
                 DispatchQueue.main.async {
                     self?.delegate?.notificationAuthorizationDidFail(error)
                 }
                 return
             }
+            print("✅ [NotificationAuthorizationManager] Authorization request completed, granted: \(granted)")
             self?.checkAuthorizationStatus()
         }
     }
@@ -53,6 +56,16 @@ final class NotificationAuthorizationManager {
                     return .notAvailable
                 }
             }()
+            
+            // 상태별 로깅
+            let statusMessage = switch status {
+            case .authorized: "✅ [NotificationAuthorizationManager] Notification authorization granted"
+            case .denied: "❌ [NotificationAuthorizationManager] Notification authorization denied"
+            case .provisional: "📭 [NotificationAuthorizationManager] Notification authorization provisional"
+            case .notDetermined: "📭 [NotificationAuthorizationManager] Notification authorization not determined"
+            case .notAvailable: "❌ [NotificationAuthorizationManager] Notification authorization not available"
+            }
+            print(statusMessage)
             
             DispatchQueue.main.async {
                 self?.delegate?.notificationAuthorizationDidUpdate(status)

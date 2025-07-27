@@ -45,13 +45,15 @@ final class WeatherKitManager {
             return UVInfo(value: uvIndex.value, category: categoryString)
             
         } catch {
-            print("❌ WeatherKit 데이터 가져오기 실패: \(error.localizedDescription)")
+            print("❌ [WeatherKitManager] Failed to fetch UV data: \(error.localizedDescription)")
             return nil
         }
     }
     
     func fetchRawWeatherData(for locationInfo: LocationInfo) async throws -> Weather {
-        print("🌐 Fetching raw weather data for \(locationInfo.city)")
-        return try await weatherService.weather(for: locationInfo.asCLLocation)
+        print("🔄 [WeatherKitManager] Fetching raw weather data for \(locationInfo.city)")
+        let weather = try await weatherService.weather(for: locationInfo.asCLLocation)
+        print("✅ [WeatherKitManager] Successfully fetched weather data for \(locationInfo.city)")
+        return weather
     }
 }

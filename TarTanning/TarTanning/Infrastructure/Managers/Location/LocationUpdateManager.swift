@@ -15,13 +15,15 @@ protocol LocationUpdateManagerDelegate: AnyObject {
 }
 
 final class LocationUpdateManager: NSObject, ObservableObject, CLLocationManagerDelegate {
+    static let shared = LocationUpdateManager()
+    
     private let locationManager = CLLocationManager()
     private let geocoder = CLGeocoder()
     
     private var currentLocationInfo: LocationInfo?
     weak var delegate: LocationUpdateManagerDelegate?
     
-    override init() {
+    override private init() {
         super.init()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
@@ -31,7 +33,7 @@ final class LocationUpdateManager: NSObject, ObservableObject, CLLocationManager
     }
     
     func startUpdatingLocation() {
-        print("[LocationUpdateManager] Start monitoring significant location changes")
+        print("🔄 [LocationUpdateManager] Starting significant location changes monitoring")
         locationManager.startMonitoringSignificantLocationChanges()
     }
     
@@ -76,11 +78,12 @@ final class LocationUpdateManager: NSObject, ObservableObject, CLLocationManager
 
             // 도시가 같으면 무시
             if newInfo.city == self.currentLocationInfo?.city {
-                print("[LocationUpdateManager] 도시 중복. 업데이트 생략.")
+                print("📭 [LocationUpdateManager] Same city detected, skipping update")
                 return
             }
 
             self.currentLocationInfo = newInfo
+            print("✅ [LocationUpdateManager] Location updated successfully: \(newInfo.city)")
 
             Task { @MainActor in
                 self.delegate?.locationUpdateDidSucceed(newInfo)

@@ -14,7 +14,7 @@ class LocationViewModel: ObservableObject {
     @Published var longitude: Double = 0.0
     @Published var locality: String = ""
   
-    private var locationManager = LocationManager()
+    private var locationManager = LocationManager.shared
 
     init() {
         locationManager.$latitude.assign(to: &$latitude)

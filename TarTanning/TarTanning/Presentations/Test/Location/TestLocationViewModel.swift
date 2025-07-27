@@ -13,8 +13,8 @@ final class TestLocationViewModel: ObservableObject {
     @Published var authStatus: LocationAuthStatus = .notDetermined
     @Published var errorMessage: String?
     
-    private let authManager = LocationAuthorizationManager()
-    private let updateManager = LocationUpdateManager()
+    private let authManager = LocationAuthorizationManager.shared
+    private let updateManager = LocationUpdateManager.shared
     
     init() {
         authManager.delegate = self

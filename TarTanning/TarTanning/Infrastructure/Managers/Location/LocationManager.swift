@@ -10,6 +10,8 @@ import CoreLocation
 import Combine
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
+    static let shared = LocationManager()
+    
     private var locationManager = CLLocationManager()
 
     @Published var latitude: Double = 0.0
@@ -18,7 +20,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     private let geocoder = CLGeocoder()
 
-    override init() {
+    override private init() {
         super.init()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest

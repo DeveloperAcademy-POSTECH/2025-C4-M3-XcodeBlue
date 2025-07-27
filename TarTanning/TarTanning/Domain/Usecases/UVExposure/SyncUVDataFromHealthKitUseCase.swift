@@ -15,6 +15,7 @@ final class SyncUVDataFromHealthKitUseCase {
     private let healthKitAuthorizationManager = HealthKitAuthorizationManager()
     private let modelContext: ModelContext
     private let getUserProfileUseCase = GetUserProfileUseCase()
+    private let healthStore = HKHealthStore()
     
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
@@ -29,20 +30,17 @@ final class SyncUVDataFromHealthKitUseCase {
         // 0. HealthKit 권한 확인 및 요청
         print("🔐 [SyncUVDataFromHealthKitUseCase] Checking HealthKit authorization status...")
         
-        // 현재 권한 상태 확인
-        healthKitAuthorizationManager.checkAuthorizationStatusWithCompletion()
+        // 직접 HealthKit 권한 상태 확인
+        let isAuthorized = await checkHealthKitAuthorizationStatus()
         
-        // 권한이 없으면 요청
-        if !healthKitAuthorizationManager.isAuthorized {
+        if !isAuthorized {
             print("🔄 [SyncUVDataFromHealthKitUseCase] HealthKit authorization not granted, requesting...")
-            await healthKitAuthorizationManager.requestAuthorization()
-        }
-        
-        // 최종 권한 상태 확인
-        guard healthKitAuthorizationManager.isAuthorized else {
-            print("❌ [SyncUVDataFromHealthKitUseCase] HealthKit authorization denied after request")
-            print("🔍 [SyncUVDataFromHealthKitUseCase] Authorization status: \(healthKitAuthorizationManager.authorizationStatus.description)")
-            throw HealthKitError.authorizationDenied
+            let requestSuccess = await requestHealthKitAuthorization()
+            
+            if !requestSuccess {
+                print("❌ [SyncUVDataFromHealthKitUseCase] HealthKit authorization denied after request")
+                throw HealthKitError.authorizationDenied
+            }
         }
         
         print("✅ [SyncUVDataFromHealthKitUseCase] HealthKit authorization granted")
@@ -251,6 +249,55 @@ final class SyncUVDataFromHealthKitUseCase {
             modelContext.insert(newDaily)
             print("✅ [SyncUVDataFromHealthKitUseCase] New DailyUVExpose inserted")
             return newDaily
+        }
+    }
+    
+    // MARK: - HealthKit Authorization Helper Methods
+    
+    /// HealthKit 권한 상태 직접 확인
+    private func checkHealthKitAuthorizationStatus() async -> Bool {
+        guard let daylightType = HKQuantityType.quantityType(forIdentifier: .timeInDaylight) else {
+            print("❌ [SyncUVDataFromHealthKitUseCase] Invalid daylight type")
+            return false
+        }
+        
+        let status = healthStore.authorizationStatus(for: daylightType)
+        print("🔐 [SyncUVDataFromHealthKitUseCase] HealthKit authorization status: \(status.rawValue)")
+        
+        switch status {
+        case .sharingAuthorized:
+            print("✅ [SyncUVDataFromHealthKitUseCase] HealthKit authorization granted")
+            return true
+        case .sharingDenied:
+            print("❌ [SyncUVDataFromHealthKitUseCase] HealthKit authorization denied by user")
+            return false
+        case .notDetermined:
+            print("❌ [SyncUVDataFromHealthKitUseCase] HealthKit authorization not determined")
+            return false
+        @unknown default:
+            print("❌ [SyncUVDataFromHealthKitUseCase] Unknown authorization status: \(status.rawValue)")
+            return false
+        }
+    }
+    
+    /// HealthKit 권한 직접 요청
+    private func requestHealthKitAuthorization() async -> Bool {
+        guard let daylightType = HKQuantityType.quantityType(forIdentifier: .timeInDaylight) else {
+            print("❌ [SyncUVDataFromHealthKitUseCase] Invalid daylight type")
+            return false
+        }
+        
+        print("🔐 [SyncUVDataFromHealthKitUseCase] Requesting HealthKit authorization...")
+        
+        return await withCheckedContinuation { continuation in
+            healthStore.requestAuthorization(toShare: nil, read: [daylightType]) { success, error in
+                if success {
+                    print("✅ [SyncUVDataFromHealthKitUseCase] HealthKit authorization granted")
+                } else {
+                    print("❌ [SyncUVDataFromHealthKitUseCase] HealthKit authorization failed: \(error?.localizedDescription ?? "Unknown error")")
+                }
+                continuation.resume(returning: success)
+            }
         }
     }
     

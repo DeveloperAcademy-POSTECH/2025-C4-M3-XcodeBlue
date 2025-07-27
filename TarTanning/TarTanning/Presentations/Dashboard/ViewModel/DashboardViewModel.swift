@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import SwiftData
+import Combine
 
 @MainActor
 class DashboardViewModel: ObservableObject {
@@ -35,6 +36,7 @@ class DashboardViewModel: ObservableObject {
     
     // MARK: - Private Properties
     private var currentLocation = LocationInfo.mockSeoul
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Initialization
     init(modelContext: ModelContext) {
@@ -50,6 +52,9 @@ class DashboardViewModel: ObservableObject {
             name: .healthKitDataUpdated,
             object: nil
         )
+        
+        // SwiftData 변경사항 감지 설정
+        setupSwiftDataObservation()
     }
     
     deinit {
@@ -60,6 +65,9 @@ class DashboardViewModel: ObservableObject {
         
         // 알림 구독 해제
         NotificationCenter.default.removeObserver(self)
+        
+        // Combine 구독 해제
+        cancellables.removeAll()
     }
     
     // MARK: - Computed Properties
@@ -78,10 +86,7 @@ class DashboardViewModel: ObservableObject {
     }
     
     var todayUVProgressRate: Double {
-        guard let dailyUV = todayUVExposure else { 
-            print("📊 [DashboardViewModel] UV Progress Rate: 0.0% (no dailyUV data)")
-            return 0.0 
-        }
+        guard let dailyUV = todayUVExposure else { return 0.0 }
         
         // 사용자 프로필에서 maxMED 가져오기
         let userProfile = getUserProfileUseCase.getUserProfile()
@@ -91,12 +96,7 @@ class DashboardViewModel: ObservableObject {
         let progressRate = dailyUV.totalUVDose / maxMED
         
         // 0.0 이상으로 제한 (100%를 넘을 수 있음)
-        let finalProgressRate = max(progressRate, 0.0)
-        
-        // 디버깅 로그
-        print("📊 [DashboardViewModel] UV Progress Rate: \(String(format: "%.1f", finalProgressRate * 100))% (UV Dose: \(String(format: "%.4f", dailyUV.totalUVDose)), Max MED: \(String(format: "%.4f", maxMED)))")
-        
-        return finalProgressRate
+        return max(progressRate, 0.0)
     }
     
     // MARK: - Weather Feature Methods
@@ -180,16 +180,7 @@ class DashboardViewModel: ObservableObject {
                 let newMEDValue = getTodayUVExposureUseCase.getTotalUVDose(from: todayUVExposure)
                 self.todayMEDValue = newMEDValue
                 
-                print("✅ [DashboardViewModel] UV exposure data loaded: \(self.todayTotalSunlightMinutes) minutes (from HealthKit)")
-                print("📊 [DashboardViewModel] Today UV Exposure: \(todayUVExposure?.totalSunlightMinutes ?? 0) minutes")
-                print("📊 [DashboardViewModel] Today UV Dose: \(todayUVExposure?.totalUVDose ?? 0.0)")
-                print("📊 [DashboardViewModel] Updated todayMEDValue: \(String(format: "%.6f", self.todayMEDValue))")
-                print("📊 [DashboardViewModel] Progress Rate: \(String(format: "%.1f", self.todayUVProgressRate * 100))%")
-                
-                // 추가 디버깅
-                let maxMED = getUserProfileUseCase.getUserProfile().skinType.maxMED
-                print("🔍 [DashboardViewModel] Debug - Max MED: \(String(format: "%.6f", maxMED))")
-                print("🔍 [DashboardViewModel] Debug - Calculation: \(String(format: "%.6f", self.todayMEDValue)) / \(String(format: "%.6f", maxMED)) = \(String(format: "%.6f", self.todayMEDValue / maxMED))")
+                print("✅ [DashboardViewModel] UV exposure data loaded: \(self.todayTotalSunlightMinutes) minutes, \(String(format: "%.4f", self.todayMEDValue)) J/m²")
                 
             } catch {
                 // 더 자세한 에러 정보 출력
@@ -251,33 +242,22 @@ class DashboardViewModel: ObservableObject {
     
     /// 모든 대시보드 데이터 로드 (Weather + UV Exposure)
     func loadAllDashboardData() {
-        print("🔄 [DashboardViewModel] Loading all dashboard data")
-        
         Task { @MainActor in
             // 1. 날씨 데이터 로드
             loadWeatherData()
             
             // 2. UV 노출량 데이터 로드 (이미 UV Dose 계산 포함)
             loadUVExposureData()
-            
-            // 3. 주간 데이터 업데이트 (UI 자동 갱신)
-            print("📊 [DashboardViewModel] Weekly UV progress rates: \(self.weeklyUVProgressRates)")
-            
-            print("✅ [DashboardViewModel] All dashboard data loaded successfully")
         }
     }
     
     /// 전체 데이터 새로고침 (Pull-to-Refresh용)
     @MainActor func refreshAllData() async {
-        print("🔄 [DashboardViewModel] Refreshing all data")
-        
         // 1. 날씨 데이터 새로고침
         loadWeatherData()
         
         // 2. UV 노출량 데이터 새로고침 (이미 UV Dose 계산 포함)
         loadUVExposureData()
-        
-        print("✅ [DashboardViewModel] All data refreshed successfully")
     }
     
     // MARK: - Weekly Summary Feature Methods
@@ -434,6 +414,37 @@ class DashboardViewModel: ObservableObject {
         }
     }
     
+    // MARK: - SwiftData Observation Methods
+    
+    /// SwiftData 변경사항 감지 설정 (NotificationCenter 사용)
+    private func setupSwiftDataObservation() {
+        // SwiftData 변경사항을 NotificationCenter로 감지
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleSwiftDataUpdate),
+            name: .NSPersistentStoreRemoteChange,
+            object: nil
+        )
+    }
+    
+    /// SwiftData 업데이트 처리
+    @objc private func handleSwiftDataUpdate() {
+        Task { @MainActor in
+            do {
+                let todayUVExposure = try await getTodayUVExposureUseCase.getTodayDailyUVExposure()
+                
+                if let todayData = todayUVExposure {
+                    self.todayUVExposure = todayData
+                    self.todayMEDValue = todayData.totalUVDose
+                    self.todayTotalSunlightMinutes = Int(todayData.totalSunlightMinutes)
+                    print("📊 [DashboardViewModel] SwiftData updated: \(String(format: "%.4f", todayData.totalUVDose)) J/m²")
+                }
+            } catch {
+                print("❌ [DashboardViewModel] Failed to handle SwiftData update: \(error)")
+            }
+        }
+    }
+    
     // MARK: - Private Helper Methods
     
     /// 일출/일몰 시간으로 일광시간 계산
@@ -447,22 +458,12 @@ class DashboardViewModel: ObservableObject {
         
         let sunlightDuration = sunset.timeIntervalSince(sunrise)
         todayTotalSunlightMinutes = Int(sunlightDuration / 60) // 분 단위로 변환
-        
-        print("☀️ [DashboardViewModel] Calculated sunlight: \(todayTotalSunlightMinutes) minutes")
     }
     
     /// 현재 날씨 정보 로그
     private func logCurrentWeatherInfo() {
         guard let weather = currentWeather else { return }
-        
-        let currentHour = Calendar.current.component(.hour, from: Date())
-        print("📊 [DashboardViewModel] Current weather info:")
-        print("   - City: \(weather.city)")
-        print("   - Current hour: \(currentHour)")
-        print("   - Current UV: \(currentUVIndex)")
-        print("   - Current temperature: \(currentTemperature)°C")
-        print("   - Total hourly data: \(weather.hourlyWeathers.count)")
-        print("   - Sunlight minutes: \(todayTotalSunlightMinutes)")
+        print("📊 [DashboardViewModel] Weather loaded: \(weather.city), UV: \(currentUVIndex), Temp: \(currentTemperature)°C")
     }
     
     // MARK: - HealthKit Update Handler
@@ -489,14 +490,7 @@ class DashboardViewModel: ObservableObject {
                 let newMEDValue = getTodayUVExposureUseCase.getTotalUVDose(from: updatedUVExposure)
                 self.todayMEDValue = newMEDValue
                 
-                print("✅ [DashboardViewModel] UV data refreshed after HealthKit update: \(self.todayTotalSunlightMinutes) minutes")
-                print("📊 [DashboardViewModel] Updated todayMEDValue: \(String(format: "%.6f", self.todayMEDValue))")
-                print("📊 [DashboardViewModel] Progress Rate: \(String(format: "%.1f", self.todayUVProgressRate * 100))%")
-                
-                // 추가 디버깅
-                let maxMED = getUserProfileUseCase.getUserProfile().skinType.maxMED
-                print("🔍 [DashboardViewModel] Debug - Max MED: \(String(format: "%.6f", maxMED))")
-                print("🔍 [DashboardViewModel] Debug - Calculation: \(String(format: "%.6f", self.todayMEDValue)) / \(String(format: "%.6f", maxMED)) = \(String(format: "%.6f", self.todayMEDValue / maxMED))")
+                print("✅ [DashboardViewModel] UV data refreshed: \(self.todayTotalSunlightMinutes) minutes, \(String(format: "%.4f", self.todayMEDValue)) J/m²")
                 
             } catch {
                 print("❌ [DashboardViewModel] Failed to refresh UV data after HealthKit update: \(error)")

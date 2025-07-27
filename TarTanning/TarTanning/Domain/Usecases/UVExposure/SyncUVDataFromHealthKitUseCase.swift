@@ -96,9 +96,9 @@ final class SyncUVDataFromHealthKitUseCase {
                 await healthKitQueryFetchManager.fetchTodaySamples()
             }
             
-            // 타임아웃 설정 (10초)
+            // 타임아웃 설정 (30초로 증가)
             Task {
-                try await Task.sleep(nanoseconds: 10_000_000_000) // 10초
+                try await Task.sleep(nanoseconds: 30_000_000_000) // 30초
                 if !delegate.isContinuationResolved {
                     delegate.fetchManagerDidFail(with: HealthKitError.queryFailed(NSError(domain: "HealthKit", code: -1, userInfo: [NSLocalizedDescriptionKey: "HealthKit query timeout"])))
                 }
@@ -116,9 +116,9 @@ final class SyncUVDataFromHealthKitUseCase {
                 await healthKitQueryFetchManager.fetchSamples(from: startDate, to: endDate)
             }
             
-            // 타임아웃 설정 (10초)
+            // 타임아웃 설정 (30초로 증가)
             Task {
-                try await Task.sleep(nanoseconds: 10_000_000_000) // 10초
+                try await Task.sleep(nanoseconds: 30_000_000_000) // 30초
                 if !delegate.isContinuationResolved {
                     delegate.fetchManagerDidFail(with: HealthKitError.queryFailed(NSError(domain: "HealthKit", code: -1, userInfo: [NSLocalizedDescriptionKey: "HealthKit query timeout"])))
                 }

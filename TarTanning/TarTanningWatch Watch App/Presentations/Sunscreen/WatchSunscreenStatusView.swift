@@ -183,17 +183,3 @@ struct ControlButtonView: View {
 #Preview("대기 상태") {
     WatchSunscreenStatusView()
 }
-
-#if DEBUG
-#Preview("진행 중 상태") {
-    struct PreviewWrapper: View {
-        @StateObject private var mockViewModel = MockSunscreenViewModel.active
-        
-        var body: some View {
-            WatchSunscreenStatusView()
-                .environmentObject(mockViewModel)
-        }
-    }
-    return PreviewWrapper()
-}
-#endif

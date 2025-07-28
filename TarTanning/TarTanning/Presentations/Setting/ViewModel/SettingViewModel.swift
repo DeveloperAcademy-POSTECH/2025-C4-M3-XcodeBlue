@@ -10,36 +10,57 @@ import SwiftUI
 
 @MainActor
 final class SettingsViewModel: ObservableObject {
-    // MARK: - 사용자 설정
-    @AppStorage("selectedSkinType") private var selectedSkinTypeRaw: Int = 3
-    @AppStorage("selectedSPF") var selectedSPF: Int = 30
+    // MARK: - Dependencies
+    private let userDefaultManager = UserDefaultManager.shared
+    
+    // MARK: - Published Properties
+    @Published var currentUserProfile: UserProfile
     
     // MARK: - Picker Sheet 표시 여부
     @Published var isSkinTypePickerPresented: Bool = false
     @Published var isSPFPickerPresented: Bool = false
     
+    // MARK: - Initialization
+    init() {
+        // UserDefaultManager에서 현재 사용자 프로필 로드
+        self.currentUserProfile = userDefaultManager.loadUserProfile()
+    }
+    
+    // MARK: - Computed Properties
     var selectedSkinType: SkinType {
-        get { SkinType(rawValue: selectedSkinTypeRaw) ?? .type3 }
-        set { selectedSkinTypeRaw = newValue.rawValue }
+        get { currentUserProfile.skinType }
+        set { 
+            currentUserProfile.skinType = newValue
+            userDefaultManager.updateSkinType(newValue)
+        }
     }
 
     var selectedSPFLevel: SPFLevel {
-        get { SPFLevel(rawValue: selectedSPF) ?? .spf30 }
-        set { selectedSPF = newValue.rawValue }
+        get { currentUserProfile.spfLevel }
+        set { 
+            currentUserProfile.spfLevel = newValue
+            userDefaultManager.updateSPFLevel(newValue)
+        }
     }
     
     // MARK: - 디스플레이용 문자열
     var skinTypeDisplay: String {
-        "\(selectedSkinType.romanNumeral)"
+        "\(selectedSkinType.romanNumeral)형"
     }
 
     var spfDisplay: String {
         "\(selectedSPFLevel.displayTitle)"
     }
 
+    // MARK: - Actions
     func openSystemSettings() {
         if let url = URL(string: UIApplication.openSettingsURLString) {
             UIApplication.shared.open(url)
         }
+    }
+    
+    /// 사용자 프로필 새로고침 (다른 화면에서 변경된 경우)
+    func refreshUserProfile() {
+        currentUserProfile = userDefaultManager.loadUserProfile()
     }
 }

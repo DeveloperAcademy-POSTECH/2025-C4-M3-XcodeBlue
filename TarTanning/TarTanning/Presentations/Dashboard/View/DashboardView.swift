@@ -25,7 +25,6 @@ struct DashboardView: View {
         NavigationView {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 20) {
-                    
                     if showingTimer {
                         DashboardTimerView(isPresented: $showingTimer)
                     }
@@ -189,7 +188,6 @@ struct SwiftDataDebugView: View {
     private func syncHealthKitData() {
         Task { @MainActor in
             do {
-                try await viewModel.syncHealthKitDataForDebug()
                 refreshData()
             } catch {
                 print("❌ HealthKit 동기화 실패: \(error)")

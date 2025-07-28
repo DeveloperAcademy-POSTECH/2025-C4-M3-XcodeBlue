@@ -24,6 +24,24 @@ final class LocalNotificationManager {
 #endif
     }
     
+    // 알림권한 체크 로직 추가
+    var hasPermission: Bool {
+        var authorizationStatus: UNAuthorizationStatus = .notDetermined
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            authorizationStatus = settings.authorizationStatus
+            semaphore.signal()
+        }
+        
+        semaphore.wait()
+        
+        let hasAuth = authorizationStatus == .authorized || authorizationStatus == .provisional
+        print("[\(platform)] Notification permission check: \(authorizationStatus.rawValue) -> \(hasAuth)")
+        
+        return hasAuth
+    }
+    
     func scheduleNotification(for type: NotificationContentType, at date: Date, repeats: Bool = false, useUniqueId: Bool = false) {
         
         let finalId = useUniqueId ? UUID().uuidString : type.id

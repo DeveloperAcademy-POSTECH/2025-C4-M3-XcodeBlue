@@ -51,7 +51,7 @@ class DashboardViewModel: ObservableObject {
     }
     
     // MARK: - Private Properties
-    private var currentLocation = LocationInfo.mockSeoul
+    private var currentLocation = LocationInfo.mockPohang
     private var cancellables = Set<AnyCancellable>()
     private var isHealthKitSyncing = false
     private var lastHealthKitSyncTime: Date = Date.distantPast
@@ -214,15 +214,64 @@ class DashboardViewModel: ObservableObject {
     
     // MARK: - UV Exposure Feature Methods
     
-    /// HealthKit에서 UV 노출량 데이터 로드
+    /// 기존 SwiftData에서 오늘의 UV 노출량 데이터를 직접 로드
+    private func loadExistingUVData() {
+        print("📊 [DashboardViewModel] Loading existing UV exposure data from SwiftData")
+        
+        Task { @MainActor in
+            do {
+                // 기존 SwiftData에서 오늘의 UV 노출량 조회
+                let todayUVExposure = try await getTodayUVExposureUseCase().getTodayDailyUVExposure()
+                
+                if let todayData = todayUVExposure {
+                    // 기존 데이터로 UI 업데이트
+                    self.todayUVExposure = todayData
+                    
+                    let sunlightMinutes = getTodayUVExposureUseCase().getTotalSunlightMinutes(from: todayData)
+                    self.todayTotalSunlightMinutes = Int(sunlightMinutes)
+                    
+                    let uvDose = getTodayUVExposureUseCase().getTotalUVDose(from: todayData)
+                    self.todayMEDValue = uvDose
+                    
+                    print("✅ [DashboardViewModel] Existing UV data loaded: \(self.todayTotalSunlightMinutes) minutes, \(String(format: "%.4f", self.todayMEDValue)) J/m²")
+                } else {
+                    print("📭 [DashboardViewModel] No existing UV data found for today")
+                    // 기본값으로 초기화
+                    self.todayUVExposure = nil
+                    self.todayTotalSunlightMinutes = 0
+                    self.todayMEDValue = 0.0
+                }
+                
+            } catch {
+                print("❌ [DashboardViewModel] Failed to load existing UV data: \(error)")
+                // 에러 시 기본값으로 초기화
+                self.todayUVExposure = nil
+                self.todayTotalSunlightMinutes = 0
+                self.todayMEDValue = 0.0
+            }
+        }
+    }
+    
+    /// UV 노출량 데이터 로드 (기존 데이터 우선 로드 후 HealthKit 동기화)
     func loadUVExposureData() {
+        print("🔄 [DashboardViewModel] Loading UV exposure data")
+        
+        // 1. 먼저 기존 SwiftData에서 데이터 로드 (즉시 UI 업데이트)
+        loadExistingUVData()
+        
+        // 2. 그 다음 HealthKit 동기화 (백그라운드에서 진행)
+        syncAndUpdateUVDataFromHealthKit()
+    }
+    
+    /// HealthKit 동기화 및 UV 데이터 업데이트 (백그라운드)
+    private func syncAndUpdateUVDataFromHealthKit() {
         // 이미 동기화 중이면 스킵
         guard !isHealthKitSyncing else {
-            print("⏸️ [DashboardViewModel] HealthKit sync already in progress - skipping loadUVExposureData")
+            print("⏸️ [DashboardViewModel] HealthKit sync already in progress - skipping syncAndUpdateUVDataFromHealthKit")
             return
         }
         
-        print("🔄 [DashboardViewModel] Loading UV exposure data")
+        print("🔄 [DashboardViewModel] Starting HealthKit sync and update")
         
         isHealthKitSyncing = true
         
@@ -238,21 +287,21 @@ class DashboardViewModel: ObservableObject {
                 try await syncUVDataFromHealthKitUseCase().syncTodaySunlightFromHealthKit()
                 print("✅ [DashboardViewModel] Step 1: HealthKit sync completed")
                 
-                // 2. 오늘의 UV 노출량 조회
-                print("📱 [DashboardViewModel] Step 2: Fetching today's UV exposure...")
-                let todayUVExposure = try await getTodayUVExposureUseCase().getTodayDailyUVExposure()
+                // 2. 동기화 후 업데이트된 UV 노출량 조회
+                print("📱 [DashboardViewModel] Step 2: Fetching updated UV exposure...")
+                let updatedUVExposure = try await getTodayUVExposureUseCase().getTodayDailyUVExposure()
                 
-                self.todayUVExposure = todayUVExposure
+                self.todayUVExposure = updatedUVExposure
                 
                 // HealthKit에서 가져온 실제 일광시간으로 업데이트
-                let actualSunlightMinutes = getTodayUVExposureUseCase().getTotalSunlightMinutes(from: todayUVExposure)
+                let actualSunlightMinutes = getTodayUVExposureUseCase().getTotalSunlightMinutes(from: updatedUVExposure)
                 self.todayTotalSunlightMinutes = Int(actualSunlightMinutes)
                 
                 // UV Dose 값 업데이트
-                let newMEDValue = getTodayUVExposureUseCase().getTotalUVDose(from: todayUVExposure)
+                let newMEDValue = getTodayUVExposureUseCase().getTotalUVDose(from: updatedUVExposure)
                 self.todayMEDValue = newMEDValue
                 
-                print("✅ [DashboardViewModel] UV exposure data loaded: \(self.todayTotalSunlightMinutes) minutes, \(String(format: "%.4f", self.todayMEDValue)) J/m²")
+                print("✅ [DashboardViewModel] UV exposure data updated after HealthKit sync: \(self.todayTotalSunlightMinutes) minutes, \(String(format: "%.4f", self.todayMEDValue)) J/m²")
                 
             } catch {
                 // 타임아웃 에러는 조용히 처리
@@ -287,23 +336,12 @@ class DashboardViewModel: ObservableObject {
     
     /// UV Dose 재계산 (기존 데이터에 대한 UV Dose 업데이트)
     func recalculateUVDose() {
-        print("🧮 [DashboardViewModel] Recalculating UV dose")
-        
-        guard let weather = currentWeather else {
-            print("⚠️ [DashboardViewModel] No weather data available for UV dose calculation")
-            return
-        }
+        print("🧮 [DashboardViewModel] Recalculating UV dose from SwiftData")
         
         Task { @MainActor in
             do {
-                // UV 지수 데이터 준비 (시간별)
-                var uvIndexData: [Int: Double] = [:]
-                for hourlyWeather in weather.hourlyWeathers {
-                    uvIndexData[hourlyWeather.hour] = hourlyWeather.uvIndex
-                }
-                
-                // UV Dose 재계산 및 저장
-                try await calculateAndSaveUVDoseUseCase().calculateAndSaveTodayUVDose(uvIndexData: uvIndexData)
+                // UV Dose 재계산 및 저장 (SwiftData에서 직접 UV 지수 조회)
+                try await calculateAndSaveUVDoseUseCase().calculateAndSaveTodayUVDose()
                 
                 // 업데이트된 UV 노출량 조회
                 let updatedUVExposure = try await getTodayUVExposureUseCase().getTodayDailyUVExposure()
@@ -337,7 +375,7 @@ class DashboardViewModel: ObservableObject {
         // 1. 날씨 데이터 먼저 새로고침 (UV Dose 계산을 위해 필요)
         await loadWeatherDataAsync()
         
-        // 2. UV 노출량 데이터 새로고침 (이미 UV Dose 계산 포함)
+        // 2. UV 노출량 데이터 새로고침 (기존 데이터 로드 + HealthKit 동기화)
         loadUVExposureData()
     }
     
@@ -418,14 +456,8 @@ class DashboardViewModel: ObservableObject {
     
     /// UV Dose 계산 (디버그용)
     func calculateUVDoseForDebug() async throws {
-        guard let weather = currentWeather else { return }
-        
-        var uvIndexData: [Int: Double] = [:]
-        for hourlyWeather in weather.hourlyWeathers {
-            uvIndexData[hourlyWeather.hour] = hourlyWeather.uvIndex
-        }
-        
-        try await calculateAndSaveUVDoseUseCase().calculateAndSaveTodayUVDose(uvIndexData: uvIndexData)
+        // SwiftData에서 직접 UV 지수를 조회하여 계산
+        try await calculateAndSaveUVDoseUseCase().calculateAndSaveTodayUVDose()
     }
     
     /// 모든 데이터 삭제 (디버그용)

@@ -191,6 +191,7 @@ struct SwiftDataDebugView: View {
                 refreshData()
             } catch {
                 print("❌ HealthKit 동기화 실패: \(error)")
+                throw error 
             }
         }
     }

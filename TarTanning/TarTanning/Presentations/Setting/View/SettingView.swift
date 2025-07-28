@@ -64,7 +64,7 @@ struct SettingView: View {
                 Spacer()
             }
             .padding()
-            .navigationTitle("사용자 정보")
+            .navigationTitle("설정")
             .navigationBarTitleDisplayMode(.large)
             .sheet(isPresented: $viewModel.isSkinTypePickerPresented) {
                 Picker("스킨타입 선택", selection: $viewModel.selectedSkinType) {

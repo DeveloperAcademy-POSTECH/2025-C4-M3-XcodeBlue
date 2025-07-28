@@ -12,7 +12,6 @@ struct WatchUvDoseView: View {
     
     @StateObject private var syncService = WatchDashboardSyncService.shared
     @State private var currentTab: Int = 0 // 페이지 인덱스
-    private var infoToggle: Bool = false
     
     var body: some View {
         ZStack {
@@ -24,15 +23,6 @@ struct WatchUvDoseView: View {
             VStack(spacing: 24) {
                 // 중앙 MED 정보
                 VStack(spacing: 8) {
-                    if infoToggle {
-                        Text("현재 총 일광량")
-                            .font(.caption2)
-                            .foregroundColor(.white)
-                        
-                        Text("\(syncService.totalUVDose)분")
-                            .font(.system(size: 40, weight: .bold))
-                            .foregroundColor(.white)
-                    } else {
                         Text("현재 UV 노출량")
                             .font(.caption2)
                             .foregroundColor(.white)
@@ -40,7 +30,6 @@ struct WatchUvDoseView: View {
                         Text("\(syncService.uvProgressPercentage)%")
                             .font(.system(size: 40, weight: .bold))
                             .foregroundColor(.white)
-                    }
                 }
                 
                 VStack {
@@ -53,11 +42,6 @@ struct WatchUvDoseView: View {
         }
         .onAppear {
             syncService.requestDataFromiPhone()
-            print("\(syncService.uvProgressPercentage) syncService.uvProgressPercentage")
-        }
-        .onLongPressGesture(minimumDuration: 0.5) {
-            syncService.requestDataFromiPhone()
-            WKInterfaceDevice.current().play(.click)
         }
         .onReceive(NotificationCenter.default.publisher(for: WKExtension.applicationDidBecomeActiveNotification)) { _ in
             syncService.requestDataFromiPhone()

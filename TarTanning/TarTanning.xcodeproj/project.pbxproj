@@ -20,8 +20,12 @@
 		057DBEB42E37578100472499 /* SunscreenViewModel+DataSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057DBEB22E37578100472499 /* SunscreenViewModel+DataSync.swift */; };
 		057DBEB62E37580200472499 /* SunscreenViewModel+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057DBEB52E37580000472499 /* SunscreenViewModel+Debug.swift */; };
 		057DBEB72E37580200472499 /* SunscreenViewModel+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057DBEB52E37580000472499 /* SunscreenViewModel+Debug.swift */; };
-		802AB1CA2E37191D0006476F /* SyncUVDataInBackgroundUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802AB1C92E37191D0006476F /* SyncUVDataInBackgroundUseCase.swift */; };
-		802AB2BC2E3753C60006476F /* SendUVIndexNotificationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802AB2BB2E3753C60006476F /* SendUVIndexNotificationUseCase.swift */; };
+		057DBF342E37674800472499 /* UVLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057DBF332E37674800472499 /* UVLevel.swift */; };
+		057DBF352E37674800472499 /* UVLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057DBF332E37674800472499 /* UVLevel.swift */; };
+		057DBF422E376B5400472499 /* DashboardInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057DBF412E376B5400472499 /* DashboardInfoViewModel.swift */; };
+		057DBF442E376B9000472499 /* SyncUVDataInBackgroundUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057DBF432E376B9000472499 /* SyncUVDataInBackgroundUseCase.swift */; };
+		802AB1CA2E37191D0006476F /* (null) in Sources */ = {isa = PBXBuildFile; };
+		802AB2BC2E3753C60006476F /* (null) in Sources */ = {isa = PBXBuildFile; };
 		8080F1572E20A0190094719D /* TarTanningWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 8080F14A2E20A0180094719D /* TarTanningWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8080F15F2E20A0740094719D /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 8080F15E2E20A0740094719D /* .swiftlint.yml */; };
 		BF55D6BB2E352AD800074104 /* GetWeatherDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55D6B92E352AD800074104 /* GetWeatherDataUseCase.swift */; };
@@ -70,7 +74,6 @@
 		BF9199C02E3405430056E0E7 /* DashboardUVProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91990F2E3405430056E0E7 /* DashboardUVProgressView.swift */; };
 		BF9199C12E3405430056E0E7 /* DashboardWeeklySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199102E3405430056E0E7 /* DashboardWeeklySummaryView.swift */; };
 		BF9199C22E3405430056E0E7 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199122E3405430056E0E7 /* DashboardView.swift */; };
-		BF9199C32E3405430056E0E7 /* DashboardInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199142E3405430056E0E7 /* DashboardInfoViewModel.swift */; };
 		BF9199C42E3405430056E0E7 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199152E3405430056E0E7 /* DashboardViewModel.swift */; };
 		BF9199C52E3405430056E0E7 /* ButtonStyleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199182E3405430056E0E7 /* ButtonStyleType.swift */; };
 		BF9199C62E3405430056E0E7 /* InfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199192E3405430056E0E7 /* InfoItem.swift */; };
@@ -178,6 +181,9 @@
 		057DBEAF2E37545C00472499 /* SunscreenViewModel+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SunscreenViewModel+Preview.swift"; sourceTree = "<group>"; };
 		057DBEB22E37578100472499 /* SunscreenViewModel+DataSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SunscreenViewModel+DataSync.swift"; sourceTree = "<group>"; };
 		057DBEB52E37580000472499 /* SunscreenViewModel+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SunscreenViewModel+Debug.swift"; sourceTree = "<group>"; };
+		057DBF332E37674800472499 /* UVLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UVLevel.swift; sourceTree = "<group>"; };
+		057DBF412E376B5400472499 /* DashboardInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardInfoViewModel.swift; sourceTree = "<group>"; };
+		057DBF432E376B9000472499 /* SyncUVDataInBackgroundUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUVDataInBackgroundUseCase.swift; sourceTree = "<group>"; };
 		8080F12C2E209F860094719D /* TarTanning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TarTanning.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8080F14A2E20A0180094719D /* TarTanningWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TarTanningWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8080F15E2E20A0740094719D /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
@@ -227,7 +233,6 @@
 		BF91990F2E3405430056E0E7 /* DashboardUVProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardUVProgressView.swift; sourceTree = "<group>"; };
 		BF9199102E3405430056E0E7 /* DashboardWeeklySummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardWeeklySummaryView.swift; sourceTree = "<group>"; };
 		BF9199122E3405430056E0E7 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
-		BF9199142E3405430056E0E7 /* DashboardInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardInfoViewModel.swift; sourceTree = "<group>"; };
 		BF9199152E3405430056E0E7 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 		BF9199182E3405430056E0E7 /* ButtonStyleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyleType.swift; sourceTree = "<group>"; };
 		BF9199192E3405430056E0E7 /* InfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoItem.swift; sourceTree = "<group>"; };
@@ -364,7 +369,7 @@
 		BF55DAC82E374CAE00074104 /* VIewModel */ = {
 			isa = PBXGroup;
 			children = (
-				BF9199142E3405430056E0E7 /* DashboardInfoViewModel.swift */,
+				057DBF412E376B5400472499 /* DashboardInfoViewModel.swift */,
 			);
 			path = VIewModel;
 			sourceTree = "<group>";
@@ -548,7 +553,6 @@
 			isa = PBXGroup;
 			children = (
 				057DBEA42E374EFC00472499 /* DashboardViewModel+Debug.swift */,
-				BF9199142E3405430056E0E7 /* DashboardInfoViewModel.swift */,
 				BF9199152E3405430056E0E7 /* DashboardViewModel.swift */,
 			);
 			path = ViewModel;
@@ -781,7 +785,6 @@
 			children = (
 				BF91996A2E3405430056E0E7 /* ScheduleSunscreenReminderUseCase.swift */,
 				BF91996B2E3405430056E0E7 /* SendUVWarningNotificationUseCase.swift */,
-				802AB2BB2E3753C60006476F /* SendUVIndexNotificationUseCase.swift */,
 			);
 			path = Notification;
 			sourceTree = "<group>";
@@ -816,12 +819,12 @@
 		BF91997A2E3405430056E0E7 /* UVExposure */ = {
 			isa = PBXGroup;
 			children = (
+				057DBF432E376B9000472499 /* SyncUVDataInBackgroundUseCase.swift */,
 				BF9199772E3405430056E0E7 /* GetTodayUVExposureUseCase.swift */,
 				BF55D7012E353BA500074104 /* CalculateAndSaveUVDoseUseCase.swift */,
 				BF55D7022E353BA500074104 /* SyncUVDataFromHealthKitUseCase.swift */,
 				BF9199782E3405430056E0E7 /* GetWeeklyUVTrendUseCase.swift */,
 				BF9199792E3405430056E0E7 /* MEDCalculator.swift */,
-				802AB1C92E37191D0006476F /* SyncUVDataInBackgroundUseCase.swift */,
 			);
 			path = UVExposure;
 			sourceTree = "<group>";
@@ -881,6 +884,7 @@
 			isa = PBXGroup;
 			children = (
 				BF91998C2E3405430056E0E7 /* TimerState.swift */,
+				057DBF332E37674800472499 /* UVLevel.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -1161,6 +1165,7 @@
 				BF91999E2E3405430056E0E7 /* NavigationRouter.swift in Sources */,
 				BF91999F2E3405430056E0E7 /* Route.swift in Sources */,
 				BF9199A02E3405430056E0E7 /* TarTanningApp.swift in Sources */,
+				057DBF442E376B9000472499 /* SyncUVDataInBackgroundUseCase.swift in Sources */,
 				BF55DAC62E374C3D00074104 /* InfoView.swift in Sources */,
 				BF9199A12E3405430056E0E7 /* Color+Extension.swift in Sources */,
 				BF9199A22E3405430056E0E7 /* Date+Extension.swift in Sources */,
@@ -1184,6 +1189,7 @@
 				057DBEAB2E37540500472499 /* SunscreenViewModel+WatchSync.swift in Sources */,
 				BF9199B12E3405430056E0E7 /* WeatherKitManager.swift in Sources */,
 				BF9199B22E3405430056E0E7 /* LocationInfo.swift in Sources */,
+				057DBF342E37674800472499 /* UVLevel.swift in Sources */,
 				BF9199B32E3405430056E0E7 /* SunScreenInfo.swift in Sources */,
 				BF9199B42E3405430056E0E7 /* SkinType.swift in Sources */,
 				BF9199B52E3405430056E0E7 /* SPFLevel.swift in Sources */,
@@ -1199,17 +1205,16 @@
 				BF9199BD2E3405430056E0E7 /* DashboardTimerView.swift in Sources */,
 				BF9199BE2E3405430056E0E7 /* DashboardTitleView.swift in Sources */,
 				BF9199BF2E3405430056E0E7 /* DashboardUVDoseView.swift in Sources */,
-				802AB1CA2E37191D0006476F /* SyncUVDataInBackgroundUseCase.swift in Sources */,
+				802AB1CA2E37191D0006476F /* (null) in Sources */,
 				BF9199C02E3405430056E0E7 /* DashboardUVProgressView.swift in Sources */,
 				BF9199C12E3405430056E0E7 /* DashboardWeeklySummaryView.swift in Sources */,
 				BF9199C22E3405430056E0E7 /* DashboardView.swift in Sources */,
-				BF9199C32E3405430056E0E7 /* DashboardInfoViewModel.swift in Sources */,
 				BF9199C42E3405430056E0E7 /* DashboardViewModel.swift in Sources */,
 				BF9199C52E3405430056E0E7 /* ButtonStyleType.swift in Sources */,
 				BF9199C62E3405430056E0E7 /* InfoItem.swift in Sources */,
 				BF9199C72E3405430056E0E7 /* OnboardingButton.swift in Sources */,
 				BF9199C82E3405430056E0E7 /* SkinTypeItem.swift in Sources */,
-				802AB2BC2E3753C60006476F /* SendUVIndexNotificationUseCase.swift in Sources */,
+				802AB2BC2E3753C60006476F /* (null) in Sources */,
 				BF9199C92E3405430056E0E7 /* OnboardingStep.swift in Sources */,
 				BF9199CA2E3405430056E0E7 /* OnboardingPermissionInfoView.swift in Sources */,
 				BF9199CB2E3405430056E0E7 /* OnboardingSkinTypeDetailView.swift in Sources */,
@@ -1240,6 +1245,7 @@
 				057DBEB02E37545C00472499 /* SunscreenViewModel+Preview.swift in Sources */,
 				BF9199F12E3405430056E0E7 /* ScheduleSunscreenReminderUseCase.swift in Sources */,
 				BF9199F22E3405430056E0E7 /* SendUVWarningNotificationUseCase.swift in Sources */,
+				057DBF422E376B5400472499 /* DashboardInfoViewModel.swift in Sources */,
 				BF9199F32E3405430056E0E7 /* RequestAllPermissionsUseCase.swift in Sources */,
 				057DBEB62E37580200472499 /* SunscreenViewModel+Debug.swift in Sources */,
 				BF55D7002E35345C00074104 /* UpdateUserProfileUseCase.swift in Sources */,
@@ -1296,6 +1302,7 @@
 				BF919A1E2E3405430056E0E7 /* TimerSyncManager.swift in Sources */,
 				BF919A1F2E3405430056E0E7 /* LocalNotificationError.swift in Sources */,
 				BF919A202E3405430056E0E7 /* NotificationScheduler.swift in Sources */,
+				057DBF352E37674800472499 /* UVLevel.swift in Sources */,
 				BF919A212E3405430056E0E7 /* TimeInterval+String.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

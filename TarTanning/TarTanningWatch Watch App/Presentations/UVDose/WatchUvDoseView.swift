@@ -1,10 +1,3 @@
-//
-//  WatchUvDoseView.swift
-//  TarTanningWatch Watch App
-//
-//  Created by taeni on 7/18/25.
-//
-
 import SwiftUI
 
 struct WatchUvDoseView: View {

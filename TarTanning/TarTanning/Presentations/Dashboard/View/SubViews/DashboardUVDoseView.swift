@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DashboardUVDoseView: View {
     @ObservedObject var viewModel: DashboardViewModel
-    @State private var showTimerView = false
+    @Binding var showingTimer: Bool
     
     private var uvStatusText: String {
         switch viewModel.todayUVProgressRate {
@@ -112,7 +112,7 @@ struct DashboardUVDoseView: View {
             
             // 선크림 모드 버튼
             Button {
-                showTimerView = true
+                showingTimer = true
             } label: {
                 Label("선크림 모드", systemImage: "cloud.sun")
                     .font(.system(size: 16, weight: .medium))

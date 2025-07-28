@@ -11,6 +11,10 @@ import SwiftData
 struct DashboardView: View {
     @Environment(\.modelContext) private var modelContext
     @StateObject private var viewModel: DashboardViewModel
+    
+    @StateObject private var timerManager = SunscreenViewModel.shared
+    @State private var showingTimer = false
+    
     @State private var showingDebugSheet = false
     
     init(modelContext: ModelContext) {
@@ -21,8 +25,12 @@ struct DashboardView: View {
         NavigationView {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 20) {
+                    
+                    if showingTimer {
+                        DashboardTimerView(isPresented: $showingTimer)
+                    }
                     DashboardTitleView(viewModel: viewModel)
-                    DashboardUVDoseView(viewModel: viewModel)
+                    DashboardUVDoseView(viewModel: viewModel, showingTimer: $showingTimer)
                     DashboardSummaryMetricsView(viewModel: viewModel)
                     DashboardWeeklySummaryView(viewModel: viewModel)
                     
@@ -69,6 +77,9 @@ struct DashboardView: View {
             .navigationBarTitleDisplayMode(.large)
             .onAppear {
                 viewModel.loadAllDashboardData()
+            }
+            .onChange(of: timerManager.isActive) {_, newValue in
+                showingTimer = newValue
             }
             .sheet(isPresented: $showingDebugSheet) {
                 SwiftDataDebugView(viewModel: viewModel)

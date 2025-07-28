@@ -2,7 +2,7 @@ import SwiftUI
 
 struct WatchUvDoseView: View {
     
-    @State private var viewModel = WatchUvDoseViewModel.mock
+    @State private var viewModel = WatchUvDoseViewModel()
     @State private var currentTab: Int = 0 // 페이지 인덱스
     // 시간 포맷터 (24시간제, AM/PM 없이)
     
@@ -16,7 +16,7 @@ struct WatchUvDoseView: View {
             VStack{
                 // 중앙 MED 정보
                 VStack(spacing: 8) {
-                    Text("현재 MED")
+                    Text("현재 UV노출량")
                         .font(.caption2)
                         .foregroundColor(.white)
 

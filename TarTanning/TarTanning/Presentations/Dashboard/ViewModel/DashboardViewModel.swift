@@ -1,3 +1,4 @@
+// swiftlint:disable type_body_length
 //
 //  DashboardViewModel.swift
 //  TarTanning
@@ -85,6 +86,7 @@ class DashboardViewModel: ObservableObject {
         
         // SwiftData 변경사항 감지 설정
         setupSwiftDataObservation()
+        
     }
     
     deinit {
@@ -151,6 +153,9 @@ class DashboardViewModel: ObservableObject {
                 // watch 로 데이터 보내기
                 self.syncUVDataToWatch()
                 
+                // 왜 안되는거지 일단 위에꺼 빼고 테스트
+                setupWatchRequestHandling()
+                
             } catch {
                 self.isLoading = false
                 if let weatherError = error as? WeatherManagerError {
@@ -160,6 +165,21 @@ class DashboardViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    private func setupWatchRequestHandling() {
+        #if os(iOS)
+        // Watch에서 오는 메시지 구독
+        WatchConnectivityManager.shared.messageFromWatchPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] message in
+                guard let self = self else { return }
+                self.handleWatchMessage(message)
+            }
+            .store(in: &cancellables)
+        
+        print("📱 [DashboardViewModel] Watch message handling setup completed")
+        #endif
     }
     
     /// 위치 변경 시 날씨 데이터 업데이트
@@ -610,6 +630,153 @@ extension DashboardViewModel {
             syncUVDataToWatch()
         }
     }
+    
+    private func handleUVDataRequest() {
+        print("📱 [DashboardViewModel] Handling UV data request from Watch")
+        
+        // 현재 데이터가 있으면 즉시 전송
+        if currentWeather != nil {
+            sendUVDataToWatch()
+            print("📱✅ [DashboardViewModel] Sent existing UV data to Watch")
+        } else {
+            // 데이터가 없으면 새로 로드 후 전송
+            print("📱🔄 [DashboardViewModel] No data available, loading fresh data for Watch")
+            
+            Task { @MainActor in
+                // 날씨 데이터 로드
+                await loadWeatherDataAsync()
+                
+                // UV 노출량 데이터 로드
+                loadUVExposureData()
+                
+                print("📱✅ [DashboardViewModel] Fresh data loaded and sent to Watch")
+            }
+        }
+    }
+    
+    /// Watch로 UV 데이터 전송 (개선된 버전)
+    private func sendUVDataToWatch() {
+        guard let weather = currentWeather else {
+            print("📱❌ [DashboardViewModel] No weather data to send to Watch")
+            
+            // 기본값으로라도 응답
+            let fallbackContext: [String: Any] = [
+                "uvIndex": 0,
+                "percentage": 0,
+                "uvLevel": "알 수 없음",
+                "location": "위치 정보 없음",
+                "medValue": 0.0,
+                "maxMED": getMaxMED(),
+                "timestamp": Date().timeIntervalSince1970,
+                "status": "no_data"
+            ]
+            
+            #if os(iOS)
+            WatchConnectivityManager.shared.sendContext(fallbackContext)
+            
+            // 즉시 응답을 위한 메시지도 전송
+            if WatchConnectivityManager.shared.isReachable {
+                WatchConnectivityManager.shared.sendMessage(fallbackContext)
+            }
+            #endif
+            
+            return
+        }
+        
+        let uvIndex = weather.currentUVIndex()
+        let maxMED = getMaxMED()
+        let currentMED = todayMEDValue
+        let percentage = Int(min(100, max(0, (currentMED / maxMED) * 100)))
+        
+        // UV 위험도 계산
+        let (uvLevel, uvLevelCode) = calculateUVRiskLevel(percentage: percentage)
+        
+        let context: [String: Any] = [
+            "uvIndex": uvIndex,
+            "percentage": percentage,
+            "uvLevel": uvLevel,
+            "uvLevelCode": uvLevelCode.rawValue,
+            "location": weather.city,
+            "medValue": currentMED,
+            "maxMED": maxMED,
+            "timestamp": Date().timeIntervalSince1970,
+            "status": "success"
+        ]
+        
+        #if os(iOS)
+        // Application Context로 전송 (백그라운드에서도 유지)
+        WatchConnectivityManager.shared.sendContext(context)
+        
+        // 즉시 응답을 위한 메시지도 전송 (Watch가 활성 상태일 때)
+        if WatchConnectivityManager.shared.isReachable {
+            WatchConnectivityManager.shared.sendMessage(context)
+            print("📱➡️⌚ [DashboardViewModel] UV data sent via both Context and Message")
+        } else {
+            print("📱➡️⌚ [DashboardViewModel] UV data sent via Context only (Watch not reachable)")
+        }
+        
+        print("📱📊 [DashboardViewModel] UV data sent to Watch:")
+        print("   • UV Index: \(String(describing: uvIndex))")
+        print("   • Percentage: \(percentage)%")
+        print("   • Level: \(uvLevel)")
+        print("   • Location: \(weather.city)")
+        print("   • MED: \(String(format: "%.2f", currentMED))/\(String(format: "%.2f", maxMED))")
+        #endif
+    }
+    
+    /// UV 위험도 레벨 계산 (개선된 버전)
+    private func calculateUVRiskLevel(percentage: Int) -> (String, UVLevel) {
+        switch percentage {
+        case 0..<25:
+            return ("안전", .safe)
+        case 25..<50:
+            return ("주의", .caution)
+        case 50..<75:
+            return ("위험", .danger)
+        default:
+            return ("매우위험", .bad)
+        }
+    }
+    
+    func loadAllDashboardDataWithWatchSync() {
+        print("📱🔄 [DashboardViewModel] Loading all dashboard data with Watch sync")
+        
+        Task { @MainActor in
+            await loadWeatherDataAsync()
+            
+            loadUVExposureData()
+            
+            sendUVDataToWatch()
+            
+            print("📱✅ [DashboardViewModel] All data loaded and synced to Watch")
+        }
+    }
+    
+    /// Watch 연결 상태 확인
+    var watchConnectionStatus: String {
+        let manager = WatchConnectivityManager.shared
+        
+        #if os(iOS)
+        if !manager.isPaired {
+            return "Watch 페어링 안됨"
+        } else if !manager.isWatchAppInstalled {
+            return "Watch 앱 미설치"
+        } else if manager.isReachable {
+            return "Watch 연결됨"
+        } else {
+            return "Watch 비활성"
+        }
+        #else
+        return "iOS App"
+        #endif
+    }
+
+    /// Watch 연결 상태 로그
+    func logWatchConnectionStatus() {
+        print("📱⌚ [DashboardViewModel] Watch Connection Status: \(watchConnectionStatus)")
+        WatchConnectivityManager.shared.logSessionStatus()
+    }
+
 }
 
 // MARK: - WatchConnectivity Message Handling
@@ -640,6 +807,8 @@ extension DashboardViewModel {
             switch action {
             case "requestUVDataRefresh":
                 handleWatchDataRefreshRequest()
+            case "requestUVData":
+                handleUVDataRequest()
             default:
                 print("🤷‍♂️ [DashboardViewModel] Unknown action from Watch: \(action)")
             }
@@ -648,16 +817,3 @@ extension DashboardViewModel {
     #endif
 }
 
-// MARK: - Initialization Update
-
-// DashboardViewModel의 init 메서드에 추가할 코드:
-/*
-init(modelContext: ModelContext) {
-    self.modelContext = modelContext
-    
-    // ... 기존 코드 ...
-    
-    // ✅ WatchConnectivity 관찰 설정 추가
-    setupWatchConnectivityObservation()
-}
-*/

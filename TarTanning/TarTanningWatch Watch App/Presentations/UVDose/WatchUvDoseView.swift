@@ -9,7 +9,7 @@ struct WatchUvDoseView: View {
                 .ignoresSafeArea()
             VStack(spacing: 24) {
                 UvDoseValueView(
-                    medValue: viewModel.medValue,
+                    medValue: viewModel.percentage,
                     uvLevel: viewModel.uvLevelText
                 )
 
@@ -22,7 +22,7 @@ struct WatchUvDoseView: View {
     }
 
     struct UvDoseValueView: View {
-        let medValue: Double
+        let medValue: Int
         let uvLevel: String
         
         var body: some View {
@@ -30,7 +30,7 @@ struct WatchUvDoseView: View {
                 Text("현재 MED")
                     .font(.caption2)
                     .foregroundColor(.white)
-                Text(String(format: "%.2f", medValue))
+                Text("\(medValue)")
                     .font(.system(size: 40, weight: .bold))
                     .foregroundColor(.white)
                 Text(uvLevel)
@@ -67,3 +67,5 @@ struct WatchUvDoseView: View {
 #Preview {
     WatchUvDoseView()
 }
+
+

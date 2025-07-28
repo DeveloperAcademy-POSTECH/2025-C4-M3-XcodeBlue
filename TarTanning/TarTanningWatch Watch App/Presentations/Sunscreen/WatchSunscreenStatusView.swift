@@ -140,8 +140,8 @@ struct MainIconView: View {
                 Circle()
                     .trim(from: 0.0, to: startProgress)
                     .stroke(
-                        Color.gaugeBackgroundSafe,
-                        style: StrokeStyle(lineWidth: 8, lineCap: .round)
+                        Color.white,
+                        style: StrokeStyle(lineWidth: 4, lineCap: .round)
                     )
                     .frame(width: 140, height: 140)
                     .rotationEffect(.degrees(-90))
@@ -199,4 +199,3 @@ struct ControlButtonView: View {
     return PreviewWrapper()
 }
 #endif
-

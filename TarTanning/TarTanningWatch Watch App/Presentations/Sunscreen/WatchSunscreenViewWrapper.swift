@@ -1,10 +1,3 @@
-//
-//  WatchSunscreenViewWrapper.swift
-//  TarTanningWatch Watch App
-//
-//  Created by taeni on 7/19/25.
-//
-
 import SwiftUI
 
 struct WatchSunscreenViewWrapper: View {

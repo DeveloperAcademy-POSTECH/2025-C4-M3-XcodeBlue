@@ -15,3 +15,24 @@
  디바이스별 알림 방식 (iOS: 배너, Watch: 햅틱)
  */
 import Foundation
+
+struct SendUVWarningNotificationUseCase {
+    let uvDose: Double
+    let maxMED: Double
+    
+    func execute() {
+        let percent = Int((uvDose / maxMED) * 100)
+        guard percent >= 70 else {
+            print("🟢 [SendUVWarningNotificationUseCase] 아직 MED 경고 기준 미달 (\(percent)%)")
+            return
+        }
+        
+        let notification = NotificationContentType.medWarning(percent: percent)
+        LocalNotificationManager.shared.scheduleNotification(
+            for: notification,
+            at: Date().addingTimeInterval(3),
+            useUniqueId: true
+        )
+        print("🚨 [SendUVWarningNotificationUseCase] MED \(percent)% 초과! 알림 발송 완료")
+    }
+}

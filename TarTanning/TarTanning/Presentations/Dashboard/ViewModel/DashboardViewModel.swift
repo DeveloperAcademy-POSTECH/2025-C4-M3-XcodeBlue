@@ -336,23 +336,12 @@ class DashboardViewModel: ObservableObject {
     
     /// UV Dose 재계산 (기존 데이터에 대한 UV Dose 업데이트)
     func recalculateUVDose() {
-        print("🧮 [DashboardViewModel] Recalculating UV dose")
-        
-        guard let weather = currentWeather else {
-            print("⚠️ [DashboardViewModel] No weather data available for UV dose calculation")
-            return
-        }
+        print("🧮 [DashboardViewModel] Recalculating UV dose from SwiftData")
         
         Task { @MainActor in
             do {
-                // UV 지수 데이터 준비 (시간별)
-                var uvIndexData: [Int: Double] = [:]
-                for hourlyWeather in weather.hourlyWeathers {
-                    uvIndexData[hourlyWeather.hour] = hourlyWeather.uvIndex
-                }
-                
-                // UV Dose 재계산 및 저장
-                try await calculateAndSaveUVDoseUseCase().calculateAndSaveTodayUVDose(uvIndexData: uvIndexData)
+                // UV Dose 재계산 및 저장 (SwiftData에서 직접 UV 지수 조회)
+                try await calculateAndSaveUVDoseUseCase().calculateAndSaveTodayUVDose()
                 
                 // 업데이트된 UV 노출량 조회
                 let updatedUVExposure = try await getTodayUVExposureUseCase().getTodayDailyUVExposure()
@@ -467,14 +456,8 @@ class DashboardViewModel: ObservableObject {
     
     /// UV Dose 계산 (디버그용)
     func calculateUVDoseForDebug() async throws {
-        guard let weather = currentWeather else { return }
-        
-        var uvIndexData: [Int: Double] = [:]
-        for hourlyWeather in weather.hourlyWeathers {
-            uvIndexData[hourlyWeather.hour] = hourlyWeather.uvIndex
-        }
-        
-        try await calculateAndSaveUVDoseUseCase().calculateAndSaveTodayUVDose(uvIndexData: uvIndexData)
+        // SwiftData에서 직접 UV 지수를 조회하여 계산
+        try await calculateAndSaveUVDoseUseCase().calculateAndSaveTodayUVDose()
     }
     
     /// 모든 데이터 삭제 (디버그용)

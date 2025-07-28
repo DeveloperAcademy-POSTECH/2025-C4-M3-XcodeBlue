@@ -34,6 +34,13 @@ struct SyncUVDataInBackgroundUseCase {
             print("🧮 [Step 3] UV Dose 계산 및 저장 시작")
             try await CalculateAndSaveUVDoseUseCase(modelContext: context).calculateAndSaveTodayUVDose()
             print("✅ [Step 3] UV Dose 계산 및 저장 완료")
+            
+            print("📢 [Step 4] MED 알림 등록 시작")
+            if let dailyUV = try await GetTodayUVExposureUseCase(modelContext: context).getTodayDailyUVExposure() {
+                let maxMED = GetUserProfileUseCase().getUserProfile().skinType.maxMED
+                SendUVWarningNotificationUseCase(uvDose: dailyUV.totalUVDose, maxMED: maxMED).execute()
+            }
+            print("✅ [Step 4] MED 알림 등록 완료")
 
             print("🎉 [SyncUVDataInBackgroundUseCase] 전체 백그라운드 작업 완료")
 

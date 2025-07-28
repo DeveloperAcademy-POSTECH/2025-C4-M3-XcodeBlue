@@ -85,8 +85,7 @@ struct WeeklySummaryDataView: View {
 
     var body: some View {
         if weeklyProgressRates.isEmpty
-            || weeklyProgressRates.allSatisfy({ $0 == 0 })
-        {
+            || weeklyProgressRates.allSatisfy({ $0 == 0 }) {
             EmptyWeeklyDataView()
         } else {
             VStack(spacing: 8) {

@@ -28,13 +28,11 @@ struct SyncUVDataInBackgroundUseCase {
             print("📊 [Step 1] UV Map 구성 완료: \(uvMap)")
 
             print("🩺 [Step 2] HealthKit 데이터 동기화 시작")
-            try await SyncUVDataFromHealthKitUseCase(modelContext: context)
-                .syncTodaySunlightFromHealthKit()
+            try await SyncUVDataFromHealthKitUseCase(modelContext: context).syncTodaySunlightFromHealthKit()
             print("✅ [Step 2] HealthKit 데이터 동기화 완료")
 
             print("🧮 [Step 3] UV Dose 계산 및 저장 시작")
-            try await CalculateAndSaveUVDoseUseCase(modelContext: context)
-                .calculateAndSaveTodayUVDose(uvIndexData: uvMap)
+            try await CalculateAndSaveUVDoseUseCase(modelContext: context).calculateAndSaveTodayUVDose()
             print("✅ [Step 3] UV Dose 계산 및 저장 완료")
 
             print("🎉 [SyncUVDataInBackgroundUseCase] 전체 백그라운드 작업 완료")

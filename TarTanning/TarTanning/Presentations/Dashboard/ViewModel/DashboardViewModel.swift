@@ -51,7 +51,7 @@ class DashboardViewModel: ObservableObject {
     }
     
     // MARK: - Private Properties
-    private var currentLocation = LocationInfo.mockSeoul
+    private var currentLocation = LocationInfo.mockPohang
     private var cancellables = Set<AnyCancellable>()
     private var isHealthKitSyncing = false
     private var lastHealthKitSyncTime: Date = Date.distantPast

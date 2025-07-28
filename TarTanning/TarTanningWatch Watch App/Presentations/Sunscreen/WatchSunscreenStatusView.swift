@@ -105,9 +105,10 @@ struct MainIconView: View {
     var body: some View {
         ZStack {
             // 메인 아이콘
-            Image(systemName: "cloud.sun.fill")
+            Image(systemName: "cloud.sun")
                 .resizable()
                 .scaledToFit()
+                .fontWeight(.semibold)
                 .frame(width: 88)
                 .padding()
                 .foregroundColor(.white)
@@ -139,8 +140,8 @@ struct MainIconView: View {
                 Circle()
                     .trim(from: 0.0, to: startProgress)
                     .stroke(
-                        Color.white,
-                        style: StrokeStyle(lineWidth: 4, lineCap: .round)
+                        Color.gaugeBackgroundSafe,
+                        style: StrokeStyle(lineWidth: 8, lineCap: .round)
                     )
                     .frame(width: 140, height: 140)
                     .rotationEffect(.degrees(-90))
@@ -161,10 +162,11 @@ struct ControlButtonView: View {
             Label {
                 Text(isActive ? "선크림 모드 끄기" : "선크림 모드")
                     .padding(.leading, 8)
+                    .font(.caption)
+                    .bold()
             } icon: {
                 Image(systemName: isActive ? "stop.circle" : "cloud.sun")
             }
-            .font(.caption)
             .foregroundColor(Color.sunscreenButtonText)
         }
         .background(

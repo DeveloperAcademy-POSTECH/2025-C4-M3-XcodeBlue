@@ -1,69 +1,45 @@
-//
-//  WatchUvDoseView.swift
-//  TarTanningWatch Watch App
-//
-//  Created by taeni on 7/18/25.
-//
-
 import SwiftUI
 
 struct WatchUvDoseView: View {
     
     @State private var viewModel = WatchUvDoseViewModel.mock
-
+    @State private var currentTab: Int = 0 // 페이지 인덱스
+    // 시간 포맷터 (24시간제, AM/PM 없이)
+    
     var body: some View {
         ZStack {
+            // 배경 색상
             viewModel.uvLevel.color
                 .ignoresSafeArea()
-            VStack(spacing: 24) {
-                UvDoseValueView(percentage: viewModel.percentage,
-                                uvLevel: viewModel.uvLevelText)
 
-                UvIndexAndLocationView(uvIndex: viewModel.uvIndex,
-                                       location: viewModel.location)
-            }
-        }
-    }
+            // 콘텐츠 전체 레이어
+            VStack{
+                // 중앙 MED 정보
+                VStack(spacing: 8) {
+                    Text("현재 MED")
+                        .font(.caption2)
+                        .foregroundColor(.white)
 
-    struct UvDoseValueView: View {
-        let percentage: Int
-        let uvLevel: String
-        
-        var body: some View {
-            VStack(spacing: 9) {
-                Text("현재 MED")
-                    .font(.caption2)
-                    .foregroundColor(.white)
-                Text("\(percentage)%")
-                    .font(.system(size: 40, weight: .bold))
-                    .foregroundColor(.white)
-                Text(uvLevel)
-                    .font(.caption)
-                    .foregroundColor(.white)
-            }
-        }
-    }
-
-    struct UvIndexAndLocationView: View {
-        let uvIndex: Int
-        let location: String
-        
-        var body: some View {
-            HStack(alignment: .center) {
-                VStack(alignment: .center) {
-                    Text("자외선 지수")
-                    Text("\(uvIndex)")
+                    Text("\(viewModel.percentage)%")
+                        .font(.system(size: 40, weight: .bold))
+                        .foregroundColor(.white)
                 }
-                .font(.caption2)
-                .foregroundColor(.white)
-
-                Spacer()
-
-                Text(location)
-                    .font(.caption2)
-                    .foregroundColor(.white)
             }
-            .padding(.horizontal, 24)
+        }
+    }
+}
+
+struct VerticalPageIndicator: View {
+    let currentIndex: Int
+    let totalCount: Int
+
+    var body: some View {
+        VStack(spacing: 4) {
+            ForEach(0..<totalCount, id: \.self) { index in
+                Circle()
+                    .fill(index == currentIndex ? Color.white : Color.white.opacity(0.3))
+                    .frame(width: 6, height: 6)
+            }
         }
     }
 }

@@ -18,6 +18,13 @@ struct MainView: View {
                     Text("대시보드")
                 }
             
+            DashboardInfoView(viewModel: DashboardInfoViewModel())
+                .tabItem {
+                    Image(systemName: "info.circle")
+                    Text("정보")
+                }
+            
+            
             SettingView()
                 .tabItem {
                     Image(systemName: "gear")

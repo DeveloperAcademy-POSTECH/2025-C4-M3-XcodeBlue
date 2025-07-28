@@ -8,25 +8,28 @@
 import SwiftUI
 
 struct WatchUvDoseView: View {
-    
-    @State private var viewModel = WatchUvDoseViewModel.mock
+    @State private var viewModel = WatchUvDoseViewModel()
 
     var body: some View {
         ZStack {
             viewModel.uvLevel.color
                 .ignoresSafeArea()
             VStack(spacing: 24) {
-                UvDoseValueView(percentage: viewModel.percentage,
-                                uvLevel: viewModel.uvLevelText)
+                UvDoseValueView(
+                    medValue: viewModel.medValue,
+                    uvLevel: viewModel.uvLevelText
+                )
 
-                UvIndexAndLocationView(uvIndex: viewModel.uvIndex,
-                                       location: viewModel.location)
+                UvIndexAndLocationView(
+                    uvIndex: viewModel.uvIndex,
+                    location: viewModel.location
+                )
             }
         }
     }
 
     struct UvDoseValueView: View {
-        let percentage: Int
+        let medValue: Double
         let uvLevel: String
         
         var body: some View {
@@ -34,7 +37,7 @@ struct WatchUvDoseView: View {
                 Text("현재 MED")
                     .font(.caption2)
                     .foregroundColor(.white)
-                Text("\(percentage)%")
+                Text(String(format: "%.2f", medValue))
                     .font(.system(size: 40, weight: .bold))
                     .foregroundColor(.white)
                 Text(uvLevel)

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0507B56B2E37E066000E119C /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199962E3405430056E0E7 /* WatchConnectivityManager.swift */; };
+		0507B6222E37FD2C000E119C /* sunscreen_uv_info.json in Resources */ = {isa = PBXBuildFile; fileRef = 0507B6212E37FD2C000E119C /* sunscreen_uv_info.json */; };
 		802AB1CA2E37191D0006476F /* SyncUVDataInBackgroundUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802AB1C92E37191D0006476F /* SyncUVDataInBackgroundUseCase.swift */; };
 		802AB2BC2E3753C60006476F /* SendUVIndexNotificationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802AB2BB2E3753C60006476F /* SendUVIndexNotificationUseCase.swift */; };
 		8080F1572E20A0190094719D /* TarTanningWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 8080F14A2E20A0180094719D /* TarTanningWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -158,6 +159,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0507B6212E37FD2C000E119C /* sunscreen_uv_info.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sunscreen_uv_info.json; sourceTree = "<group>"; };
 		802AB1C92E37191D0006476F /* SyncUVDataInBackgroundUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUVDataInBackgroundUseCase.swift; sourceTree = "<group>"; };
 		802AB2BB2E3753C60006476F /* SendUVIndexNotificationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendUVIndexNotificationUseCase.swift; sourceTree = "<group>"; };
 		8080F12C2E209F860094719D /* TarTanning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TarTanning.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -769,6 +771,7 @@
 		BF9199552E3405430056E0E7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0507B6212E37FD2C000E119C /* sunscreen_uv_info.json */,
 				BF9199542E3405430056E0E7 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -1113,6 +1116,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF919A0F2E3405430056E0E7 /* Preview Assets.xcassets in Resources */,
+				0507B6222E37FD2C000E119C /* sunscreen_uv_info.json in Resources */,
 				BF919A102E3405430056E0E7 /* Assets.xcassets in Resources */,
 				8080F15F2E20A0740094719D /* .swiftlint.yml in Resources */,
 			);

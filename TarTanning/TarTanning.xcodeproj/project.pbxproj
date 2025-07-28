@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0507B56B2E37E066000E119C /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199962E3405430056E0E7 /* WatchConnectivityManager.swift */; };
 		802AB1CA2E37191D0006476F /* SyncUVDataInBackgroundUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802AB1C92E37191D0006476F /* SyncUVDataInBackgroundUseCase.swift */; };
 		802AB2BC2E3753C60006476F /* SendUVIndexNotificationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802AB2BB2E3753C60006476F /* SendUVIndexNotificationUseCase.swift */; };
 		8080F1572E20A0190094719D /* TarTanningWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 8080F14A2E20A0180094719D /* TarTanningWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -114,7 +115,6 @@
 		BF919A0F2E3405430056E0E7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF9199522E3405430056E0E7 /* Preview Assets.xcassets */; };
 		BF919A102E3405430056E0E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF9199542E3405430056E0E7 /* Assets.xcassets */; };
 		BF919A122E3405430056E0E7 /* TimerMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91998F2E3405430056E0E7 /* TimerMessage.swift */; };
-		BF919A132E3405430056E0E7 /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199962E3405430056E0E7 /* WatchConnectivityManager.swift */; };
 		BF919A142E3405430056E0E7 /* NotificationActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91997F2E3405430056E0E7 /* NotificationActionType.swift */; };
 		BF919A152E3405430056E0E7 /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199932E3405430056E0E7 /* TimerViewModel.swift */; };
 		BF919A162E3405430056E0E7 /* TimerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91998E2E3405430056E0E7 /* TimerInfo.swift */; };
@@ -271,7 +271,25 @@
 		BF919A732E34C25A0056E0E7 /* WeatherManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManagerError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		0507B56C2E37E42F000E119C /* Exceptions for "UV" folder in "TarTanning" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				WatchDashboardSyncService.swift,
+			);
+			target = 8080F12B2E209F860094719D /* TarTanning */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		0507B5672E37E010000E119C /* UV */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				0507B56C2E37E42F000E119C /* Exceptions for "UV" folder in "TarTanning" target */,
+			);
+			path = UV;
+			sourceTree = "<group>";
+		};
 		8080F14B2E20A0180094719D /* TarTanningWatch Watch App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "TarTanningWatch Watch App";
@@ -915,6 +933,7 @@
 		BF9199992E3405430056E0E7 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				0507B5672E37E010000E119C /* UV */,
 				BF9199862E3405430056E0E7 /* Notification */,
 				BF9199952E3405430056E0E7 /* Sunscreen */,
 				BF9199982E3405430056E0E7 /* WatchConnectivity */,
@@ -1017,6 +1036,9 @@
 			dependencies = (
 				8080F1562E20A0190094719D /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				0507B5672E37E010000E119C /* UV */,
+			);
 			name = TarTanning;
 			packageProductDependencies = (
 			);
@@ -1037,6 +1059,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				0507B5672E37E010000E119C /* UV */,
 				8080F14B2E20A0180094719D /* TarTanningWatch Watch App */,
 			);
 			name = "TarTanningWatch Watch App";
@@ -1243,7 +1266,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF919A122E3405430056E0E7 /* TimerMessage.swift in Sources */,
-				BF919A132E3405430056E0E7 /* WatchConnectivityManager.swift in Sources */,
 				BF919A142E3405430056E0E7 /* NotificationActionType.swift in Sources */,
 				BF919A152E3405430056E0E7 /* TimerViewModel.swift in Sources */,
 				BF919A162E3405430056E0E7 /* TimerInfo.swift in Sources */,
@@ -1251,6 +1273,7 @@
 				BF919A182E3405430056E0E7 /* LocalNotificationManager.swift in Sources */,
 				BF919A192E3405430056E0E7 /* NotificationCategoryType.swift in Sources */,
 				BF919A1A2E3405430056E0E7 /* NotificationContentType.swift in Sources */,
+				0507B56B2E37E066000E119C /* WatchConnectivityManager.swift in Sources */,
 				BF919A1B2E3405430056E0E7 /* TimerState.swift in Sources */,
 				BF919A1C2E3405430056E0E7 /* TimerStorage.swift in Sources */,
 				BF919A1D2E3405430056E0E7 /* SunscreenViewModel.swift in Sources */,

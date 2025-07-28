@@ -75,8 +75,6 @@ final class WatchDashboardSyncService: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             manager.checkLastReceivedContext()
         }
-        
-        print("⌚ [WatchDashboardSyncManager] WatchConnectivity setup completed")
     }
     
     // MARK: - Data Update Methods

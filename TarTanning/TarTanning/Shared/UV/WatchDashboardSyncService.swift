@@ -18,6 +18,8 @@ final class WatchDashboardSyncService: ObservableObject {
     @Published var currentCityName: String = "위치 확인 중"
     @Published var currentUVIndex: Double = 0.0
     @Published var todayUVProgressRate: Double = 0.0
+    @Published var totalUVDose: Double = 0.0
+    @Published var totalSunlight: Int = 0
     @Published var lastUpdated: Date?
     @Published var connectionStatus: String = "연결 안됨"
     
@@ -105,6 +107,20 @@ final class WatchDashboardSyncService: ObservableObject {
             hasUpdates = true
         }
         
+        // 총 UVDose
+        if let uvDose = context["dashboard_totalUVDose"] as? Double,
+           uvDose != self.totalUVDose {
+            self.totalUVDose = uvDose
+            hasUpdates = true
+        }
+        
+        
+        if let totalSunlight = context["dashboard_totalSunlightMinutes"] as? Int,
+           totalSunlight != self.totalSunlight {
+            self.totalSunlight = totalSunlight
+            hasUpdates = true
+        }
+        
         // 마지막 업데이트 시간
         if let timestamp = context["dashboard_lastUpdated"] as? TimeInterval {
             self.lastUpdated = Date(timeIntervalSince1970: timestamp)
@@ -162,13 +178,13 @@ enum UVLevel {
     var color: Color {
         switch self {
         case .safe:
-            return .blue
+            return .gaugeBackgroundSafe
         case .caution:
-            return .orange
+            return .gaugeBackgroundCaution
         case .danger:
-            return .red
+            return .gaugeBackgroundDanger
         case .extreme:
-            return .red
+            return .gaugeBackgroundBad
         }
     }
     

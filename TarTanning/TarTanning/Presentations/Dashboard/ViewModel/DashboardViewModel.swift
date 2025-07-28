@@ -77,6 +77,14 @@ class DashboardViewModel: ObservableObject {
             object: nil
         )
         
+        // 사용자 프로필 변경 알림 구독
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleUserProfileUpdate),
+            name: UserDefaultManager.userProfileDidChangeNotification,
+            object: nil
+        )
+        
         // SwiftData 변경사항 감지 설정
         setupSwiftDataObservation()
     }
@@ -394,6 +402,13 @@ class DashboardViewModel: ObservableObject {
         return getUserProfile().skinType.maxMED
     }
     
+    /// 사용자 프로필 캐시 새로고침
+    private func refreshUserProfileCache() {
+        cachedUserProfile = nil // 캐시 무효화
+        _ = getUserProfile() // 새로운 프로필 로드 및 캐시
+        print("🔄 [DashboardViewModel] User profile cache refreshed")
+    }
+    
     // MARK: - Debug Methods (for SwiftDataDebugView)
     
     /// HealthKit 데이터 동기화 (디버그용)
@@ -545,7 +560,22 @@ class DashboardViewModel: ObservableObject {
         print("📊 [DashboardViewModel] Weather loaded: \(weather.city), UV: \(currentUVIndex), Temp: \(currentTemperature)°C")
     }
     
-    // MARK: - HealthKit Update Handler
+    // MARK: - Notification Handlers
+    
+    /// 사용자 프로필 변경 시 호출되는 메서드
+    @objc private func handleUserProfileUpdate(_ notification: Notification) {
+        print("👤 [DashboardViewModel] User profile change detected")
+        
+        // 사용자 프로필 캐시 새로고침
+        refreshUserProfileCache()
+        
+        // UI 업데이트를 위해 objectWillChange 발생
+        objectWillChange.send()
+        
+        // 변경된 프로필 정보 로그
+        let newProfile = getUserProfile()
+        print("👤 [DashboardViewModel] Updated profile - Skin Type: \(newProfile.skinType.title), SPF: \(newProfile.spfLevel.displayTitle), Max MED: \(newProfile.skinType.maxMED)")
+    }
     
     /// HealthKit 데이터 업데이트 시 호출되는 메서드
     @objc private func handleHealthKitUpdate() {

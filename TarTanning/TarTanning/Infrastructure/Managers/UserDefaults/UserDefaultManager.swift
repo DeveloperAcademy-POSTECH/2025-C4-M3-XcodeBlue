@@ -20,6 +20,9 @@ final class UserDefaultManager {
         static let isFirstLaunch = "isFirstLaunch"
     }
     
+    // MARK: - Notifications
+    static let userProfileDidChangeNotification = Notification.Name("UserProfileDidChange")
+    
     // MARK: - User Profile Management
     
     /// 사용자 프로필 저장
@@ -28,6 +31,9 @@ final class UserDefaultManager {
             let data = try JSONEncoder().encode(profile)
             userDefaults.set(data, forKey: Keys.userProfile)
             print("✅ [UserDefaultManager] User profile saved: \(profile.skinType.title), SPF \(profile.spfLevel.rawValue)")
+            
+            // 사용자 프로필 변경 알림 전송
+            NotificationCenter.default.post(name: Self.userProfileDidChangeNotification, object: profile)
         } catch {
             print("❌ [UserDefaultManager] Failed to save user profile: \(error)")
         }

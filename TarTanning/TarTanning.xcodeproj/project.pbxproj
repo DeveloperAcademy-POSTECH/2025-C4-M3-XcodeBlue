@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		802AB1CA2E37191D0006476F /* SyncUVDataInBackgroundUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802AB1C92E37191D0006476F /* SyncUVDataInBackgroundUseCase.swift */; };
 		8080F1572E20A0190094719D /* TarTanningWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 8080F14A2E20A0180094719D /* TarTanningWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8080F15F2E20A0740094719D /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 8080F15E2E20A0740094719D /* .swiftlint.yml */; };
 		BF55D6BB2E352AD800074104 /* GetWeatherDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55D6B92E352AD800074104 /* GetWeatherDataUseCase.swift */; };
@@ -154,6 +155,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		802AB1C92E37191D0006476F /* SyncUVDataInBackgroundUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUVDataInBackgroundUseCase.swift; sourceTree = "<group>"; };
 		8080F12C2E209F860094719D /* TarTanning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TarTanning.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8080F14A2E20A0180094719D /* TarTanningWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TarTanningWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8080F15E2E20A0740094719D /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
@@ -766,6 +768,7 @@
 				BF55D7022E353BA500074104 /* SyncUVDataFromHealthKitUseCase.swift */,
 				BF9199782E3405430056E0E7 /* GetWeeklyUVTrendUseCase.swift */,
 				BF9199792E3405430056E0E7 /* MEDCalculator.swift */,
+				802AB1C92E37191D0006476F /* SyncUVDataInBackgroundUseCase.swift */,
 			);
 			path = UVExposure;
 			sourceTree = "<group>";
@@ -1133,6 +1136,7 @@
 				BF9199BD2E3405430056E0E7 /* DashboardTimerView.swift in Sources */,
 				BF9199BE2E3405430056E0E7 /* DashboardTitleView.swift in Sources */,
 				BF9199BF2E3405430056E0E7 /* DashboardUVDoseView.swift in Sources */,
+				802AB1CA2E37191D0006476F /* SyncUVDataInBackgroundUseCase.swift in Sources */,
 				BF9199C02E3405430056E0E7 /* DashboardUVProgressView.swift in Sources */,
 				BF9199C12E3405430056E0E7 /* DashboardWeeklySummaryView.swift in Sources */,
 				BF9199C22E3405430056E0E7 /* DashboardView.swift in Sources */,

@@ -76,8 +76,9 @@ struct DashboardView: View {
             .navigationBarTitleDisplayMode(.large)
             .onAppear {
                 viewModel.loadAllDashboardData()
+                showingTimer = timerManager.isActive
             }
-            .onChange(of: timerManager.isActive) {_, newValue in
+            .onReceive(timerManager.$isActive.debounce(for: .milliseconds(1000), scheduler: RunLoop.main)) { newValue in
                 showingTimer = newValue
             }
             .sheet(isPresented: $showingDebugSheet) {

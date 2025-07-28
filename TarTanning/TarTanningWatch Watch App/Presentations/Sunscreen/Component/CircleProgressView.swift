@@ -1,10 +1,3 @@
-//
-//  CircleProgressView.swift
-//  TarTanningWatch Watch App
-//
-//  Created by taeni on 7/19/25.
-//
-
 import SwiftUI
 
 struct CircleProgressView: View {
@@ -14,36 +7,35 @@ struct CircleProgressView: View {
     var backgroundColor: Color = Color.white.opacity(0.3)
     var progressColor: Color = Color.blue
     var showTimeDisplay: Bool = true
-    
+
     var body: some View {
         ZStack {
             BackgroundCircle(backgroundColor: backgroundColor, lineWidth: lineWidth)
-            
+
             ProgressCircle(progress: progress, progressColor: progressColor, lineWidth: lineWidth)
-            
+
             if showTimeDisplay {
                 RemainingTimeText(remainingTime: remainingTime)
             }
         }
         .frame(width: 120, height: 120)
     }
-    
+
     struct BackgroundCircle: View {
-        
         let backgroundColor: Color
         let lineWidth: CGFloat
-        
+
         var body: some View {
             Circle()
                 .stroke(backgroundColor, lineWidth: lineWidth)
         }
     }
-    
+
     struct ProgressCircle: View {
         let progress: Double
         let progressColor: Color
         let lineWidth: CGFloat
-        
+
         var body: some View {
             Circle()
                 .trim(from: 0.0, to: progress)
@@ -55,28 +47,35 @@ struct CircleProgressView: View {
                 .animation(.easeInOut(duration: 0.3), value: progress)
         }
     }
-    
+
     struct RemainingTimeText: View {
         let remainingTime: TimeInterval
-        
+
         var body: some View {
-            VStack {
-                Text(remainingTime.timeDisplayString)
-                    .font(.title3)
-                    .foregroundColor(.suncreenExplainText)
-                    .contentTransition(.numericText())
-                    .animation(.easeInOut(duration: 0.3), value: remainingTime)
-                    .minimumScaleFactor(0.8)
-            }
+            let (hours, minutes) = secondsToHoursAndMinutes(remainingTime)
+
+            Text(String(format: "%02d:%02d", hours, minutes)) // 시:분 형식
+                .font(.title2)
+                .fontWeight(.bold)
+                .foregroundColor(.suncreenExplainText)
+                .contentTransition(.numericText())
+                .animation(.easeInOut(duration: 0.3), value: remainingTime)
+                .minimumScaleFactor(0.8)
+        }
+
+        /// 초 단위 TimeInterval을 시/분으로 변환하는 헬퍼 함수
+        private func secondsToHoursAndMinutes(_ seconds: TimeInterval) -> (Int, Int) {
+            let totalSeconds = Int(seconds)
+            let hours = totalSeconds / 3600
+            let minutes = (totalSeconds % 3600) / 60
+            return (hours, minutes)
         }
     }
-    
+
     private var progress: Double {
         guard totalDuration > 0 else { return 0 }
-        let elapsed = totalDuration - remainingTime
-        return max(0, min(1, elapsed / totalDuration))
+        return max(0, min(1, remainingTime / totalDuration))
     }
-    
 }
 
 #Preview {

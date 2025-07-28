@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		057DBEA52E374EFD00472499 /* DashboardViewModel+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057DBEA42E374EFC00472499 /* DashboardViewModel+Debug.swift */; };
+		057DBEA72E3753D000472499 /* SunscreenViewModel+UVData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057DBEA62E3753D000472499 /* SunscreenViewModel+UVData.swift */; };
+		057DBEA82E3753D000472499 /* SunscreenViewModel+UVData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057DBEA62E3753D000472499 /* SunscreenViewModel+UVData.swift */; };
+		057DBEAA2E37540500472499 /* SunscreenViewModel+WatchSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057DBEA92E37540500472499 /* SunscreenViewModel+WatchSync.swift */; };
+		057DBEAB2E37540500472499 /* SunscreenViewModel+WatchSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057DBEA92E37540500472499 /* SunscreenViewModel+WatchSync.swift */; };
+		057DBEAD2E37543D00472499 /* SunscreenViewModel+TimerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057DBEAC2E37543D00472499 /* SunscreenViewModel+TimerControl.swift */; };
+		057DBEAE2E37543D00472499 /* SunscreenViewModel+TimerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057DBEAC2E37543D00472499 /* SunscreenViewModel+TimerControl.swift */; };
+		057DBEB02E37545C00472499 /* SunscreenViewModel+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057DBEAF2E37545C00472499 /* SunscreenViewModel+Preview.swift */; };
+		057DBEB12E37545C00472499 /* SunscreenViewModel+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057DBEAF2E37545C00472499 /* SunscreenViewModel+Preview.swift */; };
+		057DBEB32E37578100472499 /* SunscreenViewModel+DataSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057DBEB22E37578100472499 /* SunscreenViewModel+DataSync.swift */; };
+		057DBEB42E37578100472499 /* SunscreenViewModel+DataSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057DBEB22E37578100472499 /* SunscreenViewModel+DataSync.swift */; };
+		057DBEB62E37580200472499 /* SunscreenViewModel+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057DBEB52E37580000472499 /* SunscreenViewModel+Debug.swift */; };
+		057DBEB72E37580200472499 /* SunscreenViewModel+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057DBEB52E37580000472499 /* SunscreenViewModel+Debug.swift */; };
 		8080F1572E20A0190094719D /* TarTanningWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 8080F14A2E20A0180094719D /* TarTanningWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8080F15F2E20A0740094719D /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 8080F15E2E20A0740094719D /* .swiftlint.yml */; };
 		BF55D6BB2E352AD800074104 /* GetWeatherDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55D6B92E352AD800074104 /* GetWeatherDataUseCase.swift */; };
@@ -155,6 +168,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		057DBEA42E374EFC00472499 /* DashboardViewModel+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DashboardViewModel+Debug.swift"; sourceTree = "<group>"; };
+		057DBEA62E3753D000472499 /* SunscreenViewModel+UVData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SunscreenViewModel+UVData.swift"; sourceTree = "<group>"; };
+		057DBEA92E37540500472499 /* SunscreenViewModel+WatchSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SunscreenViewModel+WatchSync.swift"; sourceTree = "<group>"; };
+		057DBEAC2E37543D00472499 /* SunscreenViewModel+TimerControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SunscreenViewModel+TimerControl.swift"; sourceTree = "<group>"; };
+		057DBEAF2E37545C00472499 /* SunscreenViewModel+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SunscreenViewModel+Preview.swift"; sourceTree = "<group>"; };
+		057DBEB22E37578100472499 /* SunscreenViewModel+DataSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SunscreenViewModel+DataSync.swift"; sourceTree = "<group>"; };
+		057DBEB52E37580000472499 /* SunscreenViewModel+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SunscreenViewModel+Debug.swift"; sourceTree = "<group>"; };
 		8080F12C2E209F860094719D /* TarTanning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TarTanning.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8080F14A2E20A0180094719D /* TarTanningWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TarTanningWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8080F15E2E20A0740094719D /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
@@ -498,6 +518,7 @@
 		BF9199162E3405430056E0E7 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				057DBEA42E374EFC00472499 /* DashboardViewModel+Debug.swift */,
 				BF9199142E3405430056E0E7 /* DashboardInfoViewModel.swift */,
 				BF9199152E3405430056E0E7 /* DashboardViewModel.swift */,
 			);
@@ -846,8 +867,14 @@
 		BF9199942E3405430056E0E7 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				057DBEB52E37580000472499 /* SunscreenViewModel+Debug.swift */,
 				BF9199922E3405430056E0E7 /* SunscreenViewModel.swift */,
 				BF9199932E3405430056E0E7 /* TimerViewModel.swift */,
+				057DBEA62E3753D000472499 /* SunscreenViewModel+UVData.swift */,
+				057DBEA92E37540500472499 /* SunscreenViewModel+WatchSync.swift */,
+				057DBEAC2E37543D00472499 /* SunscreenViewModel+TimerControl.swift */,
+				057DBEAF2E37545C00472499 /* SunscreenViewModel+Preview.swift */,
+				057DBEB22E37578100472499 /* SunscreenViewModel+DataSync.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1114,12 +1141,14 @@
 				BF9199AA2E3405430056E0E7 /* LocationAuthStatus.swift in Sources */,
 				BF9199AB2E3405430056E0E7 /* LocationError.swift in Sources */,
 				BF55D6BB2E352AD800074104 /* GetWeatherDataUseCase.swift in Sources */,
+				057DBEB42E37578100472499 /* SunscreenViewModel+DataSync.swift in Sources */,
 				BF55D6BC2E352AD800074104 /* SyncWeatherDataUseCase.swift in Sources */,
 				BF9199AC2E3405430056E0E7 /* LocationAuthorizationManager.swift in Sources */,
 				BF9199AD2E3405430056E0E7 /* LocationUpdateManager.swift in Sources */,
 				BF9199AE2E3405430056E0E7 /* NotificationAuthStatus.swift in Sources */,
 				BF9199AF2E3405430056E0E7 /* NotificationAuthorizationManager.swift in Sources */,
 				BF9199B02E3405430056E0E7 /* LocationManager.swift in Sources */,
+				057DBEAB2E37540500472499 /* SunscreenViewModel+WatchSync.swift in Sources */,
 				BF9199B12E3405430056E0E7 /* WeatherKitManager.swift in Sources */,
 				BF9199B22E3405430056E0E7 /* LocationInfo.swift in Sources */,
 				BF9199B32E3405430056E0E7 /* SunScreenInfo.swift in Sources */,
@@ -1128,6 +1157,7 @@
 				BF9199B62E3405430056E0E7 /* UserProfile.swift in Sources */,
 				BF9199B72E3405430056E0E7 /* DailyUVExpose.swift in Sources */,
 				BF9199B82E3405430056E0E7 /* UVExposeRecord.swift in Sources */,
+				057DBEAD2E37543D00472499 /* SunscreenViewModel+TimerControl.swift in Sources */,
 				BF9199B92E3405430056E0E7 /* HourlyWeather.swift in Sources */,
 				BF9199BA2E3405430056E0E7 /* LocationWeather.swift in Sources */,
 				BF9199BB2E3405430056E0E7 /* DashboardInfoView.swift in Sources */,
@@ -1169,11 +1199,14 @@
 				BF9199DB2E3405430056E0E7 /* TestLocationViewModel.swift in Sources */,
 				BF9199DE2E3405430056E0E7 /* NotificationAuthTestView.swift in Sources */,
 				BF9199DF2E3405430056E0E7 /* NotificationAuthTestViewModel.swift in Sources */,
+				057DBEA52E374EFD00472499 /* DashboardViewModel+Debug.swift in Sources */,
 				BF9199E02E3405430056E0E7 /* PhoneSyncTestView.swift in Sources */,
 				BF9199E12E3405430056E0E7 /* TimerView.swift in Sources */,
+				057DBEB02E37545C00472499 /* SunscreenViewModel+Preview.swift in Sources */,
 				BF9199F12E3405430056E0E7 /* ScheduleSunscreenReminderUseCase.swift in Sources */,
 				BF9199F22E3405430056E0E7 /* SendUVWarningNotificationUseCase.swift in Sources */,
 				BF9199F32E3405430056E0E7 /* RequestAllPermissionsUseCase.swift in Sources */,
+				057DBEB62E37580200472499 /* SunscreenViewModel+Debug.swift in Sources */,
 				BF55D7002E35345C00074104 /* UpdateUserProfileUseCase.swift in Sources */,
 				BF9199F42E3405430056E0E7 /* ValidatePermissionStatusUseCase.swift in Sources */,
 				BF9199F52E3405430056E0E7 /* StartSunscreenTimerUseCase.swift in Sources */,
@@ -1192,6 +1225,7 @@
 				BF919A062E3405430056E0E7 /* TimerNotificationManager.swift in Sources */,
 				BF919A072E3405430056E0E7 /* TimerSyncManager.swift in Sources */,
 				BF919A082E3405430056E0E7 /* TimerState.swift in Sources */,
+				057DBEA72E3753D000472499 /* SunscreenViewModel+UVData.swift in Sources */,
 				BF919A092E3405430056E0E7 /* TimerInfo.swift in Sources */,
 				BF919A0A2E3405430056E0E7 /* TimerMessage.swift in Sources */,
 				BF919A0B2E3405430056E0E7 /* TimerStorage.swift in Sources */,
@@ -1208,11 +1242,17 @@
 			files = (
 				BF919A122E3405430056E0E7 /* TimerMessage.swift in Sources */,
 				BF919A132E3405430056E0E7 /* WatchConnectivityManager.swift in Sources */,
+				057DBEB32E37578100472499 /* SunscreenViewModel+DataSync.swift in Sources */,
+				057DBEB72E37580200472499 /* SunscreenViewModel+Debug.swift in Sources */,
+				057DBEB12E37545C00472499 /* SunscreenViewModel+Preview.swift in Sources */,
+				057DBEAE2E37543D00472499 /* SunscreenViewModel+TimerControl.swift in Sources */,
 				BF919A142E3405430056E0E7 /* NotificationActionType.swift in Sources */,
 				BF919A152E3405430056E0E7 /* TimerViewModel.swift in Sources */,
 				BF919A162E3405430056E0E7 /* TimerInfo.swift in Sources */,
 				BF919A172E3405430056E0E7 /* TimerNotificationManager.swift in Sources */,
 				BF919A182E3405430056E0E7 /* LocalNotificationManager.swift in Sources */,
+				057DBEAA2E37540500472499 /* SunscreenViewModel+WatchSync.swift in Sources */,
+				057DBEA82E3753D000472499 /* SunscreenViewModel+UVData.swift in Sources */,
 				BF919A192E3405430056E0E7 /* NotificationCategoryType.swift in Sources */,
 				BF919A1A2E3405430056E0E7 /* NotificationContentType.swift in Sources */,
 				BF919A1B2E3405430056E0E7 /* TimerState.swift in Sources */,

@@ -19,12 +19,20 @@ import WatchKit
 final class SunscreenViewModel: ObservableObject {
     static let shared = SunscreenViewModel()
     
+    // MARK: - Timer Properties
     @Published var isActive: Bool = false
     @Published var remainingTime: TimeInterval = 0
     @Published var totalDuration: TimeInterval = 120 * 60 // 2시간 기본값
     @Published var connectionStatus: String = "연결 안됨"
-    @Published var timerState: TimerState = .paused  // 추가된 프로퍼티
+    @Published var timerState: TimerState = .stopped
     
+    // MARK: - UV Data Properties
+    @Published var currentMEDValue: Double = 0.0
+    @Published var currentUVIndex: Double = 0.0
+    @Published var uvStatusLevel: String = "안전"
+    @Published var currentLocation: String = "위치 정보 없음"
+    
+    // MARK: - Computed Properties
     var progress: Double {
         guard totalDuration > 0 else { return 0 }
         return max(0, min(1, (totalDuration - remainingTime) / totalDuration))
@@ -38,6 +46,7 @@ final class SunscreenViewModel: ObservableObject {
         return remainingTime.timeDisplayString
     }
     
+    // MARK: - Private Properties
     private var timerManager: TimerSyncManager
     private var cancellables = Set<AnyCancellable>()
     private var isUpdatingFromRemote = false
@@ -52,6 +61,7 @@ final class SunscreenViewModel: ObservableObject {
 #endif
     }()
     
+    // MARK: - Initialization
     private init() {
         self.timerManager = TimerSyncManager.shared
         setupTimerObservers()
@@ -61,6 +71,7 @@ final class SunscreenViewModel: ObservableObject {
         logger.info("[\(self.deviceType)] SunscreenViewModel initialized")
     }
     
+    // MARK: - Timer Observer Setup
     private func setupTimerObservers() {
         // TimerSyncManager의 상태를 관찰
         timerManager.$remainingTime
@@ -76,7 +87,7 @@ final class SunscreenViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] state in
                 guard let self = self, !self.isUpdatingFromRemote else { return }
-                self.timerState = state  // timerState 업데이트
+                self.timerState = state
                 self.isActive = (state == .running)
                 
                 // 타이머 완료 시 처리
@@ -96,6 +107,7 @@ final class SunscreenViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    // MARK: - Watch Connectivity Setup
     private func setupWatchConnectivity() {
         let manager = WatchConnectivityManager.shared
         
@@ -106,6 +118,7 @@ final class SunscreenViewModel: ObservableObject {
             .sink { [weak self] context in
                 guard let self = self else { return }
                 self.updateFromContext(context: context)
+                self.updateUVDataFromContext(context: context)
             }
             .store(in: &cancellables)
         
@@ -114,6 +127,7 @@ final class SunscreenViewModel: ObservableObject {
             .sink { [weak self] message in
                 guard let self = self else { return }
                 self.handleReceivedMessage(message)
+                self.updateUVDataFromContext(context: message)
             }
             .store(in: &cancellables)
         
@@ -134,6 +148,7 @@ final class SunscreenViewModel: ObservableObject {
 #endif
     }
     
+    // MARK: - Connection Status
     private func updateConnectionStatus() {
         let manager = WatchConnectivityManager.shared
         if manager.isReachable {
@@ -145,6 +160,7 @@ final class SunscreenViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Timer Control Methods
     func startSunscreenProtection(duration: TimeInterval = 120 * 60) {
         guard !isActive else {
             logger.warning("[\(self.deviceType)] Timer already active, ignoring start request")
@@ -202,12 +218,103 @@ final class SunscreenViewModel: ObservableObject {
         sendSunscreenStateToCounterpart()
     }
     
+    // MARK: - UV Data Management Methods
+    
+    /// UV 관련 데이터를 watchOS로 전송
+    func sendUVDataToWatch(
+        medValue: Double,
+        uvIndex: Double,
+        statusLevel: String,
+        location: String
+    ) {
+        // 로컬 상태 업데이트
+        self.currentMEDValue = medValue
+        self.currentUVIndex = uvIndex
+        self.uvStatusLevel = statusLevel
+        self.currentLocation = location
+        
+        // watchOS로 전송
+        sendUVDataToCounterpart()
+        
+        logger.info("[\(self.deviceType)] UV data sent to watch - MED: \(medValue), UV: \(uvIndex), Status: \(statusLevel), Location: \(location)")
+    }
+    
+    /// UV 데이터만 별도로 전송하는 메서드
+    private func sendUVDataToCounterpart() {
+        let uvContext = [
+            "uv_medValue": currentMEDValue,
+            "uv_uvIndex": currentUVIndex,
+            "uv_statusLevel": uvStatusLevel,
+            "uv_location": currentLocation,
+            "uv_deviceSource": deviceType,
+            "uv_timestamp": Date().timeIntervalSince1970
+        ] as [String: Any]
+        
+        let manager = WatchConnectivityManager.shared
+        
+#if os(iOS)
+        manager.sendContext(uvContext)
+        if manager.isReachable {
+            manager.sendMessage(uvContext)
+        }
+#else
+        manager.sendMessageToPhone(uvContext)
+#endif
+        
+        logger.debug("[\(self.deviceType)] UV data context sent to counterpart")
+    }
+    
+    /// UV 데이터 컨텍스트 업데이트 처리
+    private func updateUVDataFromContext(context: [String: Any]) {
+        // 자신이 보낸 메시지는 무시
+        if let deviceSource = context["uv_deviceSource"] as? String,
+           deviceSource == deviceType {
+            return
+        }
+        
+        // 너무 오래된 데이터는 무시 (30초 이상)
+        if let timestamp = context["uv_timestamp"] as? TimeInterval {
+            let age = Date().timeIntervalSince1970 - timestamp
+            guard age < 30 else {
+                logger.warning("[\(self.deviceType)] UV context too old: \(age)s")
+                return
+            }
+        }
+        
+        var hasUVData = false
+        
+        // UV 데이터 업데이트
+        if let medValue = context["uv_medValue"] as? Double {
+            self.currentMEDValue = medValue
+            hasUVData = true
+        }
+        if let uvIndex = context["uv_uvIndex"] as? Double {
+            self.currentUVIndex = uvIndex
+            hasUVData = true
+        }
+        if let statusLevel = context["uv_statusLevel"] as? String {
+            self.uvStatusLevel = statusLevel
+            hasUVData = true
+        }
+        if let location = context["uv_location"] as? String {
+            self.currentLocation = location
+            hasUVData = true
+        }
+        
+        if hasUVData {
+            logger.info("[\(self.deviceType)] UV data updated from context: MED=\(self.currentMEDValue), UV=\(self.currentUVIndex), Status=\(self.uvStatusLevel), Location=\(self.currentLocation)")
+        }
+    }
+    
+    // MARK: - Timer State Sync Methods
+    
+    /// 선크림 타이머 상태를 상대 기기로 전송
     private func sendSunscreenStateToCounterpart() {
         let context = [
             "sunscreen_isActive": isActive,
             "sunscreen_remainingTime": remainingTime,
             "sunscreen_totalDuration": totalDuration,
-            "sunscreen_timerState": timerState.rawValue,  // timerState 추가
+            "sunscreen_timerState": timerState.rawValue,
             "sunscreen_deviceSource": deviceType,
             "sunscreen_timestamp": Date().timeIntervalSince1970
         ] as [String: Any]
@@ -226,6 +333,7 @@ final class SunscreenViewModel: ObservableObject {
         logger.debug("[\(self.deviceType)] Sunscreen state sent to counterpart")
     }
     
+    /// 선크림 타이머 상태 컨텍스트 업데이트
     private func updateFromContext(context: [String: Any]) {
         // 자신이 보낸 메시지는 무시
         if let deviceSource = context["sunscreen_deviceSource"] as? String,
@@ -244,39 +352,49 @@ final class SunscreenViewModel: ObservableObject {
         
         isUpdatingFromRemote = true
         
+        var hasTimerData = false
+        
         if let active = context["sunscreen_isActive"] as? Bool {
             self.isActive = active
+            hasTimerData = true
         }
         if let remaining = context["sunscreen_remainingTime"] as? TimeInterval {
             self.remainingTime = remaining
+            hasTimerData = true
         }
         if let duration = context["sunscreen_totalDuration"] as? TimeInterval {
             self.totalDuration = duration
+            hasTimerData = true
         }
         if let stateRaw = context["sunscreen_timerState"] as? String,
            let state = TimerState(rawValue: stateRaw) {
-            self.timerState = state  // timerState 동기화
+            self.timerState = state
+            hasTimerData = true
         }
         
         // TimerSyncManager 상태도 동기화
-        if isActive && timerManager.state != .running && remainingTime > 0 {
-            syncLocalTimerWithRemote()
-        } else if !isActive && timerManager.state == .running {
-            timerManager.stop()
+        if hasTimerData {
+            if isActive && timerManager.state != .running && remainingTime > 0 {
+                syncLocalTimerWithRemote()
+            } else if !isActive && timerManager.state == .running {
+                timerManager.stop()
+            }
+            
+            logger.info("[\(self.deviceType)] Updated context: Active=\(self.isActive), Remaining=\(self.remainingTime), State=\(self.timerState.rawValue)")
         }
-        
-        logger.info("[\(self.deviceType)] Updated context: Active=\(self.isActive), Remaining=\(self.remainingTime), State=\(self.timerState.hashValue)")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.isUpdatingFromRemote = false
         }
     }
     
+    /// 수신된 메시지 처리
     private func handleReceivedMessage(_ message: [String: Any]) {
         // 실시간 메시지 처리 (context와 동일한 로직)
         updateFromContext(context: message)
     }
     
+    /// 원격 상태에 맞춰 로컬 타이머 동기화
     private func syncLocalTimerWithRemote() {
         guard remainingTime > 0 else { return }
         
@@ -288,6 +406,9 @@ final class SunscreenViewModel: ObservableObject {
         logger.debug("[\(self.deviceType)] Local timer synced with remote state")
     }
     
+    // MARK: - Timer Completion Handling
+    
+    /// 타이머 완료 처리
     private func handleTimerCompletion() {
         logger.info("[\(self.deviceType)] Sunscreen timer completed")
         
@@ -301,6 +422,7 @@ final class SunscreenViewModel: ObservableObject {
     }
     
 #if os(watchOS)
+    /// watchOS 타이머 완료 처리
     private func handleWatchTimerCompletion() {
         // 햅틱 피드백
         WKInterfaceDevice.current().play(.notification)
@@ -328,121 +450,31 @@ final class SunscreenViewModel: ObservableObject {
 #endif
 }
 
+// MARK: - Notification Extension
 extension Notification.Name {
     static let sunscreenTimerCompleted = Notification.Name("sunscreenTimerCompleted")
 }
 
+// MARK: - Preview & Test Support
 extension SunscreenViewModel {
     /// Preview와 테스트용 Mock 데이터 설정
     func setupMockData(
         isActive: Bool = true,
         remainingTime: TimeInterval = 90 * 60,
         totalDuration: TimeInterval = 120 * 60,
-        connectionStatus: String = "연결됨"
+        connectionStatus: String = "연결됨",
+        medValue: Double = 45.0,
+        uvIndex: Double = 6.0,
+        statusLevel: String = "주의",
+        location: String = "서울시"
     ) {
         self.isActive = isActive
         self.remainingTime = remainingTime
         self.totalDuration = totalDuration
         self.connectionStatus = connectionStatus
+        self.currentMEDValue = medValue
+        self.currentUVIndex = uvIndex
+        self.uvStatusLevel = statusLevel
+        self.currentLocation = location
     }
 }
-
-#if DEBUG
-@MainActor
-final class MockSunscreenViewModel: ObservableObject {
-    @Published var isActive: Bool
-    @Published var remainingTime: TimeInterval
-    @Published var totalDuration: TimeInterval
-    @Published var connectionStatus: String
-    @Published var timerState: TimerState  // Mock에도 timerState 추가
-    
-    var progress: Double {
-        guard totalDuration > 0 else { return 0 }
-        return max(0, min(1, (totalDuration - remainingTime) / totalDuration))
-    }
-    
-    var isCompleted: Bool {
-        remainingTime <= 0 && !isActive
-    }
-    
-    var timeDisplayString: String {
-        return remainingTime.timeDisplayString
-    }
-    
-    init(
-        isActive: Bool = false,
-        remainingTime: TimeInterval = 0,
-        totalDuration: TimeInterval = 120 * 60,
-        connectionStatus: String = "연결 안됨",
-        timerState: TimerState = .stopped
-    ) {
-        self.isActive = isActive
-        self.remainingTime = remainingTime
-        self.totalDuration = totalDuration
-        self.connectionStatus = connectionStatus
-        self.timerState = timerState
-    }
-    
-    // Mock 메서드들 (실제 동작 안함)
-    func startSunscreenProtection(duration: TimeInterval = 120 * 60) {
-        isActive = true
-        remainingTime = duration
-        totalDuration = duration
-        timerState = .running
-    }
-    
-    func stopSunscreenProtection() {
-        isActive = false
-        remainingTime = 0
-        timerState = .stopped
-    }
-    
-    func resetTimer() {
-        isActive = false
-        remainingTime = 0
-        totalDuration = 120 * 60
-        timerState = .stopped
-    }
-    
-    // 자주 사용되는 Mock 상태들
-    static var active: MockSunscreenViewModel {
-        MockSunscreenViewModel(
-            isActive: true,
-            remainingTime: 75 * 60,        // 1시간 15분 남음
-            totalDuration: 120 * 60,       // 총 2시간
-            connectionStatus: "연결됨",
-            timerState: .running
-        )
-    }
-    
-    static var completed: MockSunscreenViewModel {
-        MockSunscreenViewModel(
-            isActive: false,
-            remainingTime: 0,              // 완료됨
-            totalDuration: 120 * 60,       // 총 2시간
-            connectionStatus: "연결됨",
-            timerState: .stopped
-        )
-    }
-    
-    static var disconnected: MockSunscreenViewModel {
-        MockSunscreenViewModel(
-            isActive: true,
-            remainingTime: 45 * 60,        // 45분 남음
-            totalDuration: 120 * 60,       // 총 2시간
-            connectionStatus: "연결 안됨",
-            timerState: .running
-        )
-    }
-    
-    static var inactive: MockSunscreenViewModel {
-        MockSunscreenViewModel(
-            isActive: false,
-            remainingTime: 0,
-            totalDuration: 120 * 60,
-            connectionStatus: "비활성",
-            timerState: .stopped
-        )
-    }
-}
-#endif

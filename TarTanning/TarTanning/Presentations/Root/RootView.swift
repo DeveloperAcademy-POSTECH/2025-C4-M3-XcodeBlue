@@ -10,7 +10,7 @@ import SwiftUI
 struct RootView: View {
     @Environment(\.modelContext) private var modelContext
     @StateObject private var router = NavigationRouter()
-    @AppStorage("didFinishOnboarding") private var didFinishOnboarding: Bool = false
+    @AppStorage("isOnboardingCompleted") private var didFinishOnboarding: Bool = false
     
     var body: some View {
         NavigationStack(path: $router.path) {

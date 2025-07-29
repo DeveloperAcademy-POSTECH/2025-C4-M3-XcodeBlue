@@ -17,7 +17,7 @@ struct DashboardInfoView: View {
                     ForEach(0..<viewModel.information.count, id: \.self) { index in
                         InformationCardView(info: viewModel.information[index])
                     }
-                    .padding(20)
+                    .padding(.horizontal, 20)
                 }
                 .navigationTitle("정보")
             }
@@ -46,27 +46,35 @@ struct InformationCardView: View {
                 .frame(height: 150)
                 .clipped()
                 .background(Color.yellow)
-                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .clipShape(
+                    UnevenRoundedRectangle(
+                        topLeadingRadius: 20,
+                        topTrailingRadius: 20
+                    )
+                )
             
             HStack {
                 VStack(alignment: .leading, spacing: 8) {
                     Text(info.category)
                         .foregroundStyle(Color("Key01"))
                         .font(.subheadline)
+                        .fontWeight(.semibold)
                         .padding(.horizontal, 10)
                         .padding(.vertical, 4)
                         .background(
                             RoundedRectangle(cornerRadius: 4).fill(Color("Label")))
                     Text(info.title)
+                        .fontWeight(.bold)
                         .font(.headline)
                     Text(info.explanation)
+                        .fontWeight(.regular)
                         .font(.subheadline)
                 }
+                .padding(20)
                 Spacer()
             }
-            .padding(20)
+            
         }
-        .padding()
         .overlay(
             RoundedRectangle(cornerRadius: 20)
                 .stroke(Color.gray.opacity(0.3), lineWidth: 1)

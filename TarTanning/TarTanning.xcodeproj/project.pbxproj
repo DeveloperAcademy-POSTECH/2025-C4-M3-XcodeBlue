@@ -20,7 +20,6 @@
 		BF55D7032E353BA500074104 /* CalculateAndSaveUVDoseUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55D7012E353BA500074104 /* CalculateAndSaveUVDoseUseCase.swift */; };
 		BF55D7042E353BA500074104 /* SyncUVDataFromHealthKitUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55D7022E353BA500074104 /* SyncUVDataFromHealthKitUseCase.swift */; };
 		BF55DA0C2E3716AA00074104 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55DA0B2E3716AA00074104 /* MainView.swift */; };
-		BF55DAC62E374C3D00074104 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55DAC52E374C3D00074104 /* InfoView.swift */; };
 		BF91999D2E3405430056E0E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198DC2E3405430056E0E7 /* AppDelegate.swift */; };
 		BF91999E2E3405430056E0E7 /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198DD2E3405430056E0E7 /* NavigationRouter.swift */; };
 		BF91999F2E3405430056E0E7 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198DE2E3405430056E0E7 /* Route.swift */; };
@@ -171,7 +170,6 @@
 		BF55D7012E353BA500074104 /* CalculateAndSaveUVDoseUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateAndSaveUVDoseUseCase.swift; sourceTree = "<group>"; };
 		BF55D7022E353BA500074104 /* SyncUVDataFromHealthKitUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUVDataFromHealthKitUseCase.swift; sourceTree = "<group>"; };
 		BF55DA0B2E3716AA00074104 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		BF55DAC52E374C3D00074104 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		BF9198DC2E3405430056E0E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF9198DD2E3405430056E0E7 /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
 		BF9198DE2E3405430056E0E7 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -356,7 +354,6 @@
 			isa = PBXGroup;
 			children = (
 				BF91990A2E3405430056E0E7 /* DashboardInfoView.swift */,
-				BF55DAC52E374C3D00074104 /* InfoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1159,7 +1156,6 @@
 				BF91999E2E3405430056E0E7 /* NavigationRouter.swift in Sources */,
 				BF91999F2E3405430056E0E7 /* Route.swift in Sources */,
 				BF9199A02E3405430056E0E7 /* TarTanningApp.swift in Sources */,
-				BF55DAC62E374C3D00074104 /* InfoView.swift in Sources */,
 				BF9199A22E3405430056E0E7 /* Date+Extension.swift in Sources */,
 				BF9199A32E3405430056E0E7 /* HealthKitAuthStatus.swift in Sources */,
 				BF9199A42E3405430056E0E7 /* HealthKitError.swift in Sources */,

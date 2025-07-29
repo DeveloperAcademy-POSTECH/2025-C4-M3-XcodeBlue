@@ -25,11 +25,15 @@ struct DashboardView: View {
         NavigationView {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 20) {
-                    if showingTimer {
-                        DashboardTimerView(isPresented: $showingTimer)
+                    ZStack {
+                        if showingTimer {
+                            DashboardTimerView(isPresented: $showingTimer)
+                        }
+                        VStack {
+                            DashboardTitleView(viewModel: viewModel)
+                            DashboardUVDoseView(viewModel: viewModel, showingTimer: $showingTimer)
+                        }
                     }
-                    DashboardTitleView(viewModel: viewModel)
-                    DashboardUVDoseView(viewModel: viewModel, showingTimer: $showingTimer)
                     DashboardSummaryMetricsView(viewModel: viewModel)
                     DashboardWeeklySummaryView(viewModel: viewModel)
                     
@@ -62,13 +66,13 @@ struct DashboardView: View {
                     }
                     
                     // 디버그 버튼 (개발용)
-                    #if DEBUG
+#if DEBUG
                     Button("SwiftData 로그 확인") {
                         showingDebugSheet = true
                     }
                     .font(.caption)
                     .foregroundColor(.secondary)
-                    #endif
+#endif
                 }
             }
             .padding()
@@ -192,7 +196,7 @@ struct SwiftDataDebugView: View {
                 refreshData()
             } catch {
                 print("❌ HealthKit 동기화 실패: \(error)")
-                throw error 
+                throw error
             }
         }
     }

@@ -11,7 +11,7 @@ struct DashboardWeeklySummaryView: View {
     @ObservedObject var viewModel: DashboardViewModel
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 8) {
             WeeklySummaryTitleView()
             WeeklySummaryDataView(
                 weeklyProgressRates: viewModel.weeklyUVProgressRates
@@ -24,6 +24,8 @@ struct WeeklySummaryTitleView: View {
     var body: some View {
         HStack {
             Text("주간 요약")
+                .font(.headline)
+                .fontWeight(.semibold)
             Spacer()
         }
     }

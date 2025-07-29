@@ -189,13 +189,13 @@ enum UVLevel {
     var description: String {
         switch self {
         case .safe:
-            return "안전"
+            return "낮은 수준"
         case .caution:
-            return "주의"
+            return "보통 수준"
         case .danger:
-            return "위험"
+            return "주의 수준"
         case .extreme:
-            return "매우 위험"
+            return "높은 수준"
         }
     }
 }

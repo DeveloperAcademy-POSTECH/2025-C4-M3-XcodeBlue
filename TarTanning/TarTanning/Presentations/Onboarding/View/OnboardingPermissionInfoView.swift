@@ -42,7 +42,7 @@ struct OnboardingPermissionInfoView: View {
                 InfoItem(
                     imageName: "bell.fill",
                     title: "알람 접근",
-                    description: "피부 보호와 건강한 자외선 습관을 위해, 자외선 경고와 선크림 알림을 보내드릴게요."
+                    description: "피부 보호와 건강한 자외선 습관을 위해, 자외선 정보와 선크림 알림을 보내드릴게요."
                 )
             }
             .padding(.horizontal, 20)

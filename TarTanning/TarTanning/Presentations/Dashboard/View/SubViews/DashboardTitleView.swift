@@ -13,9 +13,10 @@ struct DashboardTitleView: View {
         HStack {
             VStack(alignment: .leading) {
                 Text(Date().dateString)
-                Text(viewModel.currentCityName)
             }
             Spacer()
         }
+        .font(.headline)
+        .fontWeight(.semibold)
     }
 }

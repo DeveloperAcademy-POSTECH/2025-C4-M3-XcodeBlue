@@ -18,17 +18,19 @@ struct UserInfoRow: View {
             VStack(alignment: .leading, spacing: 12) {
                 Text(title)
                     .font(.title3)
-                
+
                 Text(description)
                     .font(.footnote)
                     .foregroundColor(.gray)
             }
+            .fontWeight(.regular)
             
             Spacer()
             
             Button(action: action) {
                 Text(displayType)
                     .font(.body)
+                    .fontWeight(.bold)
                     .frame(minWidth: 84, alignment: .center)
                     .padding(.vertical, 8)
                     .padding(.horizontal, 8)

@@ -9,32 +9,42 @@ import SwiftUI
 
 struct DashboardSummaryMetricsView: View {
     @ObservedObject var viewModel: DashboardViewModel
-    
+
     var body: some View {
-        HStack(spacing: 0) {
-            UVIndexMetricView(viewModel: viewModel)
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text("포항시 날씨 정보")
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                Spacer()
+            }
             
-            Divider()
-                .frame(height: 40)
-                .padding(.horizontal, 20)
-            
-//            TotalDaylightMetricView(viewModel: viewModel)
-//            
-//            Divider()
-//                .frame(height: 40)
-//                .padding(.horizontal, 20)
-            
-            CurrentTemperatureMetricView(viewModel: viewModel)
-        }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 16)
-        .background(Color.white)
-        .cornerRadius(12)
-        .opacity(viewModel.isLoading ? 0.6 : 1.0)
-        .overlay {
-            if viewModel.isLoading {
-                ProgressView()
-                    .scaleEffect(0.8)
+            HStack(spacing: 0) {
+                UVIndexMetricView(viewModel: viewModel)
+                
+                Divider()
+                    .frame(height: 40)
+                    .padding(.horizontal, 20)
+                
+                //            TotalDaylightMetricView(viewModel: viewModel)
+                //
+                //            Divider()
+                //                .frame(height: 40)
+                //                .padding(.horizontal, 20)
+                
+                CurrentTemperatureMetricView(viewModel: viewModel)
+                
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 16)
+            .background(Color.white)
+            .cornerRadius(12)
+            .opacity(viewModel.isLoading ? 0.6 : 1.0)
+            .overlay {
+                if viewModel.isLoading {
+                    ProgressView()
+                        .scaleEffect(0.8)
+                }
             }
         }
     }
@@ -42,30 +52,30 @@ struct DashboardSummaryMetricsView: View {
 
 struct UVIndexMetricView: View {
     @ObservedObject var viewModel: DashboardViewModel
-    
+
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 4) {
+            Text("UV 지수")
+                .font(.system(size: 12))
+                .foregroundColor(.secondary)
+            
             Group {
                 if viewModel.isLoading {
                     Text("--")
                         .foregroundColor(.gray)
                 } else if viewModel.currentWeather != nil {
                     Text("\(Int(viewModel.currentUVIndex))")
-                        .foregroundColor(uvIndexColor)
+//                        .foregroundColor(uvIndexColor)
                 } else {
                     Text("--")
                         .foregroundColor(.gray)
                 }
             }
-            .font(.system(size: 24, weight: .bold))
-            
-            Text("UV 지수")
-                .font(.system(size: 12))
-                .foregroundColor(.gray)
+            .font(.system(size: 24, weight: .semibold))
         }
         .frame(maxWidth: .infinity)
     }
-    
+
     private var uvIndexColor: Color {
         let uvIndex = viewModel.currentUVIndex
         switch uvIndex {
@@ -87,9 +97,13 @@ struct UVIndexMetricView: View {
 
 struct TotalDaylightMetricView: View {
     @ObservedObject var viewModel: DashboardViewModel
-    
+
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 4) {
+            Text("총 일조 시간")
+                .font(.system(size: 12))
+                .foregroundColor(.secondary)
+            
             Group {
                 if viewModel.isLoading {
                     Text("--분")
@@ -103,10 +117,6 @@ struct TotalDaylightMetricView: View {
                 }
             }
             .font(.system(size: 24, weight: .bold))
-            
-            Text("총 일광 시간")
-                .font(.system(size: 12))
-                .foregroundColor(.gray)
         }
         .frame(maxWidth: .infinity)
     }
@@ -114,30 +124,29 @@ struct TotalDaylightMetricView: View {
 
 struct CurrentTemperatureMetricView: View {
     @ObservedObject var viewModel: DashboardViewModel
-    
+
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 4) {
+            Text("현재 기온")
+                .font(.system(size: 12))
+                .foregroundColor(.secondary)
             Group {
                 if viewModel.isLoading {
                     Text("--°")
                         .foregroundColor(.gray)
                 } else if viewModel.currentWeather != nil {
                     Text("\(viewModel.currentTemperature)°")
-                        .foregroundColor(temperatureColor)
+//                        .foregroundColor(temperatureColor)
                 } else {
                     Text("--°")
                         .foregroundColor(.gray)
                 }
             }
-            .font(.system(size: 24, weight: .bold))
-            
-            Text("현재 기온")
-                .font(.system(size: 12))
-                .foregroundColor(.gray)
+            .font(.system(size: 24, weight: .semibold))
         }
         .frame(maxWidth: .infinity)
     }
-    
+
     private var temperatureColor: Color {
         let temperature = viewModel.currentTemperature
         switch temperature {

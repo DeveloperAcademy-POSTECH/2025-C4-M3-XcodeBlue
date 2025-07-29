@@ -37,7 +37,8 @@ struct WeeklySummaryDataView: View {
     private var weeklyData: [WeeklyDayData] {
         return weeklyProgressRates.enumerated().map { index, progress in
             let dayString = getDayString(for: index)
-            let color = getColor(for: progress)
+//            let color = getColor(for: progress)
+            let color = Color.primaryRed
 
             return WeeklyDayData(
                 day: dayString,

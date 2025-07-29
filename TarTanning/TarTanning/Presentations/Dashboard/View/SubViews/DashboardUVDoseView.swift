@@ -18,9 +18,9 @@ struct DashboardUVDoseView: View {
         case 0.3..<0.5:
             return "보통 수준"
         case 0.5..<0.7:
-            return "주의 수준"
-        default:
             return "높은 수준"
+        default:
+            return "주의 수준"
         }
     }
     
@@ -31,9 +31,9 @@ struct DashboardUVDoseView: View {
         case 0.3..<0.5:
             return .orange
         case 0.5..<0.7:
-            return .red
+            return .primaryRed
         default:
-            return .red
+            return .primaryRed
         }
     }
     
@@ -64,7 +64,7 @@ struct DashboardUVDoseView: View {
                     HStack(alignment: .center, spacing: 4) {
                         Text("\(String(format: "%.1f", viewModel.todayMEDValue))")
                             .font(.system(size: 20, weight: .bold))
-                            .foregroundColor(Color.primaryRed)
+                            .foregroundColor(uvStatusColor)
                         Text("J/m²")
                             .font(.system(size: 12))
                             .foregroundColor(.secondary)
@@ -96,6 +96,7 @@ struct DashboardUVDoseView: View {
                     Text("현재 UV 노출량은 ")
                     Text(uvStatusText)
                         .foregroundColor(uvStatusColor)
+                        .fontWeight(.bold)
                     Text("입니다")
                 }
                 .font(.system(size: 16, weight: .medium))
@@ -114,7 +115,7 @@ struct DashboardUVDoseView: View {
                 showingTimer = true
             } label: {
                 Label("선크림 모드", systemImage: "cloud.sun")
-                    .font(.system(size: 16, weight: .medium))
+                    .font(.system(size: 16, weight: .semibold))
                     .padding(.horizontal, 20)
                     .padding(.vertical, 12)
                     .background(

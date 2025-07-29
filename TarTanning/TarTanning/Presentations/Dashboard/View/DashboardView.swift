@@ -25,17 +25,18 @@ struct DashboardView: View {
         NavigationView {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 20) {
+                    DashboardTitleView(viewModel: viewModel)
                     ZStack {
                         if showingTimer {
                             DashboardTimerView(isPresented: $showingTimer)
                                 .zIndex(1)
                         }
                         VStack {
-                            DashboardTitleView(viewModel: viewModel)
                             DashboardUVDoseView(viewModel: viewModel, showingTimer: $showingTimer)
                         }
                         .zIndex(0)
                     }
+                    .frame(height: 400)
                     DashboardSummaryMetricsView(viewModel: viewModel)
                     DashboardWeeklySummaryView(viewModel: viewModel)
                     

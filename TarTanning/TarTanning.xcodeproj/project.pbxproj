@@ -25,7 +25,6 @@
 		BF91999E2E3405430056E0E7 /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198DD2E3405430056E0E7 /* NavigationRouter.swift */; };
 		BF91999F2E3405430056E0E7 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198DE2E3405430056E0E7 /* Route.swift */; };
 		BF9199A02E3405430056E0E7 /* TarTanningApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198DF2E3405430056E0E7 /* TarTanningApp.swift */; };
-		BF9199A12E3405430056E0E7 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198E12E3405430056E0E7 /* Color+Extension.swift */; };
 		BF9199A22E3405430056E0E7 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198E22E3405430056E0E7 /* Date+Extension.swift */; };
 		BF9199A32E3405430056E0E7 /* HealthKitAuthStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198E52E3405430056E0E7 /* HealthKitAuthStatus.swift */; };
 		BF9199A42E3405430056E0E7 /* HealthKitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198E62E3405430056E0E7 /* HealthKitError.swift */; };
@@ -177,7 +176,6 @@
 		BF9198DD2E3405430056E0E7 /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
 		BF9198DE2E3405430056E0E7 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		BF9198DF2E3405430056E0E7 /* TarTanningApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TarTanningApp.swift; sourceTree = "<group>"; };
-		BF9198E12E3405430056E0E7 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		BF9198E22E3405430056E0E7 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		BF9198E52E3405430056E0E7 /* HealthKitAuthStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitAuthStatus.swift; sourceTree = "<group>"; };
 		BF9198E62E3405430056E0E7 /* HealthKitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitError.swift; sourceTree = "<group>"; };
@@ -385,7 +383,6 @@
 		BF9198E32E3405430056E0E7 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				BF9198E12E3405430056E0E7 /* Color+Extension.swift */,
 				BF9198E22E3405430056E0E7 /* Date+Extension.swift */,
 			);
 			path = Extensions;
@@ -1163,7 +1160,6 @@
 				BF91999F2E3405430056E0E7 /* Route.swift in Sources */,
 				BF9199A02E3405430056E0E7 /* TarTanningApp.swift in Sources */,
 				BF55DAC62E374C3D00074104 /* InfoView.swift in Sources */,
-				BF9199A12E3405430056E0E7 /* Color+Extension.swift in Sources */,
 				BF9199A22E3405430056E0E7 /* Date+Extension.swift in Sources */,
 				BF9199A32E3405430056E0E7 /* HealthKitAuthStatus.swift in Sources */,
 				BF9199A42E3405430056E0E7 /* HealthKitError.swift in Sources */,

@@ -78,9 +78,14 @@ struct DashboardUVDoseView: View {
                         Text("오늘 UV 노출량")
                             .font(.system(size: 12))
                             .foregroundColor(.secondary)
-                        Text("\(String(format: "%.4f", viewModel.todayMEDValue))")
-                            .font(.system(size: 20, weight: .bold))
-                            .foregroundColor(.orange)
+                        HStack(alignment: .bottom, spacing: 4) {
+                            Text("\(String(format: "%.4f", viewModel.todayMEDValue))")
+                                .font(.system(size: 20, weight: .bold))
+                                .foregroundColor(.orange)
+                            Text("J/m²")
+                                .font(.system(size: 12))
+                                .foregroundColor(.secondary)
+                        }
                             .onAppear {
                                 print("📊 [DashboardUVDoseView] Today MED Value: \(String(format: "%.4f", viewModel.todayMEDValue))")
                             }
@@ -92,9 +97,14 @@ struct DashboardUVDoseView: View {
                         Text("최대 허용량")
                             .font(.system(size: 12))
                             .foregroundColor(.secondary)
-                        Text("\(Int(viewModel.getMaxMED()))")
-                            .font(.system(size: 20, weight: .bold))
-                            .foregroundColor(.blue)
+                        HStack(alignment: .bottom, spacing: 4) {
+                            Text("\(Int(viewModel.getMaxMED()))")
+                                .font(.system(size: 20, weight: .bold))
+                                .foregroundColor(.blue)
+                            Text("J/m²")
+                                .font(.system(size: 12))
+                                .foregroundColor(.secondary)
+                        }
                     }
                 }
                 

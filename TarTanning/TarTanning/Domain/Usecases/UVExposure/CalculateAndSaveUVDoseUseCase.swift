@@ -49,6 +49,9 @@ final class CalculateAndSaveUVDoseUseCase {
         var newlyCalculatedCount = 0
         var protectedCount = 0
         
+        // 선크림 모드 여부 넘김
+        let hasSunscreen = SunscreenViewModel.shared.isActive
+        
         for record in todayRecords {
             // 🔒 데이터 무결성 보장: 이미 계산된 기록은 절대 재계산하지 않음
             if record.uvDose > 0.0 {
@@ -58,6 +61,7 @@ final class CalculateAndSaveUVDoseUseCase {
                 print("🔒 [CalculateAndSaveUVDoseUseCase] PROTECTED existing UV dose: \(String(format: "%.4f", record.uvDose)) (\(record.startDate.formatted(date: .omitted, time: .shortened)) - \(record.endDate.formatted(date: .omitted, time: .shortened)))")
             } else {
                 // 새로운 기록만 SwiftData에서 실제 UV 지수로 계산
+                record.isSPFApplied = hasSunscreen
                 let uvDose = try await calculateUVDoseForRecord(record)
                 record.uvDose = uvDose
                 totalUVDose += uvDose

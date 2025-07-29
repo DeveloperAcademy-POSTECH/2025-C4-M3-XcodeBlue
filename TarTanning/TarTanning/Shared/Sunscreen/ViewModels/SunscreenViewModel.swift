@@ -265,8 +265,6 @@ final class SunscreenViewModel: ObservableObject {
             timerManager.stop()
         }
         
-        logger.info("[\(self.deviceType)] Updated context: Active=\(self.isActive), Remaining=\(self.remainingTime), State=\(self.timerState.hashValue)")
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.isUpdatingFromRemote = false
         }

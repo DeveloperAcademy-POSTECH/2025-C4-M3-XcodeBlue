@@ -70,15 +70,20 @@ final class WatchConnectivityManager: NSObject, WCSessionDelegate {
         }
     }
     
-    /// iPhone -> Watch 일회성 데이터 전송
+    /// Watch -> iPhone 일회성 메시지 전송
     func sendMessage(_ message: [String: Any]) {
         guard session.isReachable else {
-            print("Watch is not reachable for sendMessage.")
+            print("⌚ iPhone is not reachable for sendMessage.")
             return
         }
         session.sendMessage(message, replyHandler: nil) { error in
-            print("Error sending message to watch: \(error.localizedDescription)")
+            print("⌚ Error sending message to iPhone: \(error.localizedDescription)")
         }
+    }
+
+    /// Watch -> iPhone 일회성 메시지 전송
+    func sendMessageToPhone(_ message: [String: Any]) {
+        sendMessage(message)
     }
     
     /// Watch 기기 정보 요청 및 데이터 받기

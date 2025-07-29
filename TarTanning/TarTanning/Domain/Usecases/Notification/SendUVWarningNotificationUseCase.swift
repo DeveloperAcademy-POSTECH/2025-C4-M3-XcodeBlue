@@ -21,6 +21,8 @@ struct SendUVWarningNotificationUseCase {
     let maxMED: Double
     
     func execute() {
+        guard LocalNotificationManager.shared.hasPermission else { return }
+        
         let percent = Int((uvDose / maxMED) * 100)
         guard percent >= 70 else {
             print("🟢 [SendUVWarningNotificationUseCase] 아직 MED 경고 기준 미달 (\(percent)%)")

@@ -42,7 +42,13 @@ struct DashboardTimerView: View {
             .padding(.bottom, 118)
         }
         .frame(maxWidth: .infinity)
-        .background(Color.blue.opacity(0.15))
+        .background(
+            LinearGradient(
+                gradient: Gradient(colors: [Color.linear01, Color.linear02]),
+                startPoint: .top,
+                endPoint: .center
+            )
+        )
         .cornerRadius(20)
         .onAppear {
             setupBindings()

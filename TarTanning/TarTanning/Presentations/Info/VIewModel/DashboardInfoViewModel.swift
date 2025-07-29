@@ -8,16 +8,26 @@
 import Foundation
 
 class DashboardInfoViewModel: ObservableObject {
-    @Published var information: [InformationItem] = []
+    @Published var groupedInformation: [String: [SunscreenInfoItem]] = [:]
+    @Published var categories: [String] = []
+    
+    private let loader = SunscreenInfoLoader.shared
     
     init() {
-        loadMockData()
+        loadInformation()
     }
     
-    func loadMockData() {
-        information = [
-          InformationItem(title: "자외선 경고",category: "UV", imageName: "SPF", explanation: "현재 자외선 수치가 높습니다.dafjofjfofjweofejofdjofjofdjofdjfpjfjfaofjfqwjfopqjfpoqjeiojoifjwoifjoiwajaoifjwoijiofjwo", content: "대부분의 사람은 햇볕에 노출될 때 선크림을 바르지만, SPF라는 숫자가 정확히 어떤 의미인지는 잘 모릅니다. SPF(Sun Protection Factor)는 **자외선 B(UVB)**로부터 피부를 얼마나 오래 보호할 수 있는지를 나타내는 지수입니다. 쉽게 말하면, 아무 것도 바르지 않은 상태에서 피부가 붉어지기까지 걸리는 시간이 10분이라면, SPF 30은 약 30배 더 오랜 시간(=300분) 동안 자외선으로부터 피부를 보호할 수 있다는 뜻입니다."),
-          InformationItem(title: "비타민 D 시간", category: "Health", imageName: "SkinType", explanation: "적당한 햇빛 노출 시간입니다.", content: "15분 정도 햇볕을 쬐어보세요.")
-        ]
+    func loadInformation() {
+        let allInformation = loader.loadSunscreenInfo()
+        
+        // 카테고리별로 그룹화
+        groupedInformation = Dictionary(grouping: allInformation) { $0.category }
+        
+        // 카테고리 목록 생성 (정렬)
+        categories = Array(groupedInformation.keys).sorted()
+        
+        print("📚 [DashboardInfoViewModel] 정보 로드 완료: \(allInformation.count)개 항목")
+        print("📁 [DashboardInfoViewModel] 카테고리: \(categories)")
+        print("🗂️ [DashboardInfoViewModel] 카테고리별 그룹화 완료")
     }
 }

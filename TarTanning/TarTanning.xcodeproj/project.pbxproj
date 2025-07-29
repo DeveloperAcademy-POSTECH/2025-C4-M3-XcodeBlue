@@ -20,6 +20,7 @@
 		BF55D7032E353BA500074104 /* CalculateAndSaveUVDoseUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55D7012E353BA500074104 /* CalculateAndSaveUVDoseUseCase.swift */; };
 		BF55D7042E353BA500074104 /* SyncUVDataFromHealthKitUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55D7022E353BA500074104 /* SyncUVDataFromHealthKitUseCase.swift */; };
 		BF55DA0C2E3716AA00074104 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55DA0B2E3716AA00074104 /* MainView.swift */; };
+		BF55DBFE2E38F21200074104 /* SunscreenInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55DBFC2E38F21200074104 /* SunscreenInfoModel.swift */; };
 		BF91999D2E3405430056E0E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198DC2E3405430056E0E7 /* AppDelegate.swift */; };
 		BF91999E2E3405430056E0E7 /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198DD2E3405430056E0E7 /* NavigationRouter.swift */; };
 		BF91999F2E3405430056E0E7 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198DE2E3405430056E0E7 /* Route.swift */; };
@@ -170,6 +171,7 @@
 		BF55D7012E353BA500074104 /* CalculateAndSaveUVDoseUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateAndSaveUVDoseUseCase.swift; sourceTree = "<group>"; };
 		BF55D7022E353BA500074104 /* SyncUVDataFromHealthKitUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUVDataFromHealthKitUseCase.swift; sourceTree = "<group>"; };
 		BF55DA0B2E3716AA00074104 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		BF55DBFC2E38F21200074104 /* SunscreenInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunscreenInfoModel.swift; sourceTree = "<group>"; };
 		BF9198DC2E3405430056E0E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF9198DD2E3405430056E0E7 /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
 		BF9198DE2E3405430056E0E7 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -366,6 +368,14 @@
 			path = VIewModel;
 			sourceTree = "<group>";
 		};
+		BF55DBFD2E38F21200074104 /* Info */ = {
+			isa = PBXGroup;
+			children = (
+				BF55DBFC2E38F21200074104 /* SunscreenInfoModel.swift */,
+			);
+			path = Info;
+			sourceTree = "<group>";
+		};
 		BF9198E02E3405430056E0E7 /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -509,6 +519,7 @@
 		BF9199092E3405430056E0E7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BF55DBFD2E38F21200074104 /* Info */,
 				BF9198FC2E3405430056E0E7 /* Location */,
 				BF9198FE2E3405430056E0E7 /* Sunscreen */,
 				BF9199022E3405430056E0E7 /* User */,
@@ -1207,6 +1218,7 @@
 				BF9199CD2E3405430056E0E7 /* OnboardingStartView.swift in Sources */,
 				BF9199CE2E3405430056E0E7 /* OnboardingWatchCheckView.swift in Sources */,
 				BF9199CF2E3405430056E0E7 /* OnboardingViewModel.swift in Sources */,
+				BF55DBFE2E38F21200074104 /* SunscreenInfoModel.swift in Sources */,
 				BF919A742E34C25A0056E0E7 /* WeatherManagerError.swift in Sources */,
 				BF9199D02E3405430056E0E7 /* OnboardingView.swift in Sources */,
 				BF9199D12E3405430056E0E7 /* RootView.swift in Sources */,

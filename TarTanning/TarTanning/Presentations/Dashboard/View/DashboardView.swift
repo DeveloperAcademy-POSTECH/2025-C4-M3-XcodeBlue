@@ -26,7 +26,7 @@ struct DashboardView: View {
     var body: some View {
         NavigationView {
             ScrollView(showsIndicators: false) {
-                VStack(spacing: 20) {
+                VStack {
                     VStack(spacing: 8) {
                         DashboardTitleView(viewModel: viewModel)
                         ZStack {
@@ -43,6 +43,9 @@ struct DashboardView: View {
                         }
                     }
                     DashboardSummaryMetricsView(viewModel: viewModel)
+                    
+                    Spacer().frame(height: 20)
+                    
                     DashboardWeeklySummaryView(viewModel: viewModel)
 
                     Spacer()
@@ -83,7 +86,7 @@ struct DashboardView: View {
                     #endif
                 }
             }
-            .padding()
+            .padding(.horizontal, 20)
             .background(Color.white01)
             .navigationTitle("대시보드")
             .navigationBarTitleDisplayMode(.large)

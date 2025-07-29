@@ -51,9 +51,44 @@ struct DashboardUVDoseView: View {
     }
 
     var body: some View {
-        VStack(spacing: 24) {
+        VStack {
             // UV 진행률 원형 프로그레스
             DashboardUVProgressView(viewModel: viewModel)
+            
+            HStack {
+                // 오늘 UV 노출량
+                VStack(alignment: .center, spacing: 4) {
+                    Text("오늘 UV 노출량")
+                        .font(.system(size: 12))
+                        .foregroundColor(.secondary)
+                    HStack(alignment: .center, spacing: 4) {
+                        Text("\(String(format: "%.1f", viewModel.todayMEDValue))")
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundColor(Color.primaryRed)
+                        Text("J/m²")
+                            .font(.system(size: 12))
+                            .foregroundColor(.secondary)
+                    }
+                }
+                
+                Spacer()
+                
+                // 최대 UV 노출량
+                VStack(alignment: .center, spacing: 4) {
+                    Text("최대 UV 노출량")
+                        .font(.system(size: 12))
+                        .foregroundColor(.secondary)
+                    HStack(alignment: .center, spacing: 4) {
+                        Text("\(Int(viewModel.getMaxMED()))")
+                            .font(.system(size: 20, weight: .bold))
+                        Text("J/m²")
+                            .font(.system(size: 12))
+                            .foregroundColor(.secondary)
+                    }
+                }
+            }
+            .padding(.horizontal, 24)
+            .padding(.vertical, 16)
             
             // UV 상태 및 조언
             VStack(spacing: 8) {
@@ -71,54 +106,8 @@ struct DashboardUVDoseView: View {
                     .multilineTextAlignment(.center)
             }
             
-            // UV Dose 상세 정보
-            VStack(spacing: 12) {
-                HStack {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("오늘 UV 노출량")
-                            .font(.system(size: 12))
-                            .foregroundColor(.secondary)
-                        HStack(alignment: .bottom, spacing: 4) {
-                            Text("\(String(format: "%.4f", viewModel.todayMEDValue))")
-                                .font(.system(size: 20, weight: .bold))
-                                .foregroundColor(.orange)
-                            Text("J/m²")
-                                .font(.system(size: 12))
-                                .foregroundColor(.secondary)
-                        }
-                            .onAppear {
-                                print("📊 [DashboardUVDoseView] Today MED Value: \(String(format: "%.4f", viewModel.todayMEDValue))")
-                            }
-                    }
-                    
-                    Spacer()
-                    
-                    VStack(alignment: .trailing, spacing: 4) {
-                        Text("최대 허용량")
-                            .font(.system(size: 12))
-                            .foregroundColor(.secondary)
-                        HStack(alignment: .bottom, spacing: 4) {
-                            Text("\(Int(viewModel.getMaxMED()))")
-                                .font(.system(size: 20, weight: .bold))
-                                .foregroundColor(.blue)
-                            Text("J/m²")
-                                .font(.system(size: 12))
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                }
-                
-                // 진행률 바
-                ProgressView(value: viewModel.todayUVProgressRate)
-                    .progressViewStyle(LinearProgressViewStyle(tint: uvStatusColor))
-                    .scaleEffect(x: 1, y: 2, anchor: .center)
-            }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 16)
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.gray.opacity(0.1))
-            )
+            
+            Spacer().frame(height: 24)
             
             // 선크림 모드 버튼
             Button {
@@ -136,6 +125,7 @@ struct DashboardUVDoseView: View {
             }
         }
         .padding(20)
+        .frame(height: 400)
         .background(Color.white00)
         .cornerRadius(20)
     }

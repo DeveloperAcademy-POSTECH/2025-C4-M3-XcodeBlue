@@ -18,11 +18,11 @@ struct DashboardSummaryMetricsView: View {
                 .frame(height: 40)
                 .padding(.horizontal, 20)
             
-            TotalDaylightMetricView(viewModel: viewModel)
-            
-            Divider()
-                .frame(height: 40)
-                .padding(.horizontal, 20)
+//            TotalDaylightMetricView(viewModel: viewModel)
+//            
+//            Divider()
+//                .frame(height: 40)
+//                .padding(.horizontal, 20)
             
             CurrentTemperatureMetricView(viewModel: viewModel)
         }

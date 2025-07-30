@@ -52,85 +52,97 @@ struct DashboardUVDoseView: View {
 
     var body: some View {
         VStack {
-            // UV 진행률 원형 프로그레스
             DashboardUVProgressView(viewModel: viewModel)
 
-            HStack {
-                // 오늘 UV 노출량
-                VStack(alignment: .center, spacing: 4) {
-                    Text("오늘 UV 노출량")
-                        .font(.system(size: 12))
-                        .foregroundColor(.secondary)
-                    HStack(alignment: .center, spacing: 4) {
-                        Text(
-                            "\(String(format: "%.1f", viewModel.todayMEDValue))"
-                        )
-                        .font(.system(size: 20, weight: .bold))
-                        .foregroundColor(uvStatusColor)
-                        Text("J/m²")
-                            .font(.system(size: 12))
-                            .foregroundColor(.secondary)
-                    }
-                }
+            uvDoseInfoSection
 
-                Spacer()
-
-                // 최대 UV 노출량
-                VStack(alignment: .center, spacing: 4) {
-                    Text("최대 UV 노출량")
-                        .font(.system(size: 12))
-                        .foregroundColor(.secondary)
-                    HStack(alignment: .center, spacing: 4) {
-                        Text("\(Int(viewModel.getMaxMED()))")
-                            .font(.system(size: 20, weight: .bold))
-                        Text("J/m²")
-                            .font(.system(size: 12))
-                            .foregroundColor(.secondary)
-                    }
-                }
-            }
-            .padding(.horizontal, 24)
-            .padding(.vertical, 16)
-
-            // UV 상태 및 조언
-            VStack(spacing: 8) {
-                HStack(spacing: 0) {
-                    Text("현재 UV 노출량은 ")
-                    Text(uvStatusText)
-                        .foregroundColor(uvStatusColor)
-                        .fontWeight(.bold)
-                    Text("입니다")
-                }
-                .font(.system(size: 16, weight: .medium))
-
-                Text(uvAdviceText)
-                    .font(.system(size: 14))
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-            }
+            uvStatusSection
 
             Spacer().frame(height: 24)
 
-            // 선크림 모드 버튼
-            Button {
-                showingTimer = true
-            } label: {
-                Label("선크림 잔여 시간 보기", systemImage: "cloud.sun")
-                    .font(.system(size: 16, weight: .semibold))
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 12)
-                    .background(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.blue, lineWidth: 1)
-                    )
-                    .foregroundColor(.blue)
-                    .frame(maxWidth: .infinity)
-            }
-            .padding(.horizontal, 32)
+            sunscreenButton
         }
         .padding(20)
         .frame(height: 400)
         .background(Color.white00)
         .cornerRadius(20)
+    }
+}
+
+// MARK: - DashboardUVDoseView Components
+extension DashboardUVDoseView {
+    fileprivate var uvDoseInfoSection: some View {
+        HStack {
+            uvDoseInfo(
+                title: "오늘 UV 노출량",
+                value: String(format: "%.1f", viewModel.todayMEDValue),
+                color: uvStatusColor
+            )
+
+            Spacer()
+
+            uvDoseInfo(
+                title: "최대 UV 노출량",
+                value: "\(Int(viewModel.getMaxMED()))",
+                color: .primary
+            )
+        }
+        .padding(.horizontal, 24)
+        .padding(.vertical, 16)
+    }
+
+    fileprivate func uvDoseInfo(title: String, value: String, color: Color)
+        -> some View
+    {
+        VStack(alignment: .center, spacing: 4) {
+            Text(title)
+                .font(.system(size: 12))
+                .foregroundColor(.secondary)
+
+            HStack(alignment: .center, spacing: 4) {
+                Text(value)
+                    .font(.system(size: 20, weight: .bold))
+                    .foregroundColor(color)
+                Text("J/m²")
+                    .font(.system(size: 12))
+                    .foregroundColor(.secondary)
+            }
+        }
+    }
+
+    fileprivate var uvStatusSection: some View {
+        VStack(spacing: 8) {
+            HStack(spacing: 0) {
+                Text("현재 UV 노출량은 ")
+                Text(uvStatusText)
+                    .foregroundColor(uvStatusColor)
+                    .fontWeight(.bold)
+                Text("입니다")
+            }
+            .font(.system(size: 16, weight: .medium))
+
+            Text(uvAdviceText)
+                .font(.system(size: 14))
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+        }
+    }
+
+    fileprivate var sunscreenButton: some View {
+        Button {
+            showingTimer = true
+        } label: {
+            Label("선크림 잔여 시간 보기", systemImage: "cloud.sun")
+                .font(.system(size: 16, weight: .semibold))
+                .padding(.horizontal, 20)
+                .padding(.vertical, 12)
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color.blue, lineWidth: 1)
+                )
+                .foregroundColor(.blue)
+                .frame(maxWidth: .infinity)
+        }
+        .padding(.horizontal, 32)
     }
 }

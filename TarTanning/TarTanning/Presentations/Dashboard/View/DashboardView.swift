@@ -25,95 +25,69 @@ struct DashboardView: View {
 
     var body: some View {
         NavigationView {
-            ScrollView(showsIndicators: false) {
+            ScrollView(showsIndicators: true) {
                 VStack(spacing: 20) {
-                    DashboardTitleView(viewModel: viewModel)
-
-                    if showingTimer {
-                        DashboardTimerView(isPresented: $showingTimer)
-                    } else {
-                        DashboardUVDoseView(
-                            viewModel: viewModel,
-                            showingTimer: $showingTimer
-                        )
+                    VStack{
+                        DashboardTitleView(viewModel: viewModel)
+                        if showingTimer {
+                            DashboardTimerView(isPresented: $showingTimer)
+                        } else {
+                            DashboardUVDoseView(
+                                viewModel: viewModel,
+                                showingTimer: $showingTimer
+                            )
+                        }
                     }
-
                     DashboardSummaryMetricsView(viewModel: viewModel)
 
                     DashboardWeeklySummaryView(viewModel: viewModel)
 
                     Spacer()
 
-                    // 로딩 상태 표시
-                    if viewModel.isLoading {
-                        ProgressView("날씨 정보 로딩 중...")
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    }
-
-                    // 에러 메시지 표시
-                    if let errorMessage = viewModel.errorMessage {
-                        VStack(spacing: 12) {
-                            Image(systemName: "exclamationmark.triangle")
-                                .font(.largeTitle)
-                                .foregroundColor(.orange)
-
-                            Text(errorMessage)
-                                .font(.body)
-                                .multilineTextAlignment(.center)
-                                .foregroundColor(.secondary)
-
-                            Button("다시 시도") {
-                                viewModel.loadWeatherData()
-                            }
-                            .buttonStyle(.borderedProminent)
-                        }
-                        .padding()
-                    }
-
                     // 디버그 버튼 (개발용)
                     #if DEBUG
-                    debugButton
+                        debugButton
                     #endif
                 }
+                .padding(.horizontal, 20)
             }
-            .padding(.horizontal, 20)
             .background(Color.white01)
             .navigationTitle("대시보드")
             .navigationBarTitleDisplayMode(.large)
-            .onAppear {
-                viewModel.loadAllDashboardData()
-                showingTimer = timerManager.isActive
-            }
-            .onReceive(
-                timerManager.$isActive.debounce(
-                    for: .milliseconds(1000),
-                    scheduler: RunLoop.main
-                )
-            ) { newValue in
-                showingTimer = newValue
-            }
-            .sheet(isPresented: $showingDebugSheet) {
-                debugSheet
-            }
+        }
+        .onAppear {
+            viewModel.loadAllDashboardData()
+            showingTimer = timerManager.isActive
+        }
+        .onReceive(
+            timerManager.$isActive.debounce(
+                for: .milliseconds(1000),
+                scheduler: RunLoop.main
+            )
+        ) { newValue in
+            showingTimer = newValue
+        }
+        .sheet(isPresented: $showingDebugSheet) {
+            debugSheet
         }
     }
 }
 
 // MARK: - DashboardView Debug Extension
 #if DEBUG
-extension DashboardView {
-    var debugButton: some View {
-        Button("SwiftData 로그 확인") {
-            showingDebugSheet = true
+    extension DashboardView {
+        var debugButton: some View {
+            Button("SwiftData 로그 확인") {
+                showingDebugSheet = true
+            }
+            .font(.caption)
+            .foregroundColor(.secondary)
         }
-        .font(.caption)
-        .foregroundColor(.secondary)
+
+        var debugSheet: some View {
+            SwiftDataDebugView(viewModel: viewModel)
+        }
     }
-    
-    var debugSheet: some View {
-        SwiftDataDebugView(viewModel: viewModel)
-    }
-}
 #endif
 
 // MARK: - Debug View
@@ -401,5 +375,3 @@ struct UVExposeRecordRowView: View {
         .padding(.vertical, 2)
     }
 }
-
-

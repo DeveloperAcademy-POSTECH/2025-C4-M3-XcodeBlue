@@ -58,7 +58,8 @@ struct DashboardTimerView: View {
                 endPoint: .center
             )
         )
-        .cornerRadius(36)
+        .frame(height: 400)
+        .cornerRadius(20)
         .onAppear {
             setupBindings()
         }

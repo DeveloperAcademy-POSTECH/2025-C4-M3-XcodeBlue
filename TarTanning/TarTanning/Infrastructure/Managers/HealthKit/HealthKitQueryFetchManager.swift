@@ -182,17 +182,30 @@ final class HealthKitQueryFetchManager: ObservableObject {
     
     /// HealthKit 데이터 변경 관찰 시작
     func startObservingHealthKitUpdates() {
-        guard let daylightType = HKQuantityType.quantityType(forIdentifier: .timeInDaylight) else {
-            print("❌ [HealthKitQueryFetchManager] Invalid daylight type")
+        // 1. 중복 실행 방지
+        guard backgroundObserverQuery == nil else {
+            print("[HealthKitQueryFetchManager] Observer query already running")
             return
         }
         
-        // 1. Observer Query 설정 (데이터 변경 감지)
+        guard let daylightType = HKQuantityType.quantityType(forIdentifier: .timeInDaylight) else {
+            print("[HealthKitQueryFetchManager] Invalid daylight type")
+            return
+        }
+        
+        // 2. 권한 확인
+        let authStatus = healthStore.authorizationStatus(for: daylightType)
+        guard authStatus == .sharingAuthorized else {
+            print("[HealthKitQueryFetchManager] HealthKit authorization not granted: \(authStatus.rawValue)")
+            return
+        }
+        
+        // 3. Observer Query 설정 (데이터 변경 감지)
         backgroundObserverQuery = HKObserverQuery(sampleType: daylightType, predicate: nil) { [weak self] _, _, error in
             if let error = error {
-                print("❌ [HealthKitQueryFetchManager] Observer query error: \(error)")
+                print("[HealthKitQueryFetchManager] Observer query error: \(error)")
             } else {
-                print("🔄 [HealthKitQueryFetchManager] HealthKit data change detected")
+                print("[HealthKitQueryFetchManager] HealthKit data change detected")
                 // NotificationCenter로 업데이트 알림
                 DispatchQueue.main.async {
                     NotificationCenter.default.post(name: .healthKitDataUpdated, object: nil)
@@ -200,19 +213,38 @@ final class HealthKitQueryFetchManager: ObservableObject {
             }
         }
         
-        // 2. Background Delivery 설정 (앱이 백그라운드일 때도 업데이트 받기)
+        // 4. Background Delivery 설정 (앱이 백그라운드일 때도 업데이트 받기)
         healthStore.enableBackgroundDelivery(for: daylightType, frequency: .hourly) { success, error in
             if success {
-                print("✅ [HealthKitQueryFetchManager] Background delivery enabled")
+                print("[HealthKitQueryFetchManager] Background delivery enabled")
             } else if let error = error {
-                print("❌ [HealthKitQueryFetchManager] Background delivery failed: \(error)")
+                print("[HealthKitQueryFetchManager] Background delivery failed: \(error)")
             }
         }
         
-        // 3. Observer Query 실행
+        // 5. Observer Query 실행
         if let observerQuery = backgroundObserverQuery {
             healthStore.execute(observerQuery)
-            print("✅ [HealthKitQueryFetchManager] Started observing HealthKit updates")
+        }
+    }
+
+    /// 권한이 허용된 후 Observer 시작하는 메서드 추가
+    func startObservingWhenAuthorized() {
+        guard let daylightType = HKQuantityType.quantityType(forIdentifier: .timeInDaylight) else {
+            return
+        }
+        
+        let authStatus = healthStore.authorizationStatus(for: daylightType)
+        
+        switch authStatus {
+        case .sharingAuthorized:
+            startObservingHealthKitUpdates()
+        case .notDetermined:
+            print("[HealthKitQueryFetchManager] Authorization not determined, waiting for user permission")
+        case .sharingDenied:
+            print("[HealthKitQueryFetchManager] Authorization denied by user")
+        @unknown default:
+            print("[HealthKitQueryFetchManager] Unknown authorization status: \(authStatus.rawValue)")
         }
     }
     

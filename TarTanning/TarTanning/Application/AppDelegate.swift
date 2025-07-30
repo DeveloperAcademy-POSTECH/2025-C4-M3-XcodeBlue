@@ -8,43 +8,42 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     
     var syncUVDataInBackgroundUseCase: SyncUVDataInBackgroundUseCase?
     private var container: ModelContainer?
-
-    func application(
-        _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
-    ) -> Bool {
-
+    
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        
         let center = UNUserNotificationCenter.current()
         center.delegate = self
         registerNotificationCategories()
-
+        
         do {
             container = try ModelContainer(for: LocationWeather.self, DailyUVExpose.self, UVExposeRecord.self, HourlyWeather.self)
             if let context = container?.mainContext {
                 let useCase = SyncUVDataInBackgroundUseCase(context: context)
                 syncUVDataInBackgroundUseCase = useCase
-
+                
                 if let type = HKObjectType.quantityType(forIdentifier: .timeInDaylight) {
                     Task {
                         await HealthKitBackgroundManager.shared.configure(syncUseCase: useCase, for: type)
                     }
                 }
-                
-                HealthKitQueryFetchManager.shared.startObservingHealthKitUpdates()
             }
         } catch {
             print("❌ [AppDelegate] Failed to create SwiftData container: \(error)")
         }
-
+        
+        // HKObserverQuery 설정 (권한 확인 포함)
+        setupHealthKitObserverWhenReady()
+        
         return true
     }
-
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([])
     }
-
+    
     private func registerNotificationCategories() {
         let yesAction = UNNotificationAction(identifier: "SUNSCREEN_YES", title: "예", options: [.foreground])
         let noAction = UNNotificationAction(identifier: "SUNSCREEN_NO", title: "아니오", options: [.foreground])
@@ -58,7 +57,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         
         UNUserNotificationCenter.current().setNotificationCategories([category])
     }
-
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
@@ -70,11 +69,31 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         default:
             break
         }
-
+        
         completionHandler()
+    }
+    
+    private func setupHealthKitObserverWhenReady() {
+        // 즉시 시도 (이미 권한이 있는 경우)
+        Task { @MainActor in
+            HealthKitQueryFetchManager.shared.startObservingWhenAuthorized()
+        }
+        
+        // 권한 변경 감지를 위한 NotificationCenter 관찰
+        NotificationCenter.default.addObserver(
+            forName: .healthKitAuthorizationChanged,
+            object: nil,
+            queue: .main
+        ) { _ in
+            Task { @MainActor in
+                HealthKitQueryFetchManager.shared.startObservingWhenAuthorized()
+                print("🔄 [AppDelegate] HealthKit authorization changed - restarting Observer")
+            }
+        }
     }
 }
 
 extension Notification.Name {
     static let sunscreenResponse = Notification.Name("sunscreenResponse")
+    static let healthKitAuthorizationChanged = Notification.Name("healthKitAuthorizationChanged") //
 }

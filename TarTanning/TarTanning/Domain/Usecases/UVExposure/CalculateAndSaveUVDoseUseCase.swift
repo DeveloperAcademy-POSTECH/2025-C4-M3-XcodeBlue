@@ -49,9 +49,6 @@ final class CalculateAndSaveUVDoseUseCase {
         var newlyCalculatedCount = 0
         var protectedCount = 0
         
-        // 선크림 모드 여부 넘김
-        let hasSunscreen = SunscreenViewModel.shared.isActive
-        
         for record in todayRecords {
             // 🔒 데이터 무결성 보장: 이미 계산된 기록은 절대 재계산하지 않음
             if record.uvDose > 0.0 {
@@ -60,8 +57,7 @@ final class CalculateAndSaveUVDoseUseCase {
                 protectedCount += 1
                 print("🔒 [CalculateAndSaveUVDoseUseCase] PROTECTED existing UV dose: \(String(format: "%.4f", record.uvDose)) (\(record.startDate.formatted(date: .omitted, time: .shortened)) - \(record.endDate.formatted(date: .omitted, time: .shortened)))")
             } else {
-                // 새로운 기록만 SwiftData에서 실제 UV 지수로 계산
-                record.isSPFApplied = hasSunscreen
+                // 새로운 기록만 SwiftData에서 실제 UV 지수로 계산 (SPF 로직 포함)
                 let uvDose = try await calculateUVDoseForRecord(record)
                 record.uvDose = uvDose
                 totalUVDose += uvDose
@@ -165,7 +161,7 @@ final class CalculateAndSaveUVDoseUseCase {
         return dailyUV
     }
     
-    /// 개별 UVExposeRecord의 UV Dose 계산 (SwiftData에서 실제 UV 지수 조회)
+    /// 개별 UVExposeRecord의 UV Dose 계산 (SwiftData에서 실제 UV 지수 조회 + SPF 적용)
     private func calculateUVDoseForRecord(_ record: UVExposeRecord) async throws -> Double {
         // 1. 기록의 시작 시간에서 날짜와 시간대 추출
         let recordDate = record.startDate
@@ -177,20 +173,62 @@ final class CalculateAndSaveUVDoseUseCase {
         // 2. SwiftData에서 해당 날짜+시간의 실제 UV 지수 조회
         let uvIndex = try await getUVIndexFromSwiftData(date: recordDay, hour: startHour)
         
-        // 3. 사용자 프로필에서 SPF 정보 가져오기 (현재는 사용하지 않음)
-        let profile = getUserProfileUseCase.getUserProfile()
-        let spfValue: Double? = nil // 현재는 SPF 적용 안함
-        
-        // 4. MEDCalculator로 UV Dose 계산
-        let uvDose = MEDCalculator.calculateUVDose(
-            uvIndex: uvIndex,
-            durationMinutes: record.sunlightExposureDuration,
-            spf: spfValue
+        // 3. TimerSPFManager에서 SPF 적용 상태 확인
+        let spfResult = TimerSPFManager.shared.checkSPFApplication(
+            startDate: record.startDate,
+            endDate: record.endDate
         )
         
-        print("📊 [CalculateAndSaveUVDoseUseCase] UV calculation - Hour: \(startHour), UV Index: \(String(format: "%.2f", uvIndex)), Duration: \(String(format: "%.1f", record.sunlightExposureDuration))min, UV Dose: \(String(format: "%.4f", uvDose))")
+        // 4. SPF 적용 상태를 기록에 저장
+        record.isSPFApplied = spfResult.isSPFApplied
         
-        return uvDose
+        // 5. MEDCalculator로 UV Dose 계산
+        var totalUVDose: Double = 0.0
+        
+        if spfResult.isSPFApplied && spfResult.protectedDuration > 0 {
+            // SPF가 적용된 시간이 있는 경우 분리 계산
+            
+            // 5-1. SPF 보호된 시간의 UV Dose 계산
+            if spfResult.protectedDuration > 0 {
+                let protectedUVDose = MEDCalculator.calculateUVDose(
+                    uvIndex: uvIndex,
+                    durationMinutes: spfResult.protectedDuration,
+                    spf: spfResult.spfLevel
+                )
+                totalUVDose += protectedUVDose
+                
+                print("🛡️ [CalculateAndSaveUVDoseUseCase] Protected UV dose - Duration: \(String(format: "%.1f", spfResult.protectedDuration))min, SPF: \(spfResult.spfLevel ?? 0), UV Dose: \(String(format: "%.4f", protectedUVDose))")
+            }
+            
+            // 5-2. SPF 보호되지 않은 시간의 UV Dose 계산
+            if spfResult.unprotectedDuration > 0 {
+                let unprotectedUVDose = MEDCalculator.calculateUVDose(
+                    uvIndex: uvIndex,
+                    durationMinutes: spfResult.unprotectedDuration,
+                    spf: nil
+                )
+                totalUVDose += unprotectedUVDose
+                
+                print("☀️ [CalculateAndSaveUVDoseUseCase] Unprotected UV dose - Duration: \(String(format: "%.1f", spfResult.unprotectedDuration))min, UV Dose: \(String(format: "%.4f", unprotectedUVDose))")
+            }
+        } else {
+            // SPF가 적용되지 않은 경우 전체 시간에 대해 일반 계산
+            totalUVDose = MEDCalculator.calculateUVDose(
+                uvIndex: uvIndex,
+                durationMinutes: record.sunlightExposureDuration,
+                spf: nil
+            )
+            
+            print("☀️ [CalculateAndSaveUVDoseUseCase] No SPF protection - Full exposure UV dose: \(String(format: "%.4f", totalUVDose))")
+        }
+        
+        print("📊 [CalculateAndSaveUVDoseUseCase] UV calculation summary:")
+        print("   • Hour: \(startHour), UV Index: \(String(format: "%.2f", uvIndex))")
+        print("   • Total Duration: \(String(format: "%.1f", record.sunlightExposureDuration))min")
+        print("   • SPF Applied: \(spfResult.isSPFApplied ? "Yes" : "No")")
+        print("   • Final UV Dose: \(String(format: "%.4f", totalUVDose))")
+        
+        return totalUVDose
     }
     
     /// SwiftData에서 특정 날짜+시간의 UV 지수 조회

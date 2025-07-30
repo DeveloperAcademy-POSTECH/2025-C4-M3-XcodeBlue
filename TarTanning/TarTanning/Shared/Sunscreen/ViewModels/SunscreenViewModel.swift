@@ -58,6 +58,9 @@ final class SunscreenViewModel: ObservableObject {
         setupWatchConnectivity()
         updateConnectionStatus()
         
+        // 오래된 타이머 기간 정리
+        TimerSPFManager.shared.cleanupOldPeriods()
+        
         logger.info("[\(self.deviceType)] SunscreenViewModel initialized")
     }
     
@@ -151,11 +154,23 @@ final class SunscreenViewModel: ObservableObject {
             return
         }
         
+        // SPF 레벨 가져오기 (UserDefaults에서)
+        let spfLevel = Double(UserDefaults.standard.integer(forKey: "selectedSPFLevel"))
+        
+        // TimerSPFManager에 활성화 기간 추가
+        let startTime = Date()
+        let endTime = startTime.addingTimeInterval(duration)
+        TimerSPFManager.shared.addActivePeriod(
+            startTime: startTime,
+            endTime: endTime,
+            spfLevel: spfLevel
+        )
+        
         // TimerSyncManager를 통해 타이머 시작
         timerManager.start(duration: duration)
         totalDuration = duration
         
-        logger.info("[\(self.deviceType)] Sunscreen protection started - Duration: \(duration)s")
+        logger.info("[\(self.deviceType)] Sunscreen protection started - Duration: \(duration)s, SPF: \(spfLevel)")
         
         // 상대 기기에 즉시 상태 전송
         sendSunscreenStateToCounterpart()
@@ -163,6 +178,9 @@ final class SunscreenViewModel: ObservableObject {
     
     func stopSunscreenProtection() {
         guard isActive else { return }
+        
+        // TimerSPFManager에서 현재 활성화 기간의 종료 시간 업데이트
+        TimerSPFManager.shared.updateCurrentPeriodEndTime(to: Date())
         
         timerManager.stop()
         

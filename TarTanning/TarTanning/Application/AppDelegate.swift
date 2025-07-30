@@ -29,6 +29,8 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
                         await HealthKitBackgroundManager.shared.configure(syncUseCase: useCase, for: type)
                     }
                 }
+                
+                HealthKitQueryFetchManager.shared.startObservingHealthKitUpdates()
             }
         } catch {
             print("❌ [AppDelegate] Failed to create SwiftData container: \(error)")

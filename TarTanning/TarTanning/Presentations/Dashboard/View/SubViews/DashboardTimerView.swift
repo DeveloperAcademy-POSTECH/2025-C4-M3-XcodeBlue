@@ -12,34 +12,43 @@ struct DashboardTimerView: View {
     
     var body: some View {
         VStack {
+            Spacer()
+            
             Image(systemName: "cloud.sun")
                 .font(.system(size: 32))
                 .foregroundColor(.key00)
-                .padding(.top, 96)
             
             // 남은 시간
             Text(timeDisplayString)
                 .font(.system(size: 75, weight: .semibold))
                 .foregroundColor(.key00)
                 .animation(.easeInOut(duration: 0.3), value: timerManager.isActive)
+                .padding(.bottom, 24)
             
             Text(timerStatusText)
-                .font(.system(size: 17))
-                .bold()
-                .padding(.bottom, 20)
+                .fontWeight(.semibold)
+                .font(.headline)
+                .multilineTextAlignment(.center)
+            
+            Spacer()
             
             Button {
                 isPresented = false
             } label: {
-                Text("MED 수치 보기")
-                    .font(.system(size: 15))
-                    .bold()
-                    .frame(width: 130, height: 35)
-                    .background(Color.white)
-                    .cornerRadius(20)
+                Label("오늘 UV 노출량 보기", systemImage: "sun.max")
+                    .background(Color.white02)
+                    .font(.system(size: 16, weight: .semibold))
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 12)
+                    .background(
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(Color.white)
+                    )
+                    .foregroundColor(.blue)
+                    .frame(maxWidth: .infinity)
             }
-            .padding(.horizontal, 104)
-            .padding(.bottom, 118)
+            .padding(.horizontal, 32)
+            .padding(.bottom, 40)
         }
         .frame(maxWidth: .infinity)
         .background(
@@ -49,6 +58,7 @@ struct DashboardTimerView: View {
                 endPoint: .center
             )
         )
+        .frame(height: 400)
         .cornerRadius(20)
         .onAppear {
             setupBindings()
@@ -87,11 +97,11 @@ extension DashboardTimerView {
     var timerStatusText: String {
         switch state {
         case .stopped:
-            return "선크림 타이머"
+            return "선크림 타이머를 \nWatch에서 작동시켜주세요"
         case .running:
-            return "선크림 보호 중"
+            return "선크림 보호모드 작동 중"
         case .paused:
-            return "타이머 일시정지"
+            return "타이머 보호모드 일시정지"
         }
     }
 }

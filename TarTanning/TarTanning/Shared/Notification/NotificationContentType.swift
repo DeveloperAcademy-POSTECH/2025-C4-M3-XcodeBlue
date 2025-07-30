@@ -30,13 +30,13 @@ extension NotificationContentType {
         case .medWarning(let percent):
             switch percent {
             case 0..<30:
-                return "MED \(percent) · 안전"
+                return "MED \(percent) · 낮은 수준"
             case 30..<50:
-                return "MED \(percent) · 주의"
+                return "MED \(percent) · 보통 수준"
             case 50..<70:
-                return "MED \(percent) · 위험"
+                return "MED \(percent) · 주의 수준"
             case 70...:
-                return "MED \(percent) · 나쁨"
+                return "MED \(percent) · 높은 수준"
             default:
                 return "MED · 알림"
             }
@@ -52,15 +52,15 @@ extension NotificationContentType {
         case .medWarning(let percent):
             switch percent {
             case 0..<30:
-                return "자외선 노출이 아직 낮은 편이에요. 지금처럼 활동해도 안전해요."
+                return "자외선 노출이 낮은 수준입니다. 현재 수준의 야외 활동이 가능합니다."
             case 30..<50:
-                return "자외선 노출이 점차 쌓이고 있어요. 주의가 필요한 시점이에요."
+                return "자외선 노출이 적정 수준입니다. 자외선 차단을 고려해보세요."
             case 50..<70:
-                return "자외선 노출이 많이 누적됐어요. 가능한 한 햇빛을 피해주세요."
+                return "자외선 노출이 많이 누적되었습니다. 자외선 차단을 권장합니다."
             case 70...:
-                return "자외선 누적이 매우 높아요. 당장 실내로 이동하는 걸 권장해요."
+                return "자외선 노출이 높은 수준입니다. 실내 활동을 고려해보세요."
             default:
-                return "자외선 누적 상태를 확인하고 있어요."
+                return "자외선 누적 상태를 확인 중입니다."
             }
             
         case .sunscreenReminder(let uvIndex):

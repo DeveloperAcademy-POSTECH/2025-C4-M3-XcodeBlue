@@ -24,9 +24,9 @@ struct DashboardUVProgressView: View {
         case 0.3..<0.5:
             return .orange
         case 0.5..<0.7:
-            return .systemRed
+            return .primaryRed
         case 0.7..<1.0:
-            return .systemRed
+            return .primaryRed
         default:
             return .systemRed // 100% 이상일 때도 빨간색
         }

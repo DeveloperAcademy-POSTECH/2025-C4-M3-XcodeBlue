@@ -17,9 +17,11 @@ struct PermissionRow: View {
             VStack(alignment: .leading, spacing: 12) {
                 Text(title)
                     .font(.title3)
+                    .fontWeight(.regular)
                 
                 Text(description)
                     .font(.footnote)
+                    .fontWeight(.regular)
                     .foregroundColor(.gray)
             }
             
@@ -28,6 +30,12 @@ struct PermissionRow: View {
             Button(action: openSettings) {
                 Text("설정하기")
                     .font(.body)
+                    .fontWeight(.bold)
+                    .frame(minWidth: 84, alignment: .center)
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 8)
+                    .background(Color.gray.opacity(0.1))
+                    .cornerRadius(6)
                     .foregroundColor(.blue)
             }
             .buttonStyle(.plain)

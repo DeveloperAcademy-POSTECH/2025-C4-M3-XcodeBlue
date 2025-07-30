@@ -27,23 +27,19 @@ struct DashboardView: View {
         NavigationView {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 20) {
-                    VStack {
-                        DashboardTitleView(viewModel: viewModel)
-                        ZStack {
-                            if showingTimer {
-                                DashboardTimerView(isPresented: $showingTimer)
-                                    .zIndex(1)
-                            }
-                            
-                            DashboardUVDoseView(
-                                viewModel: viewModel,
-                                showingTimer: $showingTimer
-                            )
-                            .zIndex(0)
-                        }
+                    DashboardTitleView(viewModel: viewModel)
+
+                    if showingTimer {
+                        DashboardTimerView(isPresented: $showingTimer)
+                    } else {
+                        DashboardUVDoseView(
+                            viewModel: viewModel,
+                            showingTimer: $showingTimer
+                        )
                     }
+
                     DashboardSummaryMetricsView(viewModel: viewModel)
-                    
+
                     DashboardWeeklySummaryView(viewModel: viewModel)
 
                     Spacer()
@@ -76,11 +72,7 @@ struct DashboardView: View {
 
                     // 디버그 버튼 (개발용)
                     #if DEBUG
-                        Button("SwiftData 로그 확인") {
-                            showingDebugSheet = true
-                        }
-                        .font(.caption)
-                        .foregroundColor(.secondary)
+                    debugButton
                     #endif
                 }
             }
@@ -101,11 +93,28 @@ struct DashboardView: View {
                 showingTimer = newValue
             }
             .sheet(isPresented: $showingDebugSheet) {
-                SwiftDataDebugView(viewModel: viewModel)
+                debugSheet
             }
         }
     }
 }
+
+// MARK: - DashboardView Debug Extension
+#if DEBUG
+extension DashboardView {
+    var debugButton: some View {
+        Button("SwiftData 로그 확인") {
+            showingDebugSheet = true
+        }
+        .font(.caption)
+        .foregroundColor(.secondary)
+    }
+    
+    var debugSheet: some View {
+        SwiftDataDebugView(viewModel: viewModel)
+    }
+}
+#endif
 
 // MARK: - Debug View
 struct SwiftDataDebugView: View {
@@ -392,3 +401,5 @@ struct UVExposeRecordRowView: View {
         .padding(.vertical, 2)
     }
 }
+
+

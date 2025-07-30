@@ -1,10 +1,3 @@
-//
-//  SunscreenInfoModel.swift
-//  TarTanning
-//
-//  Created by Claude on 7/29/25.
-//
-
 import Foundation
 
 struct SunscreenInfoResponse: Codable {

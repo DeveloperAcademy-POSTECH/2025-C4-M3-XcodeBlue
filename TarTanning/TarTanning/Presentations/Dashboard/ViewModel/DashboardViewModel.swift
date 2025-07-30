@@ -102,7 +102,23 @@ class DashboardViewModel: ObservableObject {
             print("test \(self.currentCityName)" )
             self.sendDashboardDataToWatch()
         }
+        
+        setupAppStateObservation()
         #endif
+    }
+    
+    private func setupAppStateObservation() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(appDidBecomeActive),
+            name: UIApplication.didBecomeActiveNotification,
+            object: nil
+        )
+    }
+    
+    @objc private func appDidBecomeActive() {
+        // iPhone 앱이 활성화될 때 최신 데이터 전송
+        sendDashboardDataToWatch()
     }
     
     deinit {

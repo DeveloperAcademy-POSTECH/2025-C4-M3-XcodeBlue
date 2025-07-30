@@ -48,7 +48,28 @@ final class WatchDashboardSyncService: ObservableObject {
     private init() {
         setupWatchConnectivity()
         updateConnectionStatus()
+        
+        loadInitialData()
         print("⌚ [WatchDashboardSyncManager] Initialized")
+    }
+    
+    private func loadInitialData() {
+        // 1. 즉시 마지막 받은 컨텍스트 확인
+        let manager = WatchConnectivityManager.shared
+        manager.checkLastReceivedContext()
+        
+        // 2. iPhone에 데이터 요청 (앱이 활성화되어 있다면)
+        if manager.isReachable {
+            requestDataFromiPhone()
+        }
+        
+        // 3. 일정 시간 후에도 데이터가 없으면 재요청
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            if self.lastUpdated == nil {
+                print("⌚ [WatchDashboardSyncService] No initial data received, requesting again")
+                self.requestDataFromiPhone()
+            }
+        }
     }
     
     // MARK: - WatchConnectivity Setup

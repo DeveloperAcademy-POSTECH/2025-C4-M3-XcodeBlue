@@ -149,7 +149,6 @@ final class WatchConnectivityManager: NSObject, WCSessionDelegate {
     }
     
 #endif
-    
     func session(
         _ session: WCSession,
         activationDidCompleteWith activationState: WCSessionActivationState,

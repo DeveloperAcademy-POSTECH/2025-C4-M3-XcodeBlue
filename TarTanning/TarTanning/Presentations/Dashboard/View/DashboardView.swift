@@ -45,9 +45,9 @@ struct DashboardView: View {
                     Spacer()
 
                     // 디버그 버튼 (개발용)
-                    #if DEBUG
-                        debugButton
-                    #endif
+//                    #if DEBUG
+//                        debugButton
+//                    #endif
                 }
                 .padding(.horizontal, 20)
             }

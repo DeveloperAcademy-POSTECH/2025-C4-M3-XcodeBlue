@@ -127,7 +127,8 @@ struct InformationDetailView: View {
                             .lineSpacing(4)
                     }
                 }
-                .padding(20)
+                .frame(maxWidth: .infinity)
+                .padding(24)
             }
             .navigationTitle("정보")
             .navigationBarTitleDisplayMode(.inline)

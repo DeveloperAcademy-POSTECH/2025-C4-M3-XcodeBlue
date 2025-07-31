@@ -101,12 +101,15 @@ struct InformationDetailView: View {
                 VStack(alignment: .leading, spacing: 16) {
                     Image(info.thumbnail)
                         .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(maxWidth: .infinity)
+                        .scaledToFill()
                         .frame(height: 200)
+                        .frame(maxWidth: .infinity)
                         .clipped()
-                        .background(Color.gray.opacity(0.2))
                         .cornerRadius(12)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color.gray.opacity(0.2))
+                        )
                     
                     VStack(alignment: .leading, spacing: 12) {
                         Text(info.category)
@@ -127,8 +130,8 @@ struct InformationDetailView: View {
                             .lineSpacing(4)
                     }
                 }
+                .padding(20)
                 .frame(maxWidth: .infinity)
-                .padding(24)
             }
             .navigationTitle("정보")
             .navigationBarTitleDisplayMode(.inline)

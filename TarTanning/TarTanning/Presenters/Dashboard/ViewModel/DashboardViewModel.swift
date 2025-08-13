@@ -64,19 +64,6 @@ class DashboardViewModel: ObservableObject {
 
     // MARK: - WatchConnectivity Integration
     #if os(iOS)
-        private func setupWatchConnectivityMessageHandling() {
-            WatchConnectivityManager.shared.messageFromWatchPublisher
-                .receive(on: DispatchQueue.main)
-                .sink { [weak self] message in
-                    self?.handleWatchMessage(message)
-                }
-                .store(in: &cancellables)
-
-            print(
-                "📱 [DashboardViewModel] Watch message handling setup completed"
-            )
-        }
-
         private func handleWatchMessage(_ message: [String: Any]) {
             // 대시보드 데이터 동기화 요청 처리
             if message["request_dashboard_sync"] as? Bool == true {
@@ -179,68 +166,5 @@ class DashboardViewModel: ObservableObject {
 
         let sunlightDuration = sunset.timeIntervalSince(sunrise)
         todayTotalSunlightMinutes = Int(sunlightDuration / 60)  // 분 단위로 변환
-    }
-    // MARK: - Debug & Utility Methods
-
-    /// 상세 SwiftData 상태 로그 출력
-    func logDetailedSwiftDataStatus() {
-        Task { @MainActor in
-            do {
-                let locationDescriptor = FetchDescriptor<LocationWeather>()
-                let hourlyDescriptor = FetchDescriptor<HourlyWeather>()
-                let dailyDescriptor = FetchDescriptor<DailyUVExpose>()
-                let recordDescriptor = FetchDescriptor<UVExposeRecord>()
-
-                let allLocationData = try modelContext.fetch(locationDescriptor)
-                let allHourlyData = try modelContext.fetch(hourlyDescriptor)
-                let allDailyData = try modelContext.fetch(dailyDescriptor)
-                let allRecordData = try modelContext.fetch(recordDescriptor)
-
-                print("\n📊 [DashboardViewModel] 상세 SwiftData 상태:")
-                print("==========================================")
-                print("🌍 LocationWeather: \(allLocationData.count)개")
-                print("⏰ HourlyWeather: \(allHourlyData.count)개")
-                print("📅 DailyUVExpose: \(allDailyData.count)개")
-                print("📝 UVExposeRecord: \(allRecordData.count)개")
-
-                // 현재 날씨 상태
-                if let current = currentWeather {
-                    print("\n🌤️ 현재 날씨:")
-                    print("   • 도시: \(current.city)")
-                    print(
-                        "   • 날짜: \(current.date.formatted(date: .abbreviated, time: .omitted))"
-                    )
-                    print("   • 시간별 데이터: \(current.hourlyWeathers.count)개")
-                    print(
-                        "   • 연결 상태: \(WatchConnectivityManager.shared.isReachable ? "연결됨" : "연결 안됨")"
-                    )
-                }
-
-                // 관계 검증
-                print("\n🔗 관계 검증:")
-                for location in allLocationData {
-                    let orphanedHourly = allHourlyData.filter {
-                        $0.locationWeather?.id != location.id
-                    }
-                    if !orphanedHourly.isEmpty {
-                        print("⚠️ 고아 HourlyWeather 발견: \(orphanedHourly.count)개")
-                    }
-
-                    let duplicateHours = Dictionary(
-                        grouping: location.hourlyWeathers,
-                        by: { $0.hour }
-                    )
-                    .filter { $0.value.count > 1 }
-                    if !duplicateHours.isEmpty {
-                        print("⚠️ 중복 시간 발견: \(duplicateHours.keys.sorted())")
-                    }
-                }
-
-                print("\n✅ SwiftData 상태 확인 완료")
-
-            } catch {
-                print("❌ SwiftData 상태 확인 실패: \(error)")
-            }
-        }
     }
 }

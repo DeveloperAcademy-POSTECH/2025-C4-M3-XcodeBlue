@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0507B56B2E37E066000E119C /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199962E3405430056E0E7 /* WatchConnectivityManager.swift */; };
 		0507B6222E37FD2C000E119C /* sunscreen_uv_info.json in Resources */ = {isa = PBXBuildFile; fileRef = 0507B6212E37FD2C000E119C /* sunscreen_uv_info.json */; };
 		8080F1572E20A0190094719D /* TarTanningWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 8080F14A2E20A0180094719D /* TarTanningWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8080F15F2E20A0740094719D /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 8080F15E2E20A0740094719D /* .swiftlint.yml */; };
@@ -41,12 +40,6 @@
 		BF9199B92E3405430056E0E7 /* HourlyWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199062E3405430056E0E7 /* HourlyWeather.swift */; };
 		BF9199BA2E3405430056E0E7 /* LocationWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199072E3405430056E0E7 /* LocationWeather.swift */; };
 		BF9199BB2E3405430056E0E7 /* DashboardInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91990A2E3405430056E0E7 /* DashboardInfoView.swift */; };
-		BF9199BC2E3405430056E0E7 /* DashboardSummaryMetricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91990B2E3405430056E0E7 /* DashboardSummaryMetricsView.swift */; };
-		BF9199BD2E3405430056E0E7 /* DashboardTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91990C2E3405430056E0E7 /* DashboardTimerView.swift */; };
-		BF9199BE2E3405430056E0E7 /* DashboardTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91990D2E3405430056E0E7 /* DashboardTitleView.swift */; };
-		BF9199BF2E3405430056E0E7 /* DashboardUVDoseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91990E2E3405430056E0E7 /* DashboardUVDoseView.swift */; };
-		BF9199C02E3405430056E0E7 /* DashboardUVProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91990F2E3405430056E0E7 /* DashboardUVProgressView.swift */; };
-		BF9199C12E3405430056E0E7 /* DashboardWeeklySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199102E3405430056E0E7 /* DashboardWeeklySummaryView.swift */; };
 		BF9199C22E3405430056E0E7 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199122E3405430056E0E7 /* DashboardView.swift */; };
 		BF9199C32E3405430056E0E7 /* DashboardInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199142E3405430056E0E7 /* DashboardInfoViewModel.swift */; };
 		BF9199C42E3405430056E0E7 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199152E3405430056E0E7 /* DashboardViewModel.swift */; };
@@ -67,39 +60,8 @@
 		BF9199D32E3405430056E0E7 /* UserInfoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91992C2E3405430056E0E7 /* UserInfoRow.swift */; };
 		BF9199D42E3405430056E0E7 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91992E2E3405430056E0E7 /* SettingView.swift */; };
 		BF9199D52E3405430056E0E7 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199302E3405430056E0E7 /* SettingViewModel.swift */; };
-		BF9199FF2E3405430056E0E7 /* NotificationActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91997F2E3405430056E0E7 /* NotificationActionType.swift */; };
-		BF919A002E3405430056E0E7 /* LocalNotificationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199812E3405430056E0E7 /* LocalNotificationError.swift */; };
-		BF919A012E3405430056E0E7 /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199822E3405430056E0E7 /* LocalNotificationManager.swift */; };
-		BF919A022E3405430056E0E7 /* NotificationCategoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199832E3405430056E0E7 /* NotificationCategoryType.swift */; };
-		BF919A032E3405430056E0E7 /* NotificationContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199842E3405430056E0E7 /* NotificationContentType.swift */; };
-		BF919A042E3405430056E0E7 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199852E3405430056E0E7 /* NotificationScheduler.swift */; };
-		BF919A052E3405430056E0E7 /* TimeInterval+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199872E3405430056E0E7 /* TimeInterval+String.swift */; };
-		BF919A062E3405430056E0E7 /* TimerNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199892E3405430056E0E7 /* TimerNotificationManager.swift */; };
-		BF919A072E3405430056E0E7 /* TimerSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91998A2E3405430056E0E7 /* TimerSyncManager.swift */; };
-		BF919A082E3405430056E0E7 /* TimerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91998C2E3405430056E0E7 /* TimerState.swift */; };
-		BF919A092E3405430056E0E7 /* TimerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91998E2E3405430056E0E7 /* TimerInfo.swift */; };
-		BF919A0A2E3405430056E0E7 /* TimerMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91998F2E3405430056E0E7 /* TimerMessage.swift */; };
-		BF919A0B2E3405430056E0E7 /* TimerStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199902E3405430056E0E7 /* TimerStorage.swift */; };
-		BF919A0C2E3405430056E0E7 /* SunscreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199922E3405430056E0E7 /* SunscreenViewModel.swift */; };
-		BF919A0D2E3405430056E0E7 /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199932E3405430056E0E7 /* TimerViewModel.swift */; };
-		BF919A0E2E3405430056E0E7 /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199962E3405430056E0E7 /* WatchConnectivityManager.swift */; };
 		BF919A0F2E3405430056E0E7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF9199522E3405430056E0E7 /* Preview Assets.xcassets */; };
 		BF919A102E3405430056E0E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF9199542E3405430056E0E7 /* Assets.xcassets */; };
-		BF919A122E3405430056E0E7 /* TimerMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91998F2E3405430056E0E7 /* TimerMessage.swift */; };
-		BF919A142E3405430056E0E7 /* NotificationActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91997F2E3405430056E0E7 /* NotificationActionType.swift */; };
-		BF919A152E3405430056E0E7 /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199932E3405430056E0E7 /* TimerViewModel.swift */; };
-		BF919A162E3405430056E0E7 /* TimerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91998E2E3405430056E0E7 /* TimerInfo.swift */; };
-		BF919A172E3405430056E0E7 /* TimerNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199892E3405430056E0E7 /* TimerNotificationManager.swift */; };
-		BF919A182E3405430056E0E7 /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199822E3405430056E0E7 /* LocalNotificationManager.swift */; };
-		BF919A192E3405430056E0E7 /* NotificationCategoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199832E3405430056E0E7 /* NotificationCategoryType.swift */; };
-		BF919A1A2E3405430056E0E7 /* NotificationContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199842E3405430056E0E7 /* NotificationContentType.swift */; };
-		BF919A1B2E3405430056E0E7 /* TimerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91998C2E3405430056E0E7 /* TimerState.swift */; };
-		BF919A1C2E3405430056E0E7 /* TimerStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199902E3405430056E0E7 /* TimerStorage.swift */; };
-		BF919A1D2E3405430056E0E7 /* SunscreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199922E3405430056E0E7 /* SunscreenViewModel.swift */; };
-		BF919A1E2E3405430056E0E7 /* TimerSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91998A2E3405430056E0E7 /* TimerSyncManager.swift */; };
-		BF919A1F2E3405430056E0E7 /* LocalNotificationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199812E3405430056E0E7 /* LocalNotificationError.swift */; };
-		BF919A202E3405430056E0E7 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199852E3405430056E0E7 /* NotificationScheduler.swift */; };
-		BF919A212E3405430056E0E7 /* TimeInterval+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199872E3405430056E0E7 /* TimeInterval+String.swift */; };
 		BF919A2A2E34096C0056E0E7 /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF919A292E34096C0056E0E7 /* UserDefaultManager.swift */; };
 		BF919A742E34C25A0056E0E7 /* WeatherManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF919A732E34C25A0056E0E7 /* WeatherManagerError.swift */; };
 /* End PBXBuildFile section */
@@ -163,12 +125,6 @@
 		BF9199062E3405430056E0E7 /* HourlyWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeather.swift; sourceTree = "<group>"; };
 		BF9199072E3405430056E0E7 /* LocationWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationWeather.swift; sourceTree = "<group>"; };
 		BF91990A2E3405430056E0E7 /* DashboardInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardInfoView.swift; sourceTree = "<group>"; };
-		BF91990B2E3405430056E0E7 /* DashboardSummaryMetricsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardSummaryMetricsView.swift; sourceTree = "<group>"; };
-		BF91990C2E3405430056E0E7 /* DashboardTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTimerView.swift; sourceTree = "<group>"; };
-		BF91990D2E3405430056E0E7 /* DashboardTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTitleView.swift; sourceTree = "<group>"; };
-		BF91990E2E3405430056E0E7 /* DashboardUVDoseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardUVDoseView.swift; sourceTree = "<group>"; };
-		BF91990F2E3405430056E0E7 /* DashboardUVProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardUVProgressView.swift; sourceTree = "<group>"; };
-		BF9199102E3405430056E0E7 /* DashboardWeeklySummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardWeeklySummaryView.swift; sourceTree = "<group>"; };
 		BF9199122E3405430056E0E7 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		BF9199142E3405430056E0E7 /* DashboardInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardInfoViewModel.swift; sourceTree = "<group>"; };
 		BF9199152E3405430056E0E7 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
@@ -191,47 +147,13 @@
 		BF9199302E3405430056E0E7 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		BF9199522E3405430056E0E7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BF9199542E3405430056E0E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		BF91997F2E3405430056E0E7 /* NotificationActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationActionType.swift; sourceTree = "<group>"; };
-		BF9199812E3405430056E0E7 /* LocalNotificationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationError.swift; sourceTree = "<group>"; };
-		BF9199822E3405430056E0E7 /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
-		BF9199832E3405430056E0E7 /* NotificationCategoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCategoryType.swift; sourceTree = "<group>"; };
-		BF9199842E3405430056E0E7 /* NotificationContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationContentType.swift; sourceTree = "<group>"; };
-		BF9199852E3405430056E0E7 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
-		BF9199872E3405430056E0E7 /* TimeInterval+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+String.swift"; sourceTree = "<group>"; };
-		BF9199892E3405430056E0E7 /* TimerNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerNotificationManager.swift; sourceTree = "<group>"; };
-		BF91998A2E3405430056E0E7 /* TimerSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerSyncManager.swift; sourceTree = "<group>"; };
-		BF91998C2E3405430056E0E7 /* TimerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerState.swift; sourceTree = "<group>"; };
-		BF91998E2E3405430056E0E7 /* TimerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerInfo.swift; sourceTree = "<group>"; };
-		BF91998F2E3405430056E0E7 /* TimerMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerMessage.swift; sourceTree = "<group>"; };
-		BF9199902E3405430056E0E7 /* TimerStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerStorage.swift; sourceTree = "<group>"; };
-		BF9199922E3405430056E0E7 /* SunscreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunscreenViewModel.swift; sourceTree = "<group>"; };
-		BF9199932E3405430056E0E7 /* TimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
-		BF9199962E3405430056E0E7 /* WatchConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityManager.swift; sourceTree = "<group>"; };
 		BF91999A2E3405430056E0E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF91999B2E3405430056E0E7 /* TarTanning.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TarTanning.entitlements; sourceTree = "<group>"; };
 		BF919A292E34096C0056E0E7 /* UserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
 		BF919A732E34C25A0056E0E7 /* WeatherManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManagerError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		0507B56C2E37E42F000E119C /* Exceptions for "UV" folder in "TarTanning" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				WatchDashboardSyncService.swift,
-			);
-			target = 8080F12B2E209F860094719D /* TarTanning */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		0507B5672E37E010000E119C /* UV */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				0507B56C2E37E42F000E119C /* Exceptions for "UV" folder in "TarTanning" target */,
-			);
-			path = UV;
-			sourceTree = "<group>";
-		};
 		8080F14B2E20A0180094719D /* TarTanningWatch Watch App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "TarTanningWatch Watch App";
@@ -473,12 +395,6 @@
 		BF9199112E3405430056E0E7 /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
-				BF91990C2E3405430056E0E7 /* DashboardTimerView.swift */,
-				BF91990B2E3405430056E0E7 /* DashboardSummaryMetricsView.swift */,
-				BF91990D2E3405430056E0E7 /* DashboardTitleView.swift */,
-				BF91990E2E3405430056E0E7 /* DashboardUVDoseView.swift */,
-				BF91990F2E3405430056E0E7 /* DashboardUVProgressView.swift */,
-				BF9199102E3405430056E0E7 /* DashboardWeeklySummaryView.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -633,110 +549,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		BF9199802E3405430056E0E7 /* Enum */ = {
-			isa = PBXGroup;
-			children = (
-				BF91997F2E3405430056E0E7 /* NotificationActionType.swift */,
-			);
-			path = Enum;
-			sourceTree = "<group>";
-		};
-		BF9199862E3405430056E0E7 /* Notification */ = {
-			isa = PBXGroup;
-			children = (
-				BF9199802E3405430056E0E7 /* Enum */,
-				BF9199812E3405430056E0E7 /* LocalNotificationError.swift */,
-				BF9199822E3405430056E0E7 /* LocalNotificationManager.swift */,
-				BF9199832E3405430056E0E7 /* NotificationCategoryType.swift */,
-				BF9199842E3405430056E0E7 /* NotificationContentType.swift */,
-				BF9199852E3405430056E0E7 /* NotificationScheduler.swift */,
-			);
-			path = Notification;
-			sourceTree = "<group>";
-		};
-		BF9199882E3405430056E0E7 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				BF9199872E3405430056E0E7 /* TimeInterval+String.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		BF91998B2E3405430056E0E7 /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-				BF9199892E3405430056E0E7 /* TimerNotificationManager.swift */,
-				BF91998A2E3405430056E0E7 /* TimerSyncManager.swift */,
-			);
-			path = Managers;
-			sourceTree = "<group>";
-		};
-		BF91998D2E3405430056E0E7 /* Enums */ = {
-			isa = PBXGroup;
-			children = (
-				BF91998C2E3405430056E0E7 /* TimerState.swift */,
-			);
-			path = Enums;
-			sourceTree = "<group>";
-		};
-		BF9199912E3405430056E0E7 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				BF91998D2E3405430056E0E7 /* Enums */,
-				BF91998E2E3405430056E0E7 /* TimerInfo.swift */,
-				BF91998F2E3405430056E0E7 /* TimerMessage.swift */,
-				BF9199902E3405430056E0E7 /* TimerStorage.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		BF9199942E3405430056E0E7 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				BF9199922E3405430056E0E7 /* SunscreenViewModel.swift */,
-				BF9199932E3405430056E0E7 /* TimerViewModel.swift */,
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		BF9199952E3405430056E0E7 /* Sunscreen */ = {
-			isa = PBXGroup;
-			children = (
-				BF9199882E3405430056E0E7 /* Extensions */,
-				BF91998B2E3405430056E0E7 /* Managers */,
-				BF9199912E3405430056E0E7 /* Models */,
-				BF9199942E3405430056E0E7 /* ViewModels */,
-			);
-			path = Sunscreen;
-			sourceTree = "<group>";
-		};
-		BF9199972E3405430056E0E7 /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-				BF9199962E3405430056E0E7 /* WatchConnectivityManager.swift */,
-			);
-			path = Managers;
-			sourceTree = "<group>";
-		};
-		BF9199982E3405430056E0E7 /* WatchConnectivity */ = {
-			isa = PBXGroup;
-			children = (
-				BF9199972E3405430056E0E7 /* Managers */,
-			);
-			path = WatchConnectivity;
-			sourceTree = "<group>";
-		};
-		BF9199992E3405430056E0E7 /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				0507B5672E37E010000E119C /* UV */,
-				BF9199862E3405430056E0E7 /* Notification */,
-				BF9199952E3405430056E0E7 /* Sunscreen */,
-				BF9199982E3405430056E0E7 /* WatchConnectivity */,
-			);
-			path = Shared;
-			sourceTree = "<group>";
-		};
 		BF91999C2E3405430056E0E7 /* TarTanning */ = {
 			isa = PBXGroup;
 			children = (
@@ -746,7 +558,6 @@
 				BF9199512E3405430056E0E7 /* Presenters */,
 				BF9199532E3405430056E0E7 /* Preview Content */,
 				BF9199552E3405430056E0E7 /* Resources */,
-				BF9199992E3405430056E0E7 /* Shared */,
 				BF91999A2E3405430056E0E7 /* Info.plist */,
 				BF91999B2E3405430056E0E7 /* TarTanning.entitlements */,
 			);
@@ -805,9 +616,6 @@
 			dependencies = (
 				8080F1562E20A0190094719D /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				0507B5672E37E010000E119C /* UV */,
-			);
 			name = TarTanning;
 			packageProductDependencies = (
 			);
@@ -828,7 +636,6 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				0507B5672E37E010000E119C /* UV */,
 				8080F14B2E20A0180094719D /* TarTanningWatch Watch App */,
 			);
 			name = "TarTanningWatch Watch App";
@@ -952,12 +759,6 @@
 				BF9199B92E3405430056E0E7 /* HourlyWeather.swift in Sources */,
 				BF9199BA2E3405430056E0E7 /* LocationWeather.swift in Sources */,
 				BF9199BB2E3405430056E0E7 /* DashboardInfoView.swift in Sources */,
-				BF9199BC2E3405430056E0E7 /* DashboardSummaryMetricsView.swift in Sources */,
-				BF9199BD2E3405430056E0E7 /* DashboardTimerView.swift in Sources */,
-				BF9199BE2E3405430056E0E7 /* DashboardTitleView.swift in Sources */,
-				BF9199BF2E3405430056E0E7 /* DashboardUVDoseView.swift in Sources */,
-				BF9199C02E3405430056E0E7 /* DashboardUVProgressView.swift in Sources */,
-				BF9199C12E3405430056E0E7 /* DashboardWeeklySummaryView.swift in Sources */,
 				BF9199C22E3405430056E0E7 /* DashboardView.swift in Sources */,
 				BF9199C32E3405430056E0E7 /* DashboardInfoViewModel.swift in Sources */,
 				BF9199C42E3405430056E0E7 /* DashboardViewModel.swift in Sources */,
@@ -981,23 +782,7 @@
 				BF9199D42E3405430056E0E7 /* SettingView.swift in Sources */,
 				BF9199D52E3405430056E0E7 /* SettingViewModel.swift in Sources */,
 				BF919A2A2E34096C0056E0E7 /* UserDefaultManager.swift in Sources */,
-				BF9199FF2E3405430056E0E7 /* NotificationActionType.swift in Sources */,
-				BF919A002E3405430056E0E7 /* LocalNotificationError.swift in Sources */,
-				BF919A012E3405430056E0E7 /* LocalNotificationManager.swift in Sources */,
-				BF919A022E3405430056E0E7 /* NotificationCategoryType.swift in Sources */,
-				BF919A032E3405430056E0E7 /* NotificationContentType.swift in Sources */,
-				BF919A042E3405430056E0E7 /* NotificationScheduler.swift in Sources */,
-				BF919A052E3405430056E0E7 /* TimeInterval+String.swift in Sources */,
-				BF919A062E3405430056E0E7 /* TimerNotificationManager.swift in Sources */,
-				BF919A072E3405430056E0E7 /* TimerSyncManager.swift in Sources */,
-				BF919A082E3405430056E0E7 /* TimerState.swift in Sources */,
-				BF919A092E3405430056E0E7 /* TimerInfo.swift in Sources */,
-				BF919A0A2E3405430056E0E7 /* TimerMessage.swift in Sources */,
-				BF919A0B2E3405430056E0E7 /* TimerStorage.swift in Sources */,
-				BF919A0C2E3405430056E0E7 /* SunscreenViewModel.swift in Sources */,
 				BF55DA0C2E3716AA00074104 /* MainView.swift in Sources */,
-				BF919A0D2E3405430056E0E7 /* TimerViewModel.swift in Sources */,
-				BF919A0E2E3405430056E0E7 /* WatchConnectivityManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1005,22 +790,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF919A122E3405430056E0E7 /* TimerMessage.swift in Sources */,
-				BF919A142E3405430056E0E7 /* NotificationActionType.swift in Sources */,
-				BF919A152E3405430056E0E7 /* TimerViewModel.swift in Sources */,
-				BF919A162E3405430056E0E7 /* TimerInfo.swift in Sources */,
-				BF919A172E3405430056E0E7 /* TimerNotificationManager.swift in Sources */,
-				BF919A182E3405430056E0E7 /* LocalNotificationManager.swift in Sources */,
-				BF919A192E3405430056E0E7 /* NotificationCategoryType.swift in Sources */,
-				BF919A1A2E3405430056E0E7 /* NotificationContentType.swift in Sources */,
-				0507B56B2E37E066000E119C /* WatchConnectivityManager.swift in Sources */,
-				BF919A1B2E3405430056E0E7 /* TimerState.swift in Sources */,
-				BF919A1C2E3405430056E0E7 /* TimerStorage.swift in Sources */,
-				BF919A1D2E3405430056E0E7 /* SunscreenViewModel.swift in Sources */,
-				BF919A1E2E3405430056E0E7 /* TimerSyncManager.swift in Sources */,
-				BF919A1F2E3405430056E0E7 /* LocalNotificationError.swift in Sources */,
-				BF919A202E3405430056E0E7 /* NotificationScheduler.swift in Sources */,
-				BF919A212E3405430056E0E7 /* TimeInterval+String.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

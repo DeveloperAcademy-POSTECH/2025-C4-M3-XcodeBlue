@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		8080F1572E20A0190094719D /* TarTanningWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 8080F14A2E20A0180094719D /* TarTanningWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8080F15F2E20A0740094719D /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 8080F15E2E20A0740094719D /* .swiftlint.yml */; };
-		BF919A0F2E3405430056E0E7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF9199522E3405430056E0E7 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,39 +39,13 @@
 		8080F12C2E209F860094719D /* TarTanning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TarTanning.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8080F14A2E20A0180094719D /* TarTanningWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TarTanningWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8080F15E2E20A0740094719D /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		BF9199522E3405430056E0E7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		BF91999A2E3405430056E0E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BF91999B2E3405430056E0E7 /* TarTanning.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TarTanning.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		BF0F502C2E4CE05100001550 /* Exceptions for "Utilities" folder in "TarTanning" target */ = {
+		BF0F51702E4CE16500001550 /* Exceptions for "TarTanning" folder in "TarTanning" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				"Extensions/Date+Extension.swift",
-				Manager/HealthKit/Enum/HealthKitAuthStatus.swift,
-				Manager/HealthKit/Enum/HealthKitError.swift,
-				Manager/HealthKit/HealthKitAuthorizationManager.swift,
-				Manager/HealthKit/HealthKitBackgroundManager.swift,
-				Manager/HealthKit/HealthKitQueryFetchManager.swift,
-				Manager/Location/Enum/LocationAuthStatus.swift,
-				Manager/Location/Enum/LocationError.swift,
-				Manager/Location/LocationAuthorizationManager.swift,
-				Manager/Location/LocationManager.swift,
-				Manager/Location/LocationUpdateManager.swift,
-				Manager/Notification/Enum/NotificationAuthStatus.swift,
-				Manager/Notification/NotificationAuthorizationManager.swift,
-				Manager/UserDefaults/UserDefaultManager.swift,
-				Manager/WeatherKit/Enum/WeatherManagerError.swift,
-				Manager/WeatherKit/WeatherKitManager.swift,
-			);
-			target = 8080F12B2E209F860094719D /* TarTanning */;
-		};
-		BF0F50D62E4CE0B100001550 /* Exceptions for "Resource" folder in "TarTanning" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Assets.xcassets,
-				sunscreen_uv_info.json,
+				Info.plist,
 			);
 			target = 8080F12B2E209F860094719D /* TarTanning */;
 		};
@@ -84,35 +57,12 @@
 			path = "TarTanningWatch Watch App";
 			sourceTree = "<group>";
 		};
-		BF0F50032E4CE04800001550 /* Utilities */ = {
+		BF0F50D72E4CE15500001550 /* TarTanning */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				BF0F502C2E4CE05100001550 /* Exceptions for "Utilities" folder in "TarTanning" target */,
+				BF0F51702E4CE16500001550 /* Exceptions for "TarTanning" folder in "TarTanning" target */,
 			);
-			path = Utilities;
-			sourceTree = "<group>";
-		};
-		BF0F50452E4CE06700001550 /* Data */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Data;
-			sourceTree = "<group>";
-		};
-		BF0F50542E4CE06B00001550 /* Application */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Application;
-			sourceTree = "<group>";
-		};
-		BF0F50962E4CE08000001550 /* Presenter */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		BF0F50D52E4CE0AE00001550 /* Resource */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				BF0F50D62E4CE0B100001550 /* Exceptions for "Resource" folder in "TarTanning" target */,
-			);
-			path = Resource;
+			path = TarTanning;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -138,8 +88,8 @@
 		8080F1232E209F860094719D = {
 			isa = PBXGroup;
 			children = (
+				BF0F50D72E4CE15500001550 /* TarTanning */,
 				8080F15E2E20A0740094719D /* .swiftlint.yml */,
-				BF91999C2E3405430056E0E7 /* TarTanning */,
 				8080F14B2E20A0180094719D /* TarTanningWatch Watch App */,
 				8080F12D2E209F860094719D /* Products */,
 			);
@@ -152,29 +102,6 @@
 				8080F14A2E20A0180094719D /* TarTanningWatch Watch App.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		BF9199532E3405430056E0E7 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				BF9199522E3405430056E0E7 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		BF91999C2E3405430056E0E7 /* TarTanning */ = {
-			isa = PBXGroup;
-			children = (
-				BF0F50D52E4CE0AE00001550 /* Resource */,
-				BF0F50962E4CE08000001550 /* Presenter */,
-				BF0F50032E4CE04800001550 /* Utilities */,
-				BF0F50452E4CE06700001550 /* Data */,
-				BF0F50542E4CE06B00001550 /* Application */,
-				BF9199532E3405430056E0E7 /* Preview Content */,
-				BF91999A2E3405430056E0E7 /* Info.plist */,
-				BF91999B2E3405430056E0E7 /* TarTanning.entitlements */,
-			);
-			path = TarTanning;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,9 +123,7 @@
 				8080F1562E20A0190094719D /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				BF0F50452E4CE06700001550 /* Data */,
-				BF0F50542E4CE06B00001550 /* Application */,
-				BF0F50962E4CE08000001550 /* Presenter */,
+				BF0F50D72E4CE15500001550 /* TarTanning */,
 			);
 			name = TarTanning;
 			packageProductDependencies = (
@@ -272,7 +197,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF919A0F2E3405430056E0E7 /* Preview Assets.xcassets in Resources */,
 				8080F15F2E20A0740094719D /* .swiftlint.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

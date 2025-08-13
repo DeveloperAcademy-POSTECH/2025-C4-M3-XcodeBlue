@@ -30,9 +30,7 @@
 		BF9199A42E3405430056E0E7 /* HealthKitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198E62E3405430056E0E7 /* HealthKitError.swift */; };
 		BF9199A52E3405430056E0E7 /* HealthKitAuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198E82E3405430056E0E7 /* HealthKitAuthorizationManager.swift */; };
 		BF9199A62E3405430056E0E7 /* HealthKitBackgroundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198E92E3405430056E0E7 /* HealthKitBackgroundManager.swift */; };
-		BF9199A72E3405430056E0E7 /* HealthKitDataQueryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198EA2E3405430056E0E7 /* HealthKitDataQueryManager.swift */; };
 		BF9199A82E3405430056E0E7 /* HealthKitQueryFetchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198EB2E3405430056E0E7 /* HealthKitQueryFetchManager.swift */; };
-		BF9199A92E3405430056E0E7 /* HealthKitQueryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198EC2E3405430056E0E7 /* HealthKitQueryManager.swift */; };
 		BF9199AA2E3405430056E0E7 /* LocationAuthStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198EE2E3405430056E0E7 /* LocationAuthStatus.swift */; };
 		BF9199AB2E3405430056E0E7 /* LocationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198EF2E3405430056E0E7 /* LocationError.swift */; };
 		BF9199AC2E3405430056E0E7 /* LocationAuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198F12E3405430056E0E7 /* LocationAuthorizationManager.swift */; };
@@ -181,9 +179,7 @@
 		BF9198E62E3405430056E0E7 /* HealthKitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitError.swift; sourceTree = "<group>"; };
 		BF9198E82E3405430056E0E7 /* HealthKitAuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitAuthorizationManager.swift; sourceTree = "<group>"; };
 		BF9198E92E3405430056E0E7 /* HealthKitBackgroundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitBackgroundManager.swift; sourceTree = "<group>"; };
-		BF9198EA2E3405430056E0E7 /* HealthKitDataQueryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitDataQueryManager.swift; sourceTree = "<group>"; };
 		BF9198EB2E3405430056E0E7 /* HealthKitQueryFetchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitQueryFetchManager.swift; sourceTree = "<group>"; };
-		BF9198EC2E3405430056E0E7 /* HealthKitQueryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitQueryManager.swift; sourceTree = "<group>"; };
 		BF9198EE2E3405430056E0E7 /* LocationAuthStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAuthStatus.swift; sourceTree = "<group>"; };
 		BF9198EF2E3405430056E0E7 /* LocationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationError.swift; sourceTree = "<group>"; };
 		BF9198F12E3405430056E0E7 /* LocationAuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAuthorizationManager.swift; sourceTree = "<group>"; };
@@ -351,15 +347,6 @@
 				BF9198E32E3405430056E0E7 /* Extensions */,
 			);
 			path = Utility;
-			sourceTree = "<group>";
-		};
-		BF55D7422E36B44A00074104 /* Unuse */ = {
-			isa = PBXGroup;
-			children = (
-				BF9198EA2E3405430056E0E7 /* HealthKitDataQueryManager.swift */,
-				BF9198EC2E3405430056E0E7 /* HealthKitQueryManager.swift */,
-			);
-			path = Unuse;
 			sourceTree = "<group>";
 		};
 		BF55DAC42E374BD700074104 /* Info */ = {
@@ -962,7 +949,6 @@
 			children = (
 				BF0F4FB12E4CD48100001550 /* Utility */,
 				BF919A242E3408790056E0E7 /* Data */,
-				BF919A232E34086F0056E0E7 /* Infrastructure */,
 				BF919A222E3408520056E0E7 /* Domain */,
 				BF9198E02E3405430056E0E7 /* Application */,
 				BF9199512E3405430056E0E7 /* Presentations */,
@@ -981,14 +967,6 @@
 				BF91997E2E3405430056E0E7 /* Usecases */,
 			);
 			path = Domain;
-			sourceTree = "<group>";
-		};
-		BF919A232E34086F0056E0E7 /* Infrastructure */ = {
-			isa = PBXGroup;
-			children = (
-				BF55D7422E36B44A00074104 /* Unuse */,
-			);
-			path = Infrastructure;
 			sourceTree = "<group>";
 		};
 		BF919A242E3408790056E0E7 /* Data */ = {
@@ -1180,9 +1158,7 @@
 				BF9199A42E3405430056E0E7 /* HealthKitError.swift in Sources */,
 				BF9199A52E3405430056E0E7 /* HealthKitAuthorizationManager.swift in Sources */,
 				BF9199A62E3405430056E0E7 /* HealthKitBackgroundManager.swift in Sources */,
-				BF9199A72E3405430056E0E7 /* HealthKitDataQueryManager.swift in Sources */,
 				BF9199A82E3405430056E0E7 /* HealthKitQueryFetchManager.swift in Sources */,
-				BF9199A92E3405430056E0E7 /* HealthKitQueryManager.swift in Sources */,
 				BF9199AA2E3405430056E0E7 /* LocationAuthStatus.swift in Sources */,
 				BF9199AB2E3405430056E0E7 /* LocationError.swift in Sources */,
 				BF55D6BB2E352AD800074104 /* GetWeatherDataUseCase.swift in Sources */,

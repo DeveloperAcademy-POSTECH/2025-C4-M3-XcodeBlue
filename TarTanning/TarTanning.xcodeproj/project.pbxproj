@@ -344,6 +344,15 @@
 			path = LocalDatabase;
 			sourceTree = "<group>";
 		};
+		BF0F4FB12E4CD48100001550 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				BF9198FA2E3405430056E0E7 /* Managers */,
+				BF9198E32E3405430056E0E7 /* Extensions */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		BF55D7422E36B44A00074104 /* Unuse */ = {
 			isa = PBXGroup;
 			children = (
@@ -403,14 +412,6 @@
 				BF9198E22E3405430056E0E7 /* Date+Extension.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		BF9198E42E3405430056E0E7 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				BF9198E32E3405430056E0E7 /* Extensions */,
-			);
-			path = Helpers;
 			sourceTree = "<group>";
 		};
 		BF9198E72E3405430056E0E7 /* Enum */ = {
@@ -959,11 +960,11 @@
 		BF91999C2E3405430056E0E7 /* TarTanning */ = {
 			isa = PBXGroup;
 			children = (
+				BF0F4FB12E4CD48100001550 /* Utility */,
 				BF919A242E3408790056E0E7 /* Data */,
 				BF919A232E34086F0056E0E7 /* Infrastructure */,
 				BF919A222E3408520056E0E7 /* Domain */,
 				BF9198E02E3405430056E0E7 /* Application */,
-				BF9198E42E3405430056E0E7 /* Helpers */,
 				BF9199512E3405430056E0E7 /* Presentations */,
 				BF9199532E3405430056E0E7 /* Preview Content */,
 				BF9199552E3405430056E0E7 /* Resources */,
@@ -986,7 +987,6 @@
 			isa = PBXGroup;
 			children = (
 				BF55D7422E36B44A00074104 /* Unuse */,
-				BF9198FA2E3405430056E0E7 /* Managers */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";

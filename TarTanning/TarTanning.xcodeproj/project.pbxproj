@@ -638,7 +638,7 @@
 			path = Setting;
 			sourceTree = "<group>";
 		};
-		BF9199512E3405430056E0E7 /* Presentations */ = {
+		BF9199512E3405430056E0E7 /* Presenters */ = {
 			isa = PBXGroup;
 			children = (
 				BF55DAC42E374BD700074104 /* Info */,
@@ -647,7 +647,7 @@
 				BF91992A2E3405430056E0E7 /* Root */,
 				BF9199322E3405430056E0E7 /* Setting */,
 			);
-			path = Presentations;
+			path = Presenters;
 			sourceTree = "<group>";
 		};
 		BF9199532E3405430056E0E7 /* Preview Content */ = {
@@ -841,7 +841,7 @@
 				BF919A242E3408790056E0E7 /* Data */,
 				BF919A222E3408520056E0E7 /* Domain */,
 				BF9198E02E3405430056E0E7 /* Application */,
-				BF9199512E3405430056E0E7 /* Presentations */,
+				BF9199512E3405430056E0E7 /* Presenters */,
 				BF9199532E3405430056E0E7 /* Preview Content */,
 				BF9199552E3405430056E0E7 /* Resources */,
 				BF9199992E3405430056E0E7 /* Shared */,

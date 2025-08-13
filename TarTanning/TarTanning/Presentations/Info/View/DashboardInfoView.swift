@@ -4,7 +4,6 @@
 //
 //  Created by 강진 on 7/21/25.
 //
-// test
 
 import SwiftUI
 

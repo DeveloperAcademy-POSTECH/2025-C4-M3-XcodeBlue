@@ -334,6 +334,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		BF0F4FB02E4CD42A00001550 /* LocalDatabase */ = {
+			isa = PBXGroup;
+			children = (
+				BF9199022E3405430056E0E7 /* User */,
+				BF9199082E3405430056E0E7 /* Weather */,
+				BF9199052E3405430056E0E7 /* UVExposure */,
+			);
+			path = LocalDatabase;
+			sourceTree = "<group>";
+		};
 		BF55D7422E36B44A00074104 /* Unuse */ = {
 			isa = PBXGroup;
 			children = (
@@ -522,9 +532,6 @@
 				BF55DBFD2E38F21200074104 /* Info */,
 				BF9198FC2E3405430056E0E7 /* Location */,
 				BF9198FE2E3405430056E0E7 /* Sunscreen */,
-				BF9199022E3405430056E0E7 /* User */,
-				BF9199052E3405430056E0E7 /* UVExposure */,
-				BF9199082E3405430056E0E7 /* Weather */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -987,6 +994,7 @@
 		BF919A242E3408790056E0E7 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				BF0F4FB02E4CD42A00001550 /* LocalDatabase */,
 				BF9199092E3405430056E0E7 /* Models */,
 			);
 			path = Data;

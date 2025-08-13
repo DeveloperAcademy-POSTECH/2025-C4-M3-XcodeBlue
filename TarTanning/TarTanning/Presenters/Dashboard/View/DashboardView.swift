@@ -116,16 +116,6 @@ struct SwiftDataDebugView: View {
                         refreshData()
                     }
 
-                    Button("HealthKit 동기화") {
-                        syncHealthKitData()
-                    }
-                    .foregroundColor(.blue)
-
-                    Button("UV Dose 계산") {
-                        calculateUVDose()
-                    }
-                    .foregroundColor(.orange)
-
                     Button("상세 로그 출력") {
                         viewModel.logDetailedSwiftDataStatus()
                     }
@@ -144,9 +134,6 @@ struct SwiftDataDebugView: View {
                 }
             }
             .onAppear {
-                refreshData()
-            }
-            .onChange(of: refreshTrigger) { _ in
                 refreshData()
             }
         }
@@ -190,28 +177,6 @@ struct SwiftDataDebugView: View {
 
             } catch {
                 print("❌ 데이터 새로고침 실패: \(error)")
-            }
-        }
-    }
-
-    private func syncHealthKitData() {
-        Task { @MainActor in
-            do {
-                refreshData()
-            } catch {
-                print("❌ HealthKit 동기화 실패: \(error)")
-                throw error
-            }
-        }
-    }
-
-    private func calculateUVDose() {
-        Task { @MainActor in
-            do {
-                try await viewModel.calculateUVDoseForDebug()
-                refreshData()
-            } catch {
-                print("❌ UV Dose 계산 실패: \(error)")
             }
         }
     }

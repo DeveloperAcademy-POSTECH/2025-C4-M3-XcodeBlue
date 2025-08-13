@@ -9,16 +9,8 @@
 /* Begin PBXBuildFile section */
 		0507B56B2E37E066000E119C /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199962E3405430056E0E7 /* WatchConnectivityManager.swift */; };
 		0507B6222E37FD2C000E119C /* sunscreen_uv_info.json in Resources */ = {isa = PBXBuildFile; fileRef = 0507B6212E37FD2C000E119C /* sunscreen_uv_info.json */; };
-		802AB1CA2E37191D0006476F /* SyncUVDataInBackgroundUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802AB1C92E37191D0006476F /* SyncUVDataInBackgroundUseCase.swift */; };
-		802AB2BC2E3753C60006476F /* SendUVIndexNotificationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802AB2BB2E3753C60006476F /* SendUVIndexNotificationUseCase.swift */; };
 		8080F1572E20A0190094719D /* TarTanningWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 8080F14A2E20A0180094719D /* TarTanningWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8080F15F2E20A0740094719D /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 8080F15E2E20A0740094719D /* .swiftlint.yml */; };
-		BF55D6BB2E352AD800074104 /* GetWeatherDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55D6B92E352AD800074104 /* GetWeatherDataUseCase.swift */; };
-		BF55D6BC2E352AD800074104 /* SyncWeatherDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55D6BA2E352AD800074104 /* SyncWeatherDataUseCase.swift */; };
-		BF55D6FE2E35345400074104 /* GetUserProfileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55D6FD2E35345400074104 /* GetUserProfileUseCase.swift */; };
-		BF55D7002E35345C00074104 /* UpdateUserProfileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55D6FF2E35345C00074104 /* UpdateUserProfileUseCase.swift */; };
-		BF55D7032E353BA500074104 /* CalculateAndSaveUVDoseUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55D7012E353BA500074104 /* CalculateAndSaveUVDoseUseCase.swift */; };
-		BF55D7042E353BA500074104 /* SyncUVDataFromHealthKitUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55D7022E353BA500074104 /* SyncUVDataFromHealthKitUseCase.swift */; };
 		BF55DA0C2E3716AA00074104 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55DA0B2E3716AA00074104 /* MainView.swift */; };
 		BF55DBFE2E38F21200074104 /* SunscreenInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55DBFC2E38F21200074104 /* SunscreenInfoModel.swift */; };
 		BF91999D2E3405430056E0E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198DC2E3405430056E0E7 /* AppDelegate.swift */; };
@@ -75,15 +67,6 @@
 		BF9199D32E3405430056E0E7 /* UserInfoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91992C2E3405430056E0E7 /* UserInfoRow.swift */; };
 		BF9199D42E3405430056E0E7 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91992E2E3405430056E0E7 /* SettingView.swift */; };
 		BF9199D52E3405430056E0E7 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199302E3405430056E0E7 /* SettingViewModel.swift */; };
-		BF9199F12E3405430056E0E7 /* ScheduleSunscreenReminderUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91996A2E3405430056E0E7 /* ScheduleSunscreenReminderUseCase.swift */; };
-		BF9199F22E3405430056E0E7 /* SendUVWarningNotificationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91996B2E3405430056E0E7 /* SendUVWarningNotificationUseCase.swift */; };
-		BF9199F32E3405430056E0E7 /* RequestAllPermissionsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91996D2E3405430056E0E7 /* RequestAllPermissionsUseCase.swift */; };
-		BF9199F42E3405430056E0E7 /* ValidatePermissionStatusUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91996E2E3405430056E0E7 /* ValidatePermissionStatusUseCase.swift */; };
-		BF9199F52E3405430056E0E7 /* StartSunscreenTimerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199702E3405430056E0E7 /* StartSunscreenTimerUseCase.swift */; };
-		BF9199F62E3405430056E0E7 /* SyncTimerStateUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199712E3405430056E0E7 /* SyncTimerStateUseCase.swift */; };
-		BF9199FA2E3405430056E0E7 /* GetTodayUVExposureUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199772E3405430056E0E7 /* GetTodayUVExposureUseCase.swift */; };
-		BF9199FB2E3405430056E0E7 /* GetWeeklyUVTrendUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199782E3405430056E0E7 /* GetWeeklyUVTrendUseCase.swift */; };
-		BF9199FC2E3405430056E0E7 /* MEDCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199792E3405430056E0E7 /* MEDCalculator.swift */; };
 		BF9199FF2E3405430056E0E7 /* NotificationActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91997F2E3405430056E0E7 /* NotificationActionType.swift */; };
 		BF919A002E3405430056E0E7 /* LocalNotificationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199812E3405430056E0E7 /* LocalNotificationError.swift */; };
 		BF919A012E3405430056E0E7 /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199822E3405430056E0E7 /* LocalNotificationManager.swift */; };
@@ -147,17 +130,9 @@
 
 /* Begin PBXFileReference section */
 		0507B6212E37FD2C000E119C /* sunscreen_uv_info.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sunscreen_uv_info.json; sourceTree = "<group>"; };
-		802AB1C92E37191D0006476F /* SyncUVDataInBackgroundUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUVDataInBackgroundUseCase.swift; sourceTree = "<group>"; };
-		802AB2BB2E3753C60006476F /* SendUVIndexNotificationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendUVIndexNotificationUseCase.swift; sourceTree = "<group>"; };
 		8080F12C2E209F860094719D /* TarTanning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TarTanning.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8080F14A2E20A0180094719D /* TarTanningWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TarTanningWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8080F15E2E20A0740094719D /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		BF55D6B92E352AD800074104 /* GetWeatherDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWeatherDataUseCase.swift; sourceTree = "<group>"; };
-		BF55D6BA2E352AD800074104 /* SyncWeatherDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncWeatherDataUseCase.swift; sourceTree = "<group>"; };
-		BF55D6FD2E35345400074104 /* GetUserProfileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserProfileUseCase.swift; sourceTree = "<group>"; };
-		BF55D6FF2E35345C00074104 /* UpdateUserProfileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserProfileUseCase.swift; sourceTree = "<group>"; };
-		BF55D7012E353BA500074104 /* CalculateAndSaveUVDoseUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateAndSaveUVDoseUseCase.swift; sourceTree = "<group>"; };
-		BF55D7022E353BA500074104 /* SyncUVDataFromHealthKitUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUVDataFromHealthKitUseCase.swift; sourceTree = "<group>"; };
 		BF55DA0B2E3716AA00074104 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		BF55DBFC2E38F21200074104 /* SunscreenInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunscreenInfoModel.swift; sourceTree = "<group>"; };
 		BF9198DC2E3405430056E0E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -216,15 +191,6 @@
 		BF9199302E3405430056E0E7 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		BF9199522E3405430056E0E7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BF9199542E3405430056E0E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		BF91996A2E3405430056E0E7 /* ScheduleSunscreenReminderUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleSunscreenReminderUseCase.swift; sourceTree = "<group>"; };
-		BF91996B2E3405430056E0E7 /* SendUVWarningNotificationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendUVWarningNotificationUseCase.swift; sourceTree = "<group>"; };
-		BF91996D2E3405430056E0E7 /* RequestAllPermissionsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestAllPermissionsUseCase.swift; sourceTree = "<group>"; };
-		BF91996E2E3405430056E0E7 /* ValidatePermissionStatusUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatePermissionStatusUseCase.swift; sourceTree = "<group>"; };
-		BF9199702E3405430056E0E7 /* StartSunscreenTimerUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSunscreenTimerUseCase.swift; sourceTree = "<group>"; };
-		BF9199712E3405430056E0E7 /* SyncTimerStateUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncTimerStateUseCase.swift; sourceTree = "<group>"; };
-		BF9199772E3405430056E0E7 /* GetTodayUVExposureUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTodayUVExposureUseCase.swift; sourceTree = "<group>"; };
-		BF9199782E3405430056E0E7 /* GetWeeklyUVTrendUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetWeeklyUVTrendUseCase.swift; sourceTree = "<group>"; };
-		BF9199792E3405430056E0E7 /* MEDCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MEDCalculator.swift; sourceTree = "<group>"; };
 		BF91997F2E3405430056E0E7 /* NotificationActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationActionType.swift; sourceTree = "<group>"; };
 		BF9199812E3405430056E0E7 /* LocalNotificationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationError.swift; sourceTree = "<group>"; };
 		BF9199822E3405430056E0E7 /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
@@ -667,69 +633,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		BF91996C2E3405430056E0E7 /* Notification */ = {
-			isa = PBXGroup;
-			children = (
-				BF91996A2E3405430056E0E7 /* ScheduleSunscreenReminderUseCase.swift */,
-				BF91996B2E3405430056E0E7 /* SendUVWarningNotificationUseCase.swift */,
-				802AB2BB2E3753C60006476F /* SendUVIndexNotificationUseCase.swift */,
-			);
-			path = Notification;
-			sourceTree = "<group>";
-		};
-		BF91996F2E3405430056E0E7 /* Permission */ = {
-			isa = PBXGroup;
-			children = (
-				BF91996D2E3405430056E0E7 /* RequestAllPermissionsUseCase.swift */,
-				BF91996E2E3405430056E0E7 /* ValidatePermissionStatusUseCase.swift */,
-			);
-			path = Permission;
-			sourceTree = "<group>";
-		};
-		BF9199722E3405430056E0E7 /* Sunscreen */ = {
-			isa = PBXGroup;
-			children = (
-				BF9199702E3405430056E0E7 /* StartSunscreenTimerUseCase.swift */,
-				BF9199712E3405430056E0E7 /* SyncTimerStateUseCase.swift */,
-			);
-			path = Sunscreen;
-			sourceTree = "<group>";
-		};
-		BF9199752E3405430056E0E7 /* UserProfile */ = {
-			isa = PBXGroup;
-			children = (
-				BF55D6FD2E35345400074104 /* GetUserProfileUseCase.swift */,
-				BF55D6FF2E35345C00074104 /* UpdateUserProfileUseCase.swift */,
-			);
-			path = UserProfile;
-			sourceTree = "<group>";
-		};
-		BF91997A2E3405430056E0E7 /* UVExposure */ = {
-			isa = PBXGroup;
-			children = (
-				BF9199772E3405430056E0E7 /* GetTodayUVExposureUseCase.swift */,
-				BF55D7012E353BA500074104 /* CalculateAndSaveUVDoseUseCase.swift */,
-				BF55D7022E353BA500074104 /* SyncUVDataFromHealthKitUseCase.swift */,
-				BF9199782E3405430056E0E7 /* GetWeeklyUVTrendUseCase.swift */,
-				BF9199792E3405430056E0E7 /* MEDCalculator.swift */,
-				802AB1C92E37191D0006476F /* SyncUVDataInBackgroundUseCase.swift */,
-			);
-			path = UVExposure;
-			sourceTree = "<group>";
-		};
-		BF91997E2E3405430056E0E7 /* Usecases */ = {
-			isa = PBXGroup;
-			children = (
-				BF919A252E3408A80056E0E7 /* Weather */,
-				BF91996C2E3405430056E0E7 /* Notification */,
-				BF91996F2E3405430056E0E7 /* Permission */,
-				BF9199722E3405430056E0E7 /* Sunscreen */,
-				BF9199752E3405430056E0E7 /* UserProfile */,
-				BF91997A2E3405430056E0E7 /* UVExposure */,
-			);
-			path = Usecases;
-			sourceTree = "<group>";
-		};
 		BF9199802E3405430056E0E7 /* Enum */ = {
 			isa = PBXGroup;
 			children = (
@@ -839,7 +742,6 @@
 			children = (
 				BF0F4FB12E4CD48100001550 /* Utility */,
 				BF919A242E3408790056E0E7 /* Data */,
-				BF919A222E3408520056E0E7 /* Domain */,
 				BF9198E02E3405430056E0E7 /* Application */,
 				BF9199512E3405430056E0E7 /* Presenters */,
 				BF9199532E3405430056E0E7 /* Preview Content */,
@@ -851,14 +753,6 @@
 			path = TarTanning;
 			sourceTree = "<group>";
 		};
-		BF919A222E3408520056E0E7 /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-				BF91997E2E3405430056E0E7 /* Usecases */,
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
 		BF919A242E3408790056E0E7 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -866,15 +760,6 @@
 				BF9199092E3405430056E0E7 /* Models */,
 			);
 			path = Data;
-			sourceTree = "<group>";
-		};
-		BF919A252E3408A80056E0E7 /* Weather */ = {
-			isa = PBXGroup;
-			children = (
-				BF55D6B92E352AD800074104 /* GetWeatherDataUseCase.swift */,
-				BF55D6BA2E352AD800074104 /* SyncWeatherDataUseCase.swift */,
-			);
-			path = Weather;
 			sourceTree = "<group>";
 		};
 		BF919A272E3409230056E0E7 /* WeatherKit */ = {
@@ -1051,8 +936,6 @@
 				BF9199A82E3405430056E0E7 /* HealthKitQueryFetchManager.swift in Sources */,
 				BF9199AA2E3405430056E0E7 /* LocationAuthStatus.swift in Sources */,
 				BF9199AB2E3405430056E0E7 /* LocationError.swift in Sources */,
-				BF55D6BB2E352AD800074104 /* GetWeatherDataUseCase.swift in Sources */,
-				BF55D6BC2E352AD800074104 /* SyncWeatherDataUseCase.swift in Sources */,
 				BF9199AC2E3405430056E0E7 /* LocationAuthorizationManager.swift in Sources */,
 				BF9199AD2E3405430056E0E7 /* LocationUpdateManager.swift in Sources */,
 				BF9199AE2E3405430056E0E7 /* NotificationAuthStatus.swift in Sources */,
@@ -1070,11 +953,9 @@
 				BF9199BA2E3405430056E0E7 /* LocationWeather.swift in Sources */,
 				BF9199BB2E3405430056E0E7 /* DashboardInfoView.swift in Sources */,
 				BF9199BC2E3405430056E0E7 /* DashboardSummaryMetricsView.swift in Sources */,
-				BF55D6FE2E35345400074104 /* GetUserProfileUseCase.swift in Sources */,
 				BF9199BD2E3405430056E0E7 /* DashboardTimerView.swift in Sources */,
 				BF9199BE2E3405430056E0E7 /* DashboardTitleView.swift in Sources */,
 				BF9199BF2E3405430056E0E7 /* DashboardUVDoseView.swift in Sources */,
-				802AB1CA2E37191D0006476F /* SyncUVDataInBackgroundUseCase.swift in Sources */,
 				BF9199C02E3405430056E0E7 /* DashboardUVProgressView.swift in Sources */,
 				BF9199C12E3405430056E0E7 /* DashboardWeeklySummaryView.swift in Sources */,
 				BF9199C22E3405430056E0E7 /* DashboardView.swift in Sources */,
@@ -1084,7 +965,6 @@
 				BF9199C62E3405430056E0E7 /* InfoItem.swift in Sources */,
 				BF9199C72E3405430056E0E7 /* OnboardingButton.swift in Sources */,
 				BF9199C82E3405430056E0E7 /* SkinTypeItem.swift in Sources */,
-				802AB2BC2E3753C60006476F /* SendUVIndexNotificationUseCase.swift in Sources */,
 				BF9199C92E3405430056E0E7 /* OnboardingStep.swift in Sources */,
 				BF9199CA2E3405430056E0E7 /* OnboardingPermissionInfoView.swift in Sources */,
 				BF9199CB2E3405430056E0E7 /* OnboardingSkinTypeDetailView.swift in Sources */,
@@ -1096,23 +976,11 @@
 				BF919A742E34C25A0056E0E7 /* WeatherManagerError.swift in Sources */,
 				BF9199D02E3405430056E0E7 /* OnboardingView.swift in Sources */,
 				BF9199D12E3405430056E0E7 /* RootView.swift in Sources */,
-				BF55D7032E353BA500074104 /* CalculateAndSaveUVDoseUseCase.swift in Sources */,
-				BF55D7042E353BA500074104 /* SyncUVDataFromHealthKitUseCase.swift in Sources */,
 				BF9199D22E3405430056E0E7 /* PermissionRow.swift in Sources */,
 				BF9199D32E3405430056E0E7 /* UserInfoRow.swift in Sources */,
 				BF9199D42E3405430056E0E7 /* SettingView.swift in Sources */,
 				BF9199D52E3405430056E0E7 /* SettingViewModel.swift in Sources */,
-				BF9199F12E3405430056E0E7 /* ScheduleSunscreenReminderUseCase.swift in Sources */,
-				BF9199F22E3405430056E0E7 /* SendUVWarningNotificationUseCase.swift in Sources */,
-				BF9199F32E3405430056E0E7 /* RequestAllPermissionsUseCase.swift in Sources */,
-				BF55D7002E35345C00074104 /* UpdateUserProfileUseCase.swift in Sources */,
-				BF9199F42E3405430056E0E7 /* ValidatePermissionStatusUseCase.swift in Sources */,
-				BF9199F52E3405430056E0E7 /* StartSunscreenTimerUseCase.swift in Sources */,
-				BF9199F62E3405430056E0E7 /* SyncTimerStateUseCase.swift in Sources */,
-				BF9199FA2E3405430056E0E7 /* GetTodayUVExposureUseCase.swift in Sources */,
 				BF919A2A2E34096C0056E0E7 /* UserDefaultManager.swift in Sources */,
-				BF9199FB2E3405430056E0E7 /* GetWeeklyUVTrendUseCase.swift in Sources */,
-				BF9199FC2E3405430056E0E7 /* MEDCalculator.swift in Sources */,
 				BF9199FF2E3405430056E0E7 /* NotificationActionType.swift in Sources */,
 				BF919A002E3405430056E0E7 /* LocalNotificationError.swift in Sources */,
 				BF919A012E3405430056E0E7 /* LocalNotificationManager.swift in Sources */,

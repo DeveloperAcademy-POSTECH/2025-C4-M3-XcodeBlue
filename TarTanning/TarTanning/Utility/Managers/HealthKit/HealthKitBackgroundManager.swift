@@ -24,7 +24,6 @@ final class HealthKitBackgroundManager: ObservableObject {
     
     // MARK: - Delegate 및 의존성
     weak var delegate: HealthKitBackgroundManagerDelegate?
-    var syncUseCase: SyncUVDataInBackgroundUseCase?
 
     // MARK: - 내부 상태
     private let healthStore = HKHealthStore()
@@ -35,14 +34,6 @@ final class HealthKitBackgroundManager: ObservableObject {
     @Published var errorMessage: String?
 
     // MARK: - Background Delivery
-    
-    func configure(syncUseCase: SyncUVDataInBackgroundUseCase, for type: HKSampleType) async {
-        self.syncUseCase = syncUseCase
-        await enableBackgroundDelivery(for: type, frequency: .immediate)
-        setupObserverQuery(for: type)
-        print("✅ [HealthKitBackgroundManager] Fully configured with useCase")
-    }
-
     func enableBackgroundDelivery(for type: HKObjectType, frequency: HKUpdateFrequency) async {
         do {
             let success: Bool = try await withCheckedThrowingContinuation { continuation in
@@ -119,14 +110,6 @@ final class HealthKitBackgroundManager: ObservableObject {
                     self.delegate?.observerQueryDidUpdate(for: type)
                     
                     print("🌤️ [HealthKitBackgroundManager] ObserverQuery triggered. Executing background sync...")
-
-                    // ✅ 백그라운드 UV 데이터 싱크 실행
-                    if let syncUseCase = self.syncUseCase {
-                        await syncUseCase.execute()
-                        print("✅ [HealthKitBackgroundManager] Background sync complete.")
-                    } else {
-                        print("⚠️ [HealthKitBackgroundManager] syncUseCase not set")
-                    }
                 }
             }
         }

@@ -6,7 +6,6 @@ import HealthKit
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
-    var syncUVDataInBackgroundUseCase: SyncUVDataInBackgroundUseCase?
     private var container: ModelContainer?
     
     func application(_ application: UIApplication,
@@ -15,23 +14,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         let center = UNUserNotificationCenter.current()
         center.delegate = self
         registerNotificationCategories()
-        
-        do {
-            container = try ModelContainer(for: LocationWeather.self, DailyUVExpose.self, UVExposeRecord.self, HourlyWeather.self)
-            if let context = container?.mainContext {
-                let useCase = SyncUVDataInBackgroundUseCase(context: context)
-                syncUVDataInBackgroundUseCase = useCase
-                
-                if let type = HKObjectType.quantityType(forIdentifier: .timeInDaylight) {
-                    Task {
-                        await HealthKitBackgroundManager.shared.configure(syncUseCase: useCase, for: type)
-                    }
-                }
-            }
-        } catch {
-            print("❌ [AppDelegate] Failed to create SwiftData container: \(error)")
-        }
-        
+    
         // HKObserverQuery 설정 (권한 확인 포함)
         setupHealthKitObserverWhenReady()
         

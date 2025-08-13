@@ -10,10 +10,6 @@ import SwiftUI
 
 @MainActor
 final class OnboardingViewModel: ObservableObject {
-    // UseCase 주입
-    private let getUserProfileUseCase = GetUserProfileUseCase()
-    private let updateUserProfileUseCase = UpdateUserProfileUseCase()
-    
     // 임시 선택 상태 (UI용)
     @Published var selectedSkinType: SkinType = .type3
     
@@ -49,16 +45,9 @@ final class OnboardingViewModel: ObservableObject {
     init() {
         setupDelegates()
         checkAuthorizations()
-        loadExistingUserProfile()
     }
     
     // MARK: - User Profile Management
-    
-    private func loadExistingUserProfile() {
-        let profile = getUserProfileUseCase.getUserProfile()
-        selectedSkinType = profile.skinType
-    }
-    
     private func setupDelegates() {
         locationAuthorizationManager.delegate = self
         healthKitAuthorizationManager.delegate = self
@@ -129,30 +118,8 @@ final class OnboardingViewModel: ObservableObject {
             skinType: selectedSkinType,
             spfLevel: .spf30 // 기본값
         )
-        updateUserProfileUseCase.updateUserProfile(userProfile)
-        
-        // 2. 온보딩 완료 상태 설정
-        updateUserProfileUseCase.setOnboardingCompleted(true)
         
         print("✅ [OnboardingViewModel] Onboarding completed successfully")
-    }
-    
-    // MARK: - Debug Methods
-    
-    func printCurrentState() {
-        print("📊 [OnboardingViewModel] === Current State ===")
-        print("   - Current Step: \(currentStep)")
-        print("   - Selected Skin Type: \(selectedSkinType.title)")
-        print("   - Location Status: \(locationStatus)")
-        print("   - HealthKit Status: \(healthKitStatus)")
-        print("   - Notification Status: \(notificationStatus)")
-        print("   - Permissions Complete: \(isPermissionStepComplete)")
-        
-        // UserProfile 상태도 출력
-        let profile = getUserProfileUseCase.getUserProfile()
-        print("   - Saved Skin Type: \(profile.skinType.title)")
-        print("   - Saved SPF Level: \(profile.spfLevel.displayTitle)")
-        print("   - Onboarding Completed: \(getUserProfileUseCase.isOnboardingCompleted())")
     }
 }
 

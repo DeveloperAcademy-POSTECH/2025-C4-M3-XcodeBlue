@@ -14,8 +14,7 @@ struct DashboardWeeklySummaryView: View {
         VStack(alignment: .leading, spacing: 8) {
             WeeklySummaryTitleView()
             WeeklySummaryDataView(
-                weeklyProgressRates: viewModel.weeklyUVProgressRates
-            )
+                weeklyProgressRates: viewModel.weeklyUVProgressRates)
         }
     }
 }

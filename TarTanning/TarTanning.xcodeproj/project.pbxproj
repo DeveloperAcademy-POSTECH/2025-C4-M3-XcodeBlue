@@ -7,63 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0507B6222E37FD2C000E119C /* sunscreen_uv_info.json in Resources */ = {isa = PBXBuildFile; fileRef = 0507B6212E37FD2C000E119C /* sunscreen_uv_info.json */; };
 		8080F1572E20A0190094719D /* TarTanningWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 8080F14A2E20A0180094719D /* TarTanningWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8080F15F2E20A0740094719D /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 8080F15E2E20A0740094719D /* .swiftlint.yml */; };
-		BF55DA0C2E3716AA00074104 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55DA0B2E3716AA00074104 /* MainView.swift */; };
-		BF55DBFE2E38F21200074104 /* SunscreenInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF55DBFC2E38F21200074104 /* SunscreenInfoModel.swift */; };
-		BF91999D2E3405430056E0E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198DC2E3405430056E0E7 /* AppDelegate.swift */; };
-		BF91999E2E3405430056E0E7 /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198DD2E3405430056E0E7 /* NavigationRouter.swift */; };
-		BF91999F2E3405430056E0E7 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198DE2E3405430056E0E7 /* Route.swift */; };
-		BF9199A02E3405430056E0E7 /* TarTanningApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198DF2E3405430056E0E7 /* TarTanningApp.swift */; };
-		BF9199A22E3405430056E0E7 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198E22E3405430056E0E7 /* Date+Extension.swift */; };
-		BF9199A32E3405430056E0E7 /* HealthKitAuthStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198E52E3405430056E0E7 /* HealthKitAuthStatus.swift */; };
-		BF9199A42E3405430056E0E7 /* HealthKitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198E62E3405430056E0E7 /* HealthKitError.swift */; };
-		BF9199A52E3405430056E0E7 /* HealthKitAuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198E82E3405430056E0E7 /* HealthKitAuthorizationManager.swift */; };
-		BF9199A62E3405430056E0E7 /* HealthKitBackgroundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198E92E3405430056E0E7 /* HealthKitBackgroundManager.swift */; };
-		BF9199A82E3405430056E0E7 /* HealthKitQueryFetchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198EB2E3405430056E0E7 /* HealthKitQueryFetchManager.swift */; };
-		BF9199AA2E3405430056E0E7 /* LocationAuthStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198EE2E3405430056E0E7 /* LocationAuthStatus.swift */; };
-		BF9199AB2E3405430056E0E7 /* LocationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198EF2E3405430056E0E7 /* LocationError.swift */; };
-		BF9199AC2E3405430056E0E7 /* LocationAuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198F12E3405430056E0E7 /* LocationAuthorizationManager.swift */; };
-		BF9199AD2E3405430056E0E7 /* LocationUpdateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198F22E3405430056E0E7 /* LocationUpdateManager.swift */; };
-		BF9199AE2E3405430056E0E7 /* NotificationAuthStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198F42E3405430056E0E7 /* NotificationAuthStatus.swift */; };
-		BF9199AF2E3405430056E0E7 /* NotificationAuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198F62E3405430056E0E7 /* NotificationAuthorizationManager.swift */; };
-		BF9199B02E3405430056E0E7 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198F82E3405430056E0E7 /* LocationManager.swift */; };
-		BF9199B12E3405430056E0E7 /* WeatherKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198F92E3405430056E0E7 /* WeatherKitManager.swift */; };
-		BF9199B22E3405430056E0E7 /* LocationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198FB2E3405430056E0E7 /* LocationInfo.swift */; };
-		BF9199B32E3405430056E0E7 /* SunScreenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198FD2E3405430056E0E7 /* SunScreenInfo.swift */; };
-		BF9199B42E3405430056E0E7 /* SkinType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9198FF2E3405430056E0E7 /* SkinType.swift */; };
-		BF9199B52E3405430056E0E7 /* SPFLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199002E3405430056E0E7 /* SPFLevel.swift */; };
-		BF9199B62E3405430056E0E7 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199012E3405430056E0E7 /* UserProfile.swift */; };
-		BF9199B72E3405430056E0E7 /* DailyUVExpose.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199032E3405430056E0E7 /* DailyUVExpose.swift */; };
-		BF9199B82E3405430056E0E7 /* UVExposeRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199042E3405430056E0E7 /* UVExposeRecord.swift */; };
-		BF9199B92E3405430056E0E7 /* HourlyWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199062E3405430056E0E7 /* HourlyWeather.swift */; };
-		BF9199BA2E3405430056E0E7 /* LocationWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199072E3405430056E0E7 /* LocationWeather.swift */; };
-		BF9199BB2E3405430056E0E7 /* DashboardInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91990A2E3405430056E0E7 /* DashboardInfoView.swift */; };
-		BF9199C22E3405430056E0E7 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199122E3405430056E0E7 /* DashboardView.swift */; };
-		BF9199C32E3405430056E0E7 /* DashboardInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199142E3405430056E0E7 /* DashboardInfoViewModel.swift */; };
-		BF9199C42E3405430056E0E7 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199152E3405430056E0E7 /* DashboardViewModel.swift */; };
-		BF9199C52E3405430056E0E7 /* ButtonStyleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199182E3405430056E0E7 /* ButtonStyleType.swift */; };
-		BF9199C62E3405430056E0E7 /* InfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199192E3405430056E0E7 /* InfoItem.swift */; };
-		BF9199C72E3405430056E0E7 /* OnboardingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91991A2E3405430056E0E7 /* OnboardingButton.swift */; };
-		BF9199C82E3405430056E0E7 /* SkinTypeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91991B2E3405430056E0E7 /* SkinTypeItem.swift */; };
-		BF9199C92E3405430056E0E7 /* OnboardingStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91991D2E3405430056E0E7 /* OnboardingStep.swift */; };
-		BF9199CA2E3405430056E0E7 /* OnboardingPermissionInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91991F2E3405430056E0E7 /* OnboardingPermissionInfoView.swift */; };
-		BF9199CB2E3405430056E0E7 /* OnboardingSkinTypeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199202E3405430056E0E7 /* OnboardingSkinTypeDetailView.swift */; };
-		BF9199CC2E3405430056E0E7 /* OnboardingSkinTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199212E3405430056E0E7 /* OnboardingSkinTypeView.swift */; };
-		BF9199CD2E3405430056E0E7 /* OnboardingStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199222E3405430056E0E7 /* OnboardingStartView.swift */; };
-		BF9199CE2E3405430056E0E7 /* OnboardingWatchCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199232E3405430056E0E7 /* OnboardingWatchCheckView.swift */; };
-		BF9199CF2E3405430056E0E7 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199252E3405430056E0E7 /* OnboardingViewModel.swift */; };
-		BF9199D02E3405430056E0E7 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199272E3405430056E0E7 /* OnboardingView.swift */; };
-		BF9199D12E3405430056E0E7 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199292E3405430056E0E7 /* RootView.swift */; };
-		BF9199D22E3405430056E0E7 /* PermissionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91992B2E3405430056E0E7 /* PermissionRow.swift */; };
-		BF9199D32E3405430056E0E7 /* UserInfoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91992C2E3405430056E0E7 /* UserInfoRow.swift */; };
-		BF9199D42E3405430056E0E7 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91992E2E3405430056E0E7 /* SettingView.swift */; };
-		BF9199D52E3405430056E0E7 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9199302E3405430056E0E7 /* SettingViewModel.swift */; };
 		BF919A0F2E3405430056E0E7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF9199522E3405430056E0E7 /* Preview Assets.xcassets */; };
-		BF919A102E3405430056E0E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF9199542E3405430056E0E7 /* Assets.xcassets */; };
-		BF919A2A2E34096C0056E0E7 /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF919A292E34096C0056E0E7 /* UserDefaultManager.swift */; };
-		BF919A742E34C25A0056E0E7 /* WeatherManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF919A732E34C25A0056E0E7 /* WeatherManagerError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,72 +37,82 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0507B6212E37FD2C000E119C /* sunscreen_uv_info.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sunscreen_uv_info.json; sourceTree = "<group>"; };
 		8080F12C2E209F860094719D /* TarTanning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TarTanning.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8080F14A2E20A0180094719D /* TarTanningWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TarTanningWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8080F15E2E20A0740094719D /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		BF55DA0B2E3716AA00074104 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		BF55DBFC2E38F21200074104 /* SunscreenInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunscreenInfoModel.swift; sourceTree = "<group>"; };
-		BF9198DC2E3405430056E0E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BF9198DD2E3405430056E0E7 /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
-		BF9198DE2E3405430056E0E7 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
-		BF9198DF2E3405430056E0E7 /* TarTanningApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TarTanningApp.swift; sourceTree = "<group>"; };
-		BF9198E22E3405430056E0E7 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
-		BF9198E52E3405430056E0E7 /* HealthKitAuthStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitAuthStatus.swift; sourceTree = "<group>"; };
-		BF9198E62E3405430056E0E7 /* HealthKitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitError.swift; sourceTree = "<group>"; };
-		BF9198E82E3405430056E0E7 /* HealthKitAuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitAuthorizationManager.swift; sourceTree = "<group>"; };
-		BF9198E92E3405430056E0E7 /* HealthKitBackgroundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitBackgroundManager.swift; sourceTree = "<group>"; };
-		BF9198EB2E3405430056E0E7 /* HealthKitQueryFetchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitQueryFetchManager.swift; sourceTree = "<group>"; };
-		BF9198EE2E3405430056E0E7 /* LocationAuthStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAuthStatus.swift; sourceTree = "<group>"; };
-		BF9198EF2E3405430056E0E7 /* LocationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationError.swift; sourceTree = "<group>"; };
-		BF9198F12E3405430056E0E7 /* LocationAuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAuthorizationManager.swift; sourceTree = "<group>"; };
-		BF9198F22E3405430056E0E7 /* LocationUpdateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUpdateManager.swift; sourceTree = "<group>"; };
-		BF9198F42E3405430056E0E7 /* NotificationAuthStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAuthStatus.swift; sourceTree = "<group>"; };
-		BF9198F62E3405430056E0E7 /* NotificationAuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAuthorizationManager.swift; sourceTree = "<group>"; };
-		BF9198F82E3405430056E0E7 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		BF9198F92E3405430056E0E7 /* WeatherKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherKitManager.swift; sourceTree = "<group>"; };
-		BF9198FB2E3405430056E0E7 /* LocationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInfo.swift; sourceTree = "<group>"; };
-		BF9198FD2E3405430056E0E7 /* SunScreenInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunScreenInfo.swift; sourceTree = "<group>"; };
-		BF9198FF2E3405430056E0E7 /* SkinType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinType.swift; sourceTree = "<group>"; };
-		BF9199002E3405430056E0E7 /* SPFLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPFLevel.swift; sourceTree = "<group>"; };
-		BF9199012E3405430056E0E7 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
-		BF9199032E3405430056E0E7 /* DailyUVExpose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyUVExpose.swift; sourceTree = "<group>"; };
-		BF9199042E3405430056E0E7 /* UVExposeRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UVExposeRecord.swift; sourceTree = "<group>"; };
-		BF9199062E3405430056E0E7 /* HourlyWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeather.swift; sourceTree = "<group>"; };
-		BF9199072E3405430056E0E7 /* LocationWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationWeather.swift; sourceTree = "<group>"; };
-		BF91990A2E3405430056E0E7 /* DashboardInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardInfoView.swift; sourceTree = "<group>"; };
-		BF9199122E3405430056E0E7 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
-		BF9199142E3405430056E0E7 /* DashboardInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardInfoViewModel.swift; sourceTree = "<group>"; };
-		BF9199152E3405430056E0E7 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
-		BF9199182E3405430056E0E7 /* ButtonStyleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyleType.swift; sourceTree = "<group>"; };
-		BF9199192E3405430056E0E7 /* InfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoItem.swift; sourceTree = "<group>"; };
-		BF91991A2E3405430056E0E7 /* OnboardingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingButton.swift; sourceTree = "<group>"; };
-		BF91991B2E3405430056E0E7 /* SkinTypeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinTypeItem.swift; sourceTree = "<group>"; };
-		BF91991D2E3405430056E0E7 /* OnboardingStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStep.swift; sourceTree = "<group>"; };
-		BF91991F2E3405430056E0E7 /* OnboardingPermissionInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPermissionInfoView.swift; sourceTree = "<group>"; };
-		BF9199202E3405430056E0E7 /* OnboardingSkinTypeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSkinTypeDetailView.swift; sourceTree = "<group>"; };
-		BF9199212E3405430056E0E7 /* OnboardingSkinTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSkinTypeView.swift; sourceTree = "<group>"; };
-		BF9199222E3405430056E0E7 /* OnboardingStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStartView.swift; sourceTree = "<group>"; };
-		BF9199232E3405430056E0E7 /* OnboardingWatchCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWatchCheckView.swift; sourceTree = "<group>"; };
-		BF9199252E3405430056E0E7 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
-		BF9199272E3405430056E0E7 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
-		BF9199292E3405430056E0E7 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
-		BF91992B2E3405430056E0E7 /* PermissionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionRow.swift; sourceTree = "<group>"; };
-		BF91992C2E3405430056E0E7 /* UserInfoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoRow.swift; sourceTree = "<group>"; };
-		BF91992E2E3405430056E0E7 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
-		BF9199302E3405430056E0E7 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		BF9199522E3405430056E0E7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		BF9199542E3405430056E0E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF91999A2E3405430056E0E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF91999B2E3405430056E0E7 /* TarTanning.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TarTanning.entitlements; sourceTree = "<group>"; };
-		BF919A292E34096C0056E0E7 /* UserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
-		BF919A732E34C25A0056E0E7 /* WeatherManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManagerError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		BF0F502C2E4CE05100001550 /* Exceptions for "Utilities" folder in "TarTanning" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Extensions/Date+Extension.swift",
+				Manager/HealthKit/Enum/HealthKitAuthStatus.swift,
+				Manager/HealthKit/Enum/HealthKitError.swift,
+				Manager/HealthKit/HealthKitAuthorizationManager.swift,
+				Manager/HealthKit/HealthKitBackgroundManager.swift,
+				Manager/HealthKit/HealthKitQueryFetchManager.swift,
+				Manager/Location/Enum/LocationAuthStatus.swift,
+				Manager/Location/Enum/LocationError.swift,
+				Manager/Location/LocationAuthorizationManager.swift,
+				Manager/Location/LocationManager.swift,
+				Manager/Location/LocationUpdateManager.swift,
+				Manager/Notification/Enum/NotificationAuthStatus.swift,
+				Manager/Notification/NotificationAuthorizationManager.swift,
+				Manager/UserDefaults/UserDefaultManager.swift,
+				Manager/WeatherKit/Enum/WeatherManagerError.swift,
+				Manager/WeatherKit/WeatherKitManager.swift,
+			);
+			target = 8080F12B2E209F860094719D /* TarTanning */;
+		};
+		BF0F50D62E4CE0B100001550 /* Exceptions for "Resource" folder in "TarTanning" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Assets.xcassets,
+				sunscreen_uv_info.json,
+			);
+			target = 8080F12B2E209F860094719D /* TarTanning */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		8080F14B2E20A0180094719D /* TarTanningWatch Watch App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "TarTanningWatch Watch App";
+			sourceTree = "<group>";
+		};
+		BF0F50032E4CE04800001550 /* Utilities */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				BF0F502C2E4CE05100001550 /* Exceptions for "Utilities" folder in "TarTanning" target */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		BF0F50452E4CE06700001550 /* Data */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Data;
+			sourceTree = "<group>";
+		};
+		BF0F50542E4CE06B00001550 /* Application */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Application;
+			sourceTree = "<group>";
+		};
+		BF0F50962E4CE08000001550 /* Presenter */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		BF0F50D52E4CE0AE00001550 /* Resource */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				BF0F50D62E4CE0B100001550 /* Exceptions for "Resource" folder in "TarTanning" target */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -198,340 +154,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		BF0F4FB02E4CD42A00001550 /* LocalDatabase */ = {
-			isa = PBXGroup;
-			children = (
-				BF9199022E3405430056E0E7 /* User */,
-				BF9199082E3405430056E0E7 /* Weather */,
-				BF9199052E3405430056E0E7 /* UVExposure */,
-			);
-			path = LocalDatabase;
-			sourceTree = "<group>";
-		};
-		BF0F4FB12E4CD48100001550 /* Utility */ = {
-			isa = PBXGroup;
-			children = (
-				BF9198FA2E3405430056E0E7 /* Managers */,
-				BF9198E32E3405430056E0E7 /* Extensions */,
-			);
-			path = Utility;
-			sourceTree = "<group>";
-		};
-		BF55DAC42E374BD700074104 /* Info */ = {
-			isa = PBXGroup;
-			children = (
-				BF55DAC82E374CAE00074104 /* VIewModel */,
-				BF55DAC72E374CA100074104 /* View */,
-			);
-			path = Info;
-			sourceTree = "<group>";
-		};
-		BF55DAC72E374CA100074104 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				BF91990A2E3405430056E0E7 /* DashboardInfoView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		BF55DAC82E374CAE00074104 /* VIewModel */ = {
-			isa = PBXGroup;
-			children = (
-				BF9199142E3405430056E0E7 /* DashboardInfoViewModel.swift */,
-			);
-			path = VIewModel;
-			sourceTree = "<group>";
-		};
-		BF55DBFD2E38F21200074104 /* Info */ = {
-			isa = PBXGroup;
-			children = (
-				BF55DBFC2E38F21200074104 /* SunscreenInfoModel.swift */,
-			);
-			path = Info;
-			sourceTree = "<group>";
-		};
-		BF9198E02E3405430056E0E7 /* Application */ = {
-			isa = PBXGroup;
-			children = (
-				BF9198DC2E3405430056E0E7 /* AppDelegate.swift */,
-				BF9198DD2E3405430056E0E7 /* NavigationRouter.swift */,
-				BF9198DE2E3405430056E0E7 /* Route.swift */,
-				BF9198DF2E3405430056E0E7 /* TarTanningApp.swift */,
-			);
-			path = Application;
-			sourceTree = "<group>";
-		};
-		BF9198E32E3405430056E0E7 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				BF9198E22E3405430056E0E7 /* Date+Extension.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		BF9198E72E3405430056E0E7 /* Enum */ = {
-			isa = PBXGroup;
-			children = (
-				BF9198E52E3405430056E0E7 /* HealthKitAuthStatus.swift */,
-				BF9198E62E3405430056E0E7 /* HealthKitError.swift */,
-			);
-			path = Enum;
-			sourceTree = "<group>";
-		};
-		BF9198ED2E3405430056E0E7 /* HealthKit */ = {
-			isa = PBXGroup;
-			children = (
-				BF9198E72E3405430056E0E7 /* Enum */,
-				BF9198E82E3405430056E0E7 /* HealthKitAuthorizationManager.swift */,
-				BF9198E92E3405430056E0E7 /* HealthKitBackgroundManager.swift */,
-				BF9198EB2E3405430056E0E7 /* HealthKitQueryFetchManager.swift */,
-			);
-			path = HealthKit;
-			sourceTree = "<group>";
-		};
-		BF9198F02E3405430056E0E7 /* Enum */ = {
-			isa = PBXGroup;
-			children = (
-				BF9198EE2E3405430056E0E7 /* LocationAuthStatus.swift */,
-				BF9198EF2E3405430056E0E7 /* LocationError.swift */,
-			);
-			path = Enum;
-			sourceTree = "<group>";
-		};
-		BF9198F32E3405430056E0E7 /* Location */ = {
-			isa = PBXGroup;
-			children = (
-				BF9198F02E3405430056E0E7 /* Enum */,
-				BF9198F82E3405430056E0E7 /* LocationManager.swift */,
-				BF9198F12E3405430056E0E7 /* LocationAuthorizationManager.swift */,
-				BF9198F22E3405430056E0E7 /* LocationUpdateManager.swift */,
-			);
-			path = Location;
-			sourceTree = "<group>";
-		};
-		BF9198F52E3405430056E0E7 /* Enum */ = {
-			isa = PBXGroup;
-			children = (
-				BF9198F42E3405430056E0E7 /* NotificationAuthStatus.swift */,
-			);
-			path = Enum;
-			sourceTree = "<group>";
-		};
-		BF9198F72E3405430056E0E7 /* Notification */ = {
-			isa = PBXGroup;
-			children = (
-				BF9198F52E3405430056E0E7 /* Enum */,
-				BF9198F62E3405430056E0E7 /* NotificationAuthorizationManager.swift */,
-			);
-			path = Notification;
-			sourceTree = "<group>";
-		};
-		BF9198FA2E3405430056E0E7 /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-				BF919A282E34095D0056E0E7 /* UserDefaults */,
-				BF919A272E3409230056E0E7 /* WeatherKit */,
-				BF9198ED2E3405430056E0E7 /* HealthKit */,
-				BF9198F32E3405430056E0E7 /* Location */,
-				BF9198F72E3405430056E0E7 /* Notification */,
-			);
-			path = Managers;
-			sourceTree = "<group>";
-		};
-		BF9198FC2E3405430056E0E7 /* Location */ = {
-			isa = PBXGroup;
-			children = (
-				BF9198FB2E3405430056E0E7 /* LocationInfo.swift */,
-			);
-			path = Location;
-			sourceTree = "<group>";
-		};
-		BF9198FE2E3405430056E0E7 /* Sunscreen */ = {
-			isa = PBXGroup;
-			children = (
-				BF9198FD2E3405430056E0E7 /* SunScreenInfo.swift */,
-			);
-			path = Sunscreen;
-			sourceTree = "<group>";
-		};
-		BF9199022E3405430056E0E7 /* User */ = {
-			isa = PBXGroup;
-			children = (
-				BF9198FF2E3405430056E0E7 /* SkinType.swift */,
-				BF9199002E3405430056E0E7 /* SPFLevel.swift */,
-				BF9199012E3405430056E0E7 /* UserProfile.swift */,
-			);
-			path = User;
-			sourceTree = "<group>";
-		};
-		BF9199052E3405430056E0E7 /* UVExposure */ = {
-			isa = PBXGroup;
-			children = (
-				BF9199032E3405430056E0E7 /* DailyUVExpose.swift */,
-				BF9199042E3405430056E0E7 /* UVExposeRecord.swift */,
-			);
-			path = UVExposure;
-			sourceTree = "<group>";
-		};
-		BF9199082E3405430056E0E7 /* Weather */ = {
-			isa = PBXGroup;
-			children = (
-				BF9199062E3405430056E0E7 /* HourlyWeather.swift */,
-				BF9199072E3405430056E0E7 /* LocationWeather.swift */,
-			);
-			path = Weather;
-			sourceTree = "<group>";
-		};
-		BF9199092E3405430056E0E7 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				BF55DBFD2E38F21200074104 /* Info */,
-				BF9198FC2E3405430056E0E7 /* Location */,
-				BF9198FE2E3405430056E0E7 /* Sunscreen */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		BF9199112E3405430056E0E7 /* SubViews */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = SubViews;
-			sourceTree = "<group>";
-		};
-		BF9199132E3405430056E0E7 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				BF9199112E3405430056E0E7 /* SubViews */,
-				BF9199122E3405430056E0E7 /* DashboardView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		BF9199162E3405430056E0E7 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				BF9199152E3405430056E0E7 /* DashboardViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		BF9199172E3405430056E0E7 /* Dashboard */ = {
-			isa = PBXGroup;
-			children = (
-				BF9199132E3405430056E0E7 /* View */,
-				BF9199162E3405430056E0E7 /* ViewModel */,
-			);
-			path = Dashboard;
-			sourceTree = "<group>";
-		};
-		BF91991C2E3405430056E0E7 /* Component */ = {
-			isa = PBXGroup;
-			children = (
-				BF9199182E3405430056E0E7 /* ButtonStyleType.swift */,
-				BF9199192E3405430056E0E7 /* InfoItem.swift */,
-				BF91991A2E3405430056E0E7 /* OnboardingButton.swift */,
-				BF91991B2E3405430056E0E7 /* SkinTypeItem.swift */,
-			);
-			path = Component;
-			sourceTree = "<group>";
-		};
-		BF91991E2E3405430056E0E7 /* Enum */ = {
-			isa = PBXGroup;
-			children = (
-				BF91991D2E3405430056E0E7 /* OnboardingStep.swift */,
-			);
-			path = Enum;
-			sourceTree = "<group>";
-		};
-		BF9199242E3405430056E0E7 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				BF91991F2E3405430056E0E7 /* OnboardingPermissionInfoView.swift */,
-				BF9199202E3405430056E0E7 /* OnboardingSkinTypeDetailView.swift */,
-				BF9199212E3405430056E0E7 /* OnboardingSkinTypeView.swift */,
-				BF9199222E3405430056E0E7 /* OnboardingStartView.swift */,
-				BF9199232E3405430056E0E7 /* OnboardingWatchCheckView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		BF9199262E3405430056E0E7 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				BF9199252E3405430056E0E7 /* OnboardingViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		BF9199282E3405430056E0E7 /* Onboarding */ = {
-			isa = PBXGroup;
-			children = (
-				BF91991C2E3405430056E0E7 /* Component */,
-				BF91991E2E3405430056E0E7 /* Enum */,
-				BF9199242E3405430056E0E7 /* View */,
-				BF9199262E3405430056E0E7 /* ViewModel */,
-				BF9199272E3405430056E0E7 /* OnboardingView.swift */,
-			);
-			path = Onboarding;
-			sourceTree = "<group>";
-		};
-		BF91992A2E3405430056E0E7 /* Root */ = {
-			isa = PBXGroup;
-			children = (
-				BF55DA0B2E3716AA00074104 /* MainView.swift */,
-				BF9199292E3405430056E0E7 /* RootView.swift */,
-			);
-			path = Root;
-			sourceTree = "<group>";
-		};
-		BF91992D2E3405430056E0E7 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				BF91992B2E3405430056E0E7 /* PermissionRow.swift */,
-				BF91992C2E3405430056E0E7 /* UserInfoRow.swift */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		BF91992F2E3405430056E0E7 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				BF91992E2E3405430056E0E7 /* SettingView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		BF9199312E3405430056E0E7 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				BF9199302E3405430056E0E7 /* SettingViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		BF9199322E3405430056E0E7 /* Setting */ = {
-			isa = PBXGroup;
-			children = (
-				BF91992D2E3405430056E0E7 /* Components */,
-				BF91992F2E3405430056E0E7 /* View */,
-				BF9199312E3405430056E0E7 /* ViewModel */,
-			);
-			path = Setting;
-			sourceTree = "<group>";
-		};
-		BF9199512E3405430056E0E7 /* Presenters */ = {
-			isa = PBXGroup;
-			children = (
-				BF55DAC42E374BD700074104 /* Info */,
-				BF9199172E3405430056E0E7 /* Dashboard */,
-				BF9199282E3405430056E0E7 /* Onboarding */,
-				BF91992A2E3405430056E0E7 /* Root */,
-				BF9199322E3405430056E0E7 /* Setting */,
-			);
-			path = Presenters;
-			sourceTree = "<group>";
-		};
 		BF9199532E3405430056E0E7 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
@@ -540,62 +162,19 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		BF9199552E3405430056E0E7 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				0507B6212E37FD2C000E119C /* sunscreen_uv_info.json */,
-				BF9199542E3405430056E0E7 /* Assets.xcassets */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		BF91999C2E3405430056E0E7 /* TarTanning */ = {
 			isa = PBXGroup;
 			children = (
-				BF0F4FB12E4CD48100001550 /* Utility */,
-				BF919A242E3408790056E0E7 /* Data */,
-				BF9198E02E3405430056E0E7 /* Application */,
-				BF9199512E3405430056E0E7 /* Presenters */,
+				BF0F50D52E4CE0AE00001550 /* Resource */,
+				BF0F50962E4CE08000001550 /* Presenter */,
+				BF0F50032E4CE04800001550 /* Utilities */,
+				BF0F50452E4CE06700001550 /* Data */,
+				BF0F50542E4CE06B00001550 /* Application */,
 				BF9199532E3405430056E0E7 /* Preview Content */,
-				BF9199552E3405430056E0E7 /* Resources */,
 				BF91999A2E3405430056E0E7 /* Info.plist */,
 				BF91999B2E3405430056E0E7 /* TarTanning.entitlements */,
 			);
 			path = TarTanning;
-			sourceTree = "<group>";
-		};
-		BF919A242E3408790056E0E7 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				BF0F4FB02E4CD42A00001550 /* LocalDatabase */,
-				BF9199092E3405430056E0E7 /* Models */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
-		BF919A272E3409230056E0E7 /* WeatherKit */ = {
-			isa = PBXGroup;
-			children = (
-				BF919A722E34C2510056E0E7 /* Enum */,
-				BF9198F92E3405430056E0E7 /* WeatherKitManager.swift */,
-			);
-			path = WeatherKit;
-			sourceTree = "<group>";
-		};
-		BF919A282E34095D0056E0E7 /* UserDefaults */ = {
-			isa = PBXGroup;
-			children = (
-				BF919A292E34096C0056E0E7 /* UserDefaultManager.swift */,
-			);
-			path = UserDefaults;
-			sourceTree = "<group>";
-		};
-		BF919A722E34C2510056E0E7 /* Enum */ = {
-			isa = PBXGroup;
-			children = (
-				BF919A732E34C25A0056E0E7 /* WeatherManagerError.swift */,
-			);
-			path = Enum;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -615,6 +194,11 @@
 			);
 			dependencies = (
 				8080F1562E20A0190094719D /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				BF0F50452E4CE06700001550 /* Data */,
+				BF0F50542E4CE06B00001550 /* Application */,
+				BF0F50962E4CE08000001550 /* Presenter */,
 			);
 			name = TarTanning;
 			packageProductDependencies = (
@@ -689,8 +273,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF919A0F2E3405430056E0E7 /* Preview Assets.xcassets in Resources */,
-				0507B6222E37FD2C000E119C /* sunscreen_uv_info.json in Resources */,
-				BF919A102E3405430056E0E7 /* Assets.xcassets in Resources */,
 				8080F15F2E20A0740094719D /* .swiftlint.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -731,58 +313,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF91999D2E3405430056E0E7 /* AppDelegate.swift in Sources */,
-				BF91999E2E3405430056E0E7 /* NavigationRouter.swift in Sources */,
-				BF91999F2E3405430056E0E7 /* Route.swift in Sources */,
-				BF9199A02E3405430056E0E7 /* TarTanningApp.swift in Sources */,
-				BF9199A22E3405430056E0E7 /* Date+Extension.swift in Sources */,
-				BF9199A32E3405430056E0E7 /* HealthKitAuthStatus.swift in Sources */,
-				BF9199A42E3405430056E0E7 /* HealthKitError.swift in Sources */,
-				BF9199A52E3405430056E0E7 /* HealthKitAuthorizationManager.swift in Sources */,
-				BF9199A62E3405430056E0E7 /* HealthKitBackgroundManager.swift in Sources */,
-				BF9199A82E3405430056E0E7 /* HealthKitQueryFetchManager.swift in Sources */,
-				BF9199AA2E3405430056E0E7 /* LocationAuthStatus.swift in Sources */,
-				BF9199AB2E3405430056E0E7 /* LocationError.swift in Sources */,
-				BF9199AC2E3405430056E0E7 /* LocationAuthorizationManager.swift in Sources */,
-				BF9199AD2E3405430056E0E7 /* LocationUpdateManager.swift in Sources */,
-				BF9199AE2E3405430056E0E7 /* NotificationAuthStatus.swift in Sources */,
-				BF9199AF2E3405430056E0E7 /* NotificationAuthorizationManager.swift in Sources */,
-				BF9199B02E3405430056E0E7 /* LocationManager.swift in Sources */,
-				BF9199B12E3405430056E0E7 /* WeatherKitManager.swift in Sources */,
-				BF9199B22E3405430056E0E7 /* LocationInfo.swift in Sources */,
-				BF9199B32E3405430056E0E7 /* SunScreenInfo.swift in Sources */,
-				BF9199B42E3405430056E0E7 /* SkinType.swift in Sources */,
-				BF9199B52E3405430056E0E7 /* SPFLevel.swift in Sources */,
-				BF9199B62E3405430056E0E7 /* UserProfile.swift in Sources */,
-				BF9199B72E3405430056E0E7 /* DailyUVExpose.swift in Sources */,
-				BF9199B82E3405430056E0E7 /* UVExposeRecord.swift in Sources */,
-				BF9199B92E3405430056E0E7 /* HourlyWeather.swift in Sources */,
-				BF9199BA2E3405430056E0E7 /* LocationWeather.swift in Sources */,
-				BF9199BB2E3405430056E0E7 /* DashboardInfoView.swift in Sources */,
-				BF9199C22E3405430056E0E7 /* DashboardView.swift in Sources */,
-				BF9199C32E3405430056E0E7 /* DashboardInfoViewModel.swift in Sources */,
-				BF9199C42E3405430056E0E7 /* DashboardViewModel.swift in Sources */,
-				BF9199C52E3405430056E0E7 /* ButtonStyleType.swift in Sources */,
-				BF9199C62E3405430056E0E7 /* InfoItem.swift in Sources */,
-				BF9199C72E3405430056E0E7 /* OnboardingButton.swift in Sources */,
-				BF9199C82E3405430056E0E7 /* SkinTypeItem.swift in Sources */,
-				BF9199C92E3405430056E0E7 /* OnboardingStep.swift in Sources */,
-				BF9199CA2E3405430056E0E7 /* OnboardingPermissionInfoView.swift in Sources */,
-				BF9199CB2E3405430056E0E7 /* OnboardingSkinTypeDetailView.swift in Sources */,
-				BF9199CC2E3405430056E0E7 /* OnboardingSkinTypeView.swift in Sources */,
-				BF9199CD2E3405430056E0E7 /* OnboardingStartView.swift in Sources */,
-				BF9199CE2E3405430056E0E7 /* OnboardingWatchCheckView.swift in Sources */,
-				BF9199CF2E3405430056E0E7 /* OnboardingViewModel.swift in Sources */,
-				BF55DBFE2E38F21200074104 /* SunscreenInfoModel.swift in Sources */,
-				BF919A742E34C25A0056E0E7 /* WeatherManagerError.swift in Sources */,
-				BF9199D02E3405430056E0E7 /* OnboardingView.swift in Sources */,
-				BF9199D12E3405430056E0E7 /* RootView.swift in Sources */,
-				BF9199D22E3405430056E0E7 /* PermissionRow.swift in Sources */,
-				BF9199D32E3405430056E0E7 /* UserInfoRow.swift in Sources */,
-				BF9199D42E3405430056E0E7 /* SettingView.swift in Sources */,
-				BF9199D52E3405430056E0E7 /* SettingViewModel.swift in Sources */,
-				BF919A2A2E34096C0056E0E7 /* UserDefaultManager.swift in Sources */,
-				BF55DA0C2E3716AA00074104 /* MainView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

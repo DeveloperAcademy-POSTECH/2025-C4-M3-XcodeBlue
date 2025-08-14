@@ -20,10 +20,14 @@ final class WeatherKitManagerNew {
     /// 매개변수: LocationInfo (외부에서 주입받음)
     /// 반환값: CurrentWeather
     func fetchCurrentWeather(for locationInfo: LocationInfo) async throws -> CurrentWeather {
-        let weather = try await weatherService.weather(
-            for: locationInfo.asCLLocation,
-            including: .current
-        )
-        return weather
+        do{
+            let weather = try await weatherService.weather(
+                for: locationInfo.asCLLocation,
+                including: .current
+            )
+            return weather
+        } catch {
+            throw WeatherManagerError.weatherDataFetchFailed
+        }
     }
 }

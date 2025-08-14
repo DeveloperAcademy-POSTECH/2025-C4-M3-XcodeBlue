@@ -24,7 +24,7 @@ struct TarTanningWatchWatchApp: App {
     
     var body: some Scene {
         WindowGroup {
-            WatchRootView()
+            EmptyView()
         }
     }
     

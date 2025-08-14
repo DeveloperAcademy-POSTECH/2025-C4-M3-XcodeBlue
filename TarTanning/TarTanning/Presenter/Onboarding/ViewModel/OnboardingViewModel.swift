@@ -18,7 +18,6 @@ final class OnboardingViewModel: ObservableObject {
     @Published var activeSheet: OnboardingStep? = .startSheet
     
     // MARK: - Location 권한
-    private let locationAuthorizationManager = LocationAuthorizationManager.shared
     @Published var locationStatus: LocationAuthStatus = .notDetermined
     @Published var locationErrorMessage: String?
     
@@ -49,28 +48,19 @@ final class OnboardingViewModel: ObservableObject {
     
     // MARK: - User Profile Management
     private func setupDelegates() {
-        locationAuthorizationManager.delegate = self
         healthKitAuthorizationManager.delegate = self
         notificationAuthorizationManager.delegate = self
     }
     
     private func checkAuthorizations() {
-        locationAuthorizationManager.checkAuthorizationStatus()
         healthKitAuthorizationManager.checkAuthorizationStatusWithCompletion()
         notificationAuthorizationManager.checkAuthorizationStatus()
     }
     
     // MARK: - 권한 요청
     func requestAllAuthorizations() {
-        requestLocationAuthorization()
         requestNotificationAuthorization()
         requestHealthKitAuthorization()
-    }
-    
-    private func requestLocationAuthorization() {
-        Task {
-            locationAuthorizationManager.requestAuthorization()
-        }
     }
     
     private func requestHealthKitAuthorization() {
@@ -120,22 +110,6 @@ final class OnboardingViewModel: ObservableObject {
         )
         
         print("✅ [OnboardingViewModel] Onboarding completed successfully")
-    }
-}
-
-extension OnboardingViewModel: LocationAuthorizationManagerDelegate {
-    func locationAuthorizationDidSucceed() {
-        locationStatus = .authorized
-        
-    }
-    
-    func locationAuthorizationStatusDidUpdate(_ status: LocationAuthStatus) {
-        locationStatus = status
-    }
-    
-    func locationAuthorizationDidFail(with error: Error) {
-        locationStatus = .denied
-        locationErrorMessage = error.localizedDescription
     }
 }
 

@@ -14,6 +14,8 @@ enum LocationError: Error, LocalizedError {
     case unknownAuthorizationStatus
     case noLocationFound
     case geocodingFailed(Error)
+    case needsAlwaysPermission
+    case onlyWhenInUseGranted
     
     var errorDescription: String? {
         switch self {
@@ -29,6 +31,10 @@ enum LocationError: Error, LocalizedError {
             return "현재 위치를 가져올 수 없습니다."
         case .geocodingFailed(let error):
             return "주소 정보를 찾지 못했습니다: \(error.localizedDescription)"
+        case .needsAlwaysPermission:
+            return "백그라운드 위치 업데이트를 위해 '항상' 권한이 필요합니다."
+        case .onlyWhenInUseGranted:
+            return "현재 '앱 사용 중에만' 권한이 설정되어 있습니다. '항상'으로 변경해주세요."
         }
     }
 }

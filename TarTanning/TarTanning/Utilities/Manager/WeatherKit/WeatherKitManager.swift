@@ -9,51 +9,25 @@ import CoreLocation
 import Foundation
 import WeatherKit
 
-struct UVInfo {
-    let value: Int
-    let category: String
-}
-
-final class WeatherKitManager {
-    static let shared = WeatherKitManager()
+final class WeatherKitManagerNew {
+    static let shared = WeatherKitManagerNew()
     
     private let weatherService = WeatherService.shared
     
     private init() {}
     
-    func fetchUVInfo(for locationInfo: LocationInfo) async -> UVInfo? {
+    /// 특정 위치의 현재 날씨 정보 조회
+    /// 매개변수: LocationInfo (외부에서 주입받음)
+    /// 반환값: CurrentWeather
+    func fetchCurrentWeather(for locationInfo: LocationInfo) async throws -> CurrentWeather {
         do {
-            let weather = try await weatherService.weather(for: locationInfo.asCLLocation)
-            let uvIndex = weather.currentWeather.uvIndex
-            
-            let categoryString: String
-            switch uvIndex.category {
-            case .low:
-                categoryString = "낮음"
-            case .moderate:
-                categoryString = "보통"
-            case .high:
-                categoryString = "높음"
-            case .veryHigh:
-                categoryString = "매우 높음"
-            case .extreme:
-                categoryString = "위험"
-            @unknown default:
-                categoryString = "알 수 없음"
-            }
-            
-            return UVInfo(value: uvIndex.value, category: categoryString)
-            
+            let weather = try await weatherService.weather(
+                for: locationInfo.asCLLocation,
+                including: .current
+            )
+            return weather
         } catch {
-            print("❌ [WeatherKitManager] Failed to fetch UV data: \(error.localizedDescription)")
-            return nil
+            throw WeatherManagerError.weatherDataFetchFailed
         }
-    }
-    
-    func fetchRawWeatherData(for locationInfo: LocationInfo) async throws -> Weather {
-        print("🔄 [WeatherKitManager] Fetching raw weather data for \(locationInfo.city)")
-        let weather = try await weatherService.weather(for: locationInfo.asCLLocation)
-        print("✅ [WeatherKitManager] Successfully fetched weather data for \(locationInfo.city)")
-        return weather
     }
 }
